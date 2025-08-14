@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Latihan Menulis Angka 6-10 — 40 Soal (Acak)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 flex items-start justify-center p-6">
+
+  <div class="w-full max-w-4xl">
+
+    <!-- Header -->
+    <header class="mb-6 flex items-center gap-4">
+      <img src="https://zahwan93.github.io/Kebun-Ilmu-Matematika-SMP/logo.png" alt="Logo" class="h-20" />
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-amber-600">✏️ Latihan Menulis Angka (6–10)</h1>
+        <p class="text-sm text-gray-600">40 soal — angka 6–10 <span class="font-semibold">diacak</span>. Trace pakai jari atau mouse.</p>
+      </div>
+      <div class="ml-auto text-sm">
+        <span id="statusSaved" class="hidden inline-block px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Tersimpan ✓</span>
+      </div>
+    </header>
+
+    <!-- Card: Quiz -->
+    <main id="quizCard" class="bg-white rounded-3xl shadow-2xl p-6 transition-transform duration-200">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-3">
+          <div id="badgeSoal" class="px-3 py-1 rounded-full text-white font-semibold bg-gradient-to-r from-pink-500 to-rose-400 shadow">Soal 1 / 40</div>
+          <div id="numberBadge" class="text-3xl font-extrabold text-amber-600 animate-bounce">6</div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="btnPreviewAll" class="text-sm px-3 py-1 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100">Lihat Semua Hasil</button>
+          <button id="btnResetAll" class="text-sm px-3 py-1 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200">Ulangi Semua</button>
+        </div>
+      </div>
+
+      <div class="w-full flex justify-center mb-4">
+        <div class="relative rounded-xl shadow-inner bg-white" style="width:320px;height:320px;touch-action:none;">
+          <canvas id="canvasBase" width="320" height="320" class="absolute inset-0 w-full h-full rounded-xl"></canvas>
+          <canvas id="canvasDraw" width="320" height="320" class="absolute inset-0 w-full h-full rounded-xl"></canvas>
+        </div>
+      </div>
+
+      <div class="flex gap-3">
+        <button id="prevBtn" class="flex-1 px-4 py-3 rounded-xl bg-gray-200 hover:bg-gray-300 font-semibold">⬅ Sebelumnya</button>
+        <button id="clearBtn" class="px-4 py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-semibold">🗑 Hapus</button>
+        <button id="nextBtn" class="flex-1 px-4 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-semibold">Selanjutnya ➡</button>
+      </div>
+
+      <div class="mt-4">
+        <div class="flex items-center justify-between mb-2">
+          <div class="text-sm text-gray-600">Progress</div>
+          <div class="text-sm text-gray-600"><span id="filledCount">0</span> / 40 terisi</div>
+        </div>
+        <div class="w-full bg-gray-200 rounded-xl h-3 overflow-hidden">
+          <div id="progBar" class="h-3 bg-gradient-to-r from-amber-400 to-rose-400" style="width:2%"></div>
+        </div>
+      </div>
+    </main>
+
+    <section id="reviewPage" class="hidden mt-6">
+      <div class="bg-white p-5 rounded-2xl shadow-lg">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xl font-bold text-amber-600">🎉 Review Hasil</h2>
+          <div class="flex items-center gap-2">
+            <button id="btnBackToQuiz" class="px-3 py-1 bg-gray-100 rounded-lg hover:bg-gray-200">Kembali</button>
+            <button id="btnPlayClap" class="px-3 py-1 bg-amber-500 text-white rounded-lg hover:bg-amber-600">🎊 Tepuk Tangan</button>
+          </div>
+        </div>
+        <div id="gallery" class="grid grid-cols-2 sm:grid-cols-4 gap-3"></div>
+        <div class="mt-4 flex items-center justify-between">
+          <div class="text-sm text-gray-600">Total terisi: <span id="totalFilled">0</span> / 40</div>
+          <div>
+            <button id="btnRestartFromReview" class="px-4 py-2 bg-rose-500 text-white rounded-xl hover:bg-rose-600">Ulangi Lagi</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+<script>
+const TOTAL_SOAL = 40;
+let currentIndex = 0;
+let angkaSoal = Array.from({length: TOTAL_SOAL}, (_,i) => (i % 5) + 6); // ANGKA 6-10
+(function shuffle(a){
+  for (let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random() * (i+1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+})(angkaSoal);
+
+const savedData = Array(TOTAL_SOAL).fill(null);
+const canvasBase = document.getElementById('canvasBase');
+const canvasDraw = document.getElementById('canvasDraw');
+const ctxBase = canvasBase.getContext('2d');
+const ctxDraw = canvasDraw.getContext('2d');
+const W = canvasBase.width, H = canvasBase.height;
+
+let drawing = false;
+let lastX = 0, lastY = 0;
+
+function setDrawStyle(){
+  ctxDraw.lineWidth = Math.max(6, Math.round(W/60));
+  ctxDraw.lineCap = 'round';
+  ctxDraw.strokeStyle = '#f97316';
+}
+setDrawStyle();
+
+function getPos(e){
+  const rect = canvasDraw.getBoundingClientRect();
+  if (e.touches && e.touches[0]) {
+    return {
+      x: (e.touches[0].clientX - rect.left) * (canvasDraw.width / rect.width),
+      y: (e.touches[0].clientY - rect.top) * (canvasDraw.height / rect.height)
+    };
+  } else {
+    const x = (e.offsetX !== undefined) ? e.offsetX : (e.clientX - rect.left) * (canvasDraw.width / rect.width);
+    const y = (e.offsetY !== undefined) ? e.offsetY : (e.clientY - rect.top) * (canvasDraw.height / rect.height);
+    return { x, y };
+  }
+}
+
+function startDraw(e){
+  drawing = true;
+  const p = getPos(e);
+  lastX = p.x; lastY = p.y;
+  ctxDraw.beginPath();
+  ctxDraw.moveTo(lastX, lastY);
+  e.preventDefault();
+}
+function moveDraw(e){
+  if (!drawing) return;
+  const p = getPos(e);
+  ctxDraw.lineTo(p.x, p.y);
+  ctxDraw.stroke();
+  ctxDraw.beginPath();
+  ctxDraw.moveTo(p.x, p.y);
+  e.preventDefault();
+}
+function endDraw(e){
+  drawing = false;
+  ctxDraw.beginPath();
+  e && e.preventDefault();
+}
+
+canvasDraw.addEventListener('mousedown', startDraw);
+canvasDraw.addEventListener('mousemove', moveDraw);
+canvasDraw.addEventListener('mouseup', endDraw);
+canvasDraw.addEventListener('mouseleave', endDraw);
+['touchstart','touchmove','touchend','touchcancel'].forEach(ev=>{
+  canvasDraw.addEventListener(ev, function(e){
+    if (ev === 'touchstart') startDraw(e);
+    else if (ev === 'touchmove') moveDraw(e);
+    else endDraw(e);
+  }, {passive:false});
+});
+
+function drawTemplate(num){
+  ctxBase.clearRect(0,0,W,H);
+  const g = ctxBase.createLinearGradient(0,0,W,H);
+  g.addColorStop(0,'rgba(255,250,240,0.9)');
+  g.addColorStop(1,'rgba(255,245,235,0.9)');
+  ctxBase.fillStyle = g;
+  ctxBase.fillRect(0,0,W,H);
+
+  ctxBase.save();
+  ctxBase.globalAlpha = 0.18;
+  ctxBase.fillStyle = '#f97316';
+  ctxBase.textAlign = 'center';
+  ctxBase.textBaseline = 'middle';
+  ctxBase.font = Math.round(W*0.6) + 'px Arial';
+  ctxBase.fillText(String(num), W/2, H/2 + 6);
+  ctxBase.restore();
+}
+
+function mergeAndSave(i){
+  const off = document.createElement('canvas');
+  off.width = W; off.height = H;
+  const octx = off.getContext('2d');
+  octx.drawImage(canvasBase, 0, 0, W, H);
+  octx.drawImage(canvasDraw, 0, 0, W, H);
+  const data = off.toDataURL('image/png');
+  savedData[i] = data;
+  document.getElementById('statusSaved').classList.remove('hidden');
+  setTimeout(()=> document.getElementById('statusSaved').classList.add('hidden'), 900);
+  updateProgress();
+}
+
+const badgeSoal = document.getElementById('badgeSoal');
+const numberBadge = document.getElementById('numberBadge');
+const progBar = document.getElementById('progBar');
+const filledCountEl = document.getElementById('filledCount');
+
+function updateUI(){
+  badgeSoal.textContent = `Soal ${currentIndex+1} / ${TOTAL_SOAL}`;
+  numberBadge.textContent = angkaSoal[currentIndex];
+  drawTemplate(angkaSoal[currentIndex]);
+  ctxDraw.clearRect(0,0,W,H);
+  if (savedData[currentIndex]) {
+    const img = new Image();
+    img.onload = ()=> ctxDraw.drawImage(img, 0, 0, W, H);
+    img.src = savedData[currentIndex];
+  }
+  progBar.style.width = `${Math.round((currentIndex+1)/TOTAL_SOAL*100)}%`;
+  updateProgress();
+}
+function updateProgress(){
+  const filled = savedData.filter(x=>x!==null).length;
+  filledCountEl.textContent = filled;
+  document.getElementById('totalFilled').textContent = filled;
+}
+
+document.getElementById('nextBtn').addEventListener('click', ()=>{
+  mergeAndSave(currentIndex);
+  if (currentIndex < TOTAL_SOAL - 1) {
+    currentIndex++;
+    animateTransition();
+  } else {
+    goToReview();
+  }
+});
+document.getElementById('prevBtn').addEventListener('click', ()=>{
+  mergeAndSave(currentIndex);
+  if (currentIndex > 0) {
+    currentIndex--;
+    animateTransition();
+  }
+});
+document.getElementById('clearBtn').addEventListener('click', ()=>{
+  ctxDraw.clearRect(0,0,W,H);
+});
+
+document.getElementById('btnPreviewAll').addEventListener('click', goToReview);
+document.getElementById('btnResetAll').addEventListener('click', ()=>{
+  if (!confirm('Mulai ulang semua soal? Semua coretan akan hilang.')) return;
+  for (let i=0;i<TOTAL_SOAL;i++) savedData[i]=null;
+  currentIndex = 0;
+  updateUI();
+});
+
+function animateTransition(){
+  const card = document.getElementById('quizCard');
+  card.classList.add('transform','-translate-x-4','opacity-0');
+  setTimeout(()=>{
+    updateUI();
+    card.classList.remove('transform','-translate-x-4','opacity-0');
+  }, 160);
+}
+
+window.addEventListener('beforeunload', ()=> mergeAndSave(currentIndex));
+
+updateUI();
+
+function goToReview(){
+  mergeAndSave(currentIndex);
+  document.getElementById('quizCard').classList.add('hidden');
+  document.getElementById('reviewPage').classList.remove('hidden');
+  const gallery = document.getElementById('gallery');
+  gallery.innerHTML = '';
+  let filled = 0;
+  for (let i=0;i<TOTAL_SOAL;i++){
+    const wrap = document.createElement('div');
+    wrap.className = 'bg-gray-50 p-2 rounded-xl flex flex-col items-center shadow-sm';
+    const img = document.createElement('img');
+    img.className = 'w-full h-28 object-contain rounded-md bg-white';
+    img.alt = `Soal ${i+1}`;
+    if (savedData[i]) { img.src = savedData[i]; filled++; }
+    else {
+      const off = document.createElement('canvas'); off.width = W; off.height = H;
+      const octx = off.getContext('2d');
+      octx.fillStyle = '#fffaf0';
+      octx.fillRect(0,0,W,H);
+      octx.globalAlpha = 0.18;
+      octx.fillStyle = '#f97316';
+      octx.font = Math.round(W*0.6) + 'px Arial';
+      octx.textAlign = 'center';
+      octx.textBaseline = 'middle';
+      octx.fillText(String(angkaSoal[i]), W/2, H/2 + 6);
+      img.src = off.toDataURL();
+    }
+    const label = document.createElement('div');
+    label.className = 'text-xs text-gray-600 mt-2';
+    label.textContent = `Soal ${i+1} — Angka ${angkaSoal[i]}`;
+    wrap.appendChild(img);
+    wrap.appendChild(label);
+    gallery.appendChild(wrap);
+    img.addEventListener('click', ()=>{
+      const win = window.open('', '_blank');
+      const html = `<html><head><title>Soal ${i+1}</title></head>
+      <body style="margin:0;display:flex;align-items:center;justify-content:center;height:100vh;background:#fafafa">
+        <img src="${img.src}" style="max-width:95%;max-height:95%;box-shadow:0 6px 30px rgba(0,0,0,0.2);border-radius:12px" />
+      </body></html>`;
+      win.document.write(html);
+    });
+  }
+  document.getElementById('totalFilled').textContent = filled;
+  updateProgress();
+}
+
+document.getElementById('btnBackToQuiz').addEventListener('click', ()=>{
+  document.getElementById('reviewPage').classList.add('hidden');
+  document.getElementById('quizCard').classList.remove('hidden');
+  updateUI();
+});
+document.getElementById('btnRestartFromReview').addEventListener('click', ()=>{
+  if (!confirm('Ulangi semua latihan?')) return;
+  for (let i=0;i<TOTAL_SOAL;i++) savedData[i]=null;
+  currentIndex = 0;
+  document.getElementById('reviewPage').classList.add('hidden');
+  document.getElementById('quizCard').classList.remove('hidden');
+  updateUI();
+});
+
+function playClap(){
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const now = ctx.currentTime;
+    for (let i=0;i<3;i++){
+      const bufferSize = 0.18 * ctx.sampleRate;
+      const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const output = noiseBuffer.getChannelData(0);
+      for (let j=0;j<bufferSize;j++){
+        output[j] = (Math.random()*2-1) * Math.exp(-3*j/bufferSize);
+      }
+      const noise = ctx.createBufferSource();
+      noise.buffer = noiseBuffer;
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0.0001, now + i*0.12);
+      g.gain.exponentialRampToValueAtTime(0.7, now + i*0.12 + 0.01);
+      g.gain.exponentialRampToValueAtTime(0.001, now + i*0.12 + 0.18);
+      noise.connect(g).connect(ctx.destination);
+      noise.start(now + i*0.12);
+      noise.stop(now + i*0.12 + 0.2);
+    }
+  } catch (e) {
+    console.warn('Audio tidak didukung', e);
+  }
+}
+document.getElementById('btnPlayClap').addEventListener('click', playClap);
+window.addEventListener('resize', setDrawStyle);
+</script>
+</body>
+</html>
