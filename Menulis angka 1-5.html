@@ -6,18 +6,14 @@
   <title>Latihan Menulis Angka 1-5 — 40 Soal (Acak)</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 flex items-start justify-center p-6">
-
+<body class="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50 flex items-start justify-center p-6">
   <div class="w-full max-w-4xl">
 
     <!-- Header -->
-    <header class="mb-6 flex items-center gap-4">
-      
-        <img src="https://zahwan93.github.io/Kebun-Ilmu-Matematika-SMP/logo.png" alt="Logo" class="h-20" />
-
-      
+    <header class="mb-6 flex items-center gap-4 flex-wrap">
+      <img src="https://zahwan93.github.io/Kebun-Ilmu-Matematika-SMP/logo.png" alt="Logo" class="h-20" />
       <div>
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-amber-600">✏️ Latihan Menulis Angka (1–5)</h1>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-purple-600">✏️ Latihan Menulis Angka (1–5)</h1>
         <p class="text-sm text-gray-600">40 soal — angka 1–5 <span class="font-semibold">diacak</span>. Trace pakai jari atau mouse.</p>
       </div>
       <div class="ml-auto text-sm">
@@ -27,35 +23,30 @@
 
     <!-- Card: Quiz -->
     <main id="quizCard" class="bg-white rounded-3xl shadow-2xl p-6 transition-transform duration-200">
-
-      <!-- Top row: badge + actions -->
-      <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center justify-between mb-4 flex-wrap gap-3">
         <div class="flex items-center gap-3">
-          <div id="badgeSoal" class="px-3 py-1 rounded-full text-white font-semibold bg-gradient-to-r from-pink-500 to-rose-400 shadow">Soal 1 / 40</div>
-          <div id="numberBadge" class="text-3xl font-extrabold text-amber-600 animate-bounce">1</div>
+          <div id="badgeSoal" class="px-3 py-1 rounded-full text-white font-semibold bg-gradient-to-r from-pink-500 to-purple-500 shadow">Soal 1 / 40</div>
+          <div id="numberBadge" class="text-3xl font-extrabold text-purple-600 animate-bounce">1</div>
         </div>
-
         <div class="flex items-center gap-2">
-          <button id="btnPreviewAll" class="text-sm px-3 py-1 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100">Lihat Semua Hasil</button>
+          <button id="btnPreviewAll" class="text-sm px-3 py-1 rounded-lg bg-purple-50 text-purple-700 hover:bg-purple-100">Lihat Semua Hasil</button>
           <button id="btnResetAll" class="text-sm px-3 py-1 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200">Ulangi Semua</button>
         </div>
       </div>
 
-      <!-- Canvas area (layered using relative) -->
+      <!-- Canvas -->
       <div class="w-full flex justify-center mb-4">
         <div class="relative rounded-xl shadow-inner bg-white" style="width:320px;height:320px;touch-action:none;">
-          <!-- base template canvas -->
           <canvas id="canvasBase" width="320" height="320" class="absolute inset-0 w-full h-full rounded-xl"></canvas>
-          <!-- draw canvas on top -->
           <canvas id="canvasDraw" width="320" height="320" class="absolute inset-0 w-full h-full rounded-xl"></canvas>
         </div>
       </div>
 
-      <!-- Controls -->
-      <div class="flex gap-3">
-        <button id="prevBtn" class="flex-1 px-4 py-3 rounded-xl bg-gray-200 hover:bg-gray-300 font-semibold">⬅ Sebelumnya</button>
-        <button id="clearBtn" class="px-4 py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-semibold">🗑 Hapus</button>
-        <button id="nextBtn" class="flex-1 px-4 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-semibold">Selanjutnya ➡</button>
+      <!-- Tombol Navigasi Responsif -->
+      <div class="flex flex-col sm:flex-row gap-3">
+        <button id="prevBtn" class="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-gray-300 to-gray-400 hover:from-gray-400 hover:to-gray-500 font-semibold text-gray-800 transition-all duration-200">⬅ Sebelumnya</button>
+        <button id="clearBtn" class="px-4 py-3 rounded-xl bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-white font-semibold transition-all duration-200">🗑 Hapus</button>
+        <button id="nextBtn" class="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white font-semibold transition-all duration-200">Selanjutnya ➡</button>
       </div>
 
       <!-- Progress -->
@@ -65,25 +56,22 @@
           <div class="text-sm text-gray-600"><span id="filledCount">0</span> / 40 terisi</div>
         </div>
         <div class="w-full bg-gray-200 rounded-xl h-3 overflow-hidden">
-          <div id="progBar" class="h-3 bg-gradient-to-r from-amber-400 to-rose-400" style="width:2%"></div>
+          <div id="progBar" class="h-3 bg-gradient-to-r from-pink-400 to-purple-400" style="width:2%"></div>
         </div>
       </div>
-
     </main>
 
-    <!-- Review page (hidden initially) -->
+    <!-- Review Page -->
     <section id="reviewPage" class="hidden mt-6">
       <div class="bg-white p-5 rounded-2xl shadow-lg">
-        <div class="flex items-center justify-between mb-4">
-          <h2 class="text-xl font-bold text-amber-600">🎉 Review Hasil</h2>
+        <div class="flex items-center justify-between mb-4 flex-wrap gap-3">
+          <h2 class="text-xl font-bold text-purple-600">🎉 Review Hasil</h2>
           <div class="flex items-center gap-2">
             <button id="btnBackToQuiz" class="px-3 py-1 bg-gray-100 rounded-lg hover:bg-gray-200">Kembali</button>
-            <button id="btnPlayClap" class="px-3 py-1 bg-amber-500 text-white rounded-lg hover:bg-amber-600">🎊 Tepuk Tangan</button>
+            <button id="btnPlayClap" class="px-3 py-1 bg-pink-500 text-white rounded-lg hover:bg-pink-600">🎊 Tepuk Tangan</button>
           </div>
         </div>
-
         <div id="gallery" class="grid grid-cols-2 sm:grid-cols-4 gap-3"></div>
-
         <div class="mt-4 flex items-center justify-between">
           <div class="text-sm text-gray-600">Total terisi: <span id="totalFilled">0</span> / 40</div>
           <div>
@@ -96,312 +84,42 @@
   </div>
 
 <script>
-/* ======================
-   Config & state
-   ====================== */
 const TOTAL_SOAL = 40;
-let currentIndex = 0; // 0-based
-// prepare array of 1..5 repeated then shuffle
-let angkaSoal = Array.from({length: TOTAL_SOAL}, (_,i) => (i % 5) + 1);
-(function shuffle(a){
-  for (let i=a.length-1;i>0;i--){
-    const j = Math.floor(Math.random() * (i+1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-})(angkaSoal);
-
-const savedData = Array(TOTAL_SOAL).fill(null); // dataURL merged
-const canvasBase = document.getElementById('canvasBase');
-const canvasDraw = document.getElementById('canvasDraw');
-const ctxBase = canvasBase.getContext('2d');
-const ctxDraw = canvasDraw.getContext('2d');
-const W = canvasBase.width, H = canvasBase.height;
-
-/* ======================
-   Drawing utils
-   ====================== */
-let drawing = false;
-let lastX = 0, lastY = 0;
-
-function setDrawStyle(){
-  ctxDraw.lineWidth = Math.max(6, Math.round(W/60));
-  ctxDraw.lineCap = 'round';
-  ctxDraw.strokeStyle = '#f97316';
-}
+let currentIndex = 0;
+let angkaSoal = Array.from({length: TOTAL_SOAL}, (_,i) => (i % 5) + 1); 
+(function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}})(angkaSoal);
+const savedData = Array(TOTAL_SOAL).fill(null);
+const canvasBase=document.getElementById('canvasBase'),canvasDraw=document.getElementById('canvasDraw');
+const ctxBase=canvasBase.getContext('2d'),ctxDraw=canvasDraw.getContext('2d');
+const W=canvasBase.width,H=canvasBase.height;
+let drawing=false,lastX=0,lastY=0;
+function setDrawStyle(){ctxDraw.lineWidth=Math.max(6,Math.round(W/60));ctxDraw.lineCap='round';ctxDraw.strokeStyle='#a21caf';}
 setDrawStyle();
-
-function getPos(e){
-  const rect = canvasDraw.getBoundingClientRect();
-  if (e.touches && e.touches[0]) {
-    return {
-      x: (e.touches[0].clientX - rect.left) * (canvasDraw.width / rect.width),
-      y: (e.touches[0].clientY - rect.top) * (canvasDraw.height / rect.height)
-    };
-  } else {
-    // mouse event
-    const x = (e.offsetX !== undefined) ? e.offsetX : (e.clientX - rect.left) * (canvasDraw.width / rect.width);
-    const y = (e.offsetY !== undefined) ? e.offsetY : (e.clientY - rect.top) * (canvasDraw.height / rect.height);
-    return { x, y };
-  }
-}
-
-function startDraw(e){
-  drawing = true;
-  const p = getPos(e);
-  lastX = p.x; lastY = p.y;
-  ctxDraw.beginPath();
-  ctxDraw.moveTo(lastX, lastY);
-  e.preventDefault();
-}
-function moveDraw(e){
-  if (!drawing) return;
-  const p = getPos(e);
-  ctxDraw.lineTo(p.x, p.y);
-  ctxDraw.stroke();
-  ctxDraw.beginPath();
-  ctxDraw.moveTo(p.x, p.y);
-  e.preventDefault();
-}
-function endDraw(e){
-  drawing = false;
-  ctxDraw.beginPath();
-  e && e.preventDefault();
-}
-
-canvasDraw.addEventListener('mousedown', startDraw);
-canvasDraw.addEventListener('mousemove', moveDraw);
-canvasDraw.addEventListener('mouseup', endDraw);
-canvasDraw.addEventListener('mouseleave', endDraw);
-['touchstart','touchmove','touchend','touchcancel'].forEach(ev=>{
-  canvasDraw.addEventListener(ev, function(e){
-    if (ev === 'touchstart') startDraw(e);
-    else if (ev === 'touchmove') moveDraw(e);
-    else endDraw(e);
-  }, {passive:false});
-});
-
-/* ======================
-   Template drawing (base)
-   ====================== */
-function drawTemplate(num){
-  // clear
-  ctxBase.clearRect(0,0,W,H);
-  // background soft
-  const g = ctxBase.createLinearGradient(0,0,W,H);
-  g.addColorStop(0,'rgba(255,250,240,0.9)');
-  g.addColorStop(1,'rgba(255,245,235,0.9)');
-  ctxBase.fillStyle = g;
-  ctxBase.fillRect(0,0,W,H);
-
-  // faint big number
-  ctxBase.save();
-  ctxBase.globalAlpha = 0.18;
-  ctxBase.fillStyle = '#f97316';
-  ctxBase.textAlign = 'center';
-  ctxBase.textBaseline = 'middle';
-  ctxBase.font = Math.round(W*0.6) + 'px Arial';
-  ctxBase.fillText(String(num), W/2, H/2 + 6);
-  ctxBase.restore();
-}
-
-/* ======================
-   Merge base + draw and save
-   ====================== */
-function mergeAndSave(i){
-  const off = document.createElement('canvas');
-  off.width = W; off.height = H;
-  const octx = off.getContext('2d');
-  octx.drawImage(canvasBase, 0, 0, W, H);
-  octx.drawImage(canvasDraw, 0, 0, W, H);
-  const data = off.toDataURL('image/png');
-  savedData[i] = data;
-  // show saved short feedback
-  document.getElementById('statusSaved').classList.remove('hidden');
-  setTimeout(()=> document.getElementById('statusSaved').classList.add('hidden'), 900);
-  updateProgress();
-}
-
-/* ======================
-   UI update & navigation
-   ====================== */
-const badgeSoal = document.getElementById('badgeSoal');
-const numberBadge = document.getElementById('numberBadge');
-const progBar = document.getElementById('progBar');
-const filledCountEl = document.getElementById('filledCount');
-
-function updateUI(){
-  badgeSoal.textContent = `Soal ${currentIndex+1} / ${TOTAL_SOAL}`;
-  numberBadge.textContent = angkaSoal[currentIndex];
-  drawTemplate(angkaSoal[currentIndex]);
-  // clear drawing layer then load saved if exist
-  ctxDraw.clearRect(0,0,W,H);
-  if (savedData[currentIndex]) {
-    const img = new Image();
-    img.onload = ()=> ctxDraw.drawImage(img, 0, 0, W, H);
-    img.src = savedData[currentIndex];
-  }
-  // progress bar reflects position (not filled count)
-  progBar.style.width = `${Math.round((currentIndex+1)/TOTAL_SOAL*100)}%`;
-  updateProgress();
-}
-function updateProgress(){
-  const filled = savedData.filter(x=>x!==null).length;
-  filledCountEl.textContent = filled;
-  document.getElementById('totalFilled').textContent = filled;
-}
-
-/* Buttons */
-document.getElementById('nextBtn').addEventListener('click', ()=>{
-  mergeAndSave(currentIndex);
-  if (currentIndex < TOTAL_SOAL - 1) {
-    currentIndex++;
-    animateTransition();
-  } else {
-    // last -> review
-    goToReview();
-  }
-});
-document.getElementById('prevBtn').addEventListener('click', ()=>{
-  mergeAndSave(currentIndex);
-  if (currentIndex > 0) {
-    currentIndex--;
-    animateTransition();
-  }
-});
-document.getElementById('clearBtn').addEventListener('click', ()=>{
-  // clear drawing layer only
-  ctxDraw.clearRect(0,0,W,H);
-});
-
-/* quick actions */
-document.getElementById('btnPreviewAll').addEventListener('click', goToReview);
-document.getElementById('btnResetAll').addEventListener('click', ()=>{
-  if (!confirm('Mulai ulang semua soal? Semua coretan akan hilang.')) return;
-  for (let i=0;i<TOTAL_SOAL;i++) savedData[i]=null;
-  currentIndex = 0;
-  updateUI();
-});
-
-/* animate transition (simple) */
-function animateTransition(){
-  const card = document.getElementById('quizCard');
-  card.classList.add('transform','-translate-x-4','opacity-0');
-  setTimeout(()=>{
-    updateUI();
-    card.classList.remove('transform','-translate-x-4','opacity-0');
-  }, 160);
-}
-
-/* beforeunload autosave */
-window.addEventListener('beforeunload', ()=> mergeAndSave(currentIndex));
-
-/* init first */
+function getPos(e){const r=canvasDraw.getBoundingClientRect();if(e.touches&&e.touches[0])return{x:(e.touches[0].clientX-r.left)*(canvasDraw.width/r.width),y:(e.touches[0].clientY-r.top)*(canvasDraw.height/r.height)};else return{x:(e.offsetX!==undefined)?e.offsetX:(e.clientX-r.left)*(canvasDraw.width/r.width),y:(e.offsetY!==undefined)?e.offsetY:(e.clientY-r.top)*(canvasDraw.height/r.height)};}
+function startDraw(e){drawing=true;const p=getPos(e);lastX=p.x;lastY=p.y;ctxDraw.beginPath();ctxDraw.moveTo(lastX,lastY);e.preventDefault&&e.preventDefault();}
+function moveDraw(e){if(!drawing)return;const p=getPos(e);ctxDraw.lineTo(p.x,p.y);ctxDraw.stroke();ctxDraw.beginPath();ctxDraw.moveTo(p.x,p.y);e.preventDefault&&e.preventDefault();}
+function endDraw(e){drawing=false;ctxDraw.beginPath();e&&e.preventDefault&&e.preventDefault();}
+canvasDraw.addEventListener('mousedown',startDraw);canvasDraw.addEventListener('mousemove',moveDraw);canvasDraw.addEventListener('mouseup',endDraw);canvasDraw.addEventListener('mouseleave',endDraw);
+['touchstart','touchmove','touchend','touchcancel'].forEach(ev=>{canvasDraw.addEventListener(ev,function(e){if(ev==='touchstart')startDraw(e);else if(ev==='touchmove')moveDraw(e);else endDraw(e);},{passive:false});});
+function drawTemplate(num){ctxBase.clearRect(0,0,W,H);const g=ctxBase.createLinearGradient(0,0,W,H);g.addColorStop(0,'rgba(253,244,255,0.95)');g.addColorStop(1,'rgba(255,240,246,0.95)');ctxBase.fillStyle=g;ctxBase.fillRect(0,0,W,H);ctxBase.save();ctxBase.globalAlpha=0.16;ctxBase.fillStyle='#a21caf';ctxBase.textAlign='center';ctxBase.textBaseline='middle';ctxBase.font=Math.round(W*0.58)+'px Arial';ctxBase.fillText(String(num),W/2,H/2+6);ctxBase.restore();}
+function mergeAndSave(i){const off=document.createElement('canvas');off.width=W;off.height=H;const octx=off.getContext('2d');octx.drawImage(canvasBase,0,0,W,H);octx.drawImage(canvasDraw,0,0,W,H);savedData[i]=off.toDataURL('image/png');const s=document.getElementById('statusSaved');s.classList.remove('hidden');setTimeout(()=>s.classList.add('hidden'),900);updateProgress();}
+const badgeSoal=document.getElementById('badgeSoal'),numberBadge=document.getElementById('numberBadge'),progBar=document.getElementById('progBar'),filledCountEl=document.getElementById('filledCount');
+function updateUI(){badgeSoal.textContent=`Soal ${currentIndex+1} / ${TOTAL_SOAL}`;numberBadge.textContent=angkaSoal[currentIndex];drawTemplate(angkaSoal[currentIndex]);ctxDraw.clearRect(0,0,W,H);if(savedData[currentIndex]){const img=new Image();img.onload=()=>ctxDraw.drawImage(img,0,0,W,H);img.src=savedData[currentIndex];}progBar.style.width=`${Math.round((currentIndex+1)/TOTAL_SOAL*100)}%`;updateProgress();}
+function updateProgress(){const filled=savedData.filter(x=>x!==null).length;filledCountEl.textContent=filled;const tf=document.getElementById('totalFilled');if(tf)tf.textContent=filled;}
+document.getElementById('nextBtn').addEventListener('click',()=>{mergeAndSave(currentIndex);if(currentIndex<TOTAL_SOAL-1){currentIndex++;animateTransition();}else{goToReview();}});
+document.getElementById('prevBtn').addEventListener('click',()=>{mergeAndSave(currentIndex);if(currentIndex>0){currentIndex--;animateTransition();}});
+document.getElementById('clearBtn').addEventListener('click',()=>{ctxDraw.clearRect(0,0,W,H);});
+document.getElementById('btnPreviewAll').addEventListener('click',goToReview);
+document.getElementById('btnResetAll').addEventListener('click',()=>{if(!confirm('Mulai ulang semua soal? Semua coretan akan hilang.'))return;for(let i=0;i<TOTAL_SOAL;i++)savedData[i]=null;currentIndex=0;updateUI();});
+function animateTransition(){const card=document.getElementById('quizCard');card.classList.add('transform','-translate-x-4','opacity-0');setTimeout(()=>{updateUI();card.classList.remove('transform','-translate-x-4','opacity-0');},170);}
+window.addEventListener('beforeunload',()=>mergeAndSave(currentIndex));
+function goToReview(){mergeAndSave(currentIndex);document.getElementById('quizCard').classList.add('hidden');document.getElementById('reviewPage').classList.remove('hidden');const gallery=document.getElementById('gallery');gallery.innerHTML='';let filled=0;for(let i=0;i<TOTAL_SOAL;i++){const wrap=document.createElement('div');wrap.className='bg-gray-50 p-2 rounded-xl flex flex-col items-center shadow-sm';const img=document.createElement('img');img.className='w-full h-28 object-contain rounded-md bg-white';img.alt=`Soal ${i+1}`;if(savedData[i]){img.src=savedData[i];filled++;}else{const off=document.createElement('canvas');off.width=W;off.height=H;const octx=off.getContext('2d');octx.fillStyle='#fdf4ff';octx.fillRect(0,0,W,H);octx.globalAlpha=0.16;octx.fillStyle='#a21caf';octx.font=Math.round(W*0.6)+'px Arial';octx.textAlign='center';octx.textBaseline='middle';octx.fillText(String(angkaSoal[i]),W/2,H/2+6);img.src=off.toDataURL();}const label=document.createElement('div');label.className='text-xs text-gray-600 mt-2';label.textContent=`Soal ${i+1} — Angka ${angkaSoal[i]}`;wrap.appendChild(img);wrap.appendChild(label);gallery.appendChild(wrap);img.addEventListener('click',()=>{const win=window.open('','_blank');win.document.write(`<html><head><title>Soal ${i+1}</title></head><body style="margin:0;display:flex;align-items:center;justify-content:center;height:100vh;background:#f8fafc"><img src="${img.src}" style="max-width:95%;max-height:95%;box-shadow:0 6px 30px rgba(0,0,0,0.2);border-radius:12px" /></body></html>`);});}document.getElementById('totalFilled').textContent=filled;updateProgress();}
+document.getElementById('btnBackToQuiz').addEventListener('click',()=>{document.getElementById('reviewPage').classList.add('hidden');document.getElementById('quizCard').classList.remove('hidden');updateUI();});
+document.getElementById('btnRestartFromReview').addEventListener('click',()=>{if(!confirm('Ulangi semua latihan?'))return;for(let i=0;i<TOTAL_SOAL;i++)savedData[i]=null;currentIndex=0;document.getElementById('reviewPage').classList.add('hidden');document.getElementById('quizCard').classList.remove('hidden');updateUI();});
+function playClap(){try{const ctx=new(window.AudioContext||window.webkitAudioContext)();const now=ctx.currentTime;for(let i=0;i<3;i++){const bufferSize=0.18*ctx.sampleRate;const noiseBuffer=ctx.createBuffer(1,bufferSize,ctx.sampleRate);const output=noiseBuffer.getChannelData(0);for(let j=0;j<bufferSize;j++){output[j]=(Math.random()*2-1)*Math.exp(-3*j/bufferSize);}const noise=ctx.createBufferSource();noise.buffer=noiseBuffer;const g=ctx.createGain();g.gain.setValueAtTime(0.0001,now+i*0.12);g.gain.exponentialRampToValueAtTime(0.7,now+i*0.12+0.01);g.gain.exponentialRampToValueAtTime(0.001,now+i*0.12+0.18);noise.connect(g).connect(ctx.destination);noise.start(now+i*0.12);noise.stop(now+i*0.12+0.2);}}catch(e){console.warn('Audio tidak didukung',e);}}
+document.getElementById('btnPlayClap').addEventListener('click',playClap);
+window.addEventListener('resize',setDrawStyle);
 updateUI();
-
-/* ======================
-   Review page
-   ====================== */
-function goToReview(){
-  mergeAndSave(currentIndex);
-  document.getElementById('quizCard').classList.add('hidden');
-  document.getElementById('reviewPage').classList.remove('hidden');
-
-  const gallery = document.getElementById('gallery');
-  gallery.innerHTML = '';
-  let filled = 0;
-  for (let i=0;i<TOTAL_SOAL;i++){
-    const wrap = document.createElement('div');
-    wrap.className = 'bg-gray-50 p-2 rounded-xl flex flex-col items-center shadow-sm';
-    const img = document.createElement('img');
-    img.className = 'w-full h-28 object-contain rounded-md bg-white';
-    img.alt = `Soal ${i+1}`;
-    if (savedData[i]) { img.src = savedData[i]; filled++; }
-    else {
-      // render placeholder (template only)
-      const off = document.createElement('canvas'); off.width = W; off.height = H;
-      const octx = off.getContext('2d');
-      octx.fillStyle = '#fffaf0';
-      octx.fillRect(0,0,W,H);
-      octx.globalAlpha = 0.18;
-      octx.fillStyle = '#f97316';
-      octx.font = Math.round(W*0.6) + 'px Arial';
-      octx.textAlign = 'center';
-      octx.textBaseline = 'middle';
-      octx.fillText(String(angkaSoal[i]), W/2, H/2 + 6);
-      img.src = off.toDataURL();
-    }
-    const label = document.createElement('div');
-    label.className = 'text-xs text-gray-600 mt-2';
-    label.textContent = `Soal ${i+1} — Angka ${angkaSoal[i]}`;
-    wrap.appendChild(img);
-    wrap.appendChild(label);
-    gallery.appendChild(wrap);
-
-    // click to open large
-    img.addEventListener('click', ()=>{
-      const win = window.open('', '_blank');
-      const html = `
-        <html><head><title>Soal ${i+1}</title></head>
-        <body style="margin:0;display:flex;align-items:center;justify-content:center;height:100vh;background:#fafafa">
-          <img src="${img.src}" style="max-width:95%;max-height:95%;box-shadow:0 6px 30px rgba(0,0,0,0.2);border-radius:12px" />
-        </body></html>`;
-      win.document.write(html);
-    });
-  }
-  document.getElementById('totalFilled').textContent = filled;
-  updateProgress();
-}
-
-/* back from review */
-document.getElementById('btnBackToQuiz').addEventListener('click', ()=>{
-  document.getElementById('reviewPage').classList.add('hidden');
-  document.getElementById('quizCard').classList.remove('hidden');
-  updateUI();
-});
-
-/* restart from review */
-document.getElementById('btnRestartFromReview').addEventListener('click', ()=>{
-  if (!confirm('Ulangi semua latihan?')) return;
-  for (let i=0;i<TOTAL_SOAL;i++) savedData[i]=null;
-  currentIndex = 0;
-  document.getElementById('reviewPage').classList.add('hidden');
-  document.getElementById('quizCard').classList.remove('hidden');
-  updateUI();
-});
-
-/* ======================
-   Clap (synth) for reward
-   ====================== */
-function playClap(){
-  try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const now = ctx.currentTime;
-    for (let i=0;i<3;i++){
-      const bufferSize = 0.18 * ctx.sampleRate;
-      const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-      const output = noiseBuffer.getChannelData(0);
-      for (let j=0;j<bufferSize;j++){
-        output[j] = (Math.random()*2-1) * Math.exp(-3*j/bufferSize);
-      }
-      const noise = ctx.createBufferSource();
-      noise.buffer = noiseBuffer;
-      const g = ctx.createGain();
-      g.gain.setValueAtTime(0.0001, now + i*0.12);
-      g.gain.exponentialRampToValueAtTime(0.7, now + i*0.12 + 0.01);
-      g.gain.exponentialRampToValueAtTime(0.001, now + i*0.12 + 0.18);
-      noise.connect(g).connect(ctx.destination);
-      noise.start(now + i*0.12);
-      noise.stop(now + i*0.12 + 0.2);
-    }
-  } catch (e) {
-    console.warn('Audio tidak didukung', e);
-  }
-}
-document.getElementById('btnPlayClap').addEventListener('click', playClap);
-
-/* responsive: adjust stroke when window resizes (keeps same pixel width) */
-window.addEventListener('resize', setDrawStyle);
-
 </script>
 </body>
 </html>
