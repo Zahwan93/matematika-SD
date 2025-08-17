@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kebun Ilmu Matematika - Gamified Lengkap</title>
+<style>
+  :root{
+    --green:#4dd4a3; --blue:#3a86ff; --amber:#fcbf49; --pink:#ff6f91; --bg1:#a1c4fd; --bg2:#c2e9fb;
+  }
+  *{box-sizing:border-box}
+  body{
+    font-family:'Comic Sans MS', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    margin:0; padding:0; display:flex; justify-content:center; align-items:flex-start; min-height:100vh;
+    background:linear-gradient(135deg, var(--bg1), var(--bg2)); background-attachment:fixed; overflow-x:hidden;
+  }
+  .app{ max-width:900px; width:96%; margin:18px auto; }
+  .container{
+    background:#fff; border-radius:22px; box-shadow:0 12px 30px rgba(0,0,0,.15);
+    padding:20px; margin-bottom:18px; animation:fadeIn .6s ease both; position:relative;
+  }
+  header{ display:flex; align-items:center; gap:10px; justify-content:center; margin-bottom:6px; }
+  header img{ width:60px; height:60px; object-fit:contain }
+  header h1{ margin:0; color:var(--green); text-shadow:1px 1px #eef; font-size:30px }
+  header small{ color:#6b7280 }
+  .topic-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; }
+  .topic-card{
+    border-radius:18px; padding:16px; background:linear-gradient(120deg,#ffecd2,#fcb69f);
+    box-shadow:0 8px 16px rgba(0,0,0,.12); cursor:pointer; transition:.25s transform;
+  }
+  .topic-card:nth-child(2){ background:linear-gradient(120deg,#a1ffce,#faffd1) }
+  .topic-card:nth-child(3){ background:linear-gradient(120deg,#f6d365,#fda085) }
+  .topic-card:nth-child(4){ background:linear-gradient(120deg,#84fab0,#8fd3f4) }
+  .topic-card:nth-child(5){ background:linear-gradient(120deg,#fccb90,#d57eeb) }
+  .topic-card:hover{ transform:translateY(-4px) }
+  .topic-title{ font-weight:700; font-size:18px; margin-bottom:8px }
+  .activity-buttons{ display:flex; flex-wrap:wrap; gap:8px }
+  .chip{ font-size:12px; opacity:.8 }
+
+  button{ border:none; border-radius:12px; padding:10px 16px; font-size:15px; cursor:pointer; transition:.25s;
+          box-shadow:0 4px 10px rgba(0,0,0,.15) }
+  button:hover{ transform:scale(1.05); box-shadow:0 8px 18px rgba(0,0,0,.25) }
+  .btn-materi{ background:#6a4c93; color:#fff }
+  .btn-latihan{ background:#1982c4; color:#fff }
+  .btn-quiz{ background:#ff595e; color:#fff }
+  .btn-check{ background:var(--green); color:#fff }
+  .btn-next{ background:var(--amber); color:#fff }
+  .btn-prev{ background:var(--blue); color:#fff }
+  .btn-ghost{ background:#eef2ff; color:#334155 }
+
+  .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center }
+  .hidden{ display:none !important }
+
+  .card{ background:#fffbe6; border-radius:20px; padding:22px; box-shadow:0 6px 16px rgba(0,0,0,.12); transition:transform .5s }
+  .card.flip{ transform:rotateY(180deg) }
+
+  input[type="text"], input[type="number"], select{ width:100%; max-width:360px; padding:10px 12px; border:1px solid #e5e7eb; border-radius:12px; font-size:15px }
+
+  .feedback{ font-weight:700; margin-top:12px; min-height:28px }
+  .feedback.correct{ color:#16a34a; animation:bounce .5s }
+  .feedback.wrong{ color:#ef4444; animation:shake .5s }
+
+  .progress-bar-container{ width:100%; background:#eee; height:22px; border-radius:20px; overflow:hidden }
+  .progress-bar{ height:100%; width:0%; background:linear-gradient(90deg, var(--green), #00c9ff); color:#fff; text-align:center; line-height:22px; transition:width .5s }
+
+  .meta{ color:#6b7280; font-size:14px }
+
+  .badge{ position:absolute; top:10px; right:10px; font-size:24px; animation:pop .5s }
+
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none} }
+  @keyframes shake{ 0%{transform:translateX(0)}25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-5px)}100%{transform:translateX(0)} }
+  @keyframes bounce{ 0%{transform:scale(1)}50%{transform:scale(1.18)}100%{transform:scale(1)} }
+  @keyframes pop{ 0%{transform:scale(0)}50%{transform:scale(1.25)}100%{transform:scale(1)} }
+  @keyframes fall{ to{ transform:translateY(100vh) rotate(360deg) } }
+
+  iframe{ border:none }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="container" id="headerBox">
+    <header>
+      <img src="https://zahwan93.github.io/Kebun-Ilmu-Matematika-SMP/logo.png" alt="Logo Kebun Ilmu" />
+      <div>
+        <h1>Kebun Ilmu</h1>
+        <small class="meta">Matematika • Fun • Interaktif</small>
+      </div>
+    </header>
+  </div>
+
+  <!-- MENU TOPIK -->
+  <div class="container" id="topicSection">
+    <h2 style="margin-top:0">Pilih Topik & Aktivitas</h2>
+    <div class="topic-grid">
+      <div class="topic-card">
+        <div class="topic-title">➕ Penjumlahan & Pengurangan</div>
+        <div class="chip">Dasar operasi aritmetika</div>
+        <div class="activity-buttons">
+          <button class="btn-materi" onclick="showMateri('penjumlahan')">Materi</button>
+          <button class="btn-latihan" onclick="startLatihan('penjumlahan')">Latihan</button>
+          <button class="btn-quiz" onclick="startQuizSetup('penjumlahan')">Quiz</button>
+        </div>
+      </div>
+      <div class="topic-card">
+        <div class="topic-title">✖️ Perkalian & Pembagian</div>
+        <div class="chip">Fakta perkalian & strategi</div>
+        <div class="activity-buttons">
+          <button class="btn-materi" onclick="showMateri('perkalian')">Materi</button>
+          <button class="btn-latihan" onclick="startLatihan('perkalian')">Latihan</button>
+          <button class="btn-quiz" onclick="startQuizSetup('perkalian')">Quiz</button>
+        </div>
+      </div>
+      <div class="topic-card">
+        <div class="topic-title">¼ Pecahan & Desimal</div>
+        <div class="chip">Konversi & operasi campuran</div>
+        <div class="activity-buttons">
+          <button class="btn-materi" onclick="showMateri('pecahan')">Materi</button>
+          <button class="btn-latihan" onclick="startLatihan('pecahan')">Latihan</button>
+          <button class="btn-quiz" onclick="startQuizSetup('pecahan')">Quiz</button>
+        </div>
+      </div>
+      <div class="topic-card">
+        <div class="topic-title">📐 Bangun Datar & Ruang</div>
+        <div class="chip">Luas, keliling, volume</div>
+        <div class="activity-buttons">
+          <button class="btn-materi" onclick="showMateri('bangun')">Materi</button>
+          <button class="btn-latihan" onclick="startLatihan('bangun')">Latihan</button>
+          <button class="btn-quiz" onclick="startQuizSetup('bangun')">Quiz</button>
+        </div>
+      </div>
+      <div class="topic-card">
+        <div class="topic-title">⚖️ Rasio</div>
+        <div class="chip">Perbandingan & skala</div>
+        <div class="activity-buttons">
+          <button class="btn-materi" onclick="showMateri('rasio')">Materi</button>
+          <button class="btn-latihan" onclick="startLatihan('rasio')">Latihan</button>
+          <button class="btn-quiz" onclick="startQuizSetup('rasio')">Quiz</button>
+        </div>
+      </div>
+<div class="topic-card">
+  <div class="topic-title">🎲 Peluang</div>
+  <div class="chip">Teori peluang dasar</div>
+  <div class="activity-buttons">
+    <button class="btn-materi" onclick="showMateri('peluang')">Materi</button>
+    <button class="btn-latihan" onclick="startLatihan('peluang')">Latihan</button>
+    <button class="btn-quiz" onclick="startQuizSetup('peluang')">Quiz</button>
+  </div>
+</div>
+    </div>
+  </div>
+
+  <!-- MATERI -->
+  <div class="container hidden" id="materiSection">
+    <button class="btn-ghost" onclick="backToMenu()">⬅ Kembali</button>
+    <h2 id="materiTitle" style="margin-top:10px"></h2>
+    <div id="materiContent"></div>
+    <iframe id="materiVideo" width="100%" height="280" allowfullscreen style="border-radius:12px; margin-top:12px"></iframe>
+  </div>
+
+  <!-- LATIHAN -->
+  <div class="container hidden" id="latihanSection">
+    <button class="btn-ghost" onclick="backToMenu()">⬅ Kembali</button>
+    <div class="card" id="questionCard">
+      <div id="questionText">Soal akan muncul di sini</div>
+      <input type="text" id="answerInput" placeholder="Tulis jawabanmu..." />
+      <div class="row">
+        <button class="btn-check" onclick="checkAnswer()">Cek Jawaban</button>
+        <button class="btn-quiz" onclick="showHint()">Hint</button>
+      </div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+
+    <div class="progress-bar-container"><div class="progress-bar" id="progressBar">0%</div></div>
+
+    <div class="row" style="margin-top:10px">
+      <button class="btn-prev" onclick="prevQuestion()">Sebelumnya</button>
+      <button class="btn-next" onclick="nextQuestion()">Berikutnya</button>
+    </div>
+
+    <div class="meta" style="margin-top:6px">Soal <span id="current">1</span> dari <span id="total">1</span> | Skor: <span id="score">0</span></div>
+
+    <div id="badgeContainer"></div>
+  </div>
+
+  <!-- QUIZ SETUP -->
+  <div class="container hidden" id="quizSetup">
+    <button class="btn-ghost" onclick="backToMenu()">⬅ Kembali</button>
+    <h2 style="margin-top:10px">Setup Quiz</h2>
+    <div class="meta" id="quizTopicLabel">Topik: <b id="quizTopicName">(pilih dari kartu topik)</b></div>
+    <div style="margin-top:12px">
+      <label>Jumlah Soal</label><br />
+      <input type="number" id="quizCount" value="5" min="1" max="50" />
+    </div>
+    <div style="margin-top:12px">
+      <label>Waktu (menit)</label><br />
+      <input type="number" id="quizTime" value="3" min="1" max="60" />
+    </div>
+    <div class="row" style="margin-top:14px">
+      <button class="btn-check" onclick="startQuiz()">🚀 Mulai Quiz</button>
+      <button class="btn-ghost" onclick="backToMenu()">Batal</button>
+    </div>
+  </div>
+
+  <!-- QUIZ MAIN -->
+  <div class="container hidden" id="quizSection">
+    <div class="row" style="justify-content:space-between">
+      <button class="btn-ghost" onclick="cancelQuiz()">⟵ Menu</button>
+      <div id="timer" class="meta" style="font-weight:700">⏳ 00:00</div>
+    </div>
+
+    <div class="card" style="margin-top:10px">
+      <div id="quizQuestion">Soal quiz akan muncul di sini</div>
+      <input type="text" id="quizAnswer" placeholder="Tulis jawabanmu..." />
+      <div class="row">
+        <button class="btn-check" onclick="checkQuizAnswer()">Cek Jawaban</button>
+        <button class="btn-next" onclick="nextQuizQuestion()">Berikutnya</button>
+      </div>
+      <div class="feedback" id="quizFeedback"></div>
+    </div>
+
+    <div class="progress-bar-container" style="margin-top:10px"><div class="progress-bar" id="quizProgress">0%</div></div>
+    <div class="meta" style="margin-top:6px">Soal <span id="quizCurrent">1</span> / <span id="quizTotal">1</span> | Skor: <span id="quizScoreLive">0</span></div>
+  </div>
+
+  <!-- QUIZ RESULT -->
+  <div class="container hidden" id="quizResult">
+    <h2>🏆 Hasil Quiz</h2>
+    <div class="meta" style="margin:6px 0">Ringkasan skor dan waktu</div>
+    <div class="card">
+      <div><b>Skor Akhir:</b> <span id="quizFinalScore">0</span></div>
+      <div><b>Benar:</b> <span id="quizCorrect">0</span> | <b>Salah:</b> <span id="quizWrong">0</span></div>
+      <div><b>Total Soal:</b> <span id="quizTotalResult">0</span></div>
+      <div><b>Sisa Waktu:</b> <span id="quizTimeLeft">0s</span></div>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn-next" onclick="backToMenu()">🏠 Kembali ke Menu</button>
+      <button class="btn-quiz" onclick="retryQuiz()">🔁 Ulangi Quiz</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ====== DATA BANK SOAL LATIHAN ======
+  const allTopics = {
+    penjumlahan: [
+      {question:"345 + 678 = ?", answer:"1023", hint:"Jumlahkan ratusan, puluhan, satuan"},
+      {question:"900 - 456 = ?", answer:"444", hint:"Kurangi dari ratusan ke satuan"},
+      {question:"1\,250 + 875 = ?", answer:"2125", hint:"Hati-hati penjumlahan ribuan"},
+      {question:"2\,000 - 1\,275 = ?", answer:"725", hint:"Pinjam ke ratusan"}
+    ],
+    perkalian: [
+      {question:"12 × 15 = ?", answer:"180", hint:"12×10 + 12×5"},
+      {question:"144 ÷ 12 = ?", answer:"12", hint:"Berapa kali 12 masuk 144?"},
+      {question:"25 × 16 = ?", answer:"400", hint:"Trik: 25×4=100 lalu ×4 lagi"},
+      {question:"420 ÷ 7 = ?", answer:"60", hint:"70×6=420"}
+    ],
+    pecahan: [
+      {question:"1/2 + 1/3 = ?", answer:"5/6", hint:"Samakan penyebut 6"},
+      {question:"0.75 - 0.25 = ?", answer:"0.5", hint:"Kurang desimal biasa"},
+      {question:"2/3 × 3/4 = ?", answer:"1/2", hint:"Sederhanakan 3"},
+      {question:"1.2 + 0.35 = ?", answer:"1.55", hint:"Sejajarkan koma"}
+    ],
+    bangun: [
+      {question:"Luas persegi sisi 8 cm = ?", answer:"64", hint:"Luas = s×s"},
+      {question:"Keliling segitiga 5,6,7 cm = ?", answer:"18", hint:"Jumlahkan semua sisi"},
+      {question:"Volume kubus sisi 4 cm = ?", answer:"64", hint:"s^3"},
+      {question:"Luas persegi panjang 7×5 = ?", answer:"35", hint:"p×l"}
+    ],
+    rasio: [
+  // A. Konsep Rasio
+  {question:"Ali punya 4 kelereng biru dan 6 kelereng merah. Rasio biru:merah adalah ... ?", answer:"2:3", hint:"Sederhanakan 4:6"},
+  {question:"Perbandingan pensil dan pulpen adalah 10:15. Sederhanakan rasionya.", answer:"2:3", hint:"Bagi dengan FPB 5"},
+  {question:"Rasio 8 : 12 sama dengan ... ?", answer:"2:3", hint:"Bagi dengan 4"},
+  
+  // B. Konsep Kesamaan Rasio
+  {question:"Jika 2 : 5 = 6 : x, maka x = ... ?", answer:"15", hint:"Perkalian silang: 2×x = 5×6"},
+  {question:"3 : 4 = x : 16, maka nilai x adalah ... ?", answer:"12", hint:"Perkalian silang: 3×16 = 4×x"},
+  {question:"Jika a:b = 7:2, maka b:a = ... ?", answer:"2:7", hint:"Balik perbandingan"},
+  {question:"Rasio 12:18 sama dengan ... ?", answer:"2:3", hint:"Bagi dengan 6"},
+
+  // Rasio Satuan
+  {question:"Sebuah mobil menempuh 240 km dalam 4 jam. Jarak per jam adalah ... km?", answer:"60", hint:"240 ÷ 4"},
+  {question:"10 kg beras cukup untuk 5 orang. Beras untuk 1 orang adalah ... kg?", answer:"2", hint:"10 ÷ 5"},
+  
+  // C. Penerapan Rasio
+  {question:"Dalam sebuah kelas, ada 12 siswa laki-laki dan 18 siswa perempuan. Rasio laki-laki terhadap perempuan adalah ... ?", answer:"2:3", hint:"12:18 → sederhanakan"},
+  {question:"Dalam kebun ada 8 pohon mangga dan 32 pohon jambu. Rasio mangga terhadap seluruh pohon adalah ... ?", answer:"1:5", hint:"8:(8+32)"},
+  {question:"Rasio siswa yang suka sepak bola dan basket adalah 3:2. Jika ada 20 siswa suka basket, berapa siswa yang suka sepak bola?", answer:"30", hint:"Perbandingan 3:2 → kalikan 10"},
+  {question:"Skala peta 1:200.000. Jika jarak di peta 3 cm, maka jarak sebenarnya ... km?", answer:"6", hint:"3×200.000 cm = 600.000 cm = 6 km"},
+  {question:"Waktu tempuh bus dan kereta adalah 2 jam : 5 jam. Jika kereta 100 menit, maka bus ... menit?", answer:"40", hint:"Perbandingan waktu 2:5"},
+  {question:"Ani dan Budi berbagi uang dengan rasio 3:5. Jika total uang Rp80.000, maka bagian Ani adalah ... ?", answer:"30.000", hint:"3/(3+5) × 80.000"}
+],
+peluang: [
+  {question:"Peluang muncul angka genap dari dadu = ?", answer:"1/2", hint:"Ada 3 dari 6 kemungkinan"},
+  {question:"Peluang muncul sisi merah dari koin = ?", answer:"0", hint:"Koin hanya punya sisi gambar & angka"},
+  {question:"Jika spinner dibagi 4 sama besar, peluang jatuh di 1 bagian = ?", answer:"1/4", hint:"1 dari 4"},
+  {question:"Dari 52 kartu, peluang ambil As = ?", answer:"1/13", hint:"Ada 4 As dari 52 kartu"}
+]
+  };
+
+  // ====== DATA MATERI (Ringkasan + Video) ======
+  const materiContent = {
+    penjumlahan: {
+      title: "Materi Penjumlahan & Pengurangan",
+      text: `
+        <ul>
+          <li><b>Penjumlahan:</b> a + b. Sifat komutatif (a+b=b+a), asosiatif ((a+b)+c=a+(b+c)).</li>
+          <li><b>Pengurangan:</b> a - b. Perhatikan meminjam saat kolom tidak cukup.</li>
+          <li><b>Tips:</b> Kelompokkan angka, gunakan pembulatan lalu koreksi.</li>
+        </ul>
+      `,
+      video: "https://www.youtube.com/embed/WcF5uzflS7Q"
+    },
+    perkalian: {
+      title: "Materi Perkalian & Pembagian",
+      text: `
+        <ul>
+          <li><b>Perkalian:</b> a×b. Sifat distributif: a×(b+c)=a×b+a×c.</li>
+          <li><b>Pembagian:</b> a÷b adalah kebalikan dari perkalian.</li>
+          <li><b>Trik:</b> Pecah faktor, gunakan sifat 10, 100 (shift nol).</li>
+        </ul>
+      `,
+      video: "https://www.youtube.com/embed/yZpWZV1aoeE"
+    },
+    pecahan: {
+      title: "Materi Pecahan & Desimal",
+      text: `
+        <ul>
+          <li>Samakan penyebut untuk +/− pecahan.</li>
+          <li>Perkalian pecahan: (a/b)×(c/d)=(ac)/(bd).</li>
+          <li>Desimal ↔ pecahan: 0.25 = 1/4, 0.5 = 1/2.</li>
+        </ul>
+      `,
+      video: "https://www.youtube.com/embed/Ug0whs7n_xQ"
+    },
+    bangun: {
+      title: "Materi Bangun Datar & Ruang",
+      text: `
+        <ul>
+          <li>Luas persegi = s², persegi panjang = p×l, segitiga = 1/2×a×t.</li>
+          <li>Volume kubus = s³, balok = p×l×t.</li>
+          <li>Pastikan satuan konsisten (cm, m).</li>
+        </ul>
+      `,
+      video: "https://www.youtube.com/embed/mT9Z6HjpO2M"
+    },
+   rasio: {
+  title: "📐 Materi Rasio",
+  text: `
+    <h2>A. Konsep Rasio</h2>
+    <h3>1. Membandingkan Benda</h3>
+    <p>
+      Rasio itu intinya <b>membandingkan</b>. Misalnya kamu punya 6 apel 🍎 dan 4 jeruk 🍊.  
+      Kalau dibandingkan, rasionya = 6 : 4, atau bisa disederhanakan jadi 3 : 2.  
+      Artinya setiap 3 apel, ada 2 jeruk.
+    </p>
+
+    <h3>2. Pengertian Rasio</h3>
+    <p>
+      Rasio adalah cara menuliskan perbandingan antara dua hal sejenis.  
+      Biasanya ditulis pakai tanda titik dua “:”, misalnya <b>a : b</b>.  
+      Bisa juga ditulis sebagai pecahan <b>a/b</b>.  
+    </p>
+    <p>
+      Contoh: Panjang meja 120 cm dan kursi 80 cm.  
+      Jadi, rasio panjang meja : kursi = 120 : 80 = 3 : 2.  
+      Artinya meja lebih panjang 3 bagian kalau kursi 2 bagian.
+    </p>
+
+    <h2>B. Konsep Kesamaan Rasio</h2>
+    <h3>1. Kesamaan Rasio</h3>
+    <p>
+      Dua rasio disebut sama kalau hasil perkalian silangnya sama.  
+      Misalnya 2 : 3 dan 4 : 6.  
+      Coba cek: 2 × 6 = 12, dan 3 × 4 = 12 → sama kan?  
+      Jadi 2 : 3 = 4 : 6.
+    </p>
+
+    <h3>2. Rasio Satuan</h3>
+    <p>
+      Rasio satuan artinya salah satu angka di rasionya disederhanakan jadi 1.  
+      Contoh: 8 : 4 = 2 : 1.  
+      Artinya tiap 1 bagian kecil, ada 2 bagian besar.
+    </p>
+
+    <h2>C. Penerapan Rasio</h2>
+    <h3>1. Bagian terhadap Bagian & Bagian terhadap Keseluruhan</h3>
+    <p>
+      - <b>Bagian vs Bagian:</b>  
+        Di kelas ada 12 anak laki-laki 👦 dan 18 anak perempuan 👧.  
+        Rasio laki-laki : perempuan = 12 : 18 = 2 : 3.
+      <br><br>
+      - <b>Bagian vs Keseluruhan:</b>  
+        Jumlah siswa = 12 + 18 = 30.  
+        Jadi rasio laki-laki : semua siswa = 12 : 30 = 2 : 5.
+    </p>
+
+    <h3>2. Rasio pada Durasi Waktu</h3>
+    <p>
+      Ani belajar 2 jam ⏳, Budi belajar 3 jam.  
+      Jadi rasio waktu belajar Ani : Budi = 2 : 3.  
+      Simpel banget kan? 
+    </p>
+
+   <h2>💡 Tips Penting</h2>
+<div style="
+  background:#fff9db;
+  border:2px solid #facc15;
+  border-radius:12px;
+  padding:15px;
+  margin-top:10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+">
+  <ul style="margin:0; padding-left:20px; color:#854d0e; font-weight:500;">
+    <li>✨ Sederhanakan rasio ke bentuk paling kecil biar lebih gampang.</li>
+    <li>✨ Pakai perkalian silang untuk cek apakah dua rasio itu sama.</li>
+    <li>✨ Perhatikan konteks: lagi bandingin bagian dengan bagian, atau bagian dengan keseluruhan?</li>
+  </ul>
+</div>
+
+  `,
+  video: "https://www.youtube.com/embed/eWVWWzGF2ds"
+},
+
+peluang: {
+  title: "Materi Peluang",
+  text: `
+    <ul>
+      <li>Peluang adalah kemungkinan terjadinya suatu peristiwa.</li>
+      <li>Rumus dasar: P = (jumlah kejadian yang diinginkan) / (jumlah kejadian mungkin).</li>
+      <li>Contoh: peluang muncul angka genap pada dadu = 3/6 = 1/2.</li>
+    </ul>
+  `,
+  video: "https://www.youtube.com/embed/WiyPQz6WrhI"  // contoh link video peluang
+}
+
+  };
+
+  // ====== STATE LATIHAN ======
+  let currentIndex = 0;
+  let currentTopic = 'penjumlahan';
+  let questions = allTopics[currentTopic];
+  let score = 0;
+
+  // ====== NAV ======
+  function backToMenu(){
+    hideAll();
+    document.getElementById('topicSection').classList.remove('hidden');
+    document.getElementById('headerBox').classList.remove('hidden');
+  }
+  function hideAll(){
+    ['topicSection','materiSection','latihanSection','quizSetup','quizSection','quizResult'].forEach(id=>{
+      document.getElementById(id).classList.add('hidden');
+    });
+  }
+
+  // ====== MATERI ======
+  function showMateri(topic){
+    currentTopic = topic;
+    const m = materiContent[topic];
+    document.getElementById('materiTitle').innerText = m.title;
+    document.getElementById('materiContent').innerHTML = m.text;
+    document.getElementById('materiVideo').src = m.video;
+    hideAll();
+    document.getElementById('materiSection').classList.remove('hidden');
+  }
+
+  // ====== LATIHAN ======
+  function startLatihan(topic){
+    currentTopic = topic;
+    questions = allTopics[topic] || [];
+    currentIndex = 0; score = 0;
+    document.getElementById('total').innerText = questions.length;
+    document.getElementById('score').innerText = score;
+    hideAll();
+    document.getElementById('latihanSection').classList.remove('hidden');
+    loadQuestion(currentIndex);
+  }
+
+  function loadQuestion(index){
+    const card = document.getElementById('questionCard');
+    card.classList.add('flip');
+    setTimeout(()=>{
+      document.getElementById('questionText').innerText = questions[index]?.question || '-';
+      document.getElementById('answerInput').value = '';
+      const fb = document.getElementById('feedback');
+      fb.innerText = ''; fb.className = 'feedback';
+      document.getElementById('current').innerText = index+1;
+      updateProgress();
+      card.classList.remove('flip');
+    }, 250);
+  }
+
+  function checkAnswer(){
+    const ans = document.getElementById('answerInput').value.trim();
+    if(!ans){ alert('Isi jawaban dulu!'); return; }
+    const correct = questions[currentIndex].answer;
+    const fb = document.getElementById('feedback');
+    if(ans === correct){
+      fb.innerText = '✅ Benar!'; fb.className = 'feedback correct';
+      score++; document.getElementById('score').innerText = score;
+      if(score % 3 === 0){ showBadge('🍀 Badge!'); }
+    } else {
+      fb.innerText = '❌ Salah! Jawaban: ' + correct; fb.className = 'feedback wrong';
+    }
+    updateProgress();
+  }
+  function showHint(){ alert('Hint: ' + (questions[currentIndex]?.hint || '-')); }
+  function nextQuestion(){ if(currentIndex < questions.length-1){ currentIndex++; loadQuestion(currentIndex); } else { alert('Soal terakhir!'); } }
+  function prevQuestion(){ if(currentIndex > 0){ currentIndex--; loadQuestion(currentIndex); } else { alert('Soal pertama!'); } }
+  function updateProgress(){ const p = questions.length? Math.round(((currentIndex+1)/questions.length)*100) : 0; const bar = document.getElementById('progressBar'); bar.style.width = p+'%'; bar.textContent = p+'%'; }
+
+  // ====== BADGE & KONFETI ======
+  function showBadge(text){
+    const badge = document.createElement('div'); badge.className='badge'; badge.innerText=text; document.body.appendChild(badge);
+    launchConfetti(); setTimeout(()=> badge.remove(), 1500);
+  }
+  function launchConfetti(){
+    for(let i=0;i<32;i++){
+      const c = document.createElement('div'); c.innerHTML='🎉'; c.style.position='fixed'; c.style.left=Math.random()*100+'vw'; c.style.top='-20px'; c.style.fontSize='20px'; c.style.animation=`fall ${2+Math.random()*3}s linear`; document.body.appendChild(c); setTimeout(()=>c.remove(), 4200);
+    }
+  }
+
+  // ====== QUIZ ======
+  let quizState = { topic:'penjumlahan', list:[], idx:0, score:0, total:0, timer:null, timeLeft:0 };
+
+  function startQuizSetup(topic){
+    quizState.topic = topic || 'penjumlahan';
+    document.getElementById('quizTopicName').innerText = topicLabel(quizState.topic);
+    hideAll();
+    document.getElementById('quizSetup').classList.remove('hidden');
+  }
+
+  function startQuiz(){
+    const count = Math.max(1, parseInt(document.getElementById('quizCount').value)||5);
+    const minutes = Math.max(1, parseInt(document.getElementById('quizTime').value)||3);
+
+    // Build question pool from selected topic
+    const pool = [...(allTopics[quizState.topic]||[])];
+    // If requested more than pool, we cycle
+    quizState.list = sampleWithWrap(pool, count);
+
+    quizState.idx = 0; quizState.score = 0; quizState.total = quizState.list.length;
+    document.getElementById('quizScoreLive').innerText = 0;
+    document.getElementById('quizTotal').innerText = quizState.total;
+
+    // Timer
+    quizState.timeLeft = minutes * 60; updateTimerUI();
+    if(quizState.timer) clearInterval(quizState.timer);
+    quizState.timer = setInterval(()=>{
+      quizState.timeLeft--; updateTimerUI();
+      if(quizState.timeLeft <= 0){ endQuiz(); }
+    }, 1000);
+
+    hideAll();
+    document.getElementById('quizSection').classList.remove('hidden');
+    loadQuizQuestion();
+  }
+
+  function topicLabel(key){
+    return {
+      penjumlahan:'Penjumlahan & Pengurangan',
+      perkalian:'Perkalian & Pembagian',
+      pecahan:'Pecahan & Desimal',
+      bangun:'Bangun Datar & Ruang',
+      rasio:'Rasio'
+    }[key] || key;
+  }
+
+  function sampleWithWrap(arr, n){
+    if(arr.length === 0) return [];
+    const out=[]; let i=0; while(out.length<n){ out.push(arr[i % arr.length]); i++; }
+    // optional shuffle
+    for(let j=out.length-1;j>0;j--){ const k=Math.floor(Math.random()*(j+1)); [out[j],out[k]]=[out[k],out[j]]; }
+    return out;
+  }
+
+  function updateTimerUI(){
+    const m = Math.floor(quizState.timeLeft/60).toString().padStart(2,'0');
+    const s = (quizState.timeLeft%60).toString().padStart(2,'0');
+    document.getElementById('timer').innerText = `⏳ ${m}:${s}`;
+  }
+
+  function loadQuizQuestion(){
+    if(quizState.idx >= quizState.total){ endQuiz(); return; }
+    const q = quizState.list[quizState.idx];
+    document.getElementById('quizQuestion').innerText = q.question;
+    document.getElementById('quizAnswer').value='';
+    document.getElementById('quizFeedback').innerText='';
+    document.getElementById('quizFeedback').className='feedback';
+    document.getElementById('quizCurrent').innerText = quizState.idx+1;
+    const pct = Math.round((quizState.idx/quizState.total)*100);
+    const bar = document.getElementById('quizProgress'); bar.style.width=pct+'%'; bar.textContent=pct+'%';
+  }
+
+  function checkQuizAnswer(){
+    const ans = document.getElementById('quizAnswer').value.trim();
+    if(!ans){ alert('Isi jawaban dulu!'); return; }
+    const q = quizState.list[quizState.idx];
+    const fb = document.getElementById('quizFeedback');
+    if(ans === q.answer){ quizState.score++; document.getElementById('quizScoreLive').innerText = quizState.score; fb.innerText='✅ Benar!'; fb.className='feedback correct'; }
+    else { fb.innerText = '❌ Salah! Jawaban: ' + q.answer; fb.className='feedback wrong'; }
+  }
+
+  function nextQuizQuestion(){
+    if(quizState.idx < quizState.total-1){ quizState.idx++; loadQuizQuestion(); }
+    else { endQuiz(); }
+  }
+
+  function endQuiz(){
+    if(quizState.timer){ clearInterval(quizState.timer); quizState.timer=null; }
+    const correct = quizState.score; const total = quizState.total; const wrong = total - correct;
+    document.getElementById('quizFinalScore').innerText = `${correct} / ${total}`;
+    document.getElementById('quizCorrect').innerText = correct;
+    document.getElementById('quizWrong').innerText = wrong;
+    document.getElementById('quizTotalResult').innerText = total;
+    document.getElementById('quizTimeLeft').innerText = `${quizState.timeLeft}s`;
+    hideAll();
+    document.getElementById('quizResult').classList.remove('hidden');
+    if(correct && correct % 3 === 0) showBadge('🏅 Quiz Master!');
+  }
+
+  function retryQuiz(){ startQuiz(); }
+  function cancelQuiz(){ if(quizState.timer){ clearInterval(quizState.timer); } backToMenu(); }
+
+  // Init to menu on load
+  backToMenu();
+</script>
+</body>
+</html>
