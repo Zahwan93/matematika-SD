@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kebun Ilmu Matematika - Gamified Lengkap</title>
+<style>
+  :root{
+    --green:#4dd4a3; --blue:#3a86ff; --amber:#fcbf49; --pink:#ff6f91; --bg1:#a1c4fd; --bg2:#c2e9fb;
+  }
+  *{box-sizing:border-box}
+  body{
+    font-family:'Comic Sans MS', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    margin:0; padding:0; display:flex; justify-content:center; align-items:flex-start; min-height:100vh;
+    background:linear-gradient(135deg, var(--bg1), var(--bg2)); background-attachment:fixed; overflow-x:hidden;
+  }
+  .app{ max-width:900px; width:96%; margin:18px auto; }
+  .container{
+    background:#fff; border-radius:22px; box-shadow:0 12px 30px rgba(0,0,0,.15);
+    padding:20px; margin-bottom:18px; animation:fadeIn .6s ease both; position:relative;
+  }
+  header{ display:flex; align-items:center; gap:10px; justify-content:center; margin-bottom:6px; }
+  header img{ width:60px; height:60px; object-fit:contain }
+  header h1{ margin:0; color:var(--green); text-shadow:1px 1px #eef; font-size:30px }
+  header small{ color:#6b7280 }
+  .topic-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; }
+  .topic-card{
+    border-radius:18px; padding:16px; background:linear-gradient(120deg,#ffecd2,#fcb69f);
+    box-shadow:0 8px 16px rgba(0,0,0,.12); cursor:pointer; transition:.25s transform;
+  }
+  .topic-card:nth-child(2){ background:linear-gradient(120deg,#a1ffce,#faffd1) }
+  .topic-card:nth-child(3){ background:linear-gradient(120deg,#f6d365,#fda085) }
+  .topic-card:nth-child(4){ background:linear-gradient(120deg,#84fab0,#8fd3f4) }
+  .topic-card:nth-child(5){ background:linear-gradient(120deg,#fccb90,#d57eeb) }
+  .topic-card:hover{ transform:translateY(-4px) }
+  .topic-title{ font-weight:700; font-size:18px; margin-bottom:8px }
+  .activity-buttons{ display:flex; flex-wrap:wrap; gap:8px }
+  .chip{ font-size:12px; opacity:.8 }
+
+  button{ border:none; border-radius:12px; padding:10px 16px; font-size:15px; cursor:pointer; transition:.25s;
+          box-shadow:0 4px 10px rgba(0,0,0,.15) }
+  button:hover{ transform:scale(1.05); box-shadow:0 8px 18px rgba(0,0,0,.25) }
+  .btn-materi{ background:#6a4c93; color:#fff }
+  .btn-latihan{ background:#1982c4; color:#fff }
+  .btn-quiz{ background:#ff595e; color:#fff }
+  .btn-check{ background:var(--green); color:#fff }
+  .btn-next{ background:var(--amber); color:#fff }
+  .btn-prev{ background:var(--blue); color:#fff }
+  .btn-ghost{ background:#eef2ff; color:#334155 }
+
+  .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center }
+  .hidden{ display:none !important }
+
+  .card{ background:#fffbe6; border-radius:20px; padding:22px; box-shadow:0 6px 16px rgba(0,0,0,.12); transition:transform .5s }
+  .card.flip{ transform:rotateY(180deg) }
+
+  input[type="text"], input[type="number"], select{ width:100%; max-width:360px; padding:10px 12px; border:1px solid #e5e7eb; border-radius:12px; font-size:15px }
+
+  .feedback{ font-weight:700; margin-top:12px; min-height:28px }
+  .feedback.correct{ color:#16a34a; animation:bounce .5s }
+  .feedback.wrong{ color:#ef4444; animation:shake .5s }
+
+  .progress-bar-container{ width:100%; background:#eee; height:22px; border-radius:20px; overflow:hidden }
+  .progress-bar{ height:100%; width:0%; background:linear-gradient(90deg, var(--green), #00c9ff); color:#fff; text-align:center; line-height:22px; transition:width .5s }
+
+  .meta{ color:#6b7280; font-size:14px }
+
+  .badge{ position:absolute; top:10px; right:10px; font-size:24px; animation:pop .5s }
+
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none} }
+  @keyframes shake{ 0%{transform:translateX(0)}25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-5px)}100%{transform:translateX(0)} }
+  @keyframes bounce{ 0%{transform:scale(1)}50%{transform:scale(1.18)}100%{transform:scale(1)} }
+  @keyframes pop{ 0%{transform:scale(0)}50%{transform:scale(1.25)}100%{transform:scale(1)} }
+  @keyframes fall{ to{ transform:translateY(100vh) rotate(360deg) } }
+
+  iframe{ border:none }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="container" id="headerBox">
+    <header>
+      <img src="https://zahwan93.github.io/Kebun-Ilmu-Matematika-SMP/logo.png" alt="Logo Kebun Ilmu" />
+      <div>
+        <h1>Kebun Ilmu</h1>
+        <small class="meta">Matematika • Fun • Interaktif</small>
+      </div>
+    </header>
+  </div>
+
+  <!-- MENU TOPIK -->
+<div class="container" id="topicSection">
+  <h2 style="margin-top:0">Pilih Topik & Aktivitas</h2>
+  <div class="topic-grid">
+
+    <div class="topic-card">
+      <div class="topic-title">📘 Bilangan Cacah Sampai 100.000</div>
+      <div class="chip">Membaca, menulis, membandingkan, operasi hitung</div>
+      <div class="activity-buttons">
+        <button class="btn-materi" onclick="showMateri('bilanganCacah')">Materi</button>
+        <button class="btn-latihan" onclick="startLatihan('bilanganCacah')">Latihan</button>
+        <button class="btn-quiz" onclick="startQuizSetup('bilanganCacah')">Quiz</button>
+      </div>
+    </div>
+
+    <div class="topic-card">
+      <div class="topic-title">📗 KPK dan FPB</div>
+      <div class="chip">Kelipatan, faktor, KPK & FPB</div>
+      <div class="activity-buttons">
+        <button class="btn-materi" onclick="showMateri('kpkFpb')">Materi</button>
+        <button class="btn-latihan" onclick="startLatihan('kpkFpb')">Latihan</button>
+        <button class="btn-quiz" onclick="startQuizSetup('kpkFpb')">Quiz</button>
+      </div>
+    </div>
+
+    <div class="topic-card">
+      <div class="topic-title">📙 Bilangan Pecahan</div>
+      <div class="chip">Membandingkan, penjumlahan, pengurangan</div>
+      <div class="activity-buttons">
+        <button class="btn-materi" onclick="showMateri('pecahan')">Materi</button>
+        <button class="btn-latihan" onclick="startLatihan('pecahan')">Latihan</button>
+        <button class="btn-quiz" onclick="startQuizSetup('pecahan')">Quiz</button>
+      </div>
+    </div>
+
+    <div class="topic-card">
+      <div class="topic-title">📐 Keliling Bangun Datar</div>
+      <div class="chip">Segitiga, segiempat, segibanyak, gabungan</div>
+      <div class="activity-buttons">
+        <button class="btn-materi" onclick="showMateri('keliling')">Materi</button>
+        <button class="btn-latihan" onclick="startLatihan('keliling')">Latihan</button>
+        <button class="btn-quiz" onclick="startQuizSetup('keliling')">Quiz</button>
+      </div>
+    </div>
+
+    <div class="topic-card">
+      <div class="topic-title">🟦 Luas Daerah Bangun Datar</div>
+      <div class="chip">Konsep luas, luas bangun, gabungan</div>
+      <div class="activity-buttons">
+        <button class="btn-materi" onclick="showMateri('luas')">Materi</button>
+        <button class="btn-latihan" onclick="startLatihan('luas')">Latihan</button>
+        <button class="btn-quiz" onclick="startQuizSetup('luas')">Quiz</button>
+      </div>
+    </div>
+
+    <div class="topic-card">
+      <div class="topic-title">📏 Sudut</div>
+      <div class="chip">Pengertian, pengukuran, melukis sudut</div>
+      <div class="activity-buttons">
+        <button class="btn-materi" onclick="showMateri('sudut')">Materi</button>
+        <button class="btn-latihan" onclick="startLatihan('sudut')">Latihan</button>
+        <button class="btn-quiz" onclick="startQuizSetup('sudut')">Quiz</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- MATERI -->
+  <div class="container hidden" id="materiSection">
+    <button class="btn-ghost" onclick="backToMenu()">⬅ Kembali</button>
+    <h2 id="materiTitle" style="margin-top:10px"></h2>
+    <div id="materiContent"></div>
+    <iframe id="materiVideo" width="100%" height="280" allowfullscreen style="border-radius:12px; margin-top:12px"></iframe>
+  </div>
+
+  <!-- LATIHAN -->
+  <div class="container hidden" id="latihanSection">
+    <button class="btn-ghost" onclick="backToMenu()">⬅ Kembali</button>
+    <div class="card" id="questionCard">
+      <div id="questionText">Soal akan muncul di sini</div>
+      <input type="text" id="answerInput" placeholder="Tulis jawabanmu..." />
+      <div class="row">
+        <button class="btn-check" onclick="checkAnswer()">Cek Jawaban</button>
+        <button class="btn-quiz" onclick="showHint()">Hint</button>
+      </div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+
+    <div class="progress-bar-container"><div class="progress-bar" id="progressBar">0%</div></div>
+
+    <div class="row" style="margin-top:10px">
+      <button class="btn-prev" onclick="prevQuestion()">Sebelumnya</button>
+      <button class="btn-next" onclick="nextQuestion()">Berikutnya</button>
+    </div>
+
+    <div class="meta" style="margin-top:6px">Soal <span id="current">1</span> dari <span id="total">1</span> | Skor: <span id="score">0</span></div>
+
+    <div id="badgeContainer"></div>
+  </div>
+
+  <!-- QUIZ SETUP -->
+  <div class="container hidden" id="quizSetup">
+    <button class="btn-ghost" onclick="backToMenu()">⬅ Kembali</button>
+    <h2 style="margin-top:10px">Setup Quiz</h2>
+    <div class="meta" id="quizTopicLabel">Topik: <b id="quizTopicName">(pilih dari kartu topik)</b></div>
+    <div style="margin-top:12px">
+      <label>Jumlah Soal</label><br />
+      <input type="number" id="quizCount" value="5" min="1" max="50" />
+    </div>
+    <div style="margin-top:12px">
+      <label>Waktu (menit)</label><br />
+      <input type="number" id="quizTime" value="3" min="1" max="60" />
+    </div>
+    <div class="row" style="margin-top:14px">
+      <button class="btn-check" onclick="startQuiz()">🚀 Mulai Quiz</button>
+      <button class="btn-ghost" onclick="backToMenu()">Batal</button>
+    </div>
+  </div>
+
+  <!-- QUIZ MAIN -->
+  <div class="container hidden" id="quizSection">
+    <div class="row" style="justify-content:space-between">
+      <button class="btn-ghost" onclick="cancelQuiz()">⟵ Menu</button>
+      <div id="timer" class="meta" style="font-weight:700">⏳ 00:00</div>
+    </div>
+
+    <div class="card" style="margin-top:10px">
+      <div id="quizQuestion">Soal quiz akan muncul di sini</div>
+      <input type="text" id="quizAnswer" placeholder="Tulis jawabanmu..." />
+      <div class="row">
+        <button class="btn-check" onclick="checkQuizAnswer()">Cek Jawaban</button>
+        <button class="btn-next" onclick="nextQuizQuestion()">Berikutnya</button>
+      </div>
+      <div class="feedback" id="quizFeedback"></div>
+    </div>
+
+    <div class="progress-bar-container" style="margin-top:10px"><div class="progress-bar" id="quizProgress">0%</div></div>
+    <div class="meta" style="margin-top:6px">Soal <span id="quizCurrent">1</span> / <span id="quizTotal">1</span> | Skor: <span id="quizScoreLive">0</span></div>
+  </div>
+
+  <!-- QUIZ RESULT -->
+  <div class="container hidden" id="quizResult">
+    <h2>🏆 Hasil Quiz</h2>
+    <div class="meta" style="margin:6px 0">Ringkasan skor dan waktu</div>
+    <div class="card">
+      <div><b>Skor Akhir:</b> <span id="quizFinalScore">0</span></div>
+      <div><b>Benar:</b> <span id="quizCorrect">0</span> | <b>Salah:</b> <span id="quizWrong">0</span></div>
+      <div><b>Total Soal:</b> <span id="quizTotalResult">0</span></div>
+      <div><b>Sisa Waktu:</b> <span id="quizTimeLeft">0s</span></div>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn-next" onclick="backToMenu()">🏠 Kembali ke Menu</button>
+      <button class="btn-quiz" onclick="retryQuiz()">🔁 Ulangi Quiz</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ====== DATA BANK SOAL LATIHAN ======
+  const allTopics = {
+   bilanganCacah: [
+    // A. Membaca & Menulis Bilangan
+    {question:"Tuliskan angka dari 'tiga puluh lima ribu enam ratus empat belas'!", answer:"35614", hint:"Perhatikan ribuan, ratusan, puluhan, dan satuan"},
+    {question:"Nilai tempat angka 7 pada bilangan 47.256 adalah ...", answer:"7000", hint:"Angka 7 ada di ribuan"},
+    {question:"Bilangan 90.405 dibaca ...", answer:"sembilan puluh ribu empat ratus lima", hint:"Baca sesuai nilai tempat"},
+
+    // B. Membandingkan & Mengurutkan
+    {question:"Manakah yang lebih besar? 48.920 atau 49.082", answer:"49.082", hint:"Bandingkan mulai dari ribuan"},
+    {question:"Urutkan bilangan berikut dari kecil ke besar: 25.678, 25.768, 25.876", answer:"25.678, 25.768, 25.876", hint:"Perhatikan ratusan dan puluhan"},
+    
+    // C. Komposisi & Dekomposisi
+    {question:"Tuliskan komposisi dari 34.215", answer:"30000+4000+200+10+5", hint:"Pisahkan sesuai nilai tempat"},
+    {question:"Bilangan 80.709 terdiri dari ...", answer:"80000+700+9", hint:"Ada puluhan ribu, ratusan, satuan"},
+
+    // D. Operasi Hitung
+    {question:"345 + 678 = ?", answer:"1023", hint:"Jumlahkan ratusan, puluhan, satuan"},
+    {question:"900 - 456 = ?", answer:"444", hint:"Kurangi dari ratusan ke satuan"},
+    {question:"1,250 + 875 = ?", answer:"2125", hint:"Hati-hati penjumlahan ribuan"},
+    {question:"2,000 - 1,275 = ?", answer:"725", hint:"Pinjam ke ratusan"},
+  ],
+
+  kpkFpb: [
+    // A. Kelipatan
+    {question:"Tuliskan 5 kelipatan pertama dari 6!", answer:"6,12,18,24,30", hint:"Kelipatan = hasil perkalian dengan 1,2,3,..."},
+    {question:"Kelipatan ke-8 dari 9 adalah ...", answer:"72", hint:"9 × 8 = ?"},
+    
+    // B. Kelipatan Persekutuan
+    {question:"Tuliskan 5 kelipatan persekutuan pertama dari 4 dan 6!", answer:"12,24,36,48,60", hint:"Cari angka yang bisa dibagi 4 dan 6"},
+    {question:"Kelipatan persekutuan terkecil dari 8 dan 12 adalah ...", answer:"24", hint:"Cari bilangan sama yang paling kecil"},
+    
+    // C. Faktor
+    {question:"Tuliskan semua faktor dari 18!", answer:"1,2,3,6,9,18", hint:"Faktor = pembagi habis"},
+    {question:"Berapakah jumlah faktor dari 20?", answer:"6", hint:"Faktor 20 = 1,2,4,5,10,20"},
+    
+    // D. Faktor Persekutuan
+    {question:"Tuliskan faktor persekutuan dari 12 dan 18!", answer:"1,2,3,6", hint:"Cari faktor yang sama dari 12 & 18"},
+    {question:"Faktor persekutuan terbesar dari 24 dan 36 adalah ...", answer:"12", hint:"Cari FPB (Faktor Persekutuan Terbesar)"},
+    
+    // E. Menentukan KPK & FPB dengan Faktor Prima
+    {question:"Uraikan 60 menjadi faktor prima!", answer:"2×2×3×5", hint:"Gunakan pohon faktor"},
+    {question:"Uraikan 84 menjadi faktor prima!", answer:"2×2×3×7", hint:"Gunakan pembagian berulang"},
+    {question:"Tentukan KPK dari 12 dan 18 dengan faktor prima!", answer:"36", hint:"12=2×2×3, 18=2×3×3 → ambil pangkat tertinggi"},
+    {question:"Tentukan FPB dari 48 dan 60 dengan faktor prima!", answer:"12", hint:"48=2×2×2×2×3, 60=2×2×3×5 → ambil faktor sama"},
+  ],
+pecahan: [
+  // A. Membandingkan dan Mengurutkan Pecahan
+  {
+    question: "Manakah yang lebih besar: 3/4 atau 2/3?",
+    answer: "3/4",
+    hint: "Samakan penyebut menjadi 12, lalu bandingkan."
+  },
+  {
+    question: "Urutkan pecahan berikut dari yang terkecil: 2/5, 3/10, 4/5",
+    answer: "3/10, 2/5, 4/5",
+    hint: "Samakan penyebut menjadi 10 atau 20."
+  },
+
+  // B. Penjumlahan Bilangan Pecahan
+  {
+    question: "Hitung: 1/2 + 1/3 = ...",
+    answer: "5/6",
+    hint: "Samakan penyebut menjadi 6."
+  },
+  {
+    question: "Hitung: 3/4 + 2/5 = ...",
+    answer: "23/20 atau 1 3/20",
+    hint: "Samakan penyebut menjadi 20."
+  },
+
+  // C. Pengurangan Bilangan Pecahan
+  {
+    question: "Hitung: 7/8 - 3/8 = ...",
+    answer: "4/8 atau 1/2",
+    hint: "Penyebut sudah sama, cukup kurangi pembilang."
+  },
+  {
+    question: "Hitung: 5/6 - 2/9 = ...",
+    answer: "11/18",
+    hint: "Samakan penyebut menjadi 18."
+  }
+],
+   keliling: [
+  // A. Apakah Keliling Bangun Datar Itu?
+  {
+    question: "Apa yang dimaksud dengan keliling bangun datar?",
+    answer: "Jumlah panjang sisi-sisi bangun datar",
+    hint: "Keliling = sisi + sisi + ... semua sisi."
+  },
+  {
+    question: "Keliling persegi dengan panjang sisi 6 cm adalah ...",
+    answer: "24 cm",
+    hint: "Keliling persegi = 4 × sisi."
+  },
+
+  // B. Keliling Segitiga
+  {
+    question: "Hitung keliling segitiga dengan sisi 5 cm, 6 cm, dan 7 cm.",
+    answer: "18 cm",
+    hint: "Jumlahkan semua sisinya."
+  },
+  {
+    question: "Sebuah segitiga sama sisi memiliki sisi 10 cm. Kelilingnya adalah ...",
+    answer: "30 cm",
+    hint: "Keliling segitiga sama sisi = 3 × sisi."
+  },
+
+  // C. Keliling Segi Empat
+  {
+    question: "Sebuah persegi panjang memiliki panjang 12 cm dan lebar 8 cm. Kelilingnya adalah ...",
+    answer: "40 cm",
+    hint: "Keliling persegi panjang = 2 × (p + l)."
+  },
+  {
+    question: "Hitung keliling jajargenjang dengan panjang sisi 15 cm dan 10 cm.",
+    answer: "50 cm",
+    hint: "Keliling jajargenjang = 2 × (a + b)."
+  },
+
+  // D. Keliling Segi Banyak
+  {
+    question: "Berapakah keliling segilima beraturan dengan panjang sisi 9 cm?",
+    answer: "45 cm",
+    hint: "Keliling segi-n beraturan = n × sisi."
+  },
+  {
+    question: "Sebuah segi enam beraturan memiliki panjang sisi 7 cm. Kelilingnya adalah ...",
+    answer: "42 cm",
+    hint: "Keliling = 6 × sisi."
+  },
+
+  // E. Keliling Bangun Gabungan
+  {
+    question: "Hitung keliling bangun gabungan berupa setengah lingkaran dengan diameter 14 cm ditambah sebuah persegi panjang panjang 14 cm dan lebar 10 cm.",
+    answer: "66 cm (≈ 22 cm dari setengah lingkaran + 44 cm dari persegi panjang)",
+    hint: "Keliling gabungan = keliling setengah lingkaran + sisi persegi panjang (tanpa sisi sejajar diameter)."
+  },
+  {
+    question: "Sebuah taman berbentuk gabungan persegi dengan sisi 20 m dan setengah lingkaran di salah satu sisinya. Hitung keliling taman tersebut (π = 3,14).",
+    answer: "91,4 m",
+    hint: "Keliling = 3 sisi persegi + setengah keliling lingkaran."
+  }
+],
+    luas: [
+  // A. Konsep Luas Daerah Bangun Datar
+  {question:"Apa yang dimaksud dengan luas bangun datar?", answer:"Ukuran daerah yang ditempati oleh bangun datar", hint:"Luas = ukuran bidang yang tertutup oleh bangun datar"},
+  {question:"Satuan luas pada SI adalah ...", answer:"m²", hint:"Luas = panjang × lebar, maka satuannya m²"},
+  
+  // B. Luas Daerah Bangun Datar
+  {question:"Rumus luas persegi adalah ...", answer:"s × s", hint:"s = sisi persegi"},
+  {question:"Hitunglah luas persegi panjang dengan panjang 12 cm dan lebar 8 cm!", answer:"96", hint:"L = p × l = 12 × 8"},
+  {question:"Hitunglah luas segitiga dengan alas 10 cm dan tinggi 6 cm!", answer:"30", hint:"L = 1/2 × alas × tinggi"},
+  {question:"Sebuah lingkaran memiliki jari-jari 14 cm. Luas lingkaran tersebut adalah ... (π = 22/7)", answer:"616", hint:"L = π × r² = 22/7 × 14 × 14"},
+
+  // C. Luas Bangun Gabungan
+  {question:"Sebuah taman berbentuk persegi panjang 20 m × 10 m, di dalamnya ada kolam berbentuk lingkaran berjari-jari 7 m. Hitunglah luas daerah taman yang tidak terkena kolam! (π = 22/7)", answer:"486", hint:"L total = L persegi panjang − L lingkaran"},
+  {question:"Bangun gabungan terdiri dari persegi dengan sisi 8 cm dan setengah lingkaran di atasnya (diameter = 8 cm). Hitung luas bangun gabungan! (π = 3.14)", answer:"78.24", hint:"L = L persegi + 1/2 L lingkaran"},
+
+  // D. Hubungan Keliling dan Luas Daerah Bangun Datar
+  {question:"Sebuah persegi memiliki keliling 40 cm. Berapakah luas perseginya?", answer:"100", hint:"Keliling = 4s, jadi s=10, luas = s×s"},
+  {question:"Jika sebuah lingkaran memiliki keliling 44 cm (π = 22/7), maka luas lingkarannya adalah ...", answer:"154", hint:"Keliling = 2πr → r=7, luas = πr²"}
+],
+sudut: [
+  // A. Sudut Siku-Siku
+  {question:"Apa yang dimaksud dengan sudut siku-siku?", answer:"Sudut yang besarnya 90°", hint:"Ingat bentuk sudut pada pojok persegi"},
+  {question:"Berapakah besar sudut siku-siku?", answer:"90°", hint:"Lihat tanda kotak kecil di pojok sudut"},
+  {question:"Sebutkan contoh benda yang memiliki sudut siku-siku!", answer:"Buku, papan tulis, meja", hint:"Biasanya ada di benda berbentuk persegi atau persegi panjang"},
+
+  // B. Pengertian Sudut
+  {question:"Apa yang dimaksud dengan sudut?", answer:"Sudut adalah daerah yang dibentuk oleh dua garis yang berpotongan di satu titik", hint:"Titik potong disebut titik sudut"},
+  {question:"Apa nama titik tempat dua sinar garis bertemu membentuk sudut?", answer:"Titik sudut", hint:"Lambangnya biasanya huruf kapital di tengah (misalnya ∠ABC, B adalah titik sudut)"},
+  {question:"Apa yang disebut kaki sudut?", answer:"Garis atau sisi yang membentuk sudut", hint:"Ada dua kaki pada satu sudut"},
+
+  // C. Mengukur dan Membandingkan Sudut
+  {question:"Alat apa yang digunakan untuk mengukur sudut?", answer:"Busur derajat", hint:"Bentuknya setengah lingkaran dengan angka 0°-180°"},
+  {question:"Sudut yang besarnya kurang dari 90° disebut ...", answer:"Sudut lancip", hint:"Contoh: 30°, 45°"},
+  {question:"Sudut yang besarnya lebih dari 90° tetapi kurang dari 180° disebut ...", answer:"Sudut tumpul", hint:"Contoh: 120°"},
+  {question:"Sudut yang besarnya 180° disebut ...", answer:"Sudut lurus", hint:"Bentuknya seperti garis lurus"},
+
+  // D. Melukis Sudut
+  {question:"Alat apa saja yang digunakan untuk melukis sudut?", answer:"Jangka, penggaris, dan busur derajat", hint:"Biasanya digunakan bersama-sama"},
+  {question:"Bagaimana cara melukis sudut 60° dengan jangka?", answer:"Buat busur dengan jangka, lalu buat perpotongan busur di garis awal, hubungkan titik perpotongan dengan titik pusat", hint:"Sudut 60° bisa diperoleh dengan membagi segitiga sama sisi"},
+  {question:"Sudut 45° dapat diperoleh dengan cara ...", answer:"Membagi dua sudut 90°", hint:"Gunakan jangka untuk membagi sudut"}
+]
+
+  };
+
+  // ====== DATA MATERI (Ringkasan + Video) ======
+  const materiContent = {
+    bilanganCacah: {
+  title: "📘 Bilangan Cacah sampai 100.000",
+  text: `
+    <h2>A. Membaca & Menulis Bilangan Cacah</h2>
+    <ul>
+      <li>👉 <b>Bilangan Cacah</b> adalah bilangan bulat <b>tanpa tanda negatif</b>, dimulai dari 0, 1, 2, 3, ….</li>
+      <li>👉 Sampai <b>100.000</b>, kita bisa menulis angka dengan memperhatikan nilai tempat.</li>
+      <li>✍️ Contoh: 25.304 dibaca <i>dua puluh lima ribu tiga ratus empat</i>.</li>
+      <li>🔎 <b>Nilai tempat:</b>
+        <table border="1" cellpadding="5">
+          <tr><th>Angka</th><th>Nilai Tempat</th><th>Nilai</th></tr>
+          <tr><td>2</td><td>Puluh ribu</td><td>20.000</td></tr>
+          <tr><td>5</td><td>Ribu</td><td>5.000</td></tr>
+          <tr><td>3</td><td>Ratus</td><td>300</td></tr>
+          <tr><td>0</td><td>Puluh</td><td>0</td></tr>
+          <tr><td>4</td><td>Satuan</td><td>4</td></tr>
+        </table>
+      </li>
+    </ul>
+
+    <h2>B. Membandingkan & Mengurutkan</h2>
+    <ul>
+      <li>➡️ Bandingkan mulai dari <b>angka paling kiri</b> (puluh ribu/ribuan).</li>
+      <li>👉 Tanda perbandingan: 
+        <b>&lt;</b> (lebih kecil), 
+        <b>&gt;</b> (lebih besar), 
+        <b>=</b> (sama dengan).</li>
+      <li>✍️ Contoh: 45.678 < 47.210 karena 45 ribu lebih kecil dari 47 ribu.</li>
+      <li>📊 Untuk mengurutkan, susun dari yang terkecil → terbesar (atau sebaliknya).</li>
+    </ul>
+
+    <h2>C. Komposisi & Dekomposisi</h2>
+    <ul>
+      <li>🧩 <b>Komposisi</b> = menyusun bilangan dari nilai tempat.</li>
+      <li>🔎 67.432 = 60.000 + 7.000 + 400 + 30 + 2.</li>
+      <li>🪄 <b>Dekomposisi</b> = memecah bilangan ke bentuk sederhana.</li>
+      <li>✍️ 42.507 bisa ditulis sebagai (40.000 + 2.000) + (500 + 7).</li>
+    </ul>
+
+    <h2>D. Operasi Hitung Bilangan Cacah</h2>
+    <ul>
+      <li>➕ <b>Penjumlahan:</b> Gunakan cara bersusun, ingat sifat komutatif (a+b=b+a).</li>
+      <li>➖ <b>Pengurangan:</b> Hati-hati dengan "meminjam". Contoh: 502 - 276.</li>
+      <li>✖️ <b>Perkalian:</b> Bisa dengan bersusun panjang/pendek. Contoh: 324 × 5.</li>
+      <li>➗ <b>Pembagian:</b> Kebalikan perkalian. Bisa ada sisa. Contoh: 625 ÷ 25 = 25.</li>
+      <li>💡 Tips:
+        <ul>
+          <li>Gunakan perkiraan (pembulatan) untuk mengecek hasil.</li>
+          <li>Selalu perhatikan nilai tempat agar tidak salah posisi.</li>
+        </ul>
+      </li>
+    </ul>
+  `,
+  video: "https://www.youtube.com/embed/WcF5uzflS7Q"
+},
+
+   kpkFpb: {
+  title: "📗 KPK dan FPB",
+  text: `
+    <h2>A. Kelipatan</h2>
+    <ul>
+      <li>👉 <b>Kelipatan</b> itu gampangnya daftar hasil perkalian suatu bilangan.</li>
+      <li>✍️ Contoh:
+        <ul>
+          <li>Kelipatan 3 = 3, 6, 9, 12, 15, …</li>
+          <li>Kelipatan 5 = 5, 10, 15, 20, 25, …</li>
+        </ul>
+      </li>
+      <li>💡 Ibaratnya kalau kamu jalan dengan langkah 3-3, jejakmu itu kelipatan 3 🚶‍♂️.</li>
+    </ul>
+
+    <h2>B. Kelipatan Persekutuan</h2>
+    <ul>
+      <li>👉 <b>Kelipatan persekutuan</b> adalah kelipatan yang sama dari 2 bilangan atau lebih.</li>
+      <li>✍️ Contoh:
+        <ul>
+          <li>Kelipatan 4 = 4, 8, 12, 16, 20, 24, …</li>
+          <li>Kelipatan 6 = 6, 12, 18, 24, 30, …</li>
+          <li>Kelipatan yang sama = 12, 24, 36, …</li>
+        </ul>
+      </li>
+      <li>🎯 Dari sini, yang paling kecil disebut <b>KPK = 12</b>.</li>
+    </ul>
+
+    <h2>C. Faktor</h2>
+    <ul>
+      <li>👉 <b>Faktor</b> itu kebalikannya kelipatan: yaitu angka yang bisa membagi habis suatu bilangan.</li>
+      <li>✍️ Contoh:
+        <ul>
+          <li>Faktor 12 = 1, 2, 3, 4, 6, 12</li>
+          <li>Faktor 18 = 1, 2, 3, 6, 9, 18</li>
+        </ul>
+      </li>
+      <li>💡 Bayangin faktor itu “teman pembagi” dari suatu bilangan.</li>
+    </ul>
+
+    <h2>D. Faktor Persekutuan</h2>
+    <ul>
+      <li>👉 <b>Faktor persekutuan</b> = faktor yang sama dari 2 bilangan atau lebih.</li>
+      <li>✍️ Contoh:
+        <ul>
+          <li>Faktor 12 = 1, 2, 3, 4, 6, 12</li>
+          <li>Faktor 18 = 1, 2, 3, 6, 9, 18</li>
+          <li>Faktor yang sama = 1, 2, 3, 6</li>
+        </ul>
+      </li>
+      <li>🎯 Faktor persekutuan yang paling besar disebut <b>FPB = 6</b>.</li>
+    </ul>
+
+    <h2>E. Menentukan KPK & FPB dengan Faktorisasi Prima</h2>
+    <ul>
+      <li>👉 Cara cepat & rapi: pecah bilangan jadi perkalian bilangan prima.</li>
+      <li>✍️ Contoh:
+        <ul>
+          <li>12 = 2 × 2 × 3 = 2² × 3</li>
+          <li>18 = 2 × 3 × 3 = 2 × 3²</li>
+        </ul>
+      </li>
+      <li><b>Cari FPB:</b> ambil faktor prima yang sama dengan pangkat terkecil.
+        <ul><li>FPB(12, 18) = 2 × 3 = 6 ✅</li></ul>
+      </li>
+      <li><b>Cari KPK:</b> ambil semua faktor prima dengan pangkat terbesar.
+        <ul><li>KPK(12, 18) = 2² × 3² = 36 ✅</li></ul>
+      </li>
+    </ul>
+
+    <div class="tips">
+      💡 <b>Tips Singkat:</b><br>
+      - Kalau bingung KPK → ingat “pertemuan langkah” 🚶‍♂️.<br>
+      - Kalau bingung FPB → ingat “pembagi bareng” 🍕.<br>
+      - Faktorisasi prima = cara tercepat untuk dapat jawaban yang pasti.
+    </div>
+  `,
+  video: "https://www.youtube.com/embed/yZpWZV1aoeE"
+},
+pecahan: {
+  title: "📘 Bilangan Pecahan",
+  text: `
+    <h2>A. Membandingkan & Mengurutkan Pecahan</h2>
+    <ul>
+      <li>👉 Kalau mau tahu pecahan mana yang lebih besar/kecil, samakan dulu penyebutnya.</li>
+      <li>✍️ Contoh:
+        <ul>
+          <li>2/3 = 10/15</li>
+          <li>3/5 = 9/15</li>
+          <li>Karena 10 > 9, maka 2/3 lebih besar dari 3/5 ✔️</li>
+        </ul>
+      </li>
+      <li>💡 Cara cepat: ubah pecahan ke desimal juga bisa, misalnya 2/3 ≈ 0,67 dan 3/5 = 0,6.</li>
+      <li>🎯 Pecahan dengan angka desimal/pembilang lebih besar setelah penyebut sama → itu yang lebih besar.</li>
+    </ul>
+
+    <h2>B. Penjumlahan Pecahan</h2>
+    <ul>
+      <li>👉 Menjumlahkan pecahan harus dengan “potongan kue yang sama” alias penyebut sama 🍰.</li>
+      <li>✍️ Langkah:
+        <ol>
+          <li>Samakan penyebut.</li>
+          <li>Jumlahkan pembilang.</li>
+          <li>Penyebut tetap sama.</li>
+        </ol>
+      </li>
+      <li>✍️ Contoh:
+        <ul>
+          <li>1/4 + 2/4 = (1+2)/4 = 3/4 ✔️</li>
+          <li>1/3 + 1/6 → 1/3 = 2/6 → 2/6 + 1/6 = 3/6 = 1/2 ✔️</li>
+        </ul>
+      </li>
+      <li>💡 Jangan lupa sederhanakan hasil kalau bisa ya.</li>
+    </ul>
+
+    <h2>C. Pengurangan Pecahan</h2>
+    <ul>
+      <li>👉 Prinsipnya sama kayak penjumlahan, cuma bedanya pembilangnya dikurangin ✂️.</li>
+      <li>✍️ Langkah:
+        <ol>
+          <li>Samakan penyebut.</li>
+          <li>Kurangkan pembilang.</li>
+          <li>Penyebut tetap sama.</li>
+        </ol>
+      </li>
+      <li>✍️ Contoh:
+        <ul>
+          <li>5/6 - 1/3 → 1/3 = 2/6 → 5/6 - 2/6 = 3/6 = 1/2 ✔️</li>
+          <li>7/8 - 3/8 = (7-3)/8 = 4/8 = 1/2 ✔️</li>
+        </ul>
+      </li>
+      <li>💡 Ibaratnya kamu punya 5 potong pizza dari 6, terus dimakan 2 potong → sisa 3/6 alias 1/2 🍕.</li>
+    </ul>
+
+    <div class="tips">
+      💡 <b>Tips Singkat:</b><br>
+      - Samakan penyebut → baru bandingkan/jumlah/kurangin.<br>
+      - Kalau hasil bisa disederhanakan, sederhanakan biar lebih rapi ✨.<br>
+      - Gunakan desimal kalau mau cara cepat bandingkan pecahan.
+    </div>
+  `,
+  video: "https://www.youtube.com/embed/_h3f3Q8zL0Q"
+},
+keliling: {
+  title: "📏 Keliling Bangun Datar",
+  text: `
+    <h2>A. Apa itu Keliling Bangun Datar?</h2>
+    <ul>
+      <li>👉 Keliling = jumlah panjang semua sisi bangun datar.</li>
+      <li>✍️ Contoh: segitiga dengan sisi 3 cm, 4 cm, 5 cm → K = 3+4+5 = 12 cm ✔️</li>
+      <li>💡 Bayangin kamu jalan keliling lapangan, jarak yang ditempuh = keliling 🚶‍♀️.</li>
+    </ul>
+
+    <h2>B. Keliling Segitiga</h2>
+    <ul>
+      <li>👉 Segitiga punya 3 sisi, jadi kelilingnya: <b>K = a + b + c</b></li>
+      <li>✍️ Contoh: sisi 6 cm, 7 cm, 5 cm → K = 6+7+5 = 18 cm ✔️</li>
+      <li>💡 Segitiga sama sisi (semua sisi sama): K = 3 × sisi.</li>
+    </ul>
+
+    <h2>C. Keliling Segi Empat</h2>
+    <ul>
+      <li>👉 Tinggal jumlahkan semua sisinya, atau gunakan rumus khusus:</li>
+      <li>✍️ Rumus cepat:
+        <ul>
+          <li>Persegi: K = 4 × s</li>
+          <li>Persegi panjang: K = 2 × (p + l)</li>
+          <li>Jajar genjang: K = 2 × (a + b)</li>
+          <li>Belah ketupat: K = 4 × sisi</li>
+        </ul>
+      </li>
+      <li>✍️ Contoh: persegi panjang p=8 cm, l=5 cm → K = 2×(8+5) = 26 cm ✔️</li>
+    </ul>
+
+    <h2>D. Keliling Segi Banyak</h2>
+    <ul>
+      <li>👉 Segi banyak = bangun dengan banyak sisi (segi 5, segi 6, dll).</li>
+      <li>Kalau beraturan (semua sisi sama panjang): <b>K = n × sisi</b>.</li>
+      <li>✍️ Contoh: segilima dengan sisi 7 cm → K = 5×7 = 35 cm ✔️</li>
+      <li>💡 Gampang kan? Tinggal kali banyak sisi dengan panjang sisi 😎.</li>
+    </ul>
+
+    <h2>E. Keliling Bangun Gabungan</h2>
+    <ul>
+      <li>👉 Bangun gabungan = bentuk baru dari 2 atau lebih bangun datar.</li>
+      <li>Caranya: jumlahkan sisi terluarnya aja (yang “ngelilingi” bentuknya).</li>
+      <li>✍️ Contoh: persegi panjang + setengah lingkaran.
+        <ul>
+          <li>Keliling = (sisi luar persegi panjang) + (1/2 keliling lingkaran).</li>
+        </ul>
+      </li>
+      <li>💡 Triknya: jangan hitung sisi yang “nempel” di dalam ya 😉.</li>
+    </ul>
+
+    <div class="tips">
+      💡 <b>Tips Singkat:</b><br>
+      - Keliling = total panjang sisi luar.<br>
+      - Hafalin rumus dasar biar gampang pas soal muncul ⏳.<br>
+      - Perhatikan satuan (cm, m, km) biar nggak keliru.
+    </div>
+  `,
+  video: "https://www.youtube.com/embed/uaz5zX6SV_c"
+},
+luas: {
+  title: "📐 Luas Bangun Datar",
+  text: `
+    <h2>A. Apa itu Luas Bangun Datar?</h2>
+    <ul>
+      <li>👉 Luas = ukuran seberapa besar <b>daerah dalam</b> suatu bangun datar.</li>
+      <li>✍️ Contoh: persegi panjang 4 cm × 3 cm → L = 12 cm² ✔️</li>
+      <li>💡 Bayangin kamu nutup lantai pakai keramik. Banyaknya keramik yang dibutuhin = luasnya 🧱.</li>
+    </ul>
+
+    <h2>B. Luas Segitiga</h2>
+    <ul>
+      <li>👉 Rumus segitiga: <b>L = ½ × alas × tinggi</b></li>
+      <li>✍️ Contoh: alas = 8 cm, tinggi = 6 cm → L = ½ × 8 × 6 = 24 cm² ✔️</li>
+      <li>💡 Ingat ya, alas dan tinggi harus saling tegak lurus ⏫.</li>
+    </ul>
+
+    <h2>C. Luas Segi Empat</h2>
+    <ul>
+      <li>👉 Ada beberapa macam segi empat, rumusnya beda-beda:</li>
+      <li>✍️ Rumus cepat:
+        <ul>
+          <li>Persegi: L = sisi × sisi</li>
+          <li>Persegi panjang: L = p × l</li>
+          <li>Jajar genjang: L = alas × tinggi</li>
+          <li>Trapesium: L = ½ × (jumlah sisi sejajar) × tinggi</li>
+          <li>Belah ketupat/layang-layang: L = ½ × d1 × d2</li>
+        </ul>
+      </li>
+      <li>✍️ Contoh: persegi panjang p=10 cm, l=5 cm → L = 10×5 = 50 cm² ✔️</li>
+    </ul>
+
+    <h2>D. Luas Lingkaran</h2>
+    <ul>
+      <li>👉 Rumus lingkaran: <b>L = π × r²</b></li>
+      <li>✍️ Contoh: jari-jari (r) = 7 cm → L = 22/7 × 7 × 7 = 154 cm² ✔️</li>
+      <li>💡 Ingat, luas lingkaran pakai jari-jari ya, bukan diameter.</li>
+    </ul>
+
+    <h2>E. Luas Bangun Gabungan</h2>
+    <ul>
+      <li>👉 Bangun gabungan = campuran dari 2 atau lebih bangun sederhana.</li>
+      <li>Caranya: pecah jadi bangun sederhana → hitung luas masing-masing → jumlahkan.</li>
+      <li>✍️ Contoh: persegi panjang + setengah lingkaran.
+        <ul>
+          <li>Luas = (Luas persegi panjang) + (½ luas lingkaran).</li>
+        </ul>
+      </li>
+      <li>💡 Jangan lupa, kalau ada bagian yang <b>dipotong/dikurangin</b>, tinggal dikurangi luasnya 😉.</li>
+    </ul>
+
+    <div class="tips">
+      💡 <b>Tips Singkat:</b><br>
+      - Luas = ukuran bidang di dalam bangun.<br>
+      - Hafalkan rumus utama biar cepat pas ujian ⏳.<br>
+      - Jangan lupa tulis satuannya pakai "persegi" (cm², m², dll).
+    </div>
+  `,
+  video: "https://www.youtube.com/embed/yv6AdR7JQMs"
+},
+sudut: {
+  title: "📐 Sudut",
+  text: `
+    <h2>A. Sudut Siku-Siku</h2>
+    <ul>
+      <li>👉 Sudut siku-siku adalah sudut yang besarnya tepat <b>90°</b>.</li>
+      <li>✍️ Contoh: pojokan buku, pintu, atau jendela rumah.</li>
+      <li>💡 Biasanya ditandai dengan kotak kecil di pojok sudut.</li>
+    </ul>
+
+    <h2>B. Pengertian Sudut</h2>
+    <ul>
+      <li>👉 Sudut terbentuk dari <b>dua garis</b> yang berpotongan di satu titik.</li>
+      <li>Titik temu kedua garis disebut <b>titik sudut</b>.</li>
+      <li>Simbol sudut biasanya ditulis dengan ∠ (contoh: ∠ABC).</li>
+      <li>💡 Sudut ada di mana-mana, dari segitiga sampai lingkaran ⭕.</li>
+    </ul>
+
+    <h2>C. Mengukur dan Membandingkan Sudut</h2>
+    <ul>
+      <li>👉 Untuk mengukur sudut, kita pakai <b>busur derajat</b>.</li>
+      <li>Jenis-jenis sudut:
+        <ul>
+          <li>Sudut lancip: kurang dari 90°</li>
+          <li>Sudut siku-siku: 90°</li>
+          <li>Sudut tumpul: lebih dari 90° tapi kurang dari 180°</li>
+          <li>Sudut lurus: 180°</li>
+        </ul>
+      </li>
+      <li>✍️ Contoh: ∠XYZ = 120° → berarti sudut tumpul ✔️</li>
+      <li>💡 Membandingkan sudut bisa pakai busur derajat atau dilihat besar-kecilnya langsung.</li>
+    </ul>
+
+    <h2>D. Melukis Sudut</h2>
+    <ul>
+      <li>👉 Kita bisa melukis sudut pakai <b>busur derajat</b> atau <b>jangka</b>.</li>
+      <li>Langkah mudah melukis sudut dengan busur derajat:
+        <ol>
+          <li>Tarik garis lurus sebagai salah satu sisi sudut.</li>
+          <li>Tentukan titik sudut di ujung garis.</li>
+          <li>Letakkan busur derajat di titik sudut.</li>
+          <li>Tandai besar sudut yang diinginkan (misalnya 60°).</li>
+          <li>Tarik garis dari titik sudut ke tanda → jadi deh sudutnya ✔️</li>
+        </ol>
+      </li>
+      <li>💡 Semakin sering latihan, semakin cepat bikin sudut yang rapi 😎.</li>
+    </ul>
+
+    <div class="tips">
+      💡 <b>Tips Singkat:</b><br>
+      - Sudut siku-siku = 90° (pojokan pas).<br>
+      - Sudut bisa diukur dengan busur derajat.<br>
+      - Latihan melukis sudut biar tangan makin terampil ✍️.
+    </div>
+  `,
+  video: "https://www.youtube.com/embed/X2T8uvlUOEU"
+},
+
+  };
+
+  // ====== STATE LATIHAN ======
+  let currentIndex = 0;
+  let currentTopic = 'penjumlahan';
+  let questions = allTopics[currentTopic];
+  let score = 0;
+
+  // ====== NAV ======
+  function backToMenu(){
+    hideAll();
+    document.getElementById('topicSection').classList.remove('hidden');
+    document.getElementById('headerBox').classList.remove('hidden');
+  }
+  function hideAll(){
+    ['topicSection','materiSection','latihanSection','quizSetup','quizSection','quizResult'].forEach(id=>{
+      document.getElementById(id).classList.add('hidden');
+    });
+  }
+
+  // ====== MATERI ======
+  function showMateri(topic){
+    currentTopic = topic;
+    const m = materiContent[topic];
+    document.getElementById('materiTitle').innerText = m.title;
+    document.getElementById('materiContent').innerHTML = m.text;
+    document.getElementById('materiVideo').src = m.video;
+    hideAll();
+    document.getElementById('materiSection').classList.remove('hidden');
+  }
+
+  // ====== LATIHAN ======
+  function startLatihan(topic){
+    currentTopic = topic;
+    questions = allTopics[topic] || [];
+    currentIndex = 0; score = 0;
+    document.getElementById('total').innerText = questions.length;
+    document.getElementById('score').innerText = score;
+    hideAll();
+    document.getElementById('latihanSection').classList.remove('hidden');
+    loadQuestion(currentIndex);
+  }
+
+  function loadQuestion(index){
+    const card = document.getElementById('questionCard');
+    card.classList.add('flip');
+    setTimeout(()=>{
+      document.getElementById('questionText').innerText = questions[index]?.question || '-';
+      document.getElementById('answerInput').value = '';
+      const fb = document.getElementById('feedback');
+      fb.innerText = ''; fb.className = 'feedback';
+      document.getElementById('current').innerText = index+1;
+      updateProgress();
+      card.classList.remove('flip');
+    }, 250);
+  }
+
+  function checkAnswer(){
+    const ans = document.getElementById('answerInput').value.trim();
+    if(!ans){ alert('Isi jawaban dulu!'); return; }
+    const correct = questions[currentIndex].answer;
+    const fb = document.getElementById('feedback');
+    if(ans === correct){
+      fb.innerText = '✅ Benar!'; fb.className = 'feedback correct';
+      score++; document.getElementById('score').innerText = score;
+      if(score % 3 === 0){ showBadge('🍀 Badge!'); }
+    } else {
+      fb.innerText = '❌ Salah! Jawaban: ' + correct; fb.className = 'feedback wrong';
+    }
+    updateProgress();
+  }
+  function showHint(){ alert('Hint: ' + (questions[currentIndex]?.hint || '-')); }
+  function nextQuestion(){ if(currentIndex < questions.length-1){ currentIndex++; loadQuestion(currentIndex); } else { alert('Soal terakhir!'); } }
+  function prevQuestion(){ if(currentIndex > 0){ currentIndex--; loadQuestion(currentIndex); } else { alert('Soal pertama!'); } }
+  function updateProgress(){ const p = questions.length? Math.round(((currentIndex+1)/questions.length)*100) : 0; const bar = document.getElementById('progressBar'); bar.style.width = p+'%'; bar.textContent = p+'%'; }
+
+  // ====== BADGE & KONFETI ======
+  function showBadge(text){
+    const badge = document.createElement('div'); badge.className='badge'; badge.innerText=text; document.body.appendChild(badge);
+    launchConfetti(); setTimeout(()=> badge.remove(), 1500);
+  }
+  function launchConfetti(){
+    for(let i=0;i<32;i++){
+      const c = document.createElement('div'); c.innerHTML='🎉'; c.style.position='fixed'; c.style.left=Math.random()*100+'vw'; c.style.top='-20px'; c.style.fontSize='20px'; c.style.animation=`fall ${2+Math.random()*3}s linear`; document.body.appendChild(c); setTimeout(()=>c.remove(), 4200);
+    }
+  }
+
+  // ====== QUIZ ======
+  let quizState = { topic:'penjumlahan', list:[], idx:0, score:0, total:0, timer:null, timeLeft:0 };
+
+  function startQuizSetup(topic){
+    quizState.topic = topic || 'penjumlahan';
+    document.getElementById('quizTopicName').innerText = topicLabel(quizState.topic);
+    hideAll();
+    document.getElementById('quizSetup').classList.remove('hidden');
+  }
+
+  function startQuiz(){
+    const count = Math.max(1, parseInt(document.getElementById('quizCount').value)||5);
+    const minutes = Math.max(1, parseInt(document.getElementById('quizTime').value)||3);
+
+    // Build question pool from selected topic
+    const pool = [...(allTopics[quizState.topic]||[])];
+    // If requested more than pool, we cycle
+    quizState.list = sampleWithWrap(pool, count);
+
+    quizState.idx = 0; quizState.score = 0; quizState.total = quizState.list.length;
+    document.getElementById('quizScoreLive').innerText = 0;
+    document.getElementById('quizTotal').innerText = quizState.total;
+
+    // Timer
+    quizState.timeLeft = minutes * 60; updateTimerUI();
+    if(quizState.timer) clearInterval(quizState.timer);
+    quizState.timer = setInterval(()=>{
+      quizState.timeLeft--; updateTimerUI();
+      if(quizState.timeLeft <= 0){ endQuiz(); }
+    }, 1000);
+
+    hideAll();
+    document.getElementById('quizSection').classList.remove('hidden');
+    loadQuizQuestion();
+  }
+
+  function topicLabel(key){
+    return {
+      penjumlahan:'Penjumlahan & Pengurangan',
+      perkalian:'Perkalian & Pembagian',
+      pecahan:'Pecahan & Desimal',
+      bangun:'Bangun Datar & Ruang',
+      rasio:'Rasio'
+    }[key] || key;
+  }
+
+  function sampleWithWrap(arr, n){
+    if(arr.length === 0) return [];
+    const out=[]; let i=0; while(out.length<n){ out.push(arr[i % arr.length]); i++; }
+    // optional shuffle
+    for(let j=out.length-1;j>0;j--){ const k=Math.floor(Math.random()*(j+1)); [out[j],out[k]]=[out[k],out[j]]; }
+    return out;
+  }
+
+  function updateTimerUI(){
+    const m = Math.floor(quizState.timeLeft/60).toString().padStart(2,'0');
+    const s = (quizState.timeLeft%60).toString().padStart(2,'0');
+    document.getElementById('timer').innerText = `⏳ ${m}:${s}`;
+  }
+
+  function loadQuizQuestion(){
+    if(quizState.idx >= quizState.total){ endQuiz(); return; }
+    const q = quizState.list[quizState.idx];
+    document.getElementById('quizQuestion').innerText = q.question;
+    document.getElementById('quizAnswer').value='';
+    document.getElementById('quizFeedback').innerText='';
+    document.getElementById('quizFeedback').className='feedback';
+    document.getElementById('quizCurrent').innerText = quizState.idx+1;
+    const pct = Math.round((quizState.idx/quizState.total)*100);
+    const bar = document.getElementById('quizProgress'); bar.style.width=pct+'%'; bar.textContent=pct+'%';
+  }
+
+  function checkQuizAnswer(){
+    const ans = document.getElementById('quizAnswer').value.trim();
+    if(!ans){ alert('Isi jawaban dulu!'); return; }
+    const q = quizState.list[quizState.idx];
+    const fb = document.getElementById('quizFeedback');
+    if(ans === q.answer){ quizState.score++; document.getElementById('quizScoreLive').innerText = quizState.score; fb.innerText='✅ Benar!'; fb.className='feedback correct'; }
+    else { fb.innerText = '❌ Salah! Jawaban: ' + q.answer; fb.className='feedback wrong'; }
+  }
+
+  function nextQuizQuestion(){
+    if(quizState.idx < quizState.total-1){ quizState.idx++; loadQuizQuestion(); }
+    else { endQuiz(); }
+  }
+
+  function endQuiz(){
+    if(quizState.timer){ clearInterval(quizState.timer); quizState.timer=null; }
+    const correct = quizState.score; const total = quizState.total; const wrong = total - correct;
+    document.getElementById('quizFinalScore').innerText = `${correct} / ${total}`;
+    document.getElementById('quizCorrect').innerText = correct;
+    document.getElementById('quizWrong').innerText = wrong;
+    document.getElementById('quizTotalResult').innerText = total;
+    document.getElementById('quizTimeLeft').innerText = `${quizState.timeLeft}s`;
+    hideAll();
+    document.getElementById('quizResult').classList.remove('hidden');
+    if(correct && correct % 3 === 0) showBadge('🏅 Quiz Master!');
+  }
+
+  function retryQuiz(){ startQuiz(); }
+  function cancelQuiz(){ if(quizState.timer){ clearInterval(quizState.timer); } backToMenu(); }
+
+  // Init to menu on load
+  backToMenu();
+</script>
+</body>
+</html>
