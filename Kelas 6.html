@@ -255,11 +255,81 @@
       {question:"420 ÷ 7 = ?", answer:"60", hint:"70×6=420"}
     ],
     pecahan: [
-      {question:"1/2 + 1/3 = ?", answer:"5/6", hint:"Samakan penyebut 6"},
-      {question:"0.75 - 0.25 = ?", answer:"0.5", hint:"Kurang desimal biasa"},
-      {question:"2/3 × 3/4 = ?", answer:"1/2", hint:"Sederhanakan 3"},
-      {question:"1.2 + 0.35 = ?", answer:"1.55", hint:"Sejajarkan koma"}
-    ],
+  // A. Perkalian Pecahan
+  // 1. Perkalian Bilangan Asli dengan Pecahan
+  {question:"3 × 2/5 = ?", answer:"6/5", hint:"Kalikan pembilang dengan bilangan, penyebut tetap"},
+  {question:"4 × 3/7 = ?", answer:"12/7", hint:"Kalikan pembilang dengan bilangan, penyebut tetap"},
+  {question:"5 × 5/6 = ?", answer:"25/6", hint:"Kalikan pembilang dengan bilangan, penyebut tetap"},
+  {question:"6 × 7/8 = ?", answer:"21/4", hint:"Sederhanakan hasil 42/8 → 21/4"},
+  {question:"9 × 4/9 = ?", answer:"4", hint:"Kalikan pembilang, lalu sederhanakan"},
+  // Soal cerita
+  {question:"Ibu membeli 3 kantong beras. Setiap kantong berisi 2/5 kg. Berapa kg beras seluruhnya?", answer:"6/5 kg", hint:"3 × 2/5"},
+  {question:"Seorang anak minum 5 gelas jus. Setiap gelas berisi 3/4 liter. Berapa liter jus yang diminum?", answer:"15/4 liter", hint:"5 × 3/4"},
+  // Tiga angka
+  {question:"2 × 3 × 1/4 = ?", answer:"6/4", hint:"Kalikan berurutan (2×3×1/4)"},
+
+  // 2. Perkalian Pecahan dengan Bilangan Asli
+  {question:"2/3 × 6 = ?", answer:"4", hint:"Kalikan pembilang dengan bilangan, sederhanakan"},
+  {question:"7/8 × 4 = ?", answer:"7/2", hint:"Kalikan pembilang dengan bilangan, sederhanakan"},
+  {question:"5/12 × 9 = ?", answer:"15/4", hint:"Kalikan pembilang dengan bilangan, sederhanakan"},
+  {question:"11/15 × 3 = ?", answer:"11/5", hint:"Kalikan pembilang dengan bilangan, sederhanakan"},
+  {question:"9/10 × 5 = ?", answer:"9/2", hint:"Kalikan pembilang dengan bilangan, sederhanakan"},
+  // Soal cerita
+  {question:"Ani memiliki 2/3 meter pita. Ia membeli lagi 6 kali lipat jumlah pita itu. Berapa meter pita seluruhnya?", answer:"4 meter", hint:"2/3 × 6"},
+  {question:"Budi makan 7/8 potong pizza setiap hari selama 4 hari. Berapa potong pizza yang ia makan?", answer:"7/2 potong", hint:"7/8 × 4"},
+  // Tiga angka
+  {question:"2/5 × 3 × 4 = ?", answer:"24/5", hint:"Kalikan berurutan (2/5 × 3 × 4)"},
+
+  // B. Pembagian Pecahan
+  // 1. Pecahan ÷ Bilangan Asli
+  {question:"5/6 ÷ 2 = ?", answer:"5/12", hint:"Kalikan penyebut dengan bilangan pembagi"},
+  {question:"7/8 ÷ 7 = ?", answer:"1/8", hint:"Kalikan penyebut dengan bilangan pembagi"},
+  {question:"9/10 ÷ 3 = ?", answer:"3/10", hint:"Kalikan penyebut dengan bilangan pembagi"},
+  {question:"4/9 ÷ 2 = ?", answer:"2/9", hint:"Kalikan penyebut dengan bilangan pembagi"},
+  {question:"11/12 ÷ 11 = ?", answer:"1/12", hint:"Kalikan penyebut dengan bilangan pembagi"},
+  // Soal cerita
+  {question:"Ibu mempunyai 5/6 kg gula. Ia membaginya ke dalam 2 toples sama rata. Berapa kg gula di setiap toples?", answer:"5/12 kg", hint:"5/6 ÷ 2"},
+  {question:"Siti membagi kue 9/10 ke dalam 3 piring sama banyak. Berapa bagian kue di setiap piring?", answer:"3/10", hint:"9/10 ÷ 3"},
+  // Tiga angka
+  {question:"6/7 ÷ 2 ÷ 3 = ?", answer:"1/7", hint:"Hitung dari kiri ke kanan (6/7 ÷ 2 = 3/7; 3/7 ÷ 3 = 1/7)"},
+
+  // 2. Bilangan Asli ÷ Pecahan
+  {question:"3 ÷ 2/5 = ?", answer:"15/2", hint:"Kalikan dengan kebalikan (3 × 5/2)"},
+  {question:"5 ÷ 3/4 = ?", answer:"20/3", hint:"Kalikan dengan kebalikan (5 × 4/3)"},
+  {question:"7 ÷ 7/9 = ?", answer:"9", hint:"Kalikan dengan kebalikan (7 × 9/7)"},
+  {question:"8 ÷ 5/6 = ?", answer:"48/5", hint:"Kalikan dengan kebalikan (8 × 6/5)"},
+  {question:"9 ÷ 2/3 = ?", answer:"27/2", hint:"Kalikan dengan kebalikan (9 × 3/2)"},
+  // Soal cerita
+  {question:"Ada 3 liter jus. Setiap botol berisi 2/5 liter. Berapa botol yang bisa diisi?", answer:"15/2 botol", hint:"3 ÷ 2/5"},
+  {question:"Budi memiliki 5 meter pita. Setiap potong pita panjangnya 3/4 meter. Berapa potong pita yang bisa didapat?", answer:"20/3 potong", hint:"5 ÷ 3/4"},
+  // Tiga angka
+  {question:"12 ÷ 3/4 ÷ 2 = ?", answer:"8", hint:"Hitung dari kiri ke kanan (12 ÷ 3/4 = 16; 16 ÷ 2 = 8)"},
+
+  // C. Bilangan Desimal
+  // 1. Mengubah Pecahan Menjadi Desimal
+  {question:"Ubah 1/4 menjadi desimal", answer:"0.25", hint:"Bagi 1 ÷ 4"},
+  {question:"Ubah 3/8 menjadi desimal", answer:"0.375", hint:"Bagi 3 ÷ 8"},
+  {question:"Ubah 7/20 menjadi desimal", answer:"0.35", hint:"Bagi 7 ÷ 20"},
+  {question:"Ubah 9/25 menjadi desimal", answer:"0.36", hint:"Bagi 9 ÷ 25"},
+  {question:"Ubah 5/16 menjadi desimal", answer:"0.3125", hint:"Bagi 5 ÷ 16"},
+  // Soal cerita
+  {question:"Sebuah kue dipotong menjadi 4 bagian sama besar. Satu potong kue setara dengan berapa bagian desimal dari keseluruhan?", answer:"0.25", hint:"1/4 = 0.25"},
+  {question:"Sebuah kolam terisi 7/20 bagian. Berapa desimal dari kolam yang terisi?", answer:"0.35", hint:"7 ÷ 20"},
+  // Tiga angka
+  {question:"Ubah 3/8 + 1/4 + 1/2 menjadi desimal", answer:"1.125", hint:"3/8=0.375; 1/4=0.25; 1/2=0.5; jumlahkan"},
+
+  // 2. Membandingkan dan Mengurutkan Bilangan Desimal
+  {question:"Urutkan: 0.5, 0.45, 0.502", answer:"0.45, 0.5, 0.502", hint:"Samakan banyak tempat desimal"},
+  {question:"Urutkan: 0.125, 0.2, 0.175", answer:"0.125, 0.175, 0.2", hint:"Bandingkan digit per digit"},
+  {question:"Urutkan: 0.75, 0.7, 0.705", answer:"0.7, 0.705, 0.75", hint:"Tambahkan nol di belakang bila perlu"},
+  {question:"Urutkan: 0.32, 0.302, 0.31", answer:"0.302, 0.31, 0.32", hint:"Bandingkan per urutan digit"},
+  {question:"Urutkan: 0.08, 0.8, 0.808", answer:"0.08, 0.8, 0.808", hint:"0.08 lebih kecil dari 0.8"},
+  // Soal cerita
+  {question:"Nilai ulangan Siti adalah 0.75, Budi 0.7, dan Andi 0.705. Urutkan nilai mereka dari terendah ke tertinggi!", answer:"0.7, 0.705, 0.75", hint:"Bandingkan digit desimal"},
+  {question:"Tiga toko menjual bensin dengan harga Rp0.32, Rp0.302, dan Rp0.31 per liter (dalam ribuan rupiah). Urutkan harga dari yang termurah!", answer:"0.302, 0.31, 0.32", hint:"Bandingkan digit per digit"},
+  // Tiga angka
+  {question:"Urutkan: 0.45, 0.452, 0.425", answer:"0.425, 0.45, 0.452", hint:"Samakan tiga angka di belakang koma"}
+],
     bangun: [
       {question:"Luas persegi sisi 8 cm = ?", answer:"64", hint:"Luas = s×s"},
       {question:"Keliling segitiga 5,6,7 cm = ?", answer:"18", hint:"Jumlahkan semua sisi"},
@@ -716,3 +786,4 @@ peluang: {
 </script>
 </body>
 </html>
+
