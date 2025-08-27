@@ -328,7 +328,58 @@
   {question:"Nilai ulangan Siti adalah 0.75, Budi 0.7, dan Andi 0.705. Urutkan nilai mereka dari terendah ke tertinggi!", answer:"0.7, 0.705, 0.75", hint:"Bandingkan digit desimal"},
   {question:"Tiga toko menjual bensin dengan harga Rp0.32, Rp0.302, dan Rp0.31 per liter (dalam ribuan rupiah). Urutkan harga dari yang termurah!", answer:"0.302, 0.31, 0.32", hint:"Bandingkan digit per digit"},
   // Tiga angka
-  {question:"Urutkan: 0.45, 0.452, 0.425", answer:"0.425, 0.45, 0.452", hint:"Samakan tiga angka di belakang koma"}
+  {question:"Urutkan: 0.45, 0.452, 0.425", answer:"0.425, 0.45, 0.452", hint:"Samakan tiga angka di belakang koma"},
+{question:"2/5 × 4/3 ÷ 5 = ?", answer:"8/75", hint:"Kerjakan kali dulu: (2/5 × 4/3) = 8/15, lalu bagi 5 = 8/75"},
+  {question:"7/8 ÷ 2/3 × 3/5 = ?", answer:"21/80", hint:"Kerjakan bagi dulu: (7/8 ÷ 2/3) = 21/16, lalu kali 3/5 = 63/80 → disederhanakan jadi 21/80"},
+  {question:"3/4 × 5 ÷ 10 = ?", answer:"3/8", hint:"(3/4 × 5) = 15/4, lalu bagi 10 = 15/40 = 3/8"},
+  {question:"6 ÷ 3/5 × 1/2 = ?", answer:"5", hint:"6 ÷ 3/5 = 6 × 5/3 = 10, lalu kali 1/2 = 5"},
+  {question:"5/6 ÷ 2 × 9/10 = ?", answer:"3/8", hint:"(5/6 ÷ 2) = 5/12, lalu kali 9/10 = 45/120 = 3/8"},
+  {question:"4/9 × 3/7 ÷ 2/5 = ?", answer:"10/21", hint:"(4/9 × 3/7) = 12/63 = 4/21, lalu ÷ 2/5 = 4/21 × 5/2 = 20/42 = 10/21"},
+  {question:"8 ÷ 4/7 × 7/2 = ?", answer:"14", hint:"(8 ÷ 4/7) = 8 × 7/4 = 14, lalu × 7/2 = 49 → Eh cek lagi: 14 × 7/2 = 49"},
+  {question:"9/10 × 5 ÷ 3/2 = ?", answer:"3", hint:"(9/10 × 5) = 45/10 = 9/2, lalu ÷ 3/2 = 9/2 × 2/3 = 3"},
+// Gabungan Perkalian & Penjumlahan
+  {question:"1/2 + 2/3 × 3/4 = ?", answer:"1", hint:"Ingat perkalian didahulukan"},
+  {question:"3/5 × 2/3 + 1/5 = ?", answer:"3/5", hint:"Kerjakan kali dulu, baru tambah"},
+  {question:"2/7 + 3/7 × 7/6 = ?", answer:"3/2", hint:"Perhatikan urutan operasi"},
+  {question:"1/4 × 2/5 + 3/10 = ?", answer:"2/5", hint:"Hitung kali dulu, samakan penyebut"},
+  {question:"2/3 + 3/4 × 1/2 = ?", answer:"25/24", hint:"Gunakan KPK untuk penjumlahan"},
+
+  // Soal lebih dari 2 operasi
+  {question:"1/3 + 2/5 × 3/4 - 1/6 = ?", answer:"17/60", hint:"Kerjakan kali dulu, baru tambah dan kurang"},
+  {question:"2/7 × 3/5 + 1/2 - 1/10 = ?", answer:"3/7", hint:"Kerjakan urut sesuai aturan operasi"},
+  {question:"3/8 + 2/3 × 9/10 - 1/5 = ?", answer:"23/24", hint:"Kerjakan kali dulu, baru tambah dan kurang"},
+
+  // Soal cerita
+  {question:"Ibu membeli 1/2 kg gula, lalu membeli lagi 2/3 dari 3/4 kg. Berapa total gula yang dibeli?", answer:"1 kg", hint:"Hitung perkalian dulu lalu jumlahkan"},
+  {question:"Budi makan 2/5 bagian kue. Adiknya makan 1/3 dari 3/5 bagian. Berapa bagian kue yang dimakan bersama?", answer:"3/5", hint:"Kerjakan kali dulu untuk adiknya, lalu jumlahkan"},
+  {question:"Sebuah tangki berisi 1/2 liter air. Kemudian ditambah 3/4 × 2/3 liter lagi. Berapa total air dalam tangki?", answer:"1 liter", hint:"Kalikan dulu 3/4 × 2/3, lalu tambahkan"},
+// --- Operasi Campuran Pecahan ---
+  {question:"1/2 + 2/3 × 3/4 = ?", answer:"1", hint:"Kerjakan perkalian dulu lalu jumlahkan"},
+  {question:"3/5 × 2/3 - 1/6 = ?", answer:"1/5", hint:"Selesaikan perkalian, lalu kurangi"},
+  {question:"5/6 ÷ 5/12 + 1/2 = ?", answer:"1.5", hint:"Ubahlah menjadi perkalian kebalikan, lalu jumlahkan"},
+  {question:"4/7 + 2/5 × 5/6 - 1/3 = ?", answer:"41/63", hint:"Urutkan: kali, bagi, lalu tambah dan kurang"},
+  {question:"2/3 × 3/4 ÷ 1/2 + 1/6 = ?", answer:"1 1/6", hint:"Kerjakan kali dulu, lalu bagi, terakhir tambah"},
+
+  // --- Operasi Campuran Desimal ---
+  {question:"0.5 + 0.25 × 0.4 = ?", answer:"0.6", hint:"Kalikan dulu 0.25 × 0.4, lalu tambahkan 0.5"},
+  {question:"1.2 - 0.3 ÷ 0.1 = ?", answer:"-1.8", hint:"Bagi dulu, lalu kurangkan dari 1.2"},
+  {question:"0.75 × 0.8 + 0.5 ÷ 0.25 = ?", answer:"3.1", hint:"Kalikan dulu, lalu bagi, terakhir tambahkan"},
+  {question:"2.5 + 1.2 × 0.5 - 0.7 = ?", answer:"2.65", hint:"Kalikan dulu, lalu jumlahkan, kemudian kurangkan"},
+  {question:"(1.2 + 0.8) ÷ 0.5 - 2 = ?", answer:"2", hint:"Hitung dalam kurung, lalu bagi, terakhir kurangi"},
+
+  // --- Soal Campuran Pecahan & Desimal ---
+  {question:"1/4 + 0.25 × 2 = ?", answer:"0.75", hint:"Kalikan desimal dulu, lalu tambahkan pecahan"},
+  {question:"3/5 × 0.5 + 2/5 = ?", answer:"0.8", hint:"Kalikan pecahan dengan desimal, lalu tambahkan"},
+  {question:"0.6 ÷ 3/5 - 0.2 = ?", answer:"0.8", hint:"Ubahlah 3/5 jadi desimal, lalu bagi dan kurangi"},
+  {question:"1.5 + 2/3 × 0.6 = ?", answer:"1.9", hint:"Kerjakan perkalian, lalu jumlahkan"},
+  {question:"2 - 3/4 ÷ 0.5 = ?", answer:"0.5", hint:"Bagi pecahan dengan desimal dulu, lalu kurangi"},
+
+  // --- Soal Cerita Campuran ---
+  {question:"Ani membeli 1/2 kg gula. Ia membeli lagi 3/4 kg. Lalu gula itu dibagi rata ke 5 orang. Berapa kg gula yang diterima tiap orang?", answer:"0.25", hint:"Jumlahkan pecahan dulu, lalu bagi dengan 5"},
+  {question:"Sebuah pita panjangnya 2 1/2 meter. Dipotong 1/2 meter, sisanya dibagi 4. Berapa panjang tiap bagian?", answer:"0.5", hint:"Kurangkan dulu, lalu bagi"},
+  {question:"Budi minum 2/3 liter susu di pagi hari, 1/6 liter di siang hari, dan sisanya dari 1 liter ia simpan. Berapa liter yang disimpan?", answer:"1/6", hint:"Jumlahkan dulu, lalu kurangi dari 1"},
+  {question:"Harga 1/2 kg apel Rp15.000. Jika Siti membeli 3/2 kg apel, berapa uang yang harus dibayar?", answer:"45000", hint:"Kalikan pecahan dengan harga setengah kilo"},
+  {question:"Sebuah tangki berisi 3/4 liter air. Ditambah lagi 1/2 liter, lalu dibagi 5 gelas sama rata. Berapa liter air tiap gelas?", answer:"0.25", hint:"Jumlahkan dulu, lalu bagi 5"}
 ],
     bangun: [
       {question:"Luas persegi sisi 8 cm = ?", answer:"64", hint:"Luas = s×s"},
