@@ -119,15 +119,15 @@
           <button class="btn-quiz" onclick="startQuizSetup('pecahan')">Quiz</button>
         </div>
       </div>
-      <div class="topic-card">
-        <div class="topic-title">📐 Bangun Datar & Ruang</div>
-        <div class="chip">Luas, keliling, volume</div>
-        <div class="activity-buttons">
-          <button class="btn-materi" onclick="showMateri('bangun')">Materi</button>
-          <button class="btn-latihan" onclick="startLatihan('bangun')">Latihan</button>
-          <button class="btn-quiz" onclick="startQuizSetup('bangun')">Quiz</button>
-        </div>
-      </div>
+     <div class="topic-card">
+  <div class="topic-title">📦 Kubus & Balok</div>
+  <div class="chip">Luas, keliling, volume</div>
+  <div class="activity-buttons">
+    <button class="btn-materi" onclick="showMateri('kubusbalok')">Materi</button>
+    <button class="btn-latihan" onclick="startLatihan('kubusbalok')">Latihan</button>
+    <button class="btn-quiz" onclick="startQuizSetup('kubusbalok')">Quiz</button>
+  </div>
+</div>
       <div class="topic-card">
         <div class="topic-title">⚖️ Rasio</div>
         <div class="chip">Perbandingan & skala</div>
@@ -381,12 +381,63 @@
   {question:"Harga 1/2 kg apel Rp15.000. Jika Siti membeli 3/2 kg apel, berapa uang yang harus dibayar?", answer:"45000", hint:"Kalikan pecahan dengan harga setengah kilo"},
   {question:"Sebuah tangki berisi 3/4 liter air. Ditambah lagi 1/2 liter, lalu dibagi 5 gelas sama rata. Berapa liter air tiap gelas?", answer:"0.25", hint:"Jumlahkan dulu, lalu bagi 5"}
 ],
-    bangun: [
-      {question:"Luas persegi sisi 8 cm = ?", answer:"64", hint:"Luas = s×s"},
-      {question:"Keliling segitiga 5,6,7 cm = ?", answer:"18", hint:"Jumlahkan semua sisi"},
-      {question:"Volume kubus sisi 4 cm = ?", answer:"64", hint:"s^3"},
-      {question:"Luas persegi panjang 7×5 = ?", answer:"35", hint:"p×l"}
-    ],
+    kubusbalok: [
+// 🟢 Sifat-sifat Kubus & Balok
+  {question:"Kubus memiliki ... sisi berbentuk persegi.", answer:"6", hint:"Semua sisi kubus berbentuk persegi"},
+  {question:"Balok memiliki ... rusuk yang tidak sama panjang.", answer:"4", hint:"Rusuk balok ada 12, hanya 4 pasang berbeda panjang"},
+  {question:"Jumlah rusuk pada kubus maupun balok adalah ...", answer:"12", hint:"Keduanya punya 12 rusuk"},
+  {question:"Kubus memiliki ... titik sudut.", answer:"8", hint:"Kubus dan balok sama-sama punya 8 titik sudut"},
+  {question:"Balok memiliki ... diagonal ruang.", answer:"4", hint:"Balok punya 4 diagonal ruang yang sama panjang jika baloknya kubus"},
+
+  // 🟠 Jaring-jaring
+  {question:"Jaring-jaring kubus selalu tersusun dari ... persegi.", answer:"6", hint:"Kubus punya 6 sisi persegi"},
+  {question:"Ada ... bentuk jaring-jaring kubus yang berbeda.", answer:"11", hint:"Ada 11 kemungkinan bentuk jaring-jaring"},
+  {question:"Jaring-jaring balok berbentuk ...", answer:"6 persegi panjang", hint:"Balok tersusun dari 6 persegi panjang"},
+  {question:"Jika kubus sisi 4 cm diurai jadi jaring-jaring, luas satu persegi adalah ...", answer:"16", hint:"Luas persegi = s² = 16"},
+  {question:"Sebuah jaring-jaring balok dengan ukuran 10×5×4 cm terdiri dari berapa persegi panjang?", answer:"6", hint:"Balok memiliki 6 sisi persegi panjang"},
+
+  // 🔵 Volume
+  {question:"Volume kubus dengan rusuk 7 cm adalah ...", answer:"343", hint:"Volume = s³"},
+  {question:"Volume balok dengan ukuran 12×8×5 cm adalah ...", answer:"480", hint:"Volume = p×l×t"},
+  {question:"Sebuah kubus volumenya 216 cm³. Panjang rusuknya adalah ...", answer:"6", hint:"Akar pangkat tiga dari 216 = 6"},
+  {question:"Sebuah balok volumenya 600 cm³, dengan panjang 10 cm dan lebar 5 cm. Tingginya adalah ...", answer:"12", hint:"Volume = p×l×t → 600 ÷ (10×5)"},
+  {question:"Kubus dengan rusuk 4 cm disusun menjadi kubus besar. Jika kubus besar terdiri dari 27 kubus kecil, panjang rusuk kubus besar adalah ...", answer:"12", hint:"Akar pangkat tiga dari 27 = 3, jadi rusuk besar = 3×4"},
+
+  // 🟣 Keliling & Luas Permukaan
+  {question:"Keliling salah satu sisi kubus dengan rusuk 8 cm adalah ...", answer:"32", hint:"Keliling persegi = 4×s"},
+  {question:"Luas permukaan kubus dengan rusuk 5 cm adalah ...", answer:"150", hint:"Luas permukaan = 6×s²"},
+  {question:"Luas permukaan balok dengan ukuran 10×8×6 cm adalah ...", answer:"376", hint:"Luas = 2(pl+pt+lt)"},
+  {question:"Keliling salah satu sisi balok berukuran 12×9×5 cm (sisi 12×9) adalah ...", answer:"42", hint:"Keliling = 2(p+l)"},
+  {question:"Jika luas permukaan kubus 294 cm², maka panjang rusuknya adalah ...", answer:"7", hint:"Luas = 6×s² → 294 ÷ 6 = 49 → √49 = 7"},
+ // A. Mengonstruksi dan Mengurai
+  {question:"Sebuah kubus sisi 6 cm diurai menjadi jaring-jaring. Berapa banyak sisi berbentuk persegi yang akan tampak?", answer:"6", hint:"Kubus memiliki 6 sisi persegi"},
+  {question:"Sebuah balok berukuran 8×6×4 cm dipotong menjadi 2 balok sama besar sepanjang sisinya 8 cm. Berapa volume tiap balok kecil?", answer:"96", hint:"Volume balok = p×l×t, lalu bagi 2"},
+  {question:"Jaring-jaring kubus dapat dibentuk dari berapa persegi yang disusun?", answer:"6", hint:"Semua sisi kubus adalah persegi"},
+  
+  // B. Visualisasi Spasial
+  {question:"Bayangkan sebuah kubus sisi 5 cm. Jika dipotong diagonal ruang, berapa panjang diagonal ruangnya?", answer:"5√3", hint:"Diagonal ruang = s√3"},
+  {question:"Balok 10×8×6 cm. Berapa panjang diagonal ruang balok?", answer:"√200", hint:"Diagonal ruang = √(p²+l²+t²)"},
+  {question:"Sebuah kubus dengan sisi 4 cm jika dibuka jadi jaring-jaring, berapa luas salah satu persegi pada jaring-jaring tersebut?", answer:"16", hint:"Luas satu sisi = s² = 4×4"},
+  
+  // C. Lokasi
+  {question:"Andi berada di sudut depan kiri bawah sebuah kubus sisi 10 cm. Ia berjalan ke sudut belakang kanan atas. Berapa jarak lurus yang ditempuh?", answer:"10√3", hint:"Itu adalah diagonal ruang kubus = s√3"},
+  {question:"Pada peta skala 1:200, panjang balok rumah 12 cm. Berapa panjang rumah sebenarnya?", answer:"24", hint:"Panjang sebenarnya = 12 × 200 cm = 24 m"},
+  {question:"Balok dengan ukuran 15×10×8 cm ditempatkan di sudut koordinat (0,0,0). Titik lawan sudutnya berada di koordinat ...?", answer:"(15,10,8)", hint:"Koordinat lawan sudut balok = (p,l,t)"},
+  
+  // Tambahan keliling dan volume
+  {question:"Keliling salah satu sisi balok berukuran 12×8×6 cm adalah ...?", answer:"40", hint:"Pilih sisi 12×8, keliling = 2(p+l)"},
+  {question:"Volume kubus sisi 9 cm adalah ...?", answer:"729", hint:"Volume = s³"},
+  {question:"Sebuah kubus diurai menjadi 8 kubus kecil yang sama besar. Jika volume kubus besar 512 cm³, berapa volume masing-masing kubus kecil?", answer:"64", hint:"Volume tiap kubus kecil = Volume kubus besar ÷ 8"},
+  
+  {question:"Sebuah balok berukuran 12×8×6 cm dipotong menjadi 2 bagian sama besar. Berapa volume tiap bagian?", answer:"288", hint:"Volume balok = p×l×t, lalu bagi 2"},
+  
+  {question:"Bayangkan sebuah kubus dengan sisi 10 cm. Jika kubus tersebut dibuka menjadi jaring-jaring, berapa luas seluruh jaring-jaring?", answer:"600", hint:"Luas permukaan kubus = 6 × s²"},
+  
+  {question:"Seseorang berada di titik A sebuah denah, lalu bergerak 5 langkah ke utara, 3 langkah ke timur. Jika setiap langkah = 1 meter, berapa jarak lurus dari titik awal ke titik akhir?", answer:"√34", hint:"Gunakan Teorema Pythagoras: √(5²+3²)"},
+  
+  {question:"Pada sebuah peta skala 1:1000, jarak dua gedung adalah 5 cm. Berapa jarak sebenarnya kedua gedung?", answer:"50", hint:"Jarak sebenarnya = 5 × 1000 cm = 50 m"}
+],
+
     rasio: [
   // A. Konsep Rasio
   {question:"Ali punya 4 kelereng biru dan 6 kelereng merah. Rasio biru:merah adalah ... ?", answer:"2:3", hint:"Sederhanakan 4:6"},
@@ -412,10 +463,53 @@
   {question:"Ani dan Budi berbagi uang dengan rasio 3:5. Jika total uang Rp80.000, maka bagian Ani adalah ... ?", answer:"30.000", hint:"3/(3+5) × 80.000"}
 ],
 peluang: [
-  {question:"Peluang muncul angka genap dari dadu = ?", answer:"1/2", hint:"Ada 3 dari 6 kemungkinan"},
-  {question:"Peluang muncul sisi merah dari koin = ?", answer:"0", hint:"Koin hanya punya sisi gambar & angka"},
-  {question:"Jika spinner dibagi 4 sama besar, peluang jatuh di 1 bagian = ?", answer:"1/4", hint:"1 dari 4"},
-  {question:"Dari 52 kartu, peluang ambil As = ?", answer:"1/13", hint:"Ada 4 As dari 52 kartu"}
+  // 🔹 A. Skala Peluang
+  {question:"Peluang muncul angka 5 pada sebuah dadu = ?", answer:"1/6", hint:"Ada 1 dari 6 kemungkinan"},
+  {question:"Peluang muncul angka kurang dari 4 pada dadu = ?", answer:"1/2", hint:"Ada 3 bilangan (1,2,3) dari 6"},
+  {question:"Peluang muncul sisi angka saat melempar koin = ?", answer:"1/2", hint:"Koin punya 2 sisi, peluang sama besar"},
+  {question:"Peluang muncul angka genap pada sebuah dadu = ?", answer:"1/2", hint:"Ada 3 angka genap (2,4,6) dari 6"},
+  {question:"Peluang keluar kartu As dari 52 kartu = ?", answer:"1/13", hint:"Ada 4 As dari 52 kartu"},
+  {question:"Spinner dibagi 8 sama besar, peluang jatuh di 1 bagian = ?", answer:"1/8", hint:"1 dari 8 bagian"},
+  {question:"Dalam kantong ada 5 bola merah dan 3 bola biru. Peluang ambil bola merah = ?", answer:"5/8", hint:"Jumlah merah ÷ total bola"},
+  {question:"Hari dalam seminggu, peluang memilih hari Sabtu = ?", answer:"1/7", hint:"Ada 7 hari, peluang tiap hari sama"},
+  {question:"Dalam kelas ada 12 siswa laki-laki dan 18 siswa perempuan. Peluang terpilih siswa perempuan = ?", answer:"3/5", hint:"18 ÷ (12+18)"},
+  {question:"Peluang mendapatkan angka prima dari sebuah dadu = ?", answer:"1/2", hint:"Angka prima di dadu = 2,3,5 (3 dari 6)"},
+
+  // 🔸 B1. Membandingkan Peluang dalam Permainan
+  {question:"Peluang mendapat kartu merah dari 52 kartu = ?", answer:"1/2", hint:"Ada 26 kartu merah dari 52"},
+  {question:"Peluang keluar angka genap dari dadu = ?", answer:"1/2", hint:"Ada 3 angka genap (2,4,6) dari 6"},
+  {question:"Manakah lebih besar: peluang muncul As (1/13) atau peluang muncul King (1/13)?", answer:"Sama", hint:"Jumlah As = jumlah King = 4 kartu"},
+  {question:"Peluang muncul angka 1 dari dadu (1/6) dibanding angka prima (1/2), mana lebih besar?", answer:"Angka prima", hint:"1/2 lebih besar dari 1/6"},
+  {question:"Dalam kantong ada 4 bola merah dan 6 bola biru. Peluang ambil bola merah atau biru, mana lebih besar?", answer:"Biru", hint:"6/10 lebih besar dari 4/10"},
+  {question:"Spinner dibagi 6 sama besar. Bandingkan peluang jatuh di 1 bagian dengan 2 bagian.", answer:"2 bagian", hint:"2/6 lebih besar dari 1/6"},
+  {question:"Dalam kelas ada 15 laki-laki dan 25 perempuan. Bandingkan peluang terpilih siswa perempuan dengan laki-laki.", answer:"Perempuan", hint:"25/40 lebih besar dari 15/40"},
+  {question:"Dalam setumpuk kartu, peluang keluar kartu hati (1/4) dibanding kartu hitam (1/2), mana lebih besar?", answer:"Hitam", hint:"Kartu hitam ada 26, hati hanya 13"},
+  {question:"Peluang muncul angka ganjil dari dadu dibanding angka genap?", answer:"Sama", hint:"Masing-masing ada 3 dari 6"},
+  {question:"Peluang mendapat kartu bergambar (J,Q,K) = 12/52 dibanding kartu As = 4/52. Mana lebih besar?", answer:"Kartu bergambar", hint:"12/52 lebih besar dari 4/52"},
+
+  // 🔹 B2. Membandingkan Peluang dalam Kejadian Sehari-hari
+  {question:"Hari dalam seminggu: peluang memilih hari Senin = ?", answer:"1/7", hint:"Ada 7 hari dalam seminggu"},
+  {question:"Dalam sebuah kotak ada 5 permen stroberi dan 3 permen cokelat. Peluang mengambil permen stroberi = ?", answer:"5/8", hint:"Jumlah stroberi ÷ total"},
+  {question:"Dalam kelas ada 12 siswa laki-laki dan 18 siswa perempuan. Peluang terpilih siswa perempuan = ?", answer:"3/5", hint:"18 ÷ (12+18)"},
+  {question:"Dalam tas ada 7 pensil hitam dan 3 pensil biru. Peluang terambil pensil hitam = ?", answer:"7/10", hint:"Jumlah hitam ÷ total"},
+  {question:"Dalam keranjang ada 4 apel dan 6 jeruk. Mana yang lebih besar peluang terambil, apel atau jeruk?", answer:"Jeruk", hint:"6/10 lebih besar dari 4/10"},
+  {question:"Dalam 1 bulan ada 30 hari. Peluang lahir di tanggal ganjil dibanding tanggal genap?", answer:"Sama", hint:"15 tanggal ganjil dan 15 tanggal genap"},
+  {question:"Dalam sebuah toples ada 10 kue keju dan 5 kue cokelat. Peluang mengambil kue cokelat = ?", answer:"1/3", hint:"5 ÷ (10+5)"},
+  {question:"Ada 20 siswa: 8 suka sepak bola, 12 suka basket. Mana peluang lebih besar?", answer:"Basket", hint:"12/20 lebih besar dari 8/20"},
+  {question:"Dalam sebuah kotak ada 2 bola merah, 5 bola hijau, dan 3 bola kuning. Peluang mengambil bola hijau = ?", answer:"1/2", hint:"5 ÷ 10"},
+  {question:"Cuaca: dalam 10 hari, 7 hari hujan dan 3 hari cerah. Peluang besok hujan dibanding cerah?", answer:"Hujan", hint:"7/10 lebih besar dari 3/10"},
+
+  // Tambahan perbandingan
+  {question:"Peluang mendapat angka 1 dari dadu (1/6) dibanding angka genap (1/2), manakah lebih besar?", answer:"Angka genap", hint:"1/2 lebih besar dari 1/6"},
+  {question:"Spinner dibagi 8 sama besar. Peluang jatuh di 1 bagian = ?", answer:"1/8", hint:"1 dari 8 bagian"},
+  {question:"Dari 10 bola (4 merah, 6 biru), peluang ambil bola biru = ?", answer:"3/5", hint:"6 ÷ 10 = 3/5"},
+  {question:"Dalam setumpuk kartu, peluang keluar kartu hati (1/4) dibanding kartu sekop (1/4), mana lebih besar?", answer:"Sama", hint:"Masing-masing ada 13 dari 52 kartu"},
+  {question:"Peluang muncul angka kurang dari 3 pada dadu = ?", answer:"1/3", hint:"Angka {1,2} dari 6 kemungkinan"},
+  {question:"Dalam 12 kelereng: 5 merah, 4 biru, 3 hijau. Peluang ambil merah = ?", answer:"5/12", hint:"Jumlah merah ÷ total"},
+  {question:"Dalam kelas 40 siswa: 18 laki-laki, 22 perempuan. Peluang terpilih siswa laki-laki = ?", answer:"9/20", hint:"18 ÷ 40"},
+  {question:"Spinner dibagi 6 sama besar. Peluang jatuh di 2 bagian = ?", answer:"1/3", hint:"2 ÷ 6 = 1/3"},
+  {question:"Peluang muncul angka ganjil dari dadu dibanding angka genap?", answer:"Sama", hint:"3 ganjil dan 3 genap dari 6"},
+  {question:"Dalam 15 bola: 7 merah, 5 kuning, 3 biru. Mana peluang terbesar?", answer:"Merah", hint:"7/15 lebih besar dari 5/15 dan 3/15"}
 ]
   };
 
@@ -508,49 +602,47 @@ peluang: [
 
 
 
-bangun: {
-  title: "📏 Materi Bangun Datar & Ruang",
+kubusbalok: {
+  title: "📏 Materi Kubus & Balok",
   text: `
-    <h2>A. Bangun Datar</h2>
+    <h2>A. Kubus</h2>
     <p>
-      - Luas Persegi = s²  
-      - Luas Persegi Panjang = p × l  
-      - Luas Segitiga = 1/2 × a × t  
-      - Luas Lingkaran = π × r²
+      - Luas Permukaan Kubus = 6 × s²  
+      - Volume Kubus = s³  
+      - Keliling Kubus = 12 × s
     </p>
 
-    <h2>B. Bangun Ruang</h2>
+    <h2>B. Balok</h2>
     <p>
-      - Volume Kubus = s³  
+      - Luas Permukaan Balok = 2 × (p×l + p×t + l×t)  
       - Volume Balok = p × l × t  
-      - Volume Prisma Segitiga = (1/2 × a × t) × tinggi  
-      - Volume Tabung = π × r² × t
+      - Keliling Balok = 4 × (p + l + t)
     </p>
 
     <h2>C. Satuan</h2>
     <p>
-      Jangan lupa pastikan satuan konsisten.  
-      Kalau panjang pakai cm → luas jadi cm², volume jadi cm³.  
-      Kalau panjang pakai m → luas jadi m², volume jadi m³.
+      Pastikan satuan konsisten:  
+      - Panjang dalam cm → luas jadi cm², volume jadi cm³  
+      - Panjang dalam m → luas jadi m², volume jadi m³
     </p>
 
-   <h2>💡 Tips Penting</h2>
-<div style="
-  background:#ecfdf5;
-  border:2px solid #34d399;
-  border-radius:12px;
-  padding:15px;
-  margin-top:10px;
-  box-shadow:0 4px 6px rgba(0,0,0,0.1);
-">
-  <ul style="margin:0; padding-left:20px; color:#065f46; font-weight:500;">
-    <li>✨ Ingat rumus luas & volume masing-masing bangun.</li>
-    <li>✨ Cek satuan supaya tidak keliru.</li>
-    <li>✨ Biasakan gambar sketsa bangun untuk mempermudah perhitungan.</li>
-  </ul>
-</div>
+    <h2>💡 Tips Penting</h2>
+    <div style="
+      background:#ecfdf5;
+      border:2px solid #34d399;
+      border-radius:12px;
+      padding:15px;
+      margin-top:10px;
+      box-shadow:0 4px 6px rgba(0,0,0,0.1);
+    ">
+      <ul style="margin:0; padding-left:20px; color:#065f46; font-weight:500;">
+        <li>✨ Hafalkan rumus luas & volume Kubus serta Balok.</li>
+        <li>✨ Jangan lupa konsistensi satuan.</li>
+        <li>✨ Buat gambar/sketsa agar lebih mudah memahami soal.</li>
+      </ul>
+    </div>
   `,
-  video: "https://www.youtube.com/embed/0hPRfqPFtt8"
+  video: "https://www.youtube.com/embed/HJp5XrULxX0"
 },
 
    rasio: {
@@ -771,7 +863,7 @@ peluang: {
       penjumlahan:'Penjumlahan & Pengurangan',
       perkalian:'Perkalian & Pembagian',
       pecahan:'Pecahan & Desimal',
-      bangun:'Bangun Datar & Ruang',
+      kubusbalok:'Kubus & Balok',
       rasio:'Rasio'
     }[key] || key;
   }
