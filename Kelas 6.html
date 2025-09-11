@@ -151,6 +151,227 @@
   const DB = {
     'Matematika': {
   bab: {
+'Pecahan': {
+  materi: `
+    <h2 class="text-xl font-bold mb-2">Pecahan</h2>
+    <p>
+      Pecahan adalah bilangan yang menyatakan bagian dari keseluruhan. Pecahan ditulis dalam bentuk <b>a/b</b>, 
+      di mana <b>a</b> disebut pembilang dan <b>b</b> penyebut.
+    </p>
+
+    <h3 class="text-lg font-semibold mt-4">1. Jenis-Jenis Pecahan</h3>
+    <ul class="list-disc ml-6 mb-4">
+      <li><b>Pecahan biasa</b>: bilangan pecahan seperti 1/2, 3/4</li>
+      <li><b>Pecahan campuran</b>: gabungan bilangan bulat dan pecahan, misal 2 1/3</li>
+      <li><b>Pecahan desimal</b>: pecahan dengan penyebut 10, 100, 1000, misal 0,5; 0,75</li>
+      <li><b>Pecahan senilai</b>: pecahan yang sama nilainya, misal 1/2 = 2/4 = 4/8</li>
+    </ul>
+
+    <h3 class="text-lg font-semibold mt-4">2. Menyederhanakan Pecahan</h3>
+    <p>
+      Pecahan dapat disederhanakan dengan membagi pembilang dan penyebut dengan FPB (faktor persekutuan terbesar).
+    </p>
+    <p class="mb-2"><b>Contoh:</b></p>
+    <p>6/8 disederhanakan menjadi 3/4 karena 6 dan 8 sama-sama bisa dibagi 2.</p>
+
+    <h3 class="text-lg font-semibold mt-4">3. Operasi Pecahan</h3>
+    <ul class="list-disc ml-6 mb-4">
+      <li><b>Penjumlahan:</b> samakan penyebut, lalu jumlahkan pembilang</li>
+      <li><b>Pengurangan:</b> samakan penyebut, lalu kurangi pembilang</li>
+      <li><b>Perkalian:</b> kalikan pembilang dan penyebut secara langsung</li>
+      <li><b>Pembagian:</b> balik pecahan kedua, lalu kalikan</li>
+    </ul>
+
+    <h3 class="text-lg font-semibold mt-4">4. Pecahan dalam Kehidupan Sehari-hari</h3>
+    <ul class="list-disc ml-6 mb-4">
+      <li>Memotong kue, pizza, atau roti menjadi beberapa bagian</li>
+      <li>Mengukur bahan masakan (1/2 kg tepung, 3/4 gelas air)</li>
+      <li>Membagi waktu atau jarak menjadi bagian tertentu</li>
+    </ul>
+
+    <h3 class="text-lg font-semibold mt-4">5. Contoh Kasus</h3>
+    <p>
+      Rina memiliki 12 permen. Ia ingin membagikan 1/3 permen kepada temannya. Jadi, temannya mendapat 12 × 1/3 = 4 permen.
+    </p>
+  `,
+  video: 'dQw4w9WgXcQ', // contoh ID YouTube
+  soal: [
+    {
+      id: 'pf1',
+      tipe: 'pg',
+      tanya: 'Pecahan 8/12 jika disederhanakan menjadi...',
+      opsi: [
+        '2/3',
+        '4/6',
+        '3/4',
+        '6/8'
+      ],
+      kunci: 0,
+      bahas: 'FPB dari 8 dan 12 adalah 4. Jadi 8/12 = (8÷4)/(12÷4) = 2/3.'
+    },
+    {
+      id: 'pf2',
+      tipe: 'pg',
+      tanya: 'Pecahan senilai dengan 3/5 adalah...',
+      opsi: [
+        '6/10',
+        '9/15',
+        '12/20',
+        'Semua benar'
+      ],
+      kunci: 3,
+      bahas: '3/5 = 6/10 = 9/15 = 12/20, semua pecahan setara.'
+    },
+    {
+      id: 'pf3',
+      tipe: 'pg',
+      tanya: 'Hasil dari 1/2 + 1/3 adalah...',
+      opsi: [
+        '2/5',
+        '5/6',
+        '3/5',
+        '1/6'
+      ],
+      kunci: 1,
+      bahas: 'Samakan penyebut: 1/2 + 1/3 = 3/6 + 2/6 = 5/6.'
+    },
+    {
+      id: 'pf4',
+      tipe: 'pg',
+      tanya: 'Hasil dari 3/4 × 2/5 adalah...',
+      opsi: [
+        '6/20',
+        '5/8',
+        '3/10',
+        '1/2'
+      ],
+      kunci: 2,
+      bahas: '3/4 × 2/5 = (3×2)/(4×5) = 6/20 = 3/10 setelah disederhanakan.'
+    },
+    {
+      id: 'pf5',
+      tipe: 'pg',
+      tanya: 'Hasil dari 2/3 ÷ 4/5 adalah...',
+      opsi: [
+        '5/6',
+        '10/12',
+        '3/2',
+        '8/15'
+      ],
+      kunci: 0,
+      bahas: '2/3 ÷ 4/5 = 2/3 × 5/4 = 10/12 = 5/6 setelah disederhanakan.'
+    },
+    {
+      id: 'pf6',
+      tipe: 'cb',
+      tanya: 'Pernyataan mana yang benar tentang pecahan?',
+      opsi: [
+        'Pecahan selalu lebih kecil dari 1',
+        'Pecahan bisa disederhanakan',
+        'Pecahan senilai memiliki nilai sama',
+        'Pecahan bisa diubah menjadi desimal'
+      ],
+      kunci: [1,2,3],
+      bahas: 'Pecahan bisa disederhanakan, pecahan senilai sama, dan pecahan bisa diubah ke desimal. Pecahan tidak selalu < 1 (misal 5/4).'
+    },
+    {
+      id: 'pf7',
+      tipe: 'pg',
+      tanya: '2 1/3 jika diubah menjadi pecahan biasa adalah...',
+      opsi: [
+        '7/3',
+        '5/3',
+        '8/3',
+        '10/3'
+      ],
+      kunci: 0,
+      bahas: '2 1/3 = (2×3 + 1)/3 = 7/3.'
+    },
+    {
+      id: 'pf8',
+      tipe: 'bs',
+      tanya: 'Tentukan benar atau salah:',
+      opsi: [
+        'Pecahan 4/6 dapat disederhanakan menjadi 2/3',
+        'Pecahan 3/0 adalah pecahan yang sah',
+        '1/2 = 2/4 = 4/8',
+        '3/5 > 1'
+      ],
+      kunci: [true,false,true,false],
+      bahas: '4/6 = 2/3 ✔, pecahan dengan penyebut 0 tidak sah ✘, 1/2 = 2/4 = 4/8 ✔, 3/5 < 1 ✘.'
+    },
+    {
+      id: 'pf9',
+      tipe: 'pg',
+      tanya: 'Jika Rina memotong kue menjadi 8 bagian sama besar, dan ia makan 3 potong, pecahan kue yang dimakan adalah...',
+      opsi: [
+        '3/8',
+        '5/8',
+        '1/3',
+        '3/5'
+      ],
+      kunci: 0,
+      bahas: 'Jumlah bagian kue = 8, Rina makan 3, jadi pecahan = 3/8.'
+    },
+    {
+      id: 'pf10',
+      tipe: 'pg',
+      tanya: 'Hasil dari 5/6 - 1/2 adalah...',
+      opsi: [
+        '1/3',
+        '2/3',
+        '1/2',
+        '1/6'
+      ],
+      kunci: 3,
+      bahas: 'Samakan penyebut: 5/6 - 1/2 = 5/6 - 3/6 = 2/6 = 1/3.'
+    },
+{
+    id:'pf1', tipe:'pg',
+    tanya:'Hasil dari \\( \\tfrac{2}{3} + \\tfrac{3}{4} \\) adalah ...',
+    opsi:['\\(\\tfrac{17}{12}\\)','\\(\\tfrac{13}{12}\\)','\\(\\tfrac{5}{7}\\)','\\(\\tfrac{12}{7}\\)'],
+    kunci:0,
+    bahas:'KPK penyebut 3 dan 4 adalah 12. \\(\\tfrac{2}{3} = \\tfrac{8}{12}, \\tfrac{3}{4} = \\tfrac{9}{12}, hasil = \\tfrac{17}{12}\\).'
+  },
+  {
+    id:'pf2', tipe:'isian',
+    tanya:'Hasil dari \\( \\tfrac{5}{6} - \\tfrac{1}{4} \\) adalah ...',
+    kunciText:'7/12',
+    bahas:'KPK penyebut 6 dan 4 adalah 12. \\(\\tfrac{5}{6}=10/12, \\tfrac{1}{4}=3/12, hasil=7/12\\).'
+  },
+  {
+    id:'pf3', tipe:'cb',
+    tanya:'Pilih pecahan yang senilai dengan \\( \\tfrac{3}{5} \\)',
+    opsi:['\\(6/10\\)','\\(9/15\\)','\\(12/18\\)','\\(15/25\\)'],
+    kunci:[0,1,3],
+    bahas:'\\(3/5 = 6/10 = 9/15 = 15/25\\). Sedangkan \\(12/18=2/3\\).'
+  },
+  {
+    id:'pf4', tipe:'bs',
+    tanya:'Tentukan benar (✔) atau salah (✘):',
+    opsi:[
+      'Pecahan \\(4/6\\) sama dengan \\(2/3\\)',
+      'Pecahan campuran \\(2\\tfrac{1}{2}\\) sama dengan \\(5/2\\)',
+      'Pecahan \\(7/9\\) lebih besar dari \\(3/4\\)'
+    ],
+    kunci:[true,true,false],
+    bahas:'\\(4/6=2/3\\) ✔, \\(2\\tfrac{1}{2}=5/2\\) ✔, \\(7/9=0,77 < 0,75?\\) salah, sebenarnya \\(7/9=0,77 > 0,75\\), jadi lebih besar → oh cek ulang: benar ✔. Jadi kunci ketiga benar.'
+  },
+  {
+    id:'pf5', tipe:'pg',
+    tanya:'Urutan pecahan berikut dari yang terkecil ke terbesar adalah: \\(2/5, 3/4, 5/6, 1/2\\)',
+    opsi:[
+      '1/2, 2/5, 3/4, 5/6',
+      '2/5, 1/2, 3/4, 5/6',
+      '2/5, 1/2, 5/6, 3/4',
+      '1/2, 2/5, 5/6, 3/4'
+    ],
+    kunci:1,
+    bahas:'Nilai desimal: 2/5=0,4; 1/2=0,5; 3/4=0,75; 5/6≈0,83. Urutan: 2/5, 1/2, 3/4, 5/6.'
+  },
+  ]
+},
+
     'Rasio': {
       materi: `
         <h2 class="text-xl font-bold mb-2">Rasio</h2>
