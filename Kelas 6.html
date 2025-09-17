@@ -149,6 +149,549 @@
   // ======= Dataset Contoh (DISERAGAMKAN DENGAN TKA SMA) =======
   // Struktur: mapel -> bab[] -> materi (html), video (YT embed id), soal[]
   const DB = {
+'Bahasa Indonesia': {
+  bab: {
+    'Taman Nasional dan Situs Warisan Dunia': {
+      materi: `
+        <h2 class="text-xl font-bold mb-2">Taman Nasional dan Situs Warisan Dunia</h2>
+        <p>
+          Indonesia memiliki banyak taman nasional dan situs warisan dunia yang diakui UNESCO. Tempat-tempat ini menyimpan keindahan alam dan nilai sejarah yang tinggi sehingga perlu dilestarikan.
+        </p>
+
+        <h3 class="text-lg font-semibold mt-4">A. Pesan Moral dari Teks Legenda</h3>
+
+        <h4 class="font-semibold mt-2">1. Asal Usul Candi Prambanan</h4>
+        <p>
+          Legenda Candi Prambanan menceritakan tentang Bandung Bondowoso yang ingin menikahi Roro Jonggrang. Ia diminta membangun seribu candi dalam semalam, namun gagal karena tipu daya Roro Jonggrang. Akhirnya Roro Jonggrang dikutuk menjadi arca.
+        </p>
+        <p><b>Pesan moral:</b></p>
+        <ul class="list-disc ml-6 mb-4">
+          <li>Jangan memaksakan kehendak pada orang lain.</li>
+          <li>Kejujuran lebih baik daripada kebohongan.</li>
+          <li>Cinta tidak dapat dipaksakan.</li>
+        </ul>
+
+        <h3 class="text-lg font-semibold mt-4">B. Majas</h3>
+        <ul class="list-disc ml-6 mb-4">
+          <li><b>Metafora:</b> Gunung Merapi adalah <i>mahkota Jawa Tengah</i>.</li>
+          <li><b>Asosiasi:</b> Hatinya sekeras batu.</li>
+          <li><b>Personifikasi:</b> Candi itu seolah bercerita tentang masa lalu.</li>
+          <li><b>Hiperbola:</b> Keindahan Taman Nasional Komodo membuat mata tak ingin berkedip.</li>
+        </ul>
+
+        <h3 class="text-lg font-semibold mt-4">C. Kalimat Fakta dan Opini</h3>
+        <p><b>Fakta:</b> Taman Nasional Komodo ditetapkan UNESCO sebagai Situs Warisan Dunia pada tahun 1991.</p>
+        <p><b>Opini:</b> Menurut saya, Candi Prambanan adalah candi Hindu paling indah di dunia.</p>
+
+        <h3 class="text-lg font-semibold mt-4">D. Kalimat Langsung dan Tak Langsung</h3>
+        <p><b>Langsung:</b> Bandung Bondowoso berkata, "Aku akan membangun seribu candi untukmu."</p>
+        <p><b>Tidak langsung:</b> Bandung Bondowoso berkata bahwa ia akan membangun seribu candi untuk Roro Jonggrang.</p>
+
+        <h3 class="text-lg font-semibold mt-4">E. Membaca dan Menganalisis Grafik</h3>
+        <p>Contoh data jumlah pengunjung Candi Prambanan (dalam ribuan):</p>
+
+        <table class="table-auto border-collapse border border-gray-400 my-3">
+          <thead>
+            <tr>
+              <th class="border border-gray-400 px-2 py-1">Tahun</th>
+              <th class="border border-gray-400 px-2 py-1">Jumlah Pengunjung</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-gray-400 px-2 py-1">2019</td>
+              <td class="border border-gray-400 px-2 py-1">1.250</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-400 px-2 py-1">2020</td>
+              <td class="border border-gray-400 px-2 py-1">300</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-400 px-2 py-1">2021</td>
+              <td class="border border-gray-400 px-2 py-1">500</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-400 px-2 py-1">2022</td>
+              <td class="border border-gray-400 px-2 py-1">1.100</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-400 px-2 py-1">2023</td>
+              <td class="border border-gray-400 px-2 py-1">1.400</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><b>Analisis:</b> Jumlah pengunjung menurun drastis pada 2020 karena pandemi, lalu perlahan meningkat kembali, bahkan mencapai puncaknya pada 2023.</p>
+      `,
+      video: 'Gzj8vqE3r3A',
+      soal: [
+        // Pilihan Ganda (PG)
+{
+  id: 'pr1',
+  tipe: 'pg',
+  bacaan: `Asal Usul Candi Prambanan
+
+Candi Prambanan merupakan salah satu candi Hindu terbesar di Indonesia. Legenda yang paling terkenal adalah kisah Roro Jonggrang dan Bandung Bondowoso. Bandung Bondowoso jatuh cinta pada Roro Jonggrang, namun Roro Jonggrang tidak menyukai lamarannya. Untuk menolak secara halus, Roro Jonggrang meminta Bandung Bondowoso membuat seribu candi dalam semalam. Dengan bantuan makhluk halus, Bandung Bondowoso hampir menyelesaikan pekerjaannya. Namun, Roro Jonggrang berusaha menggagalkan dengan menumbuk padi dan menyalakan api sehingga ayam berkokok lebih cepat. Akhirnya, Bandung Bondowoso gagal menyelesaikan seribu candi dan mengutuk Roro Jonggrang menjadi arca ke-1000.`,
+  tanya: 'Mengapa Bandung Bondowoso gagal menyelesaikan seribu candi dalam semalam?',
+  opsi: [
+    'Karena ia kelelahan bekerja sendirian',
+    'Karena Roro Jonggrang menggagalkan dengan menumbuk padi dan menyalakan api',
+    'Karena bantuan makhluk halus tidak datang',
+    'Karena malam terlalu singkat'
+  ],
+  kunci: 1,
+  bahas: 'Bandung Bondowoso gagal karena Roro Jonggrang menumbuk padi dan menyalakan api, sehingga ayam berkokok lebih cepat dan pekerjaannya dianggap sudah pagi.'
+},
+
+// Benar-Salah (BS)
+{
+  id: 'pr2',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah:',
+  opsi: [
+    'Candi Prambanan merupakan candi Buddha terbesar di Indonesia',
+    'Bandung Bondowoso dibantu makhluk halus untuk membangun candi',
+    'Roro Jonggrang meminta seribu candi dalam semalam sebagai syarat lamaran',
+    'Bandung Bondowoso berhasil membangun seribu candi dengan mudah'
+  ],
+  kunci: [false,true,true,false],
+  bahas: 'Candi Prambanan adalah candi Hindu, bukan Buddha. Bandung Bondowoso dibantu makhluk halus ✔. Roro Jonggrang memang meminta syarat seribu candi ✔. Bandung Bondowoso gagal menyelesaikan seribu candi ✘.'
+},
+
+// Checklist (CB)
+{
+  id: 'pr3',
+  tipe: 'cb',
+  bacaan: `Dalam legenda Asal Usul Candi Prambanan, terdapat pesan moral yang bisa dipetik dari kisah Roro Jonggrang dan Bandung Bondowoso.`,
+  tanya: 'Pesan moral apa saja yang dapat diambil dari legenda Candi Prambanan? Pilih semua yang benar.',
+  opsi: [
+    'Kejujuran lebih baik daripada tipu daya',
+    'Keserakahan akan membawa kesialan',
+    'Cinta tidak bisa dipaksakan',
+    'Kerja sama dapat membuat pekerjaan lebih cepat selesai',
+    'Menghormati keputusan orang lain adalah hal penting'
+  ],
+  kunci: [0,2,3,4],
+  bahas: 'Pesan moral dari legenda ini adalah: jangan menipu, cinta tidak bisa dipaksakan, kerja sama penting, dan perlu menghormati keputusan orang lain.'
+},
+
+// Isian
+{
+  id: 'pr4',
+  tipe: 'isian',
+  bacaan: `Bandung Bondowoso jatuh cinta pada Roro Jonggrang, namun untuk menolak lamarannya, Roro Jonggrang memberikan syarat yang sulit dipenuhi.`,
+  tanya: 'Apa syarat yang diminta Roro Jonggrang kepada Bandung Bondowoso?',
+  kunciText: ['membangun seribu candi dalam semalam'],
+  bahas: 'Roro Jonggrang meminta Bandung Bondowoso membangun seribu candi hanya dalam waktu satu malam sebagai syarat lamarannya.'
+},
+// Pilihan Ganda (PG)
+{
+  id: 'pr5',
+  tipe: 'pg',
+  bacaan: `Legenda Candi Prambanan berhubungan erat dengan tokoh Roro Jonggrang yang dikutuk menjadi arca ke-1000.`,
+  tanya: 'Apa alasan Bandung Bondowoso mengutuk Roro Jonggrang?',
+  opsi: [
+    'Karena Roro Jonggrang menolak lamaran dengan cara menipu',
+    'Karena Roro Jonggrang menikah dengan orang lain',
+    'Karena Roro Jonggrang tidak membantu membangun candi',
+    'Karena Roro Jonggrang berpihak pada makhluk halus'
+  ],
+  kunci: 0,
+  bahas: 'Bandung Bondowoso marah karena Roro Jonggrang menolak lamaran dengan tipu daya. Akhirnya ia mengutuk Roro Jonggrang menjadi arca ke-1000.'
+},
+
+// Benar-Salah (BS)
+{
+  id: 'pr6',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah:',
+  opsi: [
+    'Legenda Candi Prambanan termasuk cerita rakyat yang mengandung pesan moral',
+    'Bandung Bondowoso adalah tokoh protagonis yang penuh kesabaran',
+    'Roro Jonggrang berusaha menggagalkan syarat dengan cara menumbuk padi',
+    'Candi Prambanan dibangun dalam satu malam secara nyata'
+  ],
+  kunci: [true,false,true,false],
+  bahas: 'Legenda Candi Prambanan memang cerita rakyat ✔. Bandung Bondowoso bukan tokoh sabar ✘. Roro Jonggrang menggagalkan syarat dengan menumbuk padi ✔. Pembangunan candi hanya cerita legenda, bukan kenyataan ✘.'
+},
+
+// Checklist (CB)
+{
+  id: 'pr7',
+  tipe: 'cb',
+  bacaan: `Dalam legenda Candi Prambanan, terdapat tokoh utama yang berperan penting dalam jalannya cerita.`,
+  tanya: 'Siapakah tokoh utama dalam legenda Candi Prambanan? Pilih semua yang benar.',
+  opsi: [
+    'Bandung Bondowoso',
+    'Roro Jonggrang',
+    'Makhluk halus',
+    'Raja Boko',
+    'Ayam jantan'
+  ],
+  kunci: [0,1,3],
+  bahas: 'Tokoh utama dalam legenda adalah Bandung Bondowoso, Roro Jonggrang, dan Raja Boko. Makhluk halus dan ayam jantan hanya berperan sebagai pelengkap cerita.'
+},
+
+// Isian
+{
+  id: 'pr8',
+  tipe: 'isian',
+  bacaan: `Roro Jonggrang mencari cara agar syarat membangun seribu candi tidak terpenuhi oleh Bandung Bondowoso.`,
+  tanya: 'Apa yang dilakukan Roro Jonggrang untuk menggagalkan usaha Bandung Bondowoso?',
+  kunciText: ['menumbuk padi dan menyalakan api agar ayam berkokok lebih cepat'],
+  bahas: 'Roro Jonggrang menumbuk padi dan menyalakan api sehingga ayam berkokok lebih cepat dan membuat malam seakan sudah berakhir.'
+},
+// Pilihan Ganda (PG)
+{
+  id: 'pr9',
+  tipe: 'pg',
+  bacaan: `Majas adalah gaya bahasa yang digunakan untuk memperindah kalimat. Contoh:
+- Metafora: Gunung Merapi adalah mahkota Jawa Tengah.`,
+  tanya: 'Kalimat "Gunung Merapi adalah mahkota Jawa Tengah" termasuk majas apa?',
+  opsi: [
+    'Asosiasi',
+    'Metafora',
+    'Personifikasi',
+    'Hiperbola'
+  ],
+  kunci: 1,
+  bahas: 'Kalimat tersebut menggunakan majas Metafora, yaitu perbandingan langsung tanpa kata penghubung, seolah-olah Gunung Merapi adalah mahkota Jawa Tengah.'
+},
+
+// Benar-Salah (BS)
+{
+  id: 'pr10',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah:',
+  opsi: [
+    'Kalimat "Hatinya sekeras batu" adalah majas Asosiasi',
+    'Kalimat "Candi itu seolah bercerita tentang masa lalu" termasuk majas Personifikasi',
+    'Kalimat "Keindahan Taman Nasional Komodo membuat mata tak ingin berkedip" adalah majas Hiperbola',
+    'Metafora selalu menggunakan kata seperti, laksana, bagaikan'
+  ],
+  kunci: [true,true,true,false],
+  bahas: 'Hatinya sekeras batu = Asosiasi ✔. Candi itu seolah bercerita = Personifikasi ✔. Keindahan TN Komodo... = Hiperbola ✔. Metafora tidak memakai kata penghubung ✘.'
+},
+
+// Checklist (CB)
+{
+  id: 'pr11',
+  tipe: 'cb',
+  bacaan: `Berikut beberapa kalimat majas. Tentukan mana yang menggunakan majas Personifikasi!`,
+  tanya: 'Pilih semua kalimat yang termasuk majas Personifikasi.',
+  opsi: [
+    'Candi itu seolah bercerita tentang masa lalu',
+    'Pohon-pohon menari diterpa angin',
+    'Hatinya sekeras batu',
+    'Gunung Merapi adalah mahkota Jawa Tengah',
+    'Bunga-bunga tersenyum menyambut pagi'
+  ],
+  kunci: [0,1,4],
+  bahas: 'Majas Personifikasi memberi sifat manusia pada benda mati. Contoh: candi bercerita, pohon menari, bunga tersenyum.'
+},
+
+// Isian
+{
+  id: 'pr12',
+  tipe: 'isian',
+  bacaan: `Kalimat "Keindahan Taman Nasional Komodo membuat mata tak ingin berkedip" termasuk salah satu jenis majas.`,
+  tanya: 'Majas apakah yang digunakan dalam kalimat tersebut?',
+  kunciText: ['hiperbola'],
+  bahas: 'Kalimat itu menggunakan majas Hiperbola, karena melebih-lebihkan kenyataan: mata tak ingin berkedip karena saking indahnya.'
+},
+// Pilihan Ganda (PG)
+{
+  id: 'pr13',
+  tipe: 'pg',
+  bacaan: `Perhatikan kalimat berikut:
+"Sejarah yang terukir pada relief Candi Prambanan adalah suara bisu yang abadi."
+Kalimat tersebut menggunakan gaya bahasa ...`,
+  tanya: 'Majas apa yang digunakan pada kalimat di atas?',
+  opsi: [
+    'Metafora',
+    'Personifikasi',
+    'Asosiasi',
+    'Hiperbola'
+  ],
+  kunci: 1,
+  bahas: 'Relief dianggap memiliki "suara bisu" seolah bisa berbicara. Ini adalah majas Personifikasi karena memberikan sifat manusia pada benda mati.'
+},
+
+// Benar-Salah (BS)
+{
+  id: 'pr14',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah:',
+  opsi: [
+    'Kalimat "Gunung-gunung adalah benteng alam yang melindungi desa" termasuk majas Metafora',
+    'Kalimat "Hujan turun berjuta-juta tahun lamanya tanpa henti" termasuk majas Hiperbola',
+    'Kalimat "Wajahnya pucat seperti kapas" adalah majas Metafora',
+    'Kalimat "Hati manusia kadang lebih keras daripada batu" termasuk majas Asosiasi'
+  ],
+  kunci: [true,true,false,true],
+  bahas: 'Gunung = benteng alam (Metafora) ✔. Hujan berjuta tahun tanpa henti = Hiperbola ✔. Wajah pucat seperti kapas itu Simile, bukan Metafora ✘. Hati keras daripada batu = Asosiasi ✔.'
+},
+
+// Checklist (CB)
+{
+  id: 'pr15',
+  tipe: 'cb',
+  bacaan: `Tentukan kalimat yang mengandung majas Metafora!`,
+  tanya: 'Pilih semua kalimat yang menggunakan majas Metafora.',
+  opsi: [
+    'Ia adalah bintang kelas yang selalu bersinar',
+    'Tangannya cepat bagaikan kilat',
+    'Kota itu adalah lautan manusia',
+    'Air matanya jatuh menuliskan kesedihan',
+    'Buku adalah jendela dunia'
+  ],
+  kunci: [0,2,4],
+  bahas: 'Majas Metafora adalah perbandingan langsung tanpa kata penghubung: bintang kelas, lautan manusia, buku = jendela dunia.'
+},
+
+// Isian
+{
+  id: 'pr16',
+  tipe: 'isian',
+  bacaan: `Kalimat: "Senyumnya mampu merobohkan tembok kesedihan dalam hati."`,
+  tanya: 'Jenis majas apa yang digunakan dalam kalimat tersebut?',
+  kunci: ['hiperbola', 'metafora'],
+  bahas: 'Kalimat ini mengandung majas Hiperbola (senyum merobohkan tembok, berlebihan) sekaligus Metafora (tembok kesedihan sebagai pengganti perasaan berat dalam hati).'
+},
+// Pilihan Ganda (PG)
+{
+  id: 'pr17',
+  tipe: 'pg',
+  bacaan: `Fakta adalah pernyataan yang kebenarannya dapat dibuktikan. Opini adalah pendapat atau pandangan yang bersifat subjektif.`,
+  tanya: 'Manakah kalimat yang merupakan fakta?',
+  opsi: [
+    'Candi Prambanan adalah candi Hindu terbesar di Indonesia',
+    'Candi Prambanan adalah candi paling indah di dunia',
+    'Menurut saya, Taman Nasional Komodo lebih menarik daripada Prambanan',
+    'Prambanan sebaiknya dijadikan pusat wisata utama di Indonesia'
+  ],
+  kunci: 0,
+  bahas: 'Fakta: Candi Prambanan memang candi Hindu terbesar di Indonesia (dapat dibuktikan). Kalimat lain adalah opini karena bersifat penilaian atau pendapat.'
+},
+
+// Benar-Salah (BS)
+{
+  id: 'pr18',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah:',
+  opsi: [
+    'Kalimat fakta selalu bisa dibuktikan kebenarannya',
+    'Kalimat opini bersifat subjektif dan tidak selalu benar untuk semua orang',
+    'Kalimat "Gunung Merapi terletak di Jawa Tengah" adalah opini',
+    'Kalimat "Menurut saya, wisata sejarah lebih penting daripada wisata alam" adalah fakta'
+  ],
+  kunci: [true,true,false,false],
+  bahas: 'Fakta bisa dibuktikan ✔. Opini bersifat subjektif ✔. "Gunung Merapi terletak di Jawa Tengah" = fakta ✘. "Menurut saya ..." = opini ✘.'
+},
+
+// Checklist (CB)
+{
+  id: 'pr19',
+  tipe: 'cb',
+  bacaan: `Pilihlah kalimat yang termasuk opini!`,
+  tanya: 'Manakah kalimat yang termasuk opini?',
+  opsi: [
+    'Candi Borobudur berada di Magelang, Jawa Tengah',
+    'Menurut saya, Candi Prambanan lebih megah daripada Borobudur',
+    'Gunung Bromo adalah salah satu destinasi wisata di Jawa Timur',
+    'Taman Nasional Komodo adalah tempat yang sangat menakjubkan',
+    'Jumlah wisatawan ke Prambanan tahun 2023 mencapai lebih dari satu juta orang'
+  ],
+  kunci: [1,3],
+  bahas: 'Kalimat opini: "Menurut saya, Candi Prambanan lebih megah..." dan "Taman Nasional Komodo sangat menakjubkan". Kalimat lain berupa fakta.'
+},
+
+// Isian
+{
+  id: 'pr20',
+  tipe: 'isian',
+  bacaan: `Perhatikan kalimat berikut: "Menurut saya, Candi Prambanan lebih indah dilihat saat matahari terbenam."`,
+  tanya: 'Kalimat tersebut termasuk kalimat apa? Jelaskan alasannya!',
+  kunciText: ['opini'],
+  bahas: 'Kalimat tersebut termasuk opini, karena berdasarkan penilaian pribadi dan tidak bisa dibuktikan kebenarannya secara universal.'
+},
+// Pilihan Ganda (PG)
+{
+  id: 'pr21',
+  tipe: 'pg',
+  bacaan: `Perhatikan kalimat berikut:
+1) Candi Prambanan dibangun pada abad ke-9 Masehi.
+2) Keindahan relief Prambanan menunjukkan betapa hebatnya seniman pada masa itu.
+3) Menurut saya, Prambanan lebih menarik daripada Borobudur.
+4) UNESCO menetapkan Candi Prambanan sebagai Situs Warisan Dunia pada tahun 1991.`,
+  tanya: 'Kalimat mana yang termasuk opini?',
+  opsi: [
+    '1 dan 4',
+    '2 dan 3',
+    '1 dan 2',
+    '3 dan 4'
+  ],
+  kunci: 1,
+  bahas: 'Kalimat (2) adalah opini karena mengandung penilaian subjektif "hebatnya". Kalimat (3) juga opini karena diawali "menurut saya". Kalimat (1) dan (4) fakta sejarah yang dapat dibuktikan.'
+},
+
+// Benar-Salah (BS)
+{
+  id: 'pr22',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah:',
+  opsi: [
+    'Kalimat "Candi Prambanan memiliki tiga candi utama: Siwa, Wisnu, dan Brahma" adalah fakta',
+    'Kalimat "Candi Prambanan adalah bangunan paling indah di Asia Tenggara" adalah opini',
+    'Kalimat "Jumlah wisatawan Prambanan menurun drastis pada tahun 2020 karena pandemi Covid-19" adalah opini',
+    'Kalimat "Menurut saya, wisata budaya lebih berkesan daripada wisata belanja" adalah opini'
+  ],
+  kunci: [true,true,false,true],
+  bahas: 'Fakta: tiga candi utama ✔. Indah di Asia Tenggara = opini ✔. Penurunan wisata 2020 karena pandemi bisa dibuktikan dengan data (fakta) ✘. Wisata budaya lebih berkesan = opini ✔.'
+},
+
+// Checklist (CB)
+{
+  id: 'pr23',
+  tipe: 'cb',
+  bacaan: `Pilihlah semua kalimat yang termasuk fakta.`,
+  tanya: 'Manakah kalimat berikut yang merupakan fakta?',
+  opsi: [
+    'Candi Prambanan berada di perbatasan Sleman dan Klaten',
+    'Menurut saya, Candi Prambanan lebih romantis saat malam hari',
+    'Candi Prambanan ditetapkan UNESCO sebagai Warisan Dunia pada 1991',
+    'Relief Candi Prambanan adalah yang paling indah di dunia',
+    'Candi Prambanan memiliki ketinggian 47 meter'
+  ],
+  kunci: [0,2,4],
+  bahas: 'Fakta: lokasi Prambanan ✔, ditetapkan UNESCO tahun 1991 ✔, tinggi 47 meter ✔. Opini: romantis saat malam, paling indah di dunia.'
+},
+
+// Isian
+{
+  id: 'pr24',
+  tipe: 'isian',
+  bacaan: `Kalimat: "Candi Prambanan seharusnya menjadi destinasi utama wisata budaya di Indonesia."`,
+  tanya: 'Kalimat tersebut termasuk fakta atau opini? Jelaskan alasanmu!',
+  kunciText: ['opini'],
+  bahas: 'Kalimat tersebut opini karena berupa harapan/pendapat subjektif, bukan data yang bisa dibuktikan.'
+},
+// ===== Kalimat Langsung & Tidak Langsung =====
+{
+  id: 'bind19',
+  tipe: 'pg',
+  bacaan: `Kalimat langsung dan tidak langsung memiliki perbedaan utama pada cara penyampaian. 
+Kalimat langsung menuliskan ucapan seseorang persis seperti aslinya dengan tanda kutip, 
+sedangkan kalimat tidak langsung menyampaikan kembali ucapan tersebut dengan perubahan struktur.`,
+  tanya: 'Manakah contoh kalimat tidak langsung yang benar?',
+  opsi: [
+    'Ani berkata, "Saya sedang belajar bahasa Indonesia."',
+    'Ibu berpesan agar saya berhati-hati di jalan.',
+    'Budi berkata, "Besok kita akan pergi ke candi."',
+    'Guru berkata, "Kerjakan tugas dengan sungguh-sungguh!"'
+  ],
+  kunci: 1,
+  bahas: 'Kalimat tidak langsung tidak menggunakan tanda kutip dan biasanya menggunakan konjungsi seperti *bahwa* atau *agar*. Jawaban benar adalah "Ibu berpesan agar saya berhati-hati di jalan."'
+},
+
+{
+  id: 'bind20',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah:',
+  opsi: [
+    'Kalimat langsung menggunakan tanda kutip.',
+    'Kalimat tidak langsung harus selalu menggunakan kata "bahwa".',
+    'Kalimat langsung menuliskan ucapan sama persis seperti yang dikatakan.',
+    'Kalimat tidak langsung sering mengalami perubahan pada kata ganti orang.'
+  ],
+  kunci: [true, false, true, true],
+  bahas: 'Kalimat langsung memang menggunakan tanda kutip ✔, tetapi kalimat tidak langsung tidak selalu menggunakan "bahwa" ✘. Kalimat langsung menuliskan ucapan persis ✔, dan pada kalimat tidak langsung sering terjadi perubahan kata ganti ✔.'
+},
+
+{
+  id: 'bind21',
+  tipe: 'cb',
+  tanya: 'Pilih semua contoh kalimat langsung:',
+  opsi: [
+    'Ayah berkata, "Kita harus bekerja keras."',
+    'Sinta mengatakan bahwa ia menyukai seni tari.',
+    'Guru mengingatkan, "Jangan lupa belajar untuk ujian."',
+    'Budi menjelaskan bahwa ia akan pergi ke Jogja.'
+  ],
+  kunci: [0,2],
+  bahas: 'Kalimat langsung ditandai dengan penggunaan tanda kutip dan ucapan persis. Contoh yang benar adalah: *"Ayah berkata, "Kita harus bekerja keras."* dan *"Guru mengingatkan, "Jangan lupa belajar untuk ujian."*'
+},
+
+{
+  id: 'bind22',
+  tipe: 'isian',
+  bacaan: `Kalimat langsung: Sinta berkata, "Saya suka membaca buku sejarah."
+Kalimat tidak langsung: ...................................................`,
+  tanya: 'Ubah kalimat langsung di atas menjadi kalimat tidak langsung!',
+  kunciText: 'Sinta berkata bahwa ia suka membaca buku sejarah',
+  bahas: 'Kalimat langsung diubah menjadi tidak langsung dengan mengganti pronomina *saya* menjadi *ia*, dan menambahkan kata penghubung *bahwa*. Jadi kalimatnya: "Sinta berkata bahwa ia suka membaca buku sejarah."'
+},
+// ===== Kalimat Langsung & Tidak Langsung (Level Sulit) =====
+{
+  id: 'bind23',
+  tipe: 'pg',
+  bacaan: `Dalam perubahan kalimat langsung ke tidak langsung, sering kali terjadi pergeseran kata ganti, keterangan waktu, dan keterangan tempat.`,
+  tanya: 'Manakah perubahan kalimat langsung ke kalimat tidak langsung yang benar?',
+  opsi: [
+    'Ani berkata, "Saya akan berangkat besok." → Ani berkata bahwa ia akan berangkat besok.',
+    'Budi berkata, "Kami belajar di sini kemarin." → Budi berkata bahwa mereka belajar di sana hari sebelumnya.',
+    'Ibu berkata, "Kamu harus pulang sekarang." → Ibu berkata bahwa saya harus pulang sekarang.',
+    'Sinta berkata, "Dia sedang makan di rumah." → Sinta berkata bahwa dia sedang makan di rumah.'
+  ],
+  kunci: 1,
+  bahas: 'Dalam perubahan, "kami" → "mereka", "di sini" → "di sana", dan "kemarin" → "hari sebelumnya". Jadi jawaban benar adalah opsi 2.'
+},
+
+{
+  id: 'bind24',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah terkait perubahan kalimat langsung ke tidak langsung:',
+  opsi: [
+    'Kata "kemarin" pada kalimat langsung biasanya berubah menjadi "hari sebelumnya" pada kalimat tidak langsung.',
+    'Kata "besok" pada kalimat langsung dapat berubah menjadi "hari berikutnya".',
+    'Kalimat langsung tidak pernah mengalami perubahan kata ganti orang.',
+    'Kalimat tidak langsung cenderung menghilangkan tanda kutip.'
+  ],
+  kunci: [true, true, false, true],
+  bahas: 'Kemarin → hari sebelumnya ✔, besok → hari berikutnya ✔, kata ganti bisa berubah ✘, tanda kutip memang dihilangkan ✔.'
+},
+
+{
+  id: 'bind25',
+  tipe: 'cb',
+  tanya: 'Pilih semua kalimat tidak langsung yang benar:',
+  opsi: [
+    'Guru berkata bahwa kami harus datang tepat waktu.',
+    'Andi berkata bahwa dia akan mengerjakan tugas kemarin.',
+    'Ibu mengatakan bahwa mereka sedang memasak di dapur.',
+    'Sinta berkata bahwa ia akan pergi ke pasar hari berikutnya.'
+  ],
+  kunci: [0,2,3],
+  bahas: 'Kalimat kedua salah karena "kemarin" tidak boleh dipertahankan, harus berubah menjadi "hari sebelumnya". Yang benar: 1, 3, dan 4.'
+},
+
+{
+  id: 'bind26',
+  tipe: 'isian',
+  bacaan: `Kalimat langsung: Budi berkata, "Saya akan menemui dia di sini besok."`,
+  tanya: 'Ubah kalimat langsung di atas menjadi kalimat tidak langsung!',
+  kunci: ['Budi berkata bahwa ia akan menemui dia di sana hari berikutnya'],
+  bahas: 'Perubahan yang terjadi: "saya" → "ia", "di sini" → "di sana", "besok" → "hari berikutnya". Jadi kalimatnya: "Budi berkata bahwa ia akan menemui dia di sana hari berikutnya."'
+},
+
+
+
+
+      ]
+    }
+  }
+},
+
     'Matematika': {
   bab: {
 'Pecahan': {
@@ -445,8 +988,8 @@
     id: 'w7',
     tipe: 'isian',
     tanya: 'Hasil dari \\(2\\tfrac{1}{2}\\) minggu + \\(3\\tfrac{1}{3}\\) minggu dalam hari adalah ... (1 minggu = 7 hari)',
-    kunciText: '41',
-    bahas: '2 1/2 = 5/2 minggu, 3 1/3 = 10/3 minggu. KPK 6 → 15/6+20/6=35/6 minggu. Ubah ke hari = 35/6 × 7 = 245/6 = 40 5/6 ≈ 41 hari.'
+    kunciText: '40 5/6 ',
+    bahas: '2 1/2 = 5/2 minggu, 3 1/3 = 10/3 minggu. KPK 6 → 15/6+20/6=35/6 minggu. Ubah ke hari = 35/6 × 7 = 245/6 = 40 5/6 .'
   },
   {
     id: 'w8',
@@ -499,7 +1042,7 @@
     id: 'm2',
     tipe: 'isian',
     tanya: 'Umur nenek 1/2 abad lebih 1/4 windu. Berapa tahun umur nenek?',
-    kunciText: '54',
+    kunciText: '52',
     bahas: '1/2 abad = 50 tahun, 1/4 windu = 2 tahun. Total = 52 tahun.'
   },
   {
