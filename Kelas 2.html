@@ -1,0 +1,4837 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- MathJax untuk tampilan rumus -->
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <title>Kebun Ilmu – Media Pembelajaran Interaktif</title>
+  <!-- TailwindCSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--brand:#10b981;--brand-2:#22d3ee}
+    html,body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,"Noto Sans","Apple Color Emoji","Segoe UI Emoji"}
+    .glass{backdrop-filter:saturate(180%) blur(10px); background:linear-gradient(180deg,rgba(255,255,255,.8),rgba(255,255,255,.6))}
+    .chip{border:1px solid rgba(0,0,0,.06);}
+    .btn{transition:transform .05s ease}
+    .btn:active{transform:translateY(1px) scale(.99)}
+    details>summary{list-style:none}
+    details>summary::-webkit-details-marker{display:none}
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-sky-50 via-emerald-50 to-white text-gray-800">
+  <!-- Header / Brand -->
+  <header class="sticky top-0 z-40 border-b border-emerald-100/60 glass">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-3">
+      <img src="https://zahwan93.github.io/Kebun-Ilmu-Matematika-SMP/logo.png" alt="Logo Kebun Ilmu" class="w-10 h-10 rounded-xl shadow" />
+      <div class="flex-1">
+        <h1 class="text-lg sm:text-2xl font-extrabold tracking-tight">
+          Kebun Ilmu <span class="text-emerald-600">— Media Pembelajaran Interaktif</span>
+        </h1>
+        <p class="text-xs sm:text-sm text-gray-500">Materi · Latihan · Simulasi Matematika SMP</p>
+      </div>
+      <nav class="hidden sm:flex items-center gap-2">
+        <button data-tab="materi" class="tab-btn btn px-3 py-2 rounded-xl bg-emerald-600 text-white text-sm font-medium shadow hover:shadow-md">Materi</button>
+        <button data-tab="latihan" class="tab-btn btn px-3 py-2 rounded-xl bg-white text-gray-700 text-sm font-medium border chip hover:bg-gray-50">Latihan Soal</button>
+        <button data-tab="simulasi" class="tab-btn btn px-3 py-2 rounded-xl bg-white text-gray-700 text-sm font-medium border chip hover:bg-gray-50">Simulasi TKA</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Mobile Tab Switcher -->
+  <div class="sm:hidden sticky top-[60px] z-30 bg-white/80 backdrop-blur border-b border-emerald-100/60">
+    <div class="max-w-6xl mx-auto px-4 py-2 grid grid-cols-3 gap-2">
+      <button data-tab="materi" class="tab-btn btn py-2 rounded-lg bg-emerald-600 text-white text-xs font-semibold">Materi</button>
+      <button data-tab="latihan" class="tab-btn btn py-2 rounded-lg bg-white border chip text-xs font-semibold">Latihan</button>
+      <button data-tab="simulasi" class="tab-btn btn py-2 rounded-lg bg-white border chip text-xs font-semibold">Simulasi</button>
+    </div>
+  </div>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-6">
+    <!-- Info links to Pusmendik -->
+    
+    <!-- Tabs content wrapper -->
+    <section id="tab-materi" class="tab-pane">
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="md:col-span-1 space-y-4">
+          <div class="p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+            <h2 class="font-bold text-lg">Pilih Materi</h2>
+            <label class="block mt-3 text-sm">Mata Pelajaran</label>
+            <select id="materiMapel" class="w-full mt-1 px-3 py-2 rounded-xl border chip focus:outline-none focus:ring-2 focus:ring-emerald-300">
+              <!-- Diisi via JS -->
+            </select>
+            <label class="block mt-3 text-sm">Bab</label>
+            <select id="materiBab" class="w-full mt-1 px-3 py-2 rounded-xl border chip focus:outline-none focus:ring-2 focus:ring-emerald-300">
+            </select>
+            <button id="btnLoadMateri" class="btn mt-4 w-full py-2 rounded-xl bg-emerald-600 text-white font-semibold">Tampilkan</button>
+          </div>
+	</div>
+
+        <div class="md:col-span-2 space-y-4">
+          <div class="p-5 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+            <h2 class="font-bold text-xl flex items-center gap-2">📘 Ringkasan Materi</h2>
+            <div id="materiKonten" class="prose prose-sm sm:prose lg:prose-lg max-w-none mt-3"></div>
+          </div>
+          <div class="p-5 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+            <h2 class="font-bold text-xl flex items-center gap-2">🎬 Video Pembelajaran</h2>
+            <div id="materiVideo" class="w-full space-y-4">
+  <span class="text-sm text-gray-400">Pilih materi untuk memuat video…</span>
+</div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-latihan" class="tab-pane hidden">
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="md:col-span-1 p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+          <h2 class="font-bold text-lg">Pengaturan Latihan</h2>
+          <label class="block mt-3 text-sm">Mata Pelajaran</label>
+          <select id="latihMapel" class="w-full mt-1 px-3 py-2 rounded-xl border chip focus:outline-none focus:ring-2 focus:ring-emerald-300"></select>
+          <label class="block mt-3 text-sm">Bab</label>
+          <select id="latihBab" class="w-full mt-1 px-3 py-2 rounded-xl border chip focus:outline-none focus:ring-2 focus:ring-emerald-300"></select>
+          <button id="btnLoadLatihan" class="btn mt-4 w-full py-2 rounded-xl bg-emerald-600 text-white font-semibold">Muat Soal</button>
+        </div>
+        <div class="md:col-span-2 p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+          <div class="flex items-center justify-between">
+            <h2 class="font-bold text-xl">Latihan Soal</h2>
+            <button id="btnPeriksaSemua" class="btn px-3 py-2 rounded-xl border chip text-sm">Cek Semua</button>
+          </div>
+          <div id="latihanContainer" class="mt-3 space-y-4"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-simulasi" class="tab-pane hidden">
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="md:col-span-1 p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+          <h2 class="font-bold text-lg">Pengaturan Simulasi</h2>
+          <label class="block mt-3 text-sm">Mata Pelajaran</label>
+          <select id="simMapel" class="w-full mt-1 px-3 py-2 rounded-xl border chip"></select>
+          <label class="block mt-3 text-sm">Jumlah Soal</label>
+          <input id="simJumlah" type="number" min="5" max="50" value="10" class="w-full mt-1 px-3 py-2 rounded-xl border chip" />
+          <label class="block mt-3 text-sm">Durasi (menit)</label>
+          <input id="simDurasi" type="number" min="5" max="180" value="15" class="w-full mt-1 px-3 py-2 rounded-xl border chip" />
+          <button id="btnMulaiSim" class="btn mt-4 w-full py-2 rounded-xl bg-emerald-600 text-white font-semibold">Mulai Simulasi</button>
+          <p class="text-xs text-gray-500 mt-2">Timer akan berjalan. Skor & pembahasan ditampilkan setelah selesai.</p>
+        </div>
+        <div class="md:col-span-2 p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+          <div class="flex items-center justify-between">
+            <h2 class="font-bold text-xl">Simulasi TKA</h2>
+            <div id="simInfo" class="text-sm text-gray-600">Belum mulai</div>
+          </div>
+          <div id="simContainer" class="mt-3 space-y-4"></div>
+          <div id="simHasil" class="mt-4 hidden p-4 rounded-xl border chip bg-emerald-50"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="max-w-6xl mx-auto px-4 sm:px-6 pb-10">
+    <div class="mt-10 p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm text-xs text-gray-500">
+      <p><strong>Kebun Ilmu</strong> – Aplikasi belajar mandiri. Konten ringkasan & soal di sini adalah contoh yang disusun menyerupai format TKA. Untuk rujukan resmi gunakan tautan Pusmendik di atas.</p>
+    </div>
+  </footer>
+
+  <!-- App Data & Logic -->
+  <script>
+  // ======= Dataset Contoh (DISERAGAMKAN DENGAN TKA SMA) =======
+  // Struktur: mapel -> bab[] -> materi (html), video (YT embed id), soal[]
+  const DB = {
+'English': {
+  bab: {
+    'Expression of Capability, Willingness, and Opinion': {
+      materi: `
+<h2 class="text-xl font-bold mb-2">Expression of Capability, Willingness, and Opinion</h2>
+<p>
+  In English, we use different expressions to show what we can do (capability), what we want or are willing to do (willingness), and what we think or believe (opinion).
+</p>
+
+<h3 class="text-lg font-semibold mt-4">1. Expression of Capability</h3>
+<p>
+  To express capability, we often use modal verbs or phrases like <b>can, be able to, know how to</b>.
+</p>
+<ul class="list-disc ml-6 mb-4">
+  <li>I <b>can</b> swim very well. (Saya bisa berenang dengan baik.)</li>
+  <li>She is <b>able to</b> solve the problem quickly. (Dia mampu menyelesaikan masalah dengan cepat.)</li>
+  <li>They <b>know how to</b> use a computer. (Mereka tahu cara menggunakan komputer.)</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">2. Expression of Willingness</h3>
+<p>
+  To show willingness, we use phrases such as <b>will, would like to, want to</b>.
+</p>
+<ul class="list-disc ml-6 mb-4">
+  <li>I <b>will</b> help you with your homework. (Saya akan membantu pekerjaan rumahmu.)</li>
+  <li>She <b>would like to</b> join the meeting. (Dia ingin ikut rapat.)</li>
+  <li>We <b>want to</b> visit the museum. (Kami ingin mengunjungi museum.)</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">3. Expression of Opinion</h3>
+<p>
+  To give opinions, we often use phrases like <b>I think, I believe, In my opinion</b>.
+</p>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>I think</b> this movie is very interesting. (Saya pikir film ini sangat menarik.)</li>
+  <li><b>I believe</b> everyone should exercise regularly. (Saya percaya semua orang harus berolahraga secara teratur.)</li>
+  <li><b>In my opinion</b>, reading books is important. (Menurut saya, membaca buku itu penting.)</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">4. Examples</h3>
+<p>
+  - Capability: "I can play the piano."  
+  - Willingness: "I would like to attend the workshop."  
+  - Opinion: "In my opinion, the environment should be protected."
+</p>
+
+<h3 class="text-lg font-semibold mt-4">5. Contoh Soal</h3>
+<p><b>Contoh 1:</b> I ___ swim very well. (Jawab: can)</p>
+<p><b>Contoh 2:</b> She ___ like to join the party. (Jawab: would)</p>
+<p><b>Contoh 3:</b> ___ you think learning English is important? (Jawab: Do)</p>
+`,
+      video: ['dQw4w9WgXcQ'], // contoh video
+
+      soal: [
+
+        {
+            id: "cap1",
+            tipe: "pg",
+            bacaan: "Dialog:\nA: Can you play the guitar?\nB: Yes, ....",
+            tanya: "Which is the correct response?",
+            opsi: [
+              "Yes, I can play it.",
+              "Yes, I am play it.",
+              "Yes, I can to play it.",
+              "Yes, I playing it."
+            ],
+            kunci: 0,
+            bahas: "The correct form is 'Yes, I can play it.' to show capability."
+          },
+
+          // ========== CHECKBOX ==========
+          {
+            id: "cap2",
+            tipe: "cb",
+            bacaan: "Choose all correct expressions of incapability:",
+            opsi: [
+              "I can dance salsa.",
+              "She cannot cook.",
+              "We are unable to join the trip.",
+              "They can speak Korean."
+            ],
+            kunci: [1,2],
+            bahas: "'She cannot cook' and 'We are unable to join the trip' show incapability."
+          },
+
+          // ========== TRUE / FALSE ==========
+          {
+            id: "cap3",
+            tipe: "tf",
+            tanya: "Decide whether the statements are True or False:",
+            opsi: [
+              "We use 'can' to express capability.",
+              "We use 'cannot' to express capability.",
+              "We use 'unable to' to express incapability."
+            ],
+            kunci: [true, false, true],
+            bahas: "1. True, 'can' shows ability. 2. False, 'cannot' shows inability. 3. True, 'unable to' also shows incapability."
+          },
+
+          // ========== ISIAN ==========
+          {
+            id: "cap4",
+            tipe: "isian",
+            bacaan: "Dialog:\nA: Can your brother drive a car?\nB: No, ....",
+            tanya: "Complete the response correctly.",
+            kunciText: "he cannot",
+            bahas: "The correct response is 'No, he cannot.'"
+          },
+{
+      id: "cap5",
+      tipe: "pg",
+      bacaan: "Dialog:\n\nMira: Can your sister ride a horse?\nDina: No, she can’t. But she can ride a bicycle very well.\nMira: Can she swim?\nDina: Yes, she can. She swims every weekend.\nMira: Can she cook?\nDina: No, she can’t cook.",
+      tanya: "What can Dina’s sister do?",
+      opsi: [
+        "She can ride a horse and cook.",
+        "She can ride a bicycle and swim.",
+        "She can swim and cook.",
+        "She can play badminton and ride a horse."
+      ],
+      kunci: 1,
+      bahas: "From the dialog, Dina’s sister can ride a bicycle and swim."
+    },
+    {
+      id: "cap6",
+      tipe: "cb",
+      bacaan: "Dialog:\n\nTeacher: Can you speak Japanese?\nRiko: No, I can’t. But I can speak English and a little French.\nTeacher: Can you speak Arabic?\nRiko: No, I can’t.\nTeacher: What about Spanish?\nRiko: Sorry, I can’t.",
+      tanya: "Which languages can Riko speak?",
+      opsi: [
+        "Japanese",
+        "English",
+        "French",
+        "Spanish"
+      ],
+      kunci: [1,2],
+      bahas: "From the dialog, Riko can speak English and a little French."
+    },
+    {
+      id: "cap7",
+      tipe: "tf",
+      bacaan: "Dialog:\n\nSami: Can you play basketball?\nAndi: Yes, I can. But I can’t play volleyball.\nSami: Can you play chess?\nAndi: Yes, I can. I usually play with my father.\nSami: Can you play football?\nAndi: No, I can’t.",
+      tanya: "Decide True or False based on the dialog.",
+      opsi: [
+        "Andi can play basketball and chess.",
+        "Andi can play volleyball and football."
+      ],
+      kunci: [true, false],
+      bahas: "Andi says he can play basketball and chess, but he can’t play volleyball or football."
+    },
+    {
+      id: "cap8",
+      tipe: "isian",
+      bacaan: "Dialog:\n\nAyu: Can you sing this song?\nNina: Yes, I can. I love singing.\nAyu: Can you dance too?\nNina: Yes, I can dance, but just a little.\nAyu: Can you play the piano?\nNina: No, I can’t.",
+      tanya: "Mention two things Nina can do.",
+      kunciText: "sing and dance",
+      bahas: "From the dialog, Nina says she can sing and she can dance."
+    },
+{
+      id: "cap9",
+      tipe: "pg",
+      bacaan: "Dialog:\n\nRani: Can your brother play the guitar?\nSinta: Yes, he can. He often plays in school events.\nRani: Can he play the piano?\nSinta: No, he can’t. But he can sing very well.\nRani: Can he dance?\nSinta: No, he can’t dance at all.",
+      tanya: "Based on the dialog, which activity can Sinta’s brother probably perform in a music concert?",
+      opsi: [
+        "Playing the piano and dancing",
+        "Playing the guitar and singing",
+        "Dancing and acting",
+        "Cooking and playing football"
+      ],
+      kunci: 1,
+      bahas: "He can play the guitar and sing. These are suitable for a music concert."
+    },
+    {
+      id: "cap10",
+      tipe: "cb",
+      bacaan: "Dialog:\n\nArif: Can you swim, Tia?\nTia: Yes, I can. I swim twice a week.\nArif: Can you play badminton?\nTia: Yes, I can. I often play with my friends after school.\nArif: Can you ride a horse?\nTia: No, I can’t. It’s too difficult for me.",
+      tanya: "If the school will hold a 'Sports Day' event, which sports are suitable for Tia to join?",
+      opsi: [
+        "Swimming",
+        "Badminton",
+        "Horse riding",
+        "Running"
+      ],
+      kunci: [0,1],
+      bahas: "From the dialog, Tia can swim and play badminton. She cannot ride a horse."
+    },
+    {
+      id: "cap11",
+      tipe: "tf",
+      bacaan: "Dialog:\n\nDina: Can your cousin cook Indonesian food?\nLina: Yes, she can. She loves cooking fried rice and soup.\nDina: Can she bake a cake?\nLina: No, she can’t. But she can make cookies.\nDina: Can she paint?\nLina: Yes, she can paint beautifully.",
+      tanya: "Decide True or False based on inference from the dialog.",
+      opsi: [
+        "Lina’s cousin is creative in art and cooking.",
+        "Lina’s cousin can bake a cake well."
+      ],
+      kunci: [true, false],
+      bahas: "She can cook, make cookies, and paint → shows creativity. But she cannot bake a cake."
+    },
+    {
+      id: "cap12",
+      tipe: "isian",
+      bacaan: "Dialog:\n\nNana: Can you sing, Riko?\nRiko: No, I can’t. But I can play the violin.\nNana: Can you draw?\nRiko: Yes, I can. I love sketching landscapes.\nNana: Can you play football?\nRiko: Yes, I can play football quite well.",
+      tanya: "If Riko joins two extracurricular activities at school, which ones are the most suitable based on his abilities?",
+      kunciText: "Art club and football club",
+      bahas: "Riko can play the violin (music/art), draw (art), and play football. So the most suitable clubs are Art club and Football club."
+    },
+{
+  id: "cap13",
+  tipe: "pg",
+  bacaan: "Text:\n\nTom is a young boy who loves to play football. He trains every day and can kick the ball very far.",
+  tanya: "Which sentence shows Tom's capability?",
+  opsi: [
+    "Tom cannot kick the ball far.",
+    "Tom can kick the ball very far.",
+    "Tom avoids playing football.",
+    "Tom is afraid of the ball."
+  ],
+  kunci: 1,
+  bahas: "The text states that Tom 'can kick the ball very far,' showing his capability."
+},
+{
+  id: "cap14",
+  tipe: "cb",
+  bacaan: "Text:\n\nLina is not good at swimming. She is afraid of deep water and avoids swimming in the pool.",
+  tanya: "Select the sentences that indicate Lina's incapability.",
+  opsi: [
+    "Lina is not good at swimming.",
+    "Lina enjoys swimming every day.",
+    "She avoids swimming in the pool.",
+    "She can swim very fast."
+  ],
+  kunci: [0,2],
+  bahas: "The text explicitly mentions Lina is not good at swimming and avoids swimming, indicating her incapability."
+},
+{
+  id: "cap15",
+  tipe: "tf",
+  bacaan: "Text:\n\nRiko can solve difficult math problems easily. He practices a lot and loves mathematics.",
+  tanya: "Decide True or False based on the text.",
+  opsi: [
+    "Riko has the ability to solve difficult math problems.",
+    "Riko cannot solve difficult math problems."
+  ],
+  kunci: [true, false],
+  bahas: "The text states that 'Riko can solve difficult math problems easily,' so the first statement is True and the second statement is False."
+},
+{
+  id: "cap16",
+  tipe: "isian",
+  bacaan: "Text:\n\nSara cannot play the guitar yet because she just started learning. She practices every day to improve her skill.",
+  tanya: "Sara ___ play the guitar well.",
+  kunciText: "cannot",
+  bahas: "The text mentions that Sara 'cannot play the guitar yet,' showing her current incapability."
+},
+{
+  id: "cap17",
+  tipe: "pg",
+  bacaan: "Dialog:\n\nSita: Have you finished reading the book for history class?\nRina: Not yet. I only finished two chapters. How about you?\nSita: I finished it last night. It was really interesting, especially the part about ancient civilizations.",
+  tanya: "Which part of the book did Sita find most interesting?",
+  opsi: [
+    "The introduction",
+    "The summary",
+    "The part about ancient civilizations",
+    "The exercises at the end"
+  ],
+  kunci: 2,
+  bahas: "Sita explicitly mentions that she found 'the part about ancient civilizations' interesting, which is a detailed information in the dialog."
+},
+{
+  id: "cap18",
+  tipe: "cb",
+  bacaan: "Dialog:\n\nTom: Did you bring the materials for science class?\nJerry: Yes, I brought the notebook, pen, and microscope slides.\nTom: Great! I only brought the notebook and pen.",
+  tanya: "Select all materials Jerry brought for science class.",
+  opsi: [
+    "Notebook",
+    "Pen",
+    "Microscope slides",
+    "Calculator"
+  ],
+  kunci: [0,1,2],
+  bahas: "Jerry clearly states that he brought the notebook, pen, and microscope slides."
+},
+{
+  id: "cap19",
+  tipe: "tf",
+  bacaan: "Dialog:\n\nTeacher: Who has completed the math assignment?\nAli: I have completed it.\nMaya: I haven’t finished it yet.",
+  tanya: "Decide True or False based on the dialog.",
+  opsi: [
+    "Maya has completed the math assignment.",
+    "Ali has completed the math assignment."
+  ],
+  kunci: [false, true],
+  bahas: "Maya says 'I haven’t finished it yet,' so the first statement is False. Ali says 'I have completed it,' so the second statement is True."
+},
+{
+  id: "cap20",
+  tipe: "isian",
+  bacaan: "Dialog:\n\nAnna: Where did you go last weekend?\nBeni: I went to the zoo and the botanical garden. I especially liked the orchid section.",
+  tanya: "Beni especially liked the ___ section at the botanical garden.",
+  kunciText: "orchid",
+  bahas: "Beni explicitly mentions that he especially liked the 'orchid' section."
+},
+{
+  id: "cap21",
+  tipe: "pg",
+  bacaan: "Jumble Words:\n\ncan / swim / I / very / well",
+  tanya: "Which is the correct sentence?",
+  opsi: [
+    "I can swim very well.",
+    "Can I swim very well?",
+    "Very well I can swim.",
+    "I swim can very well."
+  ],
+  kunci: 0,
+  bahas: "The correct order is 'I can swim very well,' which shows capability."
+},
+{
+  id: "cap22",
+  tipe: "cb",
+  bacaan: "Jumble Words:\n\ncannot / lift / heavy / the / box / John",
+  tanya: "Select all correct sentences that can be formed from the jumble words.",
+  opsi: [
+    "John cannot lift the heavy box.",
+    "John lift cannot the heavy box.",
+    "Cannot John lift the heavy box?",
+    "John cannot lift box heavy the."
+  ],
+  kunci: [0],
+  bahas: "The grammatically correct sentence showing incapability is 'John cannot lift the heavy box.'"
+},
+{
+  id: "cap23",
+  tipe: "tf",
+  bacaan: "Dialog:\n\nRiko: I can solve math problems easily.\nTeacher: That's great, Riko!",
+  tanya: "Decide True or False based on the dialog.",
+  opsi: [
+    "Riko can solve math problems easily.",
+    "Riko cannot solve math problems."
+  ],
+  kunci: [true, false],
+  bahas: "Riko says 'I can solve math problems easily,' so the first statement is True and the second statement is False."
+},
+{
+  id: "cap24",
+  tipe: "isian",
+  bacaan: "Jumble Words:\n\ncannot / play / guitar / Sara / yet",
+  tanya: "Arrange the words to form a correct sentence showing incapability.",
+  kunciText: "Sara cannot play guitar yet.",
+  bahas: "The correct sentence is 'Sara cannot play guitar yet,' which shows her current incapability."
+},
+
+{
+      id: "will1",
+      tipe: "pg",
+      bacaan: "Dialog:\n\nAyu: Will you help me with my homework?\nRina: Yes, I ____ help you after dinner.",
+      tanya: "Choose the correct word to complete the blank.",
+      opsi: ["will", "won’t", "am not willing to", "don’t"],
+      kunci: 0,
+      bahas: "Rina agrees to help, so the correct answer is 'will'."
+    },
+    {
+  id: "will2",
+  tipe: "tf",
+  bacaan: "Dialog:\n\nBudi: Will you join us to play football tomorrow?\nAndi: Sorry, I won’t join. I have to visit my grandmother.\nBudi: Will you join us next week then?\nAndi: Yes, I will. I’ll be free by then.",
+  tanya: "Decide True or False based on the dialog.",
+  opsi: [
+    "Andi is willing to play football tomorrow.",
+    "Andi is willing to play football next week."
+  ],
+  kunci: [false, true],
+  bahas: "Andi says 'I won’t join' (tomorrow) → False. But he says 'Yes, I will' (next week) → True."
+},
+    {
+      id: "will3",
+      tipe: "cb",
+      bacaan: "Dialog:\n\nTeacher: Will you submit your homework tomorrow?\nStudents: Yes, we ____ submit it. We are ready.\n\nWhich words can complete the blank correctly?",
+      tanya: "Select all correct answers.",
+      opsi: [
+        "will",
+        "won’t",
+        "are willing to",
+        "are not willing to"
+      ],
+      kunci: [0,2],
+      bahas: "The students agree → 'will' or 'are willing to' are correct."
+    },
+    {
+      id: "will4",
+      tipe: "isian",
+      bacaan: "Dialog:\n\nDina: Will you lend me your pen?\nTono: No, I ____ lend it. I only have one.",
+      tanya: "Complete the blank with the correct word.",
+      kunciText: "won't",
+      bahas: "Tono refuses, so the correct answer is 'won’t'."
+    },
+{
+      id: "will9",
+      tipe: "pg",
+      bacaan: "Dialog:\n\nSinta: Will you come to my birthday party tomorrow?\nLina: Yes, of course. ____\n\nWhich is the correct expression Lina should say?",
+      tanya: "Choose the correct expression.",
+      opsi: [
+        "I won’t come.",
+        "I’m willing to join.",
+        "I don’t like parties.",
+        "I can’t come."
+      ],
+      kunci: 1,
+      bahas: "Lina agrees happily, so the correct expression is 'I’m willing to join.'"
+    },
+    {
+      id: "will10",
+      tipe: "cb",
+      bacaan: "Dialog:\n\nTeacher: Will you clean the classroom after school?\nStudents: ____\n\nWhich expressions show willingness?",
+      tanya: "Select all correct answers.",
+      opsi: [
+        "Yes, we will.",
+        "We are willing to do it.",
+        "No, we won’t.",
+        "We are not willing to do it."
+      ],
+      kunci: [0,1],
+      bahas: "The expressions that show willingness are 'Yes, we will.' and 'We are willing to do it.'"
+    },
+    {
+      id: "will11",
+      tipe: "tf",
+      bacaan: "Dialog:\n\nRiko: Will you join the English club?\nAndi: Sorry, I won’t. I’m not interested.\n\nStatements:",
+      tanya: "Decide True or False.",
+      opsi: [
+        "Andi shows willingness to join the club.",
+        "Andi shows unwillingness to join the club."
+      ],
+      kunci: [false, true],
+      bahas: "Andi says 'I won’t' → unwillingness. So statement 1 is False, statement 2 is True."
+    },
+    {
+      id: "will12",
+      tipe: "isian",
+      bacaan: "Dialog:\n\nMira: Will you help me carry this bag?\nDoni: Sure. ____.\n\nComplete Doni’s answer with the correct expression of willingness.",
+      tanya: "Fill in the blank.",
+      kunciText: "I will help you / I’m willing to help",
+      bahas: "The correct expressions are 'I will help you' or 'I’m willing to help.'"
+    },
+{
+      id: "op1",
+      tipe: "pg",
+      bacaan: "Dialog:\n\nAyu: What do you think about the new library?\nRina: ____. It’s very comfortable and modern.\n\nWhich is the correct expression to complete Rina’s answer?",
+      tanya: "Choose the correct expression.",
+      opsi: [
+        "In my opinion, it is great.",
+        "I won’t go there.",
+        "I can ride a bicycle.",
+        "I am not willing to join."
+      ],
+      kunci: 0,
+      bahas: "The correct expression of giving opinion is 'In my opinion, it is great.'"
+    },
+    {
+      id: "op2",
+      tipe: "cb",
+      bacaan: "Dialog:\n\nBudi: Do you like the new school canteen?\nSinta: ____. The food is delicious.\n\nWhich expressions can complete Sinta’s answer?",
+      tanya: "Select all correct answers.",
+      opsi: [
+        "I think it is nice.",
+        "In my opinion, it’s better than before.",
+        "I won’t eat there.",
+        "According to me, it is good."
+      ],
+      kunci: [0,1,3],
+      bahas: "All three ('I think...', 'In my opinion...', 'According to me...') express opinion. 'I won’t eat there' is not expressing opinion, it’s refusal."
+    },
+    {
+      id: "op3",
+      tipe: "tf",
+      bacaan: "Dialog:\n\nRiko: What do you think of the new English teacher?\nAndi: I think she is very friendly.\n\nStatements:",
+      tanya: "Decide True or False.",
+      opsi: [
+        "Andi gives his opinion about the teacher.",
+        "Andi shows willingness to help the teacher."
+      ],
+      kunci: [true, false],
+      bahas: "Andi says 'I think she is very friendly' → opinion. He doesn’t talk about willingness."
+    },
+    {
+      id: "op4",
+      tipe: "isian",
+      bacaan: "Dialog:\n\nMira: What do you think about the film we watched yesterday?\nDoni: ____. It was very exciting.\n\nComplete Doni’s answer with a correct opinion expression.",
+      tanya: "Fill in the blank.",
+      kunciText: "I think it was great / In my opinion, it was great",
+      bahas: "The correct expressions are 'I think it was great' or 'In my opinion, it was great.'"
+    },
+{
+      id: "op5",
+      tipe: "pg",
+      bacaan: "Dialog:\n\nTono: What do you think about our school garden?\nDewi: I think it is clean and beautiful. The students take care of it every week.\n\nQuestion: What does Dewi think about the school garden?",
+      tanya: "Choose the correct answer.",
+      opsi: [
+        "It is dirty and small.",
+        "It is clean and beautiful.",
+        "It is big but dirty.",
+        "It is old and messy."
+      ],
+      kunci: 1,
+      bahas: "Dewi clearly says 'I think it is clean and beautiful.'"
+    },
+    {
+      id: "op6",
+      tipe: "cb",
+      bacaan: "Dialog:\n\nAni: What do you think about the new cafeteria?\nLia: In my opinion, it is spacious and the food is delicious. But the drinks are too expensive.\n\nQuestion: What are Lia’s opinions about the cafeteria?",
+      tanya: "Select all correct answers.",
+      opsi: [
+        "It is spacious.",
+        "The food is delicious.",
+        "The drinks are too expensive.",
+        "The food is too salty."
+      ],
+      kunci: [0,1,2],
+      bahas: "Lia mentions three points explicitly: spacious, delicious food, and expensive drinks. She never says the food is salty."
+    },
+    {
+      id: "op7",
+      tipe: "tf",
+      bacaan: "Dialog:\n\nArif: What do you think of our English class today?\nSusi: I think it was fun. We played a vocabulary game.\n\nStatements:",
+      tanya: "Decide True or False.",
+      opsi: [
+        "Susi thinks the class was fun.",
+        "Susi says they did a writing test."
+      ],
+      kunci: [true, false],
+      bahas: "Susi explicitly says 'I think it was fun' and 'We played a vocabulary game', not a writing test."
+    },
+    {
+      id: "op8",
+      tipe: "isian",
+      bacaan: "Dialog:\n\nDoni: What do you think about the new computer lab?\nRani: I think it is modern. The computers are fast.\n\nQuestion: What does Rani think about the new computer lab?",
+      tanya: "Fill in the blank.",
+      kunciText: "It is modern / The computers are fast",
+      bahas: "Rani explicitly says 'I think it is modern' and 'The computers are fast.'"
+    },
+{
+      id: "op9",
+      tipe: "pg",
+      bacaan: "Dialog:\n\nRika: What do you think about the new library?\nTari: In my opinion, it is comfortable. I really like the reading corner because it has big windows and natural light.\n\nQuestion: Which detail does Tari mention about the library?",
+      tanya: "Choose the correct answer.",
+      opsi: [
+        "It has many story books.",
+        "It has big windows and natural light.",
+        "It has free internet access.",
+        "It is noisy and crowded."
+      ],
+      kunci: 1,
+      bahas: "Tari explicitly mentions 'big windows and natural light.'"
+    },
+    {
+      id: "op10",
+      tipe: "cb",
+      bacaan: "Dialog:\n\nAndi: What do you think of the new canteen?\nMira: I think the chairs are comfortable, the noodles are tasty, and the place is clean. But the queue is always long.\n\nQuestion: What details are mentioned by Mira?",
+      tanya: "Select all correct answers.",
+      opsi: [
+        "The chairs are comfortable.",
+        "The noodles are tasty.",
+        "The place is clean.",
+        "The queue is long.",
+        "The price is cheap."
+      ],
+      kunci: [0,1,2,3],
+      bahas: "Mira mentions 4 details: comfortable chairs, tasty noodles, clean place, and long queue. She never mentions cheap price."
+    },
+    {
+      id: "op11",
+      tipe: "tf",
+      bacaan: "Dialog:\n\nReno: What do you think about the music festival yesterday?\nDina: In my opinion, it was exciting. The band played very well, but the sound system had a problem.\n\nStatements:",
+      tanya: "Decide True or False.",
+      opsi: [
+        "Dina thought the festival was exciting.",
+        "The sound system worked perfectly."
+      ],
+      kunci: [true, false],
+      bahas: "Dina said it was exciting, but also said the sound system had a problem, not perfect."
+    },
+    {
+      id: "op12",
+      tipe: "isian",
+      bacaan: "Dialog:\n\nLina: What do you think of the science exhibition?\nRudi: I think it was very interesting. The robot demonstration was amazing, and the solar system model looked real.\n\nQuestion: Mention two details Rudi says about the exhibition.",
+      tanya: "Fill in the blank.",
+      kunciText: "The robot demonstration was amazing; The solar system model looked real",
+      bahas: "Rudi mentions two explicit details: robot demo and solar system model."
+    },
+      ]
+    },
+'Descriptive Text': {
+  materi: `
+<h2 class="text-xl font-bold mb-2">Descriptive Text</h2>
+<p>
+  Descriptive text is a type of text that describes a person, place, animal, or thing in detail, so the reader can imagine it clearly.
+</p>
+
+<h3 class="text-lg font-semibold mt-4">1. Social Function</h3>
+<p>
+  The purpose of descriptive text is to describe a particular person, place, or thing.
+</p>
+
+<h3 class="text-lg font-semibold mt-4">2. Generic Structure</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>Identification</b>: introduces the object being described.</li>
+  <li><b>Description</b>: gives details such as characteristics, qualities, or parts of the object.</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">3. Language Features</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li>Using adjectives (beautiful, tall, friendly).</li>
+  <li>Using simple present tense (She is, They have).</li>
+  <li>Using specific participants (My cat, The school).</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">4. Example</h3>
+<p><b>My Cat</b><br>
+I have a cat. Its name is Kitty. Kitty has white fur and blue eyes. It likes to play with a ball. It is very cute and friendly.</p>
+
+<h3 class="text-lg font-semibold mt-4">5. Contoh Soal</h3>
+<p><b>Contoh 1:</b> What is the social function of descriptive text? (Jawab: To describe a person, place, or thing)</p>
+<p><b>Contoh 2:</b> Which tense is mostly used in descriptive text? (Jawab: Simple Present Tense)</p>
+  `,
+  video: ['tVlcKp3bWH8'], // contoh video Descriptive Text
+  soal: [
+    {
+  id: "desc1",
+  tipe: "pg",
+  bacaan: "Text:\n\nMy house is not very big, but it is comfortable. It has two bedrooms, a living room, a kitchen, and a bathroom. The walls are painted light blue, and the roof is red. In front of the house, there is a small garden with many colorful flowers. I usually spend my afternoon in the garden reading books or watering the plants. I really love my house because it is a peaceful place for me and my family.",
+  tanya: "What is the main topic of the text?",
+  opsi: [
+    "The garden in front of the house",
+    "The writer’s house",
+    "The color of the house",
+    "The writer’s hobby"
+  ],
+  kunci: 1,
+  bahas: "The text mainly describes the writer’s house, including its rooms, colors, and garden."
+},
+{
+  id: "desc2",
+  tipe: "cb",
+  bacaan: "Text:\n\nBorobudur Temple is one of the most famous tourist attractions in Indonesia. It is located in Central Java. The temple has many stupas and beautiful reliefs that tell stories from the past. Every year, thousands of tourists from around the world visit Borobudur to see its unique architecture and learn about Buddhist history. Besides being a tourist attraction, Borobudur is also used as a place for religious ceremonies.",
+  tanya: "What are the main topics of the text?",
+  opsi: [
+    "Borobudur as a tourist attraction",
+    "The architecture and reliefs of Borobudur",
+    "Tourists visiting Borobudur",
+    "The personal life of Buddhist monks"
+  ],
+  kunci: [0,1,2],
+  bahas: "The text focuses on Borobudur as a tourist attraction, its architecture and reliefs, and the fact that many tourists visit it."
+},
+{
+  id: "desc3",
+  tipe: "tf",
+  bacaan: "Text:\n\nMy best friend’s name is Sinta. She is 14 years old and studies in the same school as me. Sinta is very friendly and helpful. She always helps her friends when they have difficulties in studying. She also likes playing badminton and has won several competitions. Many students in our school like her because she is kind and talented. For me, she is not only my best friend but also like a sister.",
+  tanya: "Decide True or False based on the text.",
+  opsi: [
+    "The main topic of the text is about the writer’s best friend, Sinta.",
+    "The main topic of the text is about badminton competitions only."
+  ],
+  kunci: [true, false],
+  bahas: "The text mainly describes the writer’s best friend, Sinta, not only badminton."
+},
+{
+  id: "desc4",
+  tipe: "isian",
+  bacaan: "Text:\n\nThe National Monument, or Monas, is one of the most popular landmarks in Jakarta. It was built to commemorate the struggle for Indonesian independence. The monument is very tall and has a flame covered with gold on its top. Visitors can go up to the top of Monas and see a beautiful view of Jakarta. Around the monument, there is a large park where people can relax and enjoy the scenery.",
+  tanya: "What is the main topic of the text?",
+  kunciText: "The National Monument (Monas)",
+  bahas: "The text mainly describes Monas, its function, shape, and surrounding area."
+},
+{
+  id: "desc5",
+  tipe: "pg",
+  bacaan: "Text:\n\nToba Lake is the largest lake in Indonesia and Southeast Asia. It is located in North Sumatra. In the middle of the lake, there is a volcanic island called Samosir Island. Many tourists come to Lake Toba to enjoy the beautiful scenery, cool weather, and traditional Batak culture. The lake is also popular for activities like swimming, fishing, and taking a boat ride.",
+  tanya: "What is the goal of the text?",
+  opsi: [
+    "To tell a story about Batak culture",
+    "To describe Toba Lake and its attractions",
+    "To explain how to travel to North Sumatra",
+    "To persuade people to swim in the lake"
+  ],
+  kunci: 1,
+  bahas: "The text describes Toba Lake and its attractions, so the goal is to describe."
+},
+{
+  id: "desc6",
+  tipe: "cb",
+  bacaan: "Text:\n\nKomodo Island is one of the New Seven Wonders of Nature. It is famous for being the natural habitat of the Komodo dragon, the largest lizard in the world. The island also has beautiful beaches, clear sea water, and amazing underwater life. Many visitors come to see the Komodo dragons and enjoy snorkeling or diving in the sea around the island.",
+  tanya: "What are the goals of the text?",
+  opsi: [
+    "To describe Komodo Island and its uniqueness",
+    "To explain the history of Komodo Island",
+    "To show the natural beauty of Komodo Island",
+    "To persuade people to eat seafood on the island"
+  ],
+  kunci: [0,2],
+  bahas: "The goal of the text is to describe Komodo Island’s uniqueness and its natural beauty."
+},
+{
+  id: "desc7",
+  tipe: "tf",
+  bacaan: "Text:\n\nThe Taj Mahal is one of the most beautiful buildings in the world. It is located in Agra, India. It was built by Emperor Shah Jahan in memory of his beloved wife, Mumtaz Mahal. The building is made of white marble and is famous for its stunning architecture. Every year, millions of tourists visit the Taj Mahal to admire its beauty.",
+  tanya: "Decide True or False about the goal of the text.",
+  opsi: [
+    "The goal of the text is to describe the Taj Mahal.",
+    "The goal of the text is to tell a personal story about Mumtaz Mahal."
+  ],
+  kunci: [true, false],
+  bahas: "The text mainly describes the Taj Mahal, not a personal story."
+},
+{
+  id: "desc8",
+  tipe: "isian",
+  bacaan: "Text:\n\nRaja Ampat is a group of islands in Papua. It is famous for its underwater beauty and is often called a paradise for divers. There are more than a thousand species of fish and hundreds of types of coral reefs. Many tourists from around the world visit Raja Ampat to enjoy diving and snorkeling.",
+  tanya: "What is the goal of the text?",
+  kunciText: "To describe Raja Ampat",
+  bahas: "The text aims to describe Raja Ampat and its underwater beauty."
+},
+{
+  id: "desc9",
+  tipe: "pg",
+  bacaan: "Text:\n\nBorobudur Temple is the largest Buddhist temple in the world. It is located in Central Java, Indonesia. The temple was built in the 9th century and has many beautiful reliefs and stupas. Every year, thousands of tourists and Buddhists visit Borobudur, especially during Vesak Day.",
+  tanya: "Where is Borobudur Temple located?",
+  opsi: [
+    "In East Java",
+    "In Central Java",
+    "In Yogyakarta",
+    "In Bali"
+  ],
+  kunci: 1,
+  bahas: "The text clearly states that Borobudur Temple is located in Central Java."
+},
+{
+  id: "desc10",
+  tipe: "cb",
+  bacaan: "Text:\n\nBali is known as the Island of Gods. It is famous for its beautiful beaches, traditional dance, and unique culture. Tourists also love visiting temples, rice terraces, and enjoying Balinese food.",
+  tanya: "What things are mentioned in the text as attractions in Bali?",
+  opsi: [
+    "Beautiful beaches",
+    "Traditional dance",
+    "Snow mountains",
+    "Rice terraces"
+  ],
+  kunci: [0,1,3],
+  bahas: "The text mentions beautiful beaches, traditional dance, and rice terraces. Snow mountains are not mentioned."
+},
+{
+  id: "desc11",
+  tipe: "tf",
+  bacaan: "Text:\n\nMount Bromo is an active volcano in East Java. It is part of Bromo Tengger Semeru National Park. Many visitors come in the early morning to see the sunrise from the top of the mountain.",
+  tanya: "Decide True or False based on the explicit information in the text.",
+  opsi: [
+    "Mount Bromo is located in East Java.",
+    "People visit Mount Bromo at night to see the stars."
+  ],
+  kunci: [true, false],
+  bahas: "The text states Mount Bromo is in East Java (True). Visitors come in the morning for sunrise, not at night (False)."
+},
+{
+  id: "desc12",
+  tipe: "isian",
+  bacaan: "Text:\n\nPrambanan is the largest Hindu temple in Indonesia. It was built in the 9th century and is dedicated to the Trimurti: Brahma, Vishnu, and Shiva. The temple complex has tall and pointed architecture, making it very impressive.",
+  tanya: "Prambanan Temple was built in the ___ century.",
+  kunciText: "9th",
+  bahas: "The text explicitly states that Prambanan was built in the 9th century."
+},
+{
+  id: "desc13",
+  tipe: "pg",
+  bacaan: "Text:\n\nRaja Ampat is a group of islands in Papua. It is famous for its underwater beauty and is often called a paradise for divers. There are more than a thousand species of fish and hundreds of types of coral reefs. Many tourists from around the world visit Raja Ampat to enjoy diving and snorkeling.",
+  tanya: "What is the meaning of the word 'underwater' in the text?",
+  opsi: [
+    "Above the water",
+    "Under the water",
+    "Near the land",
+    "On the island"
+  ],
+  kunci: 1,
+  bahas: "The word 'underwater' means 'under the water', as the text talks about marine beauty."
+},
+{
+  id: "desc14",
+  tipe: "cb",
+  bacaan: "Text:\n\nMount Bromo is an active volcano in East Java. It is part of Bromo Tengger Semeru National Park. Many visitors come in the early morning to see the sunrise from the top of the mountain.",
+  tanya: "Which words have the same meaning as 'visitors' in the text?",
+  opsi: [
+    "Tourists",
+    "Locals",
+    "Students",
+    "Climbers"
+  ],
+  kunci: [0,3],
+  bahas: "'Visitors' refers to people who come to see Mount Bromo, including tourists and climbers."
+},
+{
+  id: "desc15",
+  tipe: "tf",
+  bacaan: "Text:\n\nBorobudur Temple is one of the most famous Buddhist temples in the world. It is located in Central Java, Indonesia. The temple has many beautiful reliefs and stupas.",
+  tanya: "Decide True or False based on the meaning of the word 'famous'.",
+  opsi: [
+    "The word 'famous' means well-known.",
+    "The word 'famous' means unknown."
+  ],
+  kunci: [true, false],
+  bahas: "The word 'famous' means 'well-known', so the first statement is True and the second statement is False."
+},
+{
+  id: "desc16",
+  tipe: "isian",
+  bacaan: "Text:\n\nKomodo Island is famous for being the natural habitat of the Komodo dragon. Many visitors come to see these giant lizards.",
+  tanya: "The word 'habitat' has the same meaning as ___.",
+  kunciText: "home",
+  bahas: "In this context, 'habitat' means 'home' or natural living place."
+},
+{
+  id: "desc17",
+  tipe: "pg",
+  bacaan: "Text:\n\nSweet Moments is a small bakery on a quiet street. It has large glass windows and a bright yellow door. Inside, there are three wooden shelves filled with bread, cakes, and pastries. Every morning, the owner wakes up at 4 a.m. to bake bread and decorate cakes. The bakery also sells a special chocolate croissant loved by children.",
+  tanya: "What time does the owner usually start baking?",
+  opsi: [
+    "5 a.m.",
+    "4 a.m.",
+    "6 a.m.",
+    "3 a.m."
+  ],
+  kunci: 1,
+  bahas: "The text states that the owner wakes up at 4 a.m. to bake bread and decorate cakes."
+},
+{
+  id: "desc18",
+  tipe: "cb",
+  bacaan: "Text:\n\nSweet Moments bakery has three wooden shelves filled with various bread, cakes, and pastries. There is a small corner with tables and chairs for customers to enjoy their snacks.",
+  tanya: "Which words describe the seating area in the bakery?",
+  opsi: [
+    "Big corner with benches",
+    "Small corner with tables and chairs",
+    "Outdoor garden",
+    "Large dining hall"
+  ],
+  kunci: [1],
+  bahas: "The text mentions a 'small corner with tables and chairs' as the seating area."
+},
+{ 
+  id: "desc19",
+  tipe: "tf",
+  bacaan: "Text:\n\nSweet Moments bakery sells pastries and bread. The smell of freshly baked bread greets customers at the entrance.",
+  tanya: "Decide True or False based on the statement about the bakery's smell.",
+  opsi: [
+    "The bakery has a strong smell of freshly baked bread.",
+    "The bakery does not have any smell of freshly baked bread."
+  ],
+  kunci: [true, false],
+  bahas: "The text states that 'the smell of freshly baked bread greets customers,' which makes the first statement True and the second statement False."
+},
+{
+  id: "desc20",
+  tipe: "isian",
+  bacaan: "Text:\n\nSweet Moments bakery is famous for its chocolate croissant, which is very popular among children. The bakery opens early every morning.",
+  tanya: "The bakery's chocolate croissant is very ___.",
+  kunciText: "popular",
+  bahas: "The text explicitly mentions that the chocolate croissant is 'very popular among children.'"
+},
+
+  ]
+},
+'Simple Present Tense': {
+  materi: `
+<h2 class="text-xl font-bold mb-2">Simple Present Tense</h2>
+<p>
+  The Simple Present Tense is used to express daily activities, habits, general truths, or repeated actions. 
+</p>
+
+<h3 class="text-lg font-semibold mt-4">1. Formula</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>Positive</b>: S + V1 (add -s/-es for he, she, it)</li>
+  <li><b>Negative</b>: S + do/does + not + V1</li>
+  <li><b>Interrogative</b>: Do/Does + S + V1?</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">2. Usage</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li>To express daily activities (I go to school every day).</li>
+  <li>To express habits (She drinks coffee every morning).</li>
+  <li>To express general truth (The sun rises in the east).</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">3. Signal Words</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li>Always, usually, often, sometimes, never, every day, every week</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">4. Example Sentences</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li>I <b>study</b> English every day.</li>
+  <li>She <b>goes</b> to the market every Sunday.</li>
+  <li>The Earth <b>revolves</b> around the sun.</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">5. Contoh Soal</h3>
+<p><b>Contoh 1:</b> He ___ (play) football every weekend. (Jawab: plays)</p>
+<p><b>Contoh 2:</b> They ___ (not go) to school on Sunday. (Jawab: do not go)</p>
+<p><b>Contoh 3:</b> ___ she read a book every night? (Jawab: Does)</p>
+  `,
+  video: ['9Nqye_yPNyI'], // contoh video Simple Present Tense
+  soal: [
+    {
+  id: "spt1",
+  tipe: "pg",
+  tanya: "Choose the correct sentence in simple present tense:",
+  opsi: [
+    "Rina go to school by bus every day.",
+    "Rina goes to school by bus every day.",
+    "Rina going to school by bus every day.",
+    "Rina has gone to school by bus."
+  ],
+  kunci: 1,
+  bahas: "'Rina goes to school by bus every day.' is correct for third person singular in simple present tense."
+},
+{
+  id: "spt2",
+  tipe: "pg",
+  tanya: "Choose the correct sentence:",
+  opsi: [
+    "Tom and Jerry plays football every weekend.",
+    "Tom and Jerry play football every weekend.",
+    "Tom and Jerry is playing football every weekend.",
+    "Tom and Jerry has played football every weekend."
+  ],
+  kunci: 1,
+  bahas: "'Tom and Jerry play football every weekend.' is correct because third person plural does not add -s."
+},
+{
+  id: "spt3",
+  tipe: "cb",
+  tanya: "Select all sentences that are correct in simple present tense:",
+  opsi: [
+    "She enjoys reading books.",
+    "She enjoy reading books.",
+    "They plays football on Sundays.",
+    "They play football on Sundays."
+  ],
+  kunci: [0,3],
+  bahas: "Correct sentences: 'She enjoys reading books.' and 'They play football on Sundays.'"
+},
+{
+  id: "spt4",
+  tipe: "cb",
+  tanya: "Select all sentences that are correct:",
+  opsi: [
+    "My father drink coffee every morning.",
+    "My father drinks coffee every morning.",
+    "We goes to school at 7 a.m.",
+    "We go to school at 7 a.m."
+  ],
+  kunci: [1,3],
+  bahas: "Correct forms: 'drinks' for third person singular, 'go' for plural subject 'we'."
+},
+{
+  id: "spt5",
+  tipe: "tf",
+  tanya: "Decide True or False for each sentence:",
+  opsi: [
+    "He wakes up at 6 a.m. every day.",
+    "He wake up at 6 a.m. every day.",
+    "They enjoys swimming on weekends.",
+    "They enjoy swimming on weekends."
+  ],
+  kunci: [true, false, false, true],
+  bahas: "Correct forms: 'wakes' for third person singular, 'enjoy' for plural 'they'."
+},
+{
+  id: "spt6",
+  tipe: "tf",
+  tanya: "Decide True or False for each sentence:",
+  opsi: [
+    "The sun rises in the east.",
+    "The sun set in the west.",
+    "Plants grows because of sunlight.",
+    "Plants grow because of sunlight."
+  ],
+  kunci: [true, false, false, true],
+  bahas: "Correct simple present: 'rises', 'sets', 'grow' without -s for plural subject 'plants'."
+},
+{
+  id: "spt7",
+  tipe: "pg",
+  tanya: "Choose the correct word to complete the sentence:\n\nRina usually ___ (wake) up at 6 a.m. every day.",
+  opsi: [
+    "wake",
+    "wakes",
+    "waking",
+    "waked"
+  ],
+  kunci: 1,
+  bahas: "Third person singular 'Rina' requires 'wakes' in simple present tense."
+},
+{
+  id: "spt8",
+  tipe: "pg",
+  tanya: "Complete the sentence with the correct form of the verb:\n\nTom and Jerry ___ (play) football on Sundays.",
+  opsi: [
+    "plays",
+    "play",
+    "playing",
+    "played"
+  ],
+  kunci: 1,
+  bahas: "'Tom and Jerry' is plural, so we use 'play' without -s."
+},
+{
+  id: "spt9",
+  tipe: "cb",
+  tanya: "Select all correct words to complete the sentences:\n\n1. She ___ (study) English every day.\n2. They ___ (watch) TV in the evening.",
+  opsi: [
+    "studies",
+    "study",
+    "watches",
+    "watch"
+  ],
+  kunci: [0,3],
+  bahas: "Third person singular 'She' uses 'studies'. Plural 'They' uses 'watch'."
+},
+{
+  id: "spt10",
+  tipe: "tf",
+  tanya: "Decide True or False for each sentence:",
+  opsi: [
+    "He drinks coffee in the morning.",
+    "He drink coffee in the morning.",
+    "We goes to school at 7 a.m.",
+    "We go to school at 7 a.m."
+  ],
+  kunci: [true, false, false, true],
+  bahas: "Correct forms: 'drinks' for third person singular, 'go' for plural 'we'."
+},
+{
+  id: "spt11",
+  tipe: "isian",
+  tanya: "Complete the sentence with the correct verb in simple present tense:\n\nMy father usually ___ (read) newspaper in the morning and ___ (drink) coffee before going to work.",
+  kunciText: "reads, drinks",
+  bahas: "Third person singular: 'reads' and 'drinks'."
+},
+{
+  id: "spt12",
+  tipe: "pg",
+  tanya: "Complete the sentence with the correct word:\n\nRina usually ___ (go) to school by bus.",
+  opsi: [
+    "go",
+    "goes",
+    "going",
+    "went"
+  ],
+  kunci: 1,
+  bahas: "Third person singular 'Rina' requires 'goes' in simple present tense."
+},
+{
+  id: "sp13",
+  tipe: "pg",
+  tanya: "Choose the correct positive sentence:\n\nHe (go) to school by bus every day.",
+  opsi: [
+    "He go to school by bus every day.",
+    "He goes to school by bus every day.",
+    "He going to school by bus every day.",
+    "He has gone to school by bus every day."
+  ],
+  kunci: 1,
+  bahas: "Third person singular 'He' requires 'goes' in positive simple present tense."
+},
+{
+  id: "sp14",
+  tipe: "pg",
+  tanya: "Choose the correct negative sentence:\n\nShe (not/like) ice cream.",
+  opsi: [
+    "She does not likes ice cream.",
+    "She do not like ice cream.",
+    "She does not like ice cream.",
+    "She not likes ice cream."
+  ],
+  kunci: 2,
+  bahas: "'She does not like ice cream.' is correct negative form for third person singular."
+},
+{
+  id: "sp15",
+  tipe: "pg",
+  tanya: "Choose the correct interrogative sentence:\n\nHe (play) tennis every weekend?",
+  opsi: [
+    "Do he play tennis?",
+    "Does he play tennis?",
+    "Does he plays tennis?",
+    "He does play tennis?"
+  ],
+  kunci: 1,
+  bahas: "'Does he play tennis?' is correct for yes/no question in third person singular."
+},
+{
+  id: "sp16",
+  tipe: "cb",
+  tanya: "Select all correct sentences:",
+  opsi: [
+    "I enjoy reading books every day.",
+    "I enjoys reading books every day.",
+    "They do not watch TV on weekdays.",
+    "They does not watch TV on weekdays."
+  ],
+  kunci: [0,2],
+  bahas: "Correct: 'I enjoy...' and 'They do not watch...' (plural subject)."
+},
+{
+  id: "sp17",
+  tipe: "tf",
+  tanya: "Decide True or False for each sentence:",
+  opsi: [
+    "She loves chocolate.",
+    "She love chocolate.",
+    "Does he go to school by bus?",
+    "Do he go to school by bus?"
+  ],
+  kunci: [true, false, true, false],
+  bahas: "Third person singular positive: 'loves'; interrogative: 'Does he go?'"
+},
+{
+  id: "sp18",
+  tipe: "isian",
+  tanya: "Rewrite the sentences in the correct form:\n\n1. He not/like playing football.\n2. Do she (study) English every day?",
+  kunciText: "He does not like playing football., Does she study English every day?",
+  bahas: "Negative: 'does not like'; Interrogative: 'Does she study English every day?'"
+},
+{
+  id: "sp19",
+  tipe: "pg",
+  tanya: "Choose the correct positive sentence:\n\nThey (have) a big garden at home.",
+  opsi: [
+    "They has a big garden at home.",
+    "They have a big garden at home.",
+    "They having a big garden at home.",
+    "They had a big garden at home."
+  ],
+  kunci: 1,
+  bahas: "Plural subject 'They' uses 'have' in positive simple present."
+},
+{
+  id: "sp20",
+  tipe: "pg",
+  tanya: "Choose the correct negative sentence:\n\nHe (not/watch) TV in the morning.",
+  opsi: [
+    "He does not watch TV in the morning.",
+    "He do not watch TV in the morning.",
+    "He not watches TV in the morning.",
+    "He does not watches TV in the morning."
+  ],
+  kunci: 0,
+  bahas: "Third person singular negative uses 'does not' + base verb: 'watch'."
+},
+{
+  id: "sp21",
+  tipe: "pg",
+  tanya: "Choose the correct interrogative sentence:\n\nThey (study) English every day?",
+  opsi: [
+    "Do they study English every day?",
+    "Does they study English every day?",
+    "Do they studies English every day?",
+    "They do study English every day?"
+  ],
+  kunci: 0,
+  bahas: "Plural subject 'They' uses 'Do' for interrogative, base verb 'study'."
+},
+
+  ]
+},
+
+'Simple Present Perfect Tense': {
+  materi: `
+<h2 class="text-xl font-bold mb-2">Simple Present Perfect Tense</h2>
+<p>
+  The Present Perfect Tense is used to express actions or events that started in the past and still continue, or that happened at an unspecified time in the past but are relevant now.
+</p>
+
+<h3 class="text-lg font-semibold mt-4">1. Formula</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>Positive</b>: S + has/have + V3</li>
+  <li><b>Negative</b>: S + has/have + not + V3</li>
+  <li><b>Interrogative</b>: Has/Have + S + V3?</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">2. Usage</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li>To express experience (I have visited Bali).</li>
+  <li>To express actions that just happened (She has just finished her homework).</li>
+  <li>To express actions that started in the past and continue until now (They have lived here for 5 years).</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">3. Signal Words</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li>Already, just, ever, never, yet, since, for</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">4. Example Sentences</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li>I <b>have eaten</b> lunch.</li>
+  <li>She <b>has visited</b> Paris twice.</li>
+  <li>We <b>have lived</b> in Jakarta since 2010.</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">5. Contoh Soal</h3>
+<p><b>Contoh 1:</b> I ___ (visit) Bali twice. (Jawab: have visited)</p>
+<p><b>Contoh 2:</b> She ___ (not finish) her homework yet. (Jawab: has not finished)</p>
+  `,
+  video: ['CU4Yk7W_dCk'], // contoh video Present Perfect Tense
+  soal: [
+    {
+      id: "pp1",
+      tipe: "pg",
+      bacaan: "I ___ (see) that movie three times.",
+      tanya: "Choose the correct answer:",
+      opsi: [
+        "see",
+        "saw",
+        "have seen",
+        "has saw"
+      ],
+      kunci: 2,
+      bahas: "The correct form is 'have seen' in present perfect tense."
+    },
+    {
+      id: "pp2",
+      tipe: "cb",
+      bacaan: "Which are correct uses of present perfect tense?",
+      opsi: [
+        "I have never eaten sushi.",
+        "She has finished her homework just.",
+        "They have lived here since 2015.",
+        "He have gone to the market."
+      ],
+      kunci: [0,2],
+      bahas: "Sentences 1 and 3 are correct. Sentence 2 is wrong (position of 'just'), sentence 4 is wrong ('He has')."
+    },
+    {
+      id: "pp3",
+      tipe: "tf",
+      bacaan: "Present Perfect Tense uses V2 (past tense form) after has/have.",
+      tanya: "True or False?",
+      kunci: 1,
+      bahas: "False. Present perfect uses V3 (past participle), not V2."
+    },
+    {
+      id: "pp4",
+      tipe: "isian",
+      bacaan: "She ____ (finish) her homework.",
+      kunci: "has finished",
+      bahas: "The correct answer is 'has finished'."
+    }
+  ]
+},
+
+  }
+},
+
+'IPA': {
+bab: {
+'Hakikat Sains': {
+  materi: `
+<h2 class="text-xl font-bold mb-2">Hakikat Ilmu Sains dan Metode Ilmiah</h2>
+<p>
+  Ilmu sains adalah pengetahuan yang diperoleh melalui proses berpikir kritis, sistematis, dan logis tentang alam dan gejala-gejalanya. 
+  Sains berkembang berdasarkan pengamatan, eksperimen, serta analisis yang dapat diuji kebenarannya.
+</p>
+
+<h3 class="text-lg font-semibold mt-4">1. Hakikat Ilmu Sains</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>Sains sebagai produk</b>: berupa kumpulan fakta, konsep, hukum, dan teori.</li>
+  <li><b>Sains sebagai proses</b>: berupa langkah-langkah sistematis untuk memperoleh pengetahuan, seperti observasi, hipotesis, eksperimen, dan analisis data.</li>
+  <li><b>Sains sebagai sikap</b>: bersikap objektif, jujur, terbuka terhadap data baru, dan selalu kritis.</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">2. Metode Ilmiah</h3>
+<p>
+  Metode ilmiah adalah cara sistematis yang dilakukan untuk memecahkan masalah dan mendapatkan pengetahuan baru.
+</p>
+<ol class="list-decimal ml-6 mb-4">
+  <li><b>Observasi</b>: mengamati fenomena atau masalah yang terjadi.</li>
+  <li><b>Merumuskan masalah</b>: menentukan pertanyaan yang ingin dijawab.</li>
+  <li><b>Menyusun hipotesis</b>: dugaan sementara yang akan diuji.</li>
+  <li><b>Eksperimen</b>: melakukan percobaan untuk menguji hipotesis.</li>
+  <li><b>Menganalisis data</b>: mengolah hasil percobaan.</li>
+  <li><b>Membuat kesimpulan</b>: menarik jawaban dari hasil penelitian.</li>
+  <li><b>Publikasi</b>: menyampaikan hasil penelitian agar dapat diuji dan digunakan orang lain.</li>
+</ol>
+
+<h3 class="text-lg font-semibold mt-4">3. Contoh Penerapan</h3>
+<p>
+  Seorang siswa ingin mengetahui pengaruh cahaya terhadap pertumbuhan tanaman. Ia melakukan observasi, menyusun hipotesis bahwa "tanaman yang terkena cahaya tumbuh lebih cepat", 
+  kemudian melakukan eksperimen dengan dua pot tanaman, satu diletakkan di tempat terang dan satu lagi di tempat gelap. Setelah beberapa minggu, hasilnya dianalisis dan disimpulkan bahwa cahaya memang memengaruhi pertumbuhan tanaman.
+</p>
+
+<h3 class="text-lg font-semibold mt-4">4. Contoh Soal</h3>
+<p><b>Contoh 1:</b> Langkah pertama dalam metode ilmiah adalah .... <i>Jawab: Observasi</i>.</p>
+<p><b>Contoh 2:</b> Dugaan sementara yang disusun untuk menjawab permasalahan disebut .... <i>Jawab: Hipotesis</i>.</p>
+`,
+  video: ['L0V6pVwWJ1c'], 
+
+  soal: [
+ // Pilihan Ganda (PG)
+{
+  id: 'ipa1',
+  tipe: 'pg',
+  tanya: 'Ilmu yang mempelajari makhluk hidup beserta interaksinya dengan lingkungan termasuk cabang IPA yang disebut ....',
+  opsi: [
+    'Fisika',
+    'Kimia',
+    'Biologi',
+    'Astronomi'
+  ],
+  kunci: 3,
+  bahas: 'Biologi adalah cabang IPA yang mempelajari makhluk hidup, struktur, fungsi, serta interaksinya dengan lingkungan.'
+},
+
+// Check Box (CB)
+{
+  id: 'ipa2',
+  tipe: 'cb',
+  tanya: 'Manakah yang termasuk cabang IPA?',
+  opsi: [
+    'Fisika',
+    'Kimia',
+    'Ekonomi',
+    'Biologi'
+  ],
+  kunci: [0,1,3],
+  bahas: 'IPA mencakup Fisika, Kimia, dan Biologi. Ekonomi termasuk ilmu sosial, bukan cabang IPA.'
+},
+
+// Benar/Salah (BS)
+{
+  id: 'ipa3',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut terkait cabang IPA:',
+  opsi: [
+    'Fisika mempelajari materi dan energi serta interaksinya',
+    'Kimia mempelajari susunan, struktur, dan sifat zat',
+    'Biologi hanya mempelajari tumbuhan',
+    'Astronomi mempelajari benda langit'
+  ],
+  kunci: [true,true,false,true],
+  bahas: 'Fisika fokus pada energi dan materi (benar). Kimia fokus pada zat dan perubahannya (benar). Biologi mempelajari semua makhluk hidup, tidak hanya tumbuhan (salah). Astronomi mempelajari benda langit (benar).'
+},
+
+// Isian
+{
+  id: 'ipa4',
+  tipe: 'isian',
+  tanya: 'Ilmu yang mempelajari benda langit seperti planet, bintang, dan galaksi disebut ....',
+  kunciText: 'astronomi',
+  bahas: 'Astronomi adalah cabang IPA yang mempelajari benda langit dan fenomena luar angkasa.'
+},
+ {
+    id: 'ipa5',
+    tipe: 'pg',
+    tanya: 'Alat laboratorium yang digunakan untuk memanaskan cairan dengan nyala api adalah ....',
+    opsi: [
+      'Mikroskop',
+      'Bunsen',
+      'Tabung reaksi',
+      'Cawan petri'
+    ],
+    kunci: 1,
+    bahas: 'Bunsen adalah alat pemanas yang menghasilkan nyala api stabil untuk percobaan di laboratorium.'
+  },
+
+  // Check Box (CB)
+  {
+    id: 'ipa6',
+    tipe: 'cb',
+    tanya: 'Manakah fungsi dari gelas ukur dalam laboratorium?',
+    opsi: [
+      'Mengukur volume larutan dengan ketelitian sedang',
+      'Menimbang massa zat padat',
+      'Mencampur larutan dalam jumlah banyak',
+      'Menampung larutan dalam volume tertentu'
+    ],
+    kunci: [0,3],
+    bahas: 'Gelas ukur digunakan untuk mengukur volume larutan, meski tidak seakurat buret. Gelas ukur juga bisa menampung larutan sesuai volume yang ditandai.'
+  },
+
+  // Benar/Salah (BS)
+  {
+    id: 'ipa7',
+    tipe: 'bs',
+    tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang fungsi alat laboratorium:',
+    opsi: [
+      'Mikroskop digunakan untuk mengamati benda yang sangat kecil',
+      'Tabung reaksi digunakan untuk memanaskan cairan dalam jumlah besar',
+      'Pipet tetes digunakan untuk menambahkan larutan sedikit demi sedikit',
+      'Erlenmeyer digunakan untuk mengukur massa zat dengan teliti'
+    ],
+    kunci: [true,false,true,false],
+    bahas: 'Mikroskop benar untuk melihat objek kecil. Tabung reaksi untuk volume kecil, bukan besar. Pipet tetes benar untuk meneteskan larutan sedikit-sedikit. Erlenmeyer bukan untuk menimbang massa.'
+  },
+
+  // Isian
+  {
+    id: 'ipa8',
+    tipe: 'isian',
+    tanya: 'Alat laboratorium yang digunakan untuk memindahkan cairan dalam volume tertentu dengan ketelitian tinggi adalah ....',
+    kunciText: 'pipet ukur',
+    bahas: 'Pipet ukur dipakai untuk memindahkan larutan dengan volume tertentu secara teliti.'
+  },
+
+  // Pilihan Ganda (PG)
+  {
+    id: 'ipa9',
+    tipe: 'pg',
+    tanya: 'Cawan petri dalam laboratorium biasanya digunakan untuk ....',
+    opsi: [
+      'Menumbuhkan mikroorganisme',
+      'Mengukur suhu zat cair',
+      'Memanaskan larutan dengan api',
+      'Mengukur volume larutan'
+    ],
+    kunci: 0,
+    bahas: 'Cawan petri berfungsi sebagai wadah kultur mikroorganisme pada medium tertentu.'
+  },
+{
+    id: 'ipa10',
+    tipe: 'pg',
+    tanya: 'Langkah pertama dalam metode ilmiah yang harus dilakukan seorang peneliti adalah ....',
+    opsi: [
+      'Menyusun hipotesis',
+      'Melakukan observasi',
+      'Mengumpulkan data',
+      'Membuat kesimpulan'
+    ],
+    kunci: 1,
+    bahas: 'Metode ilmiah diawali dengan observasi (pengamatan) terhadap suatu fenomena.'
+  },
+
+  // Check Box (CB)
+  {
+    id: 'ipa11',
+    tipe: 'cb',
+    tanya: 'Manakah yang termasuk langkah dalam metode ilmiah?',
+    opsi: [
+      'Merumuskan masalah',
+      'Membuat hipotesis',
+      'Melakukan eksperimen',
+      'Menentukan harga jual produk'
+    ],
+    kunci: [0,1,2],
+    bahas: 'Langkah metode ilmiah meliputi: merumuskan masalah, membuat hipotesis, melakukan eksperimen, mengolah data, dan menyimpulkan.'
+  },
+
+  // Benar/Salah (BS)
+  {
+    id: 'ipa12',
+    tipe: 'bs',
+    tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang metode ilmiah:',
+    opsi: [
+      'Hipotesis adalah jawaban sementara atas rumusan masalah',
+      'Kesimpulan dibuat sebelum eksperimen dilakukan',
+      'Eksperimen dilakukan untuk menguji kebenaran hipotesis',
+      'Observasi bukan bagian dari metode ilmiah'
+    ],
+    kunci: [true,false,true,false],
+    bahas: 'Hipotesis memang jawaban sementara. Kesimpulan dibuat setelah eksperimen, bukan sebelumnya. Eksperimen untuk menguji hipotesis. Observasi adalah bagian awal metode ilmiah.'
+  },
+
+  // Isian
+  {
+    id: 'ipa13',
+    tipe: 'isian',
+    tanya: 'Jawaban sementara yang dibuat peneliti sebelum melakukan eksperimen disebut ....',
+    kunciText: 'hipotesis',
+    bahas: 'Hipotesis adalah dugaan sementara yang kebenarannya masih harus diuji melalui eksperimen.'
+  },
+
+  // Pilihan Ganda (PG)
+  {
+    id: 'ipa14',
+    tipe: 'pg',
+    tanya: 'Setelah melakukan eksperimen dan mengumpulkan data, langkah selanjutnya dalam metode ilmiah adalah ....',
+    opsi: [
+      'Membuat rumusan masalah',
+      'Menyusun hipotesis',
+      'Membuat kesimpulan',
+      'Melakukan observasi ulang'
+    ],
+    kunci: 2,
+    bahas: 'Setelah eksperimen selesai, peneliti membuat kesimpulan berdasarkan data yang diperoleh.'
+  },
+{
+    id: 'ipa15',
+    tipe: 'pg',
+    tanya: 'Sebuah benda diukur menggunakan jangka sorong. Skala utama menunjukkan 3,2 cm dan garis ke-6 pada skala nonius tepat berhimpit dengan garis skala utama. Berapakah hasil pengukurannya?',
+    opsi: [
+      '3,20 cm',
+      '3,26 cm',
+      '3,60 cm',
+      '3,80 cm'
+    ],
+    kunci: 1,
+    bahas: 'Skala utama = 3,2 cm. Skala nonius = 0,06 cm (6 × 0,01 cm). Hasil = 3,2 + 0,06 = 3,26 cm.'
+  },
+
+  // Check Box (CB)
+  {
+    id: 'ipa16',
+    tipe: 'cb',
+    tanya: 'Manakah pernyataan yang benar tentang cara membaca jangka sorong?',
+    opsi: [
+      'Skala utama menunjukkan nilai sebelum garis nol nonius',
+      'Skala nonius menunjukkan tambahan ketelitian pembacaan',
+      'Setiap garis skala nonius bernilai 0,01 cm',
+      'Hasil pengukuran hanya dilihat dari skala utama'
+    ],
+    kunci: [0,1,2],
+    bahas: 'Skala utama dibaca tepat sebelum garis nol nonius. Skala nonius memberikan ketelitian tambahan (0,01 cm per garis). Hasil pengukuran merupakan gabungan skala utama dan nonius.'
+  },
+
+  // Benar/Salah (BS)
+  {
+    id: 'ipa17',
+    tipe: 'bs',
+    tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut terkait jangka sorong:',
+    opsi: [
+      'Ketelitian jangka sorong umumnya 0,01 cm',
+      'Pembacaan jangka sorong hanya menggunakan skala utama',
+      'Jika garis ke-5 nonius berhimpit, artinya tambahan pembacaan 0,05 cm',
+      'Jangka sorong hanya bisa digunakan untuk mengukur panjang benda berbentuk balok'
+    ],
+    kunci: [true,false,true,false],
+    bahas: 'Ketelitian jangka sorong 0,01 cm. Harus dibaca dari skala utama + nonius. Garis ke-5 = 0,05 cm tambahan. Jangka sorong bisa mengukur diameter luar, diameter dalam, dan kedalaman.'
+  },
+
+  // Isian
+  {
+    id: 'ipa18',
+    tipe: 'isian',
+    tanya: 'Jika skala utama menunjukkan 2,5 cm dan garis nonius ke-8 sejajar dengan garis utama, maka hasil pengukuran adalah .... cm',
+    kunciText: '2,58',
+    bahas: 'Skala utama = 2,5 cm. Skala nonius = 8 × 0,01 cm = 0,08 cm. Total = 2,58 cm.'
+  },
+
+  // Pilihan Ganda (PG)
+  {
+    id: 'ipa19',
+    tipe: 'pg',
+    tanya: 'Seorang siswa mengukur diameter luar kelereng dengan jangka sorong dan mendapatkan hasil 1,72 cm. Informasi yang benar tentang hasil pengukuran tersebut adalah ....',
+    opsi: [
+      'Skala utama 1,7 cm, nonius 0,02 cm',
+      'Skala utama 1,72 cm, nonius 0,00 cm',
+      'Skala utama 1,70 cm, nonius 0,20 cm',
+      'Skala utama 1,72 cm, nonius tidak diperlukan'
+    ],
+    kunci: 0,
+    bahas: 'Hasil 1,72 cm berarti skala utama menunjukkan 1,7 cm dan skala nonius menunjukkan 0,02 cm.'
+  },
+{
+    id: 'ipa20',
+    tipe: 'pg',
+    tanya: 'Seorang siswa mengukur panjang pensil dengan penggaris. Ujung pensil berada pada angka 0 cm dan ujung lainnya tepat di angka 14,3 cm. Panjang pensil tersebut adalah ....',
+    opsi: [
+      '14 cm',
+      '14,3 cm',
+      '15 cm',
+      '13,7 cm'
+    ],
+    kunci: 1,
+    bahas: 'Jika pengukuran tepat pada 14,3 cm maka panjang pensil adalah 14,3 cm.'
+  },
+
+  // Check Box (CB)
+  {
+    id: 'ipa21',
+    tipe: 'cb',
+    tanya: 'Perhatikan pernyataan berikut. Manakah yang benar tentang cara membaca penggaris?',
+    opsi: [
+      'Posisi mata harus tegak lurus dengan skala penggaris',
+      'Pengukuran dimulai dari angka 0 pada penggaris',
+      'Jika ujung benda berada di antara dua garis, gunakan perkiraan sepersepuluh skala',
+      'Hasil pengukuran tidak dipengaruhi oleh posisi mata'
+    ],
+    kunci: [0,1,2],
+    bahas: 'Mata harus sejajar untuk menghindari paralaks, pengukuran dimulai dari angka 0, dan jika berada di antara dua garis gunakan perkiraan. Posisi mata sangat berpengaruh.'
+  },
+
+  // Benar/Salah (BS)
+  {
+    id: 'ipa22',
+    tipe: 'bs',
+    tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang pembacaan penggaris:',
+    opsi: [
+      'Ketelitian penggaris umumnya 1 mm (0,1 cm)',
+      'Paralaks dapat menyebabkan hasil pengukuran lebih besar atau lebih kecil',
+      'Pengukuran selalu dimulai dari angka 1 cm pada penggaris',
+      'Penggaris hanya bisa mengukur benda yang panjangnya lebih dari 1 cm'
+    ],
+    kunci: [true,true,false,false],
+    bahas: 'Ketelitian penggaris 1 mm. Paralaks dapat menimbulkan kesalahan. Pengukuran harus dimulai dari angka 0, bukan 1 cm. Penggaris bisa digunakan untuk benda berukuran kecil maupun besar.'
+  },
+
+  // Isian
+  {
+    id: 'ipa23',
+    tipe: 'isian',
+    tanya: 'Jika sebuah kertas diukur dengan penggaris dan panjangnya berada di antara 21,4 cm dan 21,5 cm, maka hasil pengukurannya ditulis .... cm',
+    kunciText: '21,45',
+    bahas: 'Dengan ketelitian penggaris 0,1 cm, hasil bisa diperkirakan 21,45 cm.'
+  },
+
+  // Pilihan Ganda (PG)
+  {
+    id: 'ipa24',
+    tipe: 'pg',
+    tanya: 'Seorang siswa mengukur panjang meja dengan penggaris 1 meter. Ujung meja tepat di angka 95,7 cm. Pernyataan yang benar adalah ....',
+    opsi: [
+      'Panjang meja adalah 95 cm',
+      'Panjang meja adalah 95,7 cm',
+      'Panjang meja adalah 96 cm',
+      'Panjang meja adalah 95,07 cm'
+    ],
+    kunci: 1,
+    bahas: 'Jika pengukuran berhenti pada angka 95,7 cm maka panjang meja adalah 95,7 cm.'
+  },
+{
+  id: 'ipa25',
+  tipe: 'pg',
+  tanya: 'Seorang siswa mengatakan bahwa luas termasuk besaran pokok karena memiliki satuan meter persegi. Apakah pernyataan tersebut benar?',
+  opsi: [
+    'Benar, karena luas adalah hasil pengukuran panjang',
+    'Salah, karena luas merupakan besaran turunan dari panjang',
+    'Benar, karena satuan luas ada dalam SI',
+    'Salah, karena luas tidak memiliki satuan'
+  ],
+  kunci: 2,
+  bahas: 'Luas merupakan besaran turunan, karena didapat dari perkalian panjang × panjang. Jadi pernyataan siswa tersebut salah.'
+},
+{
+  id: 'ipa26',
+  tipe: 'pg',
+  tanya: 'Jika besaran pokok panjang memiliki satuan meter dan waktu memiliki satuan sekon, maka besaran turunan kecepatan memiliki satuan ....',
+  opsi: [
+    'Meter',
+    'Meter/sekon',
+    'Meter × sekon',
+    'Sekon/meter'
+  ],
+  kunci: 2,
+  bahas: 'Kecepatan merupakan hasil bagi jarak (meter) dengan waktu (sekon), sehingga satuannya adalah meter/sekon.'
+},
+{
+  id: 'ipa27',
+  tipe: 'pg',
+  tanya: 'Manakah pernyataan berikut yang benar tentang besaran pokok dan turunan?',
+  opsi: [
+    'Besaran turunan dapat diturunkan menjadi besaran pokok',
+    'Besaran pokok diperoleh dari kombinasi besaran turunan',
+    'Besaran pokok dan turunan tidak saling berhubungan',
+    'Besaran turunan berasal dari kombinasi besaran pokok'
+  ],
+  kunci: 4,
+  bahas: 'Besaran turunan diperoleh dari kombinasi besaran pokok, contohnya luas (m²), kecepatan (m/s), gaya (kg·m/s²).'
+},
+{
+  id: 'ipa28',
+  tipe: 'pg',
+  tanya: 'Manakah pasangan yang tepat antara besaran dan kategorinya?',
+  opsi: [
+    'Massa – Besaran turunan',
+    'Volume – Besaran pokok',
+    'Intensitas cahaya – Besaran pokok',
+    'Gaya – Besaran pokok'
+  ],
+  kunci: 3,
+  bahas: 'Intensitas cahaya adalah salah satu dari 7 besaran pokok dengan satuan candela. Volume dan gaya adalah besaran turunan, massa adalah besaran pokok.'
+},
+{
+  id: 'ipa29',
+  tipe: 'pg',
+  tanya: 'Alat yang digunakan untuk mengukur massa suatu benda adalah ....',
+  opsi: [
+    'Termometer',
+    'Neraca',
+    'Jangka sorong',
+    'Higrometer'
+  ],
+  kunci: 2,
+  bahas: 'Massa diukur menggunakan neraca, misalnya neraca tiga lengan atau neraca digital.'
+},
+{
+  id: 'ipa30',
+  tipe: 'pg',
+  tanya: 'Untuk mengukur suhu air panas dengan tepat, digunakan alat ukur ....',
+  opsi: [
+    'Termometer',
+    'Amperemeter',
+    'Barometer',
+    'Stopwatch'
+  ],
+  kunci: 1,
+  bahas: 'Suhu diukur menggunakan termometer.'
+},
+{
+  id: 'ipa31',
+  tipe: 'pg',
+  tanya: 'Alat ukur yang digunakan untuk mengukur waktu dalam kegiatan percobaan adalah ....',
+  opsi: [
+    'Stopwatch',
+    'Termometer',
+    'Barometer',
+    'Mistar'
+  ],
+  kunci: 1,
+  bahas: 'Waktu dalam percobaan biasanya diukur dengan stopwatch.'
+},
+{
+  id: 'ipa32',
+  tipe: 'pg',
+  tanya: 'Alat ukur yang tepat digunakan untuk mengukur kuat arus listrik adalah ....',
+  opsi: [
+    'Voltmeter',
+    'Amperemeter',
+    'Ohmmeter',
+    'Multimeter'
+  ],
+  kunci: 2,
+  bahas: 'Kuat arus listrik diukur menggunakan amperemeter. Multimeter bisa juga, tetapi khusus kuat arus namanya amperemeter.'
+},
+{
+  id: 'ipa33',
+  tipe: 'pg',
+  tanya: 'Yang termasuk satuan baku untuk panjang adalah ....',
+  opsi: [
+    'Jengkal',
+    'Depa',
+    'Meter',
+    'Hasta'
+  ],
+  kunci: 3,
+  bahas: 'Meter merupakan satuan baku panjang karena diakui secara internasional dalam SI. Sedangkan jengkal, hasta, dan depa adalah satuan tidak baku.'
+},
+{
+  id: 'ipa34',
+  tipe: 'pg',
+  tanya: 'Contoh satuan tidak baku dalam mengukur waktu adalah ....',
+  opsi: [
+    'Detik',
+    'Menit',
+    'Jam',
+    'Lama bayangan matahari'
+  ],
+  kunci: 4,
+  bahas: 'Lama bayangan matahari bukan satuan resmi, sehingga termasuk satuan tidak baku. Detik, menit, dan jam adalah satuan baku untuk waktu.'
+},
+{
+  id: 'ipa35',
+  tipe: 'pg',
+  tanya: 'Berikut ini manakah pasangan yang benar antara besaran dan satuan baku?',
+  opsi: [
+    'Massa – Kilogram',
+    'Panjang – Jengkal',
+    'Waktu – Lama lilin terbakar',
+    'Panjang – Depa'
+  ],
+  kunci: 1,
+  bahas: 'Massa memiliki satuan baku kilogram. Jengkal dan depa termasuk tidak baku, lama lilin terbakar juga tidak baku.'
+},
+{
+  id: 'ipa36',
+  tipe: 'pg',
+  tanya: 'Menggunakan langkah kaki untuk mengukur panjang kelas termasuk penggunaan satuan ....',
+  opsi: [
+    'Baku',
+    'Tidak baku',
+    'Standar internasional',
+    'SI'
+  ],
+  kunci: 2,
+  bahas: 'Langkah kaki berbeda pada setiap orang, sehingga hasilnya tidak sama. Itu termasuk satuan tidak baku.'
+},
+{
+  id: 'ipa37',
+  tipe: 'pg',
+  tanya: 'Besaran dalam fisika adalah ....',
+  opsi: [
+    'Segala sesuatu yang dapat dilihat',
+    'Segala sesuatu yang dapat diukur dan dinyatakan dengan angka',
+    'Alat untuk mengukur panjang',
+    'Nilai yang tidak dapat diukur'
+  ],
+  kunci: 2,
+  bahas: 'Besaran adalah segala sesuatu yang dapat diukur, memiliki nilai, dan dapat dinyatakan dengan angka serta satuan.'
+},
+{
+  id: 'ipa38',
+  tipe: 'pg',
+  tanya: 'Satuan adalah ....',
+  opsi: [
+    'Pembanding dalam pengukuran suatu besaran',
+    'Hasil akhir dari pengukuran',
+    'Alat yang digunakan untuk mengukur',
+    'Nilai dari suatu besaran'
+  ],
+  kunci: 1,
+  bahas: 'Satuan adalah pembanding yang digunakan dalam pengukuran suatu besaran, misalnya meter untuk panjang.'
+},
+{
+  id: 'ipa39',
+  tipe: 'pg',
+  tanya: 'Pernyataan berikut yang benar adalah ....',
+  opsi: [
+    'Besaran adalah alat ukur, satuan adalah hasil ukur',
+    'Besaran adalah sesuatu yang diukur, satuan adalah pembandingnya',
+    'Besaran dan satuan adalah hal yang sama',
+    'Satuan adalah benda fisik, besaran adalah nilainya'
+  ],
+  kunci: 2,
+  bahas: 'Besaran adalah sesuatu yang diukur, sedangkan satuan adalah pembanding yang digunakan untuk menyatakan besaran tersebut.'
+},
+{
+  id: 'ipa40',
+  tipe: 'pg',
+  tanya: 'Contoh pernyataan yang benar tentang besaran dan satuan adalah ....',
+  opsi: [
+    'Panjang adalah satuan, meter adalah besaran',
+    'Massa adalah besaran, kilogram adalah satuan',
+    'Waktu adalah satuan, detik adalah besaran',
+    'Suhu adalah satuan, celcius adalah besaran'
+  ],
+  kunci: 2,
+  bahas: 'Massa termasuk besaran pokok, sedangkan kilogram adalah satuannya. Jadi pernyataan yang benar adalah “Massa adalah besaran, kilogram adalah satuan”.'
+},
+{
+  id: 'ipa41',
+  tipe: 'pg',
+  tanya: 'Sebuah papan tulis memiliki panjang 2,5 meter. Jika panjang tersebut ingin dinyatakan dalam centimeter, berapakah hasilnya?',
+  opsi: [
+    '25 cm',
+    '250 cm',
+    '2500 cm',
+    '0,25 cm'
+  ],
+  kunci: 2,
+  bahas: '1 meter = 100 cm. Jadi 2,5 m = 2,5 × 100 = 250 cm.'
+},
+{
+  id: 'ipa42',
+  tipe: 'pg',
+  tanya: 'Andi mengukur lebar lapangan sekolah sebesar 1200 cm. Jika diubah ke dalam satuan meter, hasilnya adalah ....',
+  opsi: [
+    '120 m',
+    '12 m',
+    '1,2 m',
+    '0,12 m'
+  ],
+  kunci: 2,
+  bahas: '1 m = 100 cm. Maka 1200 cm ÷ 100 = 12 m.'
+},
+{
+  id: 'ipa43',
+  tipe: 'pg',
+  tanya: 'Sebuah kabel listrik panjangnya 0,045 km. Panjang kabel tersebut sama dengan .... meter.',
+  opsi: [
+    '4,5 m',
+    '45 m',
+    '450 m',
+    '4500 m'
+  ],
+  kunci: 2,
+  bahas: '1 km = 1000 m. Jadi 0,045 km × 1000 = 45 m.'
+},
+{
+  id: 'ipa44',
+  tipe: 'pg',
+  tanya: 'Seorang arsitek menggambar denah rumah dengan panjang dinding 3,6 m. Jika pada gambar digunakan skala 1 : 100, maka panjang dinding pada gambar adalah .... cm.',
+  opsi: [
+    '0,36 cm',
+    '3,6 cm',
+    '36 cm',
+    '360 cm'
+  ],
+  kunci: 2,
+  bahas: 'Panjang sebenarnya = 3,6 m = 360 cm. Dengan skala 1 : 100, maka panjang pada gambar = 360 ÷ 100 = 3,6 cm.'
+},
+  
+]
+
+},
+'Zat dan Perubahannya': {
+  materi: `
+<h2 class="text-xl font-bold mb-2">Zat dan Perubahannya</h2>
+<p>
+  Zat adalah segala sesuatu yang memiliki massa dan menempati ruang. Zat dapat berupa padat, cair, dan gas. 
+  Setiap zat memiliki sifat tertentu yang membedakannya dengan zat lain.
+</p>
+
+<h3 class="text-lg font-semibold mt-4">1. Sifat Zat</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>Fisik</b>: dapat diamati tanpa mengubah zat (warna, bau, wujud, titik didih, titik leleh, massa jenis).</li>
+  <li><b>Kimia</b>: berhubungan dengan kemampuan zat untuk bereaksi (mudah terbakar, berkarat, bereaksi dengan asam).</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">2. Wujud Zat dan Perubahannya</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>Padat</b>: bentuk dan volume tetap (contoh: batu, kayu).</li>
+  <li><b>Cair</b>: bentuk mengikuti wadah, volume tetap (contoh: air, minyak).</li>
+  <li><b>Gas</b>: bentuk dan volume mengikuti wadah (contoh: udara, uap air).</li>
+</ul>
+<p>Perubahan wujud zat dapat berupa: mencair, membeku, menguap, mengembun, menyublim, dan deposisi.</p>
+
+<h3 class="text-lg font-semibold mt-4">3. Jenis Perubahan Zat</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>Perubahan Fisika</b>: tidak menghasilkan zat baru, hanya mengubah bentuk/wujud (contoh: es mencair, air menguap).</li>
+  <li><b>Perubahan Kimia</b>: menghasilkan zat baru dengan sifat berbeda (contoh: besi berkarat, kayu dibakar).</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">4. Contoh Soal</h3>
+<p><b>Contoh 1:</b> Es mencair menjadi air termasuk perubahan .... <i>Jawab: Fisika</i>.</p>
+<p><b>Contoh 2:</b> Proses berkaratnya besi merupakan perubahan .... <i>Jawab: Kimia</i>.</p>
+`,
+  video: ['7EnWxvmcNVs'], 
+
+  soal: [
+    // Pilihan Ganda (PG)
+{
+  id: 'zp1',
+  tipe: 'pg',
+  tanya: 'Zat yang memiliki bentuk tetap dan volume tetap adalah ....',
+  opsi: [
+    'Padat',
+    'Cair',
+    'Gas',
+    'Plasma'
+  ],
+  kunci: 0,
+  bahas: 'Zat padat memiliki bentuk dan volume tetap, berbeda dengan cair (volume tetap, bentuk berubah) dan gas (bentuk dan volume berubah).'
+},
+
+// Check Box (CB)
+{
+  id: 'zp2',
+  tipe: 'cb',
+  tanya: 'Manakah pernyataan yang benar tentang ciri wujud zat cair?',
+  opsi: [
+    'Memiliki bentuk tetap',
+    'Memiliki volume tetap',
+    'Mengalir dan mengikuti bentuk wadah',
+    'Mudah dimampatkan'
+  ],
+  kunci: [1,2],
+  bahas: 'Zat cair memiliki volume tetap, bentuknya mengikuti wadah, dan sulit dimampatkan. Jadi pernyataan benar adalah nomor 2 dan 3.'
+},
+
+// Benar/Salah (BS)
+{
+  id: 'zp3',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang ciri-ciri wujud zat:',
+  opsi: [
+    'Gas memiliki bentuk dan volume tetap',
+    'Padat sukar dimampatkan',
+    'Cair mengikuti bentuk wadahnya',
+    'Gas mudah dimampatkan'
+  ],
+  kunci: [false,true,true,true],
+  bahas: 'Gas tidak memiliki bentuk dan volume tetap (salah). Padat sukar dimampatkan (benar). Cair mengikuti bentuk wadahnya (benar). Gas mudah dimampatkan (benar).'
+},
+
+// Isian
+{
+  id: 'zp4',
+  tipe: 'isian',
+  tanya: 'Zat padat memiliki sifat .... dan ....',
+  kunciText: 'bentuk tetap, volume tetap',
+  bahas: 'Ciri utama zat padat adalah bentuk tetap dan volume tetap.'
+},
+// Pilihan Ganda (PG)
+{
+  id: 'zp5',
+  tipe: 'pg',
+  tanya: 'Manakah yang termasuk contoh unsur logam?',
+  opsi: [
+    'Oksigen (O)',
+    'Hidrogen (H)',
+    'Besi (Fe)',
+    'Karbon (C)'
+  ],
+  kunci: 2,
+  bahas: 'Besi (Fe) termasuk logam. Oksigen, hidrogen, dan karbon adalah nonlogam.'
+},
+
+// Check Box (CB)
+{
+  id: 'zp6',
+  tipe: 'cb',
+  tanya: 'Pilihlah yang merupakan contoh unsur nonlogam!',
+  opsi: [
+    'Tembaga (Cu)',
+    'Oksigen (O)',
+    'Karbon (C)',
+    'Natrium (Na)'
+  ],
+  kunci: [1,2],
+  bahas: 'Oksigen (O) dan Karbon (C) adalah nonlogam. Tembaga (Cu) dan Natrium (Na) termasuk logam.'
+},
+
+// Benar/Salah (BS)
+{
+  id: 'zp7',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang logam dan nonlogam:',
+  opsi: [
+    'Besi (Fe) termasuk unsur logam',
+    'Oksigen (O) termasuk unsur logam',
+    'Karbon (C) termasuk unsur nonlogam',
+    'Tembaga (Cu) termasuk unsur nonlogam'
+  ],
+  kunci: [true,false,true,false],
+  bahas: 'Besi (Fe) logam (benar), Oksigen (O) nonlogam (jadi salah jika disebut logam), Karbon (C) nonlogam (benar), Tembaga (Cu) logam (jadi salah jika disebut nonlogam).'
+},
+
+// Isian
+{
+  id: 'zp8',
+  tipe: 'isian',
+  tanya: 'Sebutkan satu contoh unsur logam dan satu contoh unsur nonlogam!',
+  kunciText: 'logam: besi (Fe), nonlogam: oksigen (O)',
+  bahas: 'Contoh logam: besi (Fe), tembaga (Cu), emas (Au). Contoh nonlogam: oksigen (O), karbon (C), nitrogen (N).'
+},
+// Pilihan Ganda (PG)
+{
+  id: 'zp9',
+  tipe: 'pg',
+  tanya: 'Manakah yang termasuk senyawa?',
+  opsi: [
+    'Oksigen (O₂)',
+    'Air (H₂O)',
+    'Besi (Fe)',
+    'Emas (Au)'
+  ],
+  kunci: 1,
+  bahas: 'Air (H₂O) adalah senyawa karena tersusun dari dua unsur berbeda (hidrogen dan oksigen). O₂, Fe, dan Au adalah unsur.'
+},
+
+// Check Box (CB)
+{
+  id: 'zp10',
+  tipe: 'cb',
+  tanya: 'Pilihlah yang merupakan contoh senyawa!',
+  opsi: [
+    'Garam dapur (NaCl)',
+    'Karbon dioksida (CO₂)',
+    'Hidrogen (H₂)',
+    'Ammonia (NH₃)'
+  ],
+  kunci: [0,1,3],
+  bahas: 'NaCl, CO₂, dan NH₃ adalah senyawa karena terdiri atas gabungan beberapa unsur. H₂ hanya terdiri dari 1 unsur, jadi bukan senyawa.'
+},
+
+// Benar/Salah (BS)
+{
+  id: 'zp11',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang senyawa:',
+  opsi: [
+    'Air (H₂O) merupakan senyawa',
+    'Oksigen (O₂) merupakan senyawa',
+    'Karbon dioksida (CO₂) merupakan senyawa',
+    'Natrium (Na) merupakan senyawa'
+  ],
+  kunci: [true,false,true,false],
+  bahas: 'Air (H₂O) senyawa (benar). O₂ unsur (salah). CO₂ senyawa (benar). Na unsur (salah).'
+},
+
+// Isian
+{
+  id: 'zp12',
+  tipe: 'isian',
+  tanya: 'Sebutkan dua contoh senyawa yang sering digunakan dalam kehidupan sehari-hari!',
+  kunciText: 'air (H₂O), garam dapur (NaCl)',
+  bahas: 'Contoh senyawa dalam kehidupan sehari-hari adalah air (H₂O), garam dapur (NaCl), gula (C₆H₁₂O₆), karbon dioksida (CO₂), dan amonia (NH₃).'
+},
+// Pilihan Ganda (PG)
+{
+  id: 'zp13',
+  tipe: 'pg',
+  tanya: 'Apakah yang dimaksud dengan unsur?',
+  opsi: [
+    'Zat tunggal yang tidak dapat diuraikan lagi menjadi zat yang lebih sederhana',
+    'Gabungan dari dua zat atau lebih yang masih bisa dipisahkan secara fisika',
+    'Zat yang terdiri atas molekul sejenis maupun berbeda',
+    'Campuran homogen dari beberapa zat'
+  ],
+  kunci: 0,
+  bahas: 'Unsur adalah zat tunggal yang tidak dapat diuraikan menjadi zat lebih sederhana melalui reaksi kimia. Contoh: Oksigen (O₂), Besi (Fe).'
+},
+
+// Check Box (CB)
+{
+  id: 'zp14',
+  tipe: 'cb',
+  tanya: 'Manakah pernyataan yang benar tentang unsur?',
+  opsi: [
+    'Unsur merupakan zat tunggal',
+    'Unsur dapat diuraikan lagi menjadi zat yang lebih sederhana',
+    'Unsur tersusun atas atom-atom sejenis',
+    'Unsur selalu berbentuk padat'
+  ],
+  kunci: [0,2],
+  bahas: 'Unsur adalah zat tunggal yang tersusun atas atom sejenis. Unsur tidak bisa diuraikan lagi. Wujud unsur bisa padat (Fe), cair (Hg), maupun gas (O₂).'
+},
+
+// Benar/Salah (BS)
+{
+  id: 'zp15',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang unsur:',
+  opsi: [
+    'Unsur tidak dapat diuraikan menjadi zat lain dengan reaksi kimia',
+    'Setiap unsur hanya terdiri dari satu macam atom',
+    'Air (H₂O) termasuk unsur',
+    'Oksigen (O₂) termasuk unsur'
+  ],
+  kunci: [true,true,false,true],
+  bahas: 'Unsur tidak bisa diuraikan lagi (benar). Unsur tersusun atas atom sejenis (benar). Air (H₂O) senyawa (salah). Oksigen (O₂) unsur (benar).'
+},
+
+// Isian
+{
+  id: 'zp16',
+  tipe: 'isian',
+  tanya: 'Unsur adalah zat tunggal yang tersusun atas atom-atom ....',
+  kunciText: 'sejenis',
+  bahas: 'Unsur adalah zat tunggal yang tersusun atas atom-atom sejenis, contohnya oksigen (O₂), besi (Fe), emas (Au).'
+},
+// Pilihan Ganda (PG)
+{
+  id: 'zp17',
+  tipe: 'pg',
+  tanya: 'Manakah contoh campuran homogen?',
+  opsi: [
+    'Air garam',
+    'Pasir dan kerikil',
+    'Minyak dan air',
+    'Air dan pasir'
+  ],
+  kunci: 0,
+  bahas: 'Air garam adalah campuran homogen karena larutan tercampur merata dan sulit dibedakan komponennya.'
+},
+
+// Check Box (CB)
+{
+  id: 'zp18',
+  tipe: 'cb',
+  tanya: 'Pilihlah contoh campuran heterogen!',
+  opsi: [
+    'Udara',
+    'Minyak dan air',
+    'Pasir dan kerikil',
+    'Larutan gula'
+  ],
+  kunci: [1,2],
+  bahas: 'Campuran heterogen memiliki komponen yang masih bisa dibedakan. Contoh: minyak dan air, pasir dan kerikil. Sedangkan udara dan larutan gula adalah homogen.'
+},
+
+// Benar/Salah (BS)
+{
+  id: 'zp19',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang campuran homogen dan heterogen:',
+  opsi: [
+    'Campuran homogen memiliki komposisi yang seragam',
+    'Air kopi adalah contoh campuran homogen',
+    'Minyak dan air termasuk campuran homogen',
+    'Pasir bercampur air adalah contoh campuran heterogen'
+  ],
+  kunci: [true,true,false,true],
+  bahas: 'Campuran homogen = seragam (benar). Air kopi homogen (benar). Minyak dan air tidak menyatu (salah). Pasir-air heterogen (benar).'
+},
+
+// Isian
+{
+  id: 'zp20',
+  tipe: 'isian',
+  tanya: 'Campuran homogen disebut juga dengan istilah ....',
+  kunciText: 'larutan',
+  bahas: 'Campuran homogen disebut larutan, misalnya larutan gula, air garam, dan udara.'
+},
+// Pilihan Ganda (PG)
+{
+  id: 'zp21',
+  tipe: 'pg',
+  tanya: 'Air (H₂O) merupakan senyawa yang tersusun dari ....',
+  opsi: [
+    'Hidrogen dan oksigen',
+    'Hidrogen dan nitrogen',
+    'Oksigen dan karbon',
+    'Karbon dan hidrogen'
+  ],
+  kunci: 0,
+  bahas: 'Air adalah senyawa yang terbentuk dari 2 atom hidrogen dan 1 atom oksigen.'
+},
+
+// Check Box (CB)
+{
+  id: 'zp22',
+  tipe: 'cb',
+  tanya: 'Manakah contoh penyusun senyawa yang benar?',
+  opsi: [
+    'Karbon dioksida tersusun dari karbon dan oksigen',
+    'Garam dapur tersusun dari natrium dan klor',
+    'Amonia tersusun dari nitrogen dan hidrogen',
+    'Oksigen tersusun dari 2 atom oksigen berbeda unsur'
+  ],
+  kunci: [0,1,2],
+  bahas: 'CO₂ = C + O₂, NaCl = Na + Cl, NH₃ = N + H. Sedangkan oksigen (O₂) bukan senyawa, melainkan unsur diatomik.'
+},
+
+// Benar/Salah (BS)
+{
+  id: 'zp23',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) tentang penyusun senyawa:',
+  opsi: [
+    'Gula (C₆H₁₂O₆) tersusun dari karbon, hidrogen, dan oksigen',
+    'Senyawa hanya dapat tersusun dari satu jenis atom',
+    'HCl tersusun dari hidrogen dan klor',
+    'CO₂ termasuk senyawa karena terdiri dari lebih dari satu jenis unsur'
+  ],
+  kunci: [true,false,true,true],
+  bahas: 'Senyawa tersusun dari 2 atau lebih jenis unsur. Gula = C, H, O. HCl = H + Cl. CO₂ = C + O.'
+},
+
+// Isian
+{
+  id: 'zp24',
+  tipe: 'isian',
+  tanya: 'Garam dapur (NaCl) tersusun dari unsur .... dan ....',
+  kunciText: 'natrium dan klor',
+  bahas: 'NaCl tersusun dari logam natrium (Na) dan nonlogam klor (Cl).'
+},
+// Pilihan Ganda (PG)
+{
+  id: 'zp25',
+  tipe: 'pg',
+  tanya: 'Rumus kimia H₂O menyatakan ....',
+  opsi: [
+    'Air tersusun dari 1 atom hidrogen dan 2 atom oksigen',
+    'Air tersusun dari 2 atom hidrogen dan 1 atom oksigen',
+    'Air tersusun dari 2 molekul hidrogen',
+    'Air tersusun dari 1 molekul oksigen saja'
+  ],
+  kunci: 1,
+  bahas: 'Rumus H₂O menunjukkan air tersusun atas 2 atom hidrogen (H) dan 1 atom oksigen (O).'
+},
+
+// Check Box (CB)
+{
+  id: 'zp26',
+  tipe: 'cb',
+  tanya: 'Manakah pernyataan berikut yang benar tentang rumus kimia, molekul, dan rumus empiris?',
+  opsi: [
+    'Rumus kimia menunjukkan jenis dan jumlah atom dalam suatu zat',
+    'Molekul adalah gabungan dua atau lebih atom',
+    'Rumus empiris menyatakan perbandingan paling sederhana dari atom-atom penyusun senyawa',
+    'Rumus empiris sama dengan rumus molekul untuk semua senyawa'
+  ],
+  kunci: [0,1,2],
+  bahas: 'Rumus kimia = jenis & jumlah atom. Molekul = gabungan atom. Rumus empiris = perbandingan paling sederhana. Tidak selalu sama dengan rumus molekul (contoh: C₆H₁₂O₆ → CH₂O).'
+},
+
+// Benar/Salah (BS)
+{
+  id: 'zp27',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut:',
+  opsi: [
+    'O₂ adalah contoh molekul unsur',
+    'CO₂ adalah contoh molekul senyawa',
+    'Rumus empiris glukosa (C₆H₁₂O₆) adalah CH₂O',
+    'Rumus kimia hanya dapat digunakan untuk unsur, tidak untuk senyawa'
+  ],
+  kunci: [true,true,true,false],
+  bahas: 'O₂ = molekul unsur, CO₂ = molekul senyawa, C₆H₁₂O₆ disederhanakan jadi CH₂O, dan rumus kimia berlaku untuk unsur maupun senyawa.'
+},
+
+// Isian
+{
+  id: 'zp28',
+  tipe: 'isian',
+  tanya: 'Rumus empiris dari senyawa H₂O₂ adalah ....',
+  kunciText: 'HO',
+  bahas: 'H₂O₂ (hidrogen peroksida) memiliki rasio atom 2:2 = 1:1, sehingga rumus empirisnya adalah HO.'
+},
+// Pilihan Ganda (PG)
+{
+  id: 'zp29',
+  tipe: 'pg',
+  tanya: 'Manakah yang termasuk perubahan fisika?',
+  opsi: [
+    'Air membeku menjadi es',
+    'Kertas dibakar menjadi abu',
+    'Besi berkarat',
+    'Nasi membusuk'
+  ],
+  kunci: 0,
+  bahas: 'Air membeku hanya berubah wujud, tanpa membentuk zat baru. Itu contoh perubahan fisika.'
+},
+
+// Check Box (CB)
+{
+  id: 'zp30',
+  tipe: 'cb',
+  tanya: 'Pilihlah contoh perubahan kimia!',
+  opsi: [
+    'Kue dipanggang',
+    'Gula larut dalam air',
+    'Kertas terbakar',
+    'Air mendidih'
+  ],
+  kunci: [0,2],
+  bahas: 'Perubahan kimia menghasilkan zat baru: kue dipanggang → adonan jadi kue, kertas terbakar → abu + gas. Gula larut & air mendidih hanya perubahan fisika.'
+},
+
+// Benar/Salah (BS)
+{
+  id: 'zp31',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut:',
+  opsi: [
+    'Es mencair adalah perubahan fisika',
+    'Perkaratan besi termasuk perubahan kimia',
+    'Membelah kayu termasuk perubahan kimia',
+    'Fermentasi tape adalah perubahan kimia'
+  ],
+  kunci: [true,true,false,true],
+  bahas: 'Es mencair tidak menghasilkan zat baru (fisika). Perkaratan dan fermentasi menghasilkan zat baru (kimia). Membelah kayu hanya mengubah bentuk, bukan zatnya.'
+},
+
+// Isian
+{
+  id: 'zp32',
+  tipe: 'isian',
+  tanya: 'Perubahan zat yang menghasilkan zat baru disebut perubahan ....',
+  kunciText: 'kimia',
+  bahas: 'Perubahan kimia adalah perubahan yang menghasilkan zat baru, contohnya pembakaran, perkaratan, dan fermentasi.'
+},
+// Pilihan Ganda (PG)
+{
+  id: 'zp33',
+  tipe: 'pg',
+  tanya: 'Proses perubahan es menjadi air disebut ....',
+  opsi: [
+    'Menguap',
+    'Mencair',
+    'Membeku',
+    'Menyublim'
+  ],
+  kunci: 1,
+  bahas: 'Es yang padat berubah menjadi air cair melalui proses mencair (meleleh).'
+},
+
+// Check Box (CB)
+{
+  id: 'zp34',
+  tipe: 'cb',
+  tanya: 'Pilihlah proses perubahan wujud yang termasuk perubahan dari cair ke gas!',
+  opsi: [
+    'Menguap',
+    'Mendidih',
+    'Membeku',
+    'Kondensasi'
+  ],
+  kunci: [0,1],
+  bahas: 'Cair → gas melalui menguap (permukaan) atau mendidih (seluruh volume). Membeku = cair → padat, kondensasi = gas → cair.'
+},
+
+// Benar/Salah (BS)
+{
+  id: 'zp35',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut:',
+  opsi: [
+    'Membeku adalah perubahan dari cair ke padat',
+    'Menguap adalah perubahan dari padat ke gas',
+    'Menyublim adalah perubahan dari padat langsung ke gas',
+    'Kondensasi adalah perubahan dari gas ke cair'
+  ],
+  kunci: [true,false,true,true],
+  bahas: 'Membeku = cair → padat (benar). Menguap = cair → gas (salah). Menyublim = padat → gas (benar). Kondensasi = gas → cair (benar).'
+},
+
+// Isian
+{
+  id: 'zp36',
+  tipe: 'isian',
+  tanya: 'Proses perubahan wujud dari gas menjadi padat disebut ....',
+  kunciText: 'resublimasi',
+  bahas: 'Gas yang berubah langsung menjadi padat tanpa melalui wujud cair disebut resublimasi (contoh: terbentuknya es kering dari CO₂ gas).'
+},
+// Pilihan Ganda (PG)
+{
+  id: 'zp37',
+  tipe: 'pg',
+  tanya: 'Manakah sifat larutan asam?',
+  opsi: [
+    'Rasa pahit dan licin',
+    'Rasa asam dan korosif',
+    'Tidak berwarna dan tidak berbau',
+    'Dapat menghantarkan listrik tetapi netral'
+  ],
+  kunci: 1,
+  bahas: 'Larutan asam memiliki rasa asam, dapat bersifat korosif, dan menghantarkan listrik karena mengion.'
+},
+
+// Check Box (CB)
+{
+  id: 'zp38',
+  tipe: 'cb',
+  tanya: 'Pilihlah ciri-ciri larutan basa!',
+  opsi: [
+    'Rasa pahit',
+    'Rasa asam',
+    'Bersifat licin',
+    'Menyebabkan korosi pada logam'
+  ],
+  kunci: [0,2],
+  bahas: 'Larutan basa memiliki rasa pahit, bersifat licin, dan dapat menghantarkan listrik. Tidak bersifat asam atau merusak logam seperti asam.'
+},
+
+// Benar/Salah (BS)
+{
+  id: 'zp39',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut:',
+  opsi: [
+    'Larutan asam memiliki pH < 7',
+    'Larutan basa memiliki pH > 7',
+    'Campuran homogen memiliki sifat seragam',
+    'Larutan asam bersifat licin seperti larutan basa'
+  ],
+  kunci: [true,true,true,false],
+  bahas: 'Asam: pH < 7, basa: pH > 7. Campuran homogen sifatnya seragam. Hanya larutan basa yang licin, larutan asam tidak licin.'
+},
+
+// Isian
+{
+  id: 'zp40',
+  tipe: 'isian',
+  tanya: 'Sebutkan satu contoh larutan asam, satu larutan basa, dan satu campuran homogen!',
+  kunciText: 'asam: cuka, basa: sabun, campuran homogen: air garam',
+  bahas: 'Contoh larutan asam: cuka (CH₃COOH), larutan basa: sabun/NaOH, campuran homogen: air garam, gula larut, udara.'
+},
+// Pilihan Ganda (PG)
+{
+  id: 'zp41',
+  tipe: 'pg',
+  tanya: 'Manakah metode pemisahan campuran yang tepat untuk memisahkan pasir dari air?',
+  opsi: [
+    'Penyaringan (filtrasi)',
+    'Distilasi',
+    'Kromatografi',
+    'Evaporasi'
+  ],
+  kunci: 0,
+  bahas: 'Pasir tidak larut dalam air sehingga dapat dipisahkan dengan penyaringan menggunakan saringan atau kertas saring.'
+},
+
+// Check Box (CB)
+{
+  id: 'zp42',
+  tipe: 'cb',
+  tanya: 'Pilihlah metode pemisahan campuran yang sesuai!',
+  opsi: [
+    'Distilasi untuk memisahkan air dan garam',
+    'Magnet untuk memisahkan besi dari pasir',
+    'Kromatografi untuk memisahkan zat warna dalam tinta',
+    'Filtrasi untuk memisahkan gula dari air'
+  ],
+  kunci: [0,1,2],
+  bahas: 'Distilasi memisahkan zat terlarut dari pelarut (air-garam). Magnet memisahkan logam feromagnetik. Kromatografi memisahkan zat warna. Gula larut dalam air, jadi filtrasi tidak efektif.'
+},
+
+// Benar/Salah (BS)
+{
+  id: 'zp43',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut:',
+  opsi: [
+    'Evaporasi dapat digunakan untuk mendapatkan garam dari air laut',
+    'Filtrasi dapat memisahkan campuran homogen',
+    'Kromatografi berguna untuk memisahkan campuran kompleks berdasarkan daya serap',
+    'Magnet hanya efektif untuk memisahkan logam tertentu dari campuran'
+  ],
+  kunci: [true,false,true,true],
+  bahas: 'Evaporasi menguapkan air dan meninggalkan garam (benar). Filtrasi hanya untuk campuran heterogen (salah). Kromatografi memisahkan zat berdasarkan daya serap (benar). Magnet hanya menarik logam tertentu (benar).'
+},
+
+// Isian
+{
+  id: 'zp44',
+  tipe: 'isian',
+  tanya: 'Metode pemisahan campuran yang digunakan untuk memisahkan tinta menjadi beberapa warna disebut ....',
+  kunciText: 'kromatografi',
+  bahas: 'Kromatografi memisahkan campuran kompleks berdasarkan perbedaan daya serap atau kelarutan, contohnya memisahkan pewarna dalam tinta.'
+},
+
+
+
+  ]
+},
+
+
+'Sistem Ekskresi': {
+  materi: `
+<h2 class="text-xl font-bold mb-2">Sistem Ekskresi</h2>
+<p>
+  Sistem ekskresi adalah sistem yang berfungsi membuang zat-zat sisa metabolisme yang tidak diperlukan tubuh dan 
+  bersifat racun apabila menumpuk. Organ utama dalam sistem ekskresi manusia adalah ginjal, kulit, paru-paru, dan hati.
+</p>
+
+<h3 class="text-lg font-semibold mt-4">1. Organ Ekskresi dan Fungsinya</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>Ginjal</b>: menyaring darah untuk membuang zat sisa metabolisme (urea, garam, air) dalam bentuk urin.</li>
+  <li><b>Paru-paru</b>: mengeluarkan karbon dioksida (CO<sub>2</sub>) dan uap air hasil respirasi.</li>
+  <li><b>Kulit</b>: menghasilkan keringat yang mengandung air, garam, dan sedikit urea.</li>
+  <li><b>Hati</b>: menguraikan zat beracun, menghasilkan urea dari amonia, serta menghancurkan sel darah merah tua.</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">2. Proses Pembentukan Urin</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>Filtrasi</b>: penyaringan darah di glomerulus, menghasilkan urin primer.</li>
+  <li><b>Reabsorpsi</b>: penyerapan kembali zat-zat berguna di tubulus kontortus proksimal.</li>
+  <li><b>Augmentasi</b>: penambahan zat sisa di tubulus kontortus distal, menghasilkan urin sesungguhnya.</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">3. Gangguan pada Sistem Ekskresi</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>Batu ginjal</b>: endapan garam kalsium di saluran ginjal.</li>
+  <li><b>Nefritis</b>: peradangan pada nefron ginjal.</li>
+  <li><b>Albuminuria</b>: ditemukannya protein dalam urin karena kerusakan ginjal.</li>
+  <li><b>Uremia</b>: penumpukan urea dalam darah akibat gagal ginjal.</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">4. Contoh Soal</h3>
+<p><b>Contoh 1:</b> Organ yang menghasilkan urin adalah .... <i>Jawab: Ginjal</i>.</p>
+<p><b>Contoh 2:</b> Tahap penyaringan darah di ginjal yang terjadi pada glomerulus disebut .... <i>Jawab: Filtrasi</i>.</p>
+`,
+  video: ['Fz2xw4A7r5k'], 
+
+  soal: [
+    {
+  id: 'se1',
+  tipe: 'pg',
+  tanya: 'Seorang anak terbiasa bernapas melalui mulut karena pilek berkepanjangan. Apa dampak yang paling mungkin terjadi pada sistem pernapasannya?',
+  opsi: [
+    'Pertukaran gas akan lebih cepat terjadi',
+    'Udara yang masuk tidak tersaring dengan baik',
+    'Udara lebih lembap dan bersih dibanding lewat hidung',
+    'Tidak ada perbedaan karena mulut juga menyaring udara'
+  ],
+  kunci: 1,
+  bahas: 'Bernapas melalui mulut menyebabkan udara tidak disaring oleh rambut hidung, tidak dilembapkan, dan tidak dihangatkan, sehingga meningkatkan risiko gangguan pernapasan.'
+},
+{
+  id: 'se2',
+  tipe: 'cb',
+  tanya: 'Seorang perokok berat mengalami sesak napas. Analisislah penyebabnya berdasarkan fungsi alveolus!',
+  opsi: [
+    'Tar merusak dinding alveolus sehingga luas permukaan pertukaran gas berkurang',
+    'Nikotin menyebabkan alveolus semakin tipis sehingga gas sulit berdifusi',
+    'Emfisema mengurangi elastisitas alveolus sehingga udara terjebak di paru-paru',
+    'Alveolus tetap normal karena rokok hanya memengaruhi hidung'
+  ],
+  kunci: [0,2],
+  bahas: 'Tar merusak alveolus sehingga luas difusi berkurang, sedangkan emfisema membuat alveolus kehilangan elastisitasnya. Nikotin bersifat adiktif, bukan merusak alveolus langsung.'
+},
+{
+  id: 'se3',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut terkait gangguan alveolus:',
+  opsi: [
+    'Emfisema menyebabkan pertukaran gas terganggu',
+    'Bronkitis langsung merusak alveolus',
+    'Kerusakan alveolus dapat menyebabkan tubuh kekurangan oksigen',
+    'Alveolus tetap bekerja normal meskipun paru-paru terinfeksi TBC'
+  ],
+  kunci: [true,false,true,false],
+  bahas: 'Emfisema merusak alveolus (benar). Bronkitis menyerang bronkus, bukan alveolus (salah). Kerusakan alveolus mengurangi oksigen (benar). Infeksi TBC juga bisa merusak alveolus, jadi pernyataan terakhir salah.'
+},
+{
+  id: 'se4',
+  tipe: 'isian',
+  tanya: 'Seorang pendaki gunung merasa cepat lelah dan sulit bernapas di ketinggian. Hal ini terjadi karena kadar .... di udara semakin rendah sehingga pertukaran gas di alveolus berkurang.',
+  kunciText: 'oksigen',
+  bahas: 'Di dataran tinggi, tekanan parsial oksigen rendah sehingga difusi oksigen ke dalam darah di alveolus berkurang.'
+},
+// Pilihan Ganda (PG)
+{
+  id: 'se5',
+  tipe: 'pg',
+  tanya: 'Kulit merupakan organ terluar tubuh manusia. Salah satu fungsi penting kulit adalah ...',
+  opsi: [
+    'Menghasilkan sel darah merah',
+    'Melindungi tubuh dari kuman dan cedera',
+    'Mengatur denyut jantung',
+    'Menghasilkan enzim pencernaan'
+  ],
+kunci:0,
+  bahas: 'Melindungi tubuh dari kuman dan cedera'
+},
+
+// Checklist (CB)
+{
+  id: 'se6',
+  tipe: 'cb',
+  tanya: 'Pilihlah fungsi kulit yang benar!',
+  opsi: [
+    'Melindungi organ dalam',
+    'Membantu mengatur suhu tubuh',
+    'Menyimpan cadangan kalsium',
+    'Sebagai indera peraba'
+  ],
+kunci:[0,1,3],
+  bahas: [
+    'Melindungi organ dalam',
+    'Membantu mengatur suhu tubuh',
+    'Sebagai indera peraba'
+  ]
+},
+
+{
+  id: 'se7',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang kulit:',
+  opsi: [
+    'Kulit berfungsi sebagai indera peraba',
+    'Kulit tidak memiliki reseptor sama sekali',
+    'Kulit dapat merasakan sentuhan, tekanan, suhu, dan nyeri',
+    'Kulit hanya berfungsi melindungi tubuh secara fisik tanpa peran sensorik'
+  ],
+  kunci: [true,false,true,false],
+  bahas: 'Kulit berfungsi sebagai indera peraba karena memiliki reseptor yang mampu merasakan sentuhan, tekanan, suhu, dan nyeri. Jadi pernyataan 1 dan 3 benar, sedangkan 2 dan 4 salah.'
+},
+{
+  id: 'se8',
+  tipe: 'pg',
+  tanya: 'Hati berperan sebagai organ ekskresi karena menghasilkan zat sisa berupa ...',
+  opsi: [
+    'Urea',
+    'Empedu',
+    'Asam laktat',
+    'Keratin'
+  ],
+  kunci: 1,
+  bahas: 'Hati berperan sebagai organ ekskresi karena menghasilkan empedu yang merupakan hasil penguraian hemoglobin.'
+},
+{
+  id: 'se9',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang hati:',
+  opsi: [
+    'Hati mengubah amonia menjadi urea',
+    'Urea hasil dari hati akan dibuang melalui urin oleh ginjal',
+    'Hati berfungsi sebagai tempat pertukaran gas O₂ dan CO₂',
+    'Hati menghasilkan empedu sebagai salah satu zat sisa metabolisme'
+  ],
+  kunci: [true,true,false,true],
+  bahas: 'Hati mengubah amonia menjadi urea (benar). Urea kemudian dibuang oleh ginjal melalui urin (benar). Pertukaran gas tidak terjadi di hati (salah). Hati juga menghasilkan empedu (benar).'
+},
+{
+  id: 'se10',
+  tipe: 'cb',
+  tanya: 'Pilihlah zat yang dihasilkan hati dalam proses ekskresi!',
+  opsi: [
+    'Empedu',
+    'Bilirubin',
+    'Ureum',
+    'Hemoglobin'
+  ],
+  kunci: [0,1],
+  bahas: 'Hati menghasilkan empedu yang mengandung bilirubin. Ureum dibentuk di hati tetapi dikeluarkan lewat ginjal. Hemoglobin bukan zat ekskresi.'
+},
+{
+  id: 'se11',
+  tipe: 'isian',
+  tanya: 'Zat sisa hasil pemecahan hemoglobin yang dikeluarkan hati melalui empedu adalah ....',
+  kunciText: 'Bilirubin',
+  bahas: 'Bilirubin adalah hasil pemecahan hemoglobin yang diekskresikan hati melalui empedu.'
+},
+{
+  id: 'se12',
+  tipe: 'pg',
+  tanya: 'Ginjal memiliki peran penting dalam menyaring darah dan menjaga keseimbangan cairan tubuh. Salah satu upaya yang tepat untuk menjaga kesehatan ginjal adalah ...',
+  opsi: [
+    'Mengonsumsi makanan tinggi garam secara berlebihan',
+    'Minum air putih yang cukup setiap hari',
+    'Jarang berolahraga',
+    'Mengabaikan tekanan darah tinggi'
+  ],
+  kunci: 1,
+  bahas: 'Kebiasaan minum air putih yang cukup setiap hari membantu menjaga kesehatan ginjal.'
+},
+{
+  id: 'se13',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang menjaga kesehatan ginjal:',
+  opsi: [
+    'Mengurangi konsumsi minuman bersoda dan beralkohol dapat menjaga kesehatan ginjal',
+    'Jarang minum air putih membuat ginjal bekerja lebih baik',
+    'Menjaga tekanan darah normal penting untuk kesehatan ginjal',
+    'Mengonsumsi obat tanpa resep secara berlebihan baik untuk ginjal'
+  ],
+  kunci: [true,false,true,false],
+  bahas: 'Mengurangi minuman bersoda dan alkohol membantu meringankan kerja ginjal (benar). Kekurangan air putih justru membebani ginjal (salah). Menjaga tekanan darah normal baik untuk ginjal (benar). Konsumsi obat berlebihan dapat merusak ginjal (salah).'
+},
+
+{
+  id: 'se14',
+  tipe: 'cb',
+  tanya: 'Pilihlah cara-cara yang benar untuk menjaga kesehatan ginjal!',
+  opsi: [
+    'Minum cukup air putih',
+    'Menjaga tekanan darah normal',
+    'Mengonsumsi obat tanpa resep secara berlebihan',
+    'Mengontrol kadar gula darah'
+  ],
+  kunci: [0,1,3],
+  bahas: 'Menjaga ginjal sehat dilakukan dengan minum cukup air, menjaga tekanan darah, dan mengontrol gula darah. Mengonsumsi obat berlebihan justru merusak ginjal.'
+},
+{
+  id: 'se15',
+  tipe: 'isian',
+  tanya: 'Salah satu kebiasaan yang harus dilakukan setiap hari untuk menjaga kesehatan ginjal adalah rutin minum ....',
+  kunciText: 'air putih',
+  bahas: 'Kebiasaan minum air putih rutin sangat penting agar ginjal tetap berfungsi baik dalam menyaring darah.'
+},
+  ]
+},
+'Sistem Pernapasan': {
+  materi: `
+<h2 class="text-xl font-bold mb-2">Sistem Pernapasan</h2>
+<p>
+  Sistem pernapasan manusia berfungsi untuk pertukaran gas, yaitu mengambil oksigen (O<sub>2</sub>) dari udara dan 
+  mengeluarkan karbon dioksida (CO<sub>2</sub>) serta uap air dari tubuh. Oksigen digunakan dalam proses oksidasi 
+  biologis untuk menghasilkan energi.
+</p>
+
+<h3 class="text-lg font-semibold mt-4">1. Organ Pernapasan</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>Hidung</b>: menyaring, menghangatkan, dan melembapkan udara yang masuk.</li>
+  <li><b>Faring</b>: saluran persimpangan antara saluran pernapasan dan pencernaan.</li>
+  <li><b>Laring</b>: menghubungkan faring dengan trakea, terdapat pita suara.</li>
+  <li><b>Trakea</b>: saluran udara ke paru-paru, dilapisi silia untuk menyaring debu.</li>
+  <li><b>Bronkus</b>: cabang trakea menuju paru-paru kanan dan kiri.</li>
+  <li><b>Bronkiolus</b>: cabang kecil dari bronkus menuju alveolus.</li>
+  <li><b>Alveolus</b>: tempat pertukaran gas O<sub>2</sub> dan CO<sub>2</sub>.</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">2. Mekanisme Pernapasan</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>Pernapasan dada</b>: otot antar tulang rusuk berkontraksi → rongga dada membesar → udara masuk.</li>
+  <li><b>Pernapasan perut</b>: otot diafragma berkontraksi → diafragma mendatar → rongga dada membesar → udara masuk.</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">3. Pertukaran Gas</h3>
+<p>
+  Pertukaran gas terjadi di alveolus secara difusi: oksigen masuk ke dalam darah, karbon dioksida keluar dari darah 
+  ke alveolus untuk dikeluarkan.
+</p>
+
+<h3 class="text-lg font-semibold mt-4">4. Gangguan pada Sistem Pernapasan</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>Asma</b>: penyempitan saluran pernapasan akibat alergi atau faktor lain.</li>
+  <li><b>Bronkitis</b>: peradangan pada bronkus.</li>
+  <li><b>Emfisema</b>: kerusakan alveolus sehingga pertukaran gas terganggu.</li>
+  <li><b>TBC</b>: infeksi paru-paru akibat bakteri <i>Mycobacterium tuberculosis</i>.</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">5. Contoh Soal</h3>
+<p><b>Contoh 1:</b> Tempat pertukaran gas pada paru-paru adalah .... <i>Jawab: Alveolus</i>.</p>
+<p><b>Contoh 2:</b> Otot apa yang berperan pada pernapasan perut? <i>Jawab: Diafragma</i>.</p>
+`,
+  video: ['8NUxvVGvUuQ'],
+
+  soal: [
+    {
+  id: 'spn1',
+  tipe: 'pg',
+  tanya: 'Hidung merupakan organ pertama dalam sistem pernapasan. Fungsi utama hidung dalam proses pernapasan adalah ...',
+  opsi: [
+    'Tempat pertukaran gas O₂ dan CO₂',
+    'Menyaring, menghangatkan, dan melembapkan udara yang masuk',
+    'Menghubungkan rongga mulut dengan paru-paru',
+    'Membantu kontraksi otot diafragma'
+  ],
+  kunci: 1,
+  bahas: 'Hidung berfungsi sebagai pintu masuk udara yang menyaring debu dengan rambut hidung, menghangatkan, dan melembapkan udara sebelum menuju saluran pernapasan berikutnya.'
+},
+{
+  id: 'spn2',
+  tipe: 'cb',
+  tanya: 'Manakah pernyataan yang benar tentang fungsi hidung dalam sistem pernapasan?',
+  opsi: [
+    'Menyaring debu dan kotoran dengan rambut hidung',
+    'Melembapkan udara yang masuk',
+    'Menghangatkan udara sebelum masuk paru-paru',
+    'Tempat pertukaran oksigen dan karbon dioksida',
+    'Menghasilkan enzim pencernaan'
+  ],
+  kunci: [0,1,2],
+  bahas: 'Hidung berfungsi menyaring debu, melembapkan, dan menghangatkan udara. Pertukaran gas terjadi di alveolus, sedangkan enzim pencernaan bukan fungsi hidung.'
+},
+{
+  id: 'spn3',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang hidung:',
+  opsi: [
+    'Rambut hidung menyaring debu dan partikel kotoran',
+    'Selaput lendir hidung membantu melembapkan udara',
+    'Hidung berfungsi sebagai tempat pertukaran oksigen dan karbon dioksida',
+    'Udara yang masuk melalui hidung dihangatkan sebelum ke paru-paru'
+  ],
+  kunci: [true,true,false,true],
+  bahas: 'Rambut hidung menyaring debu (benar). Selaput lendir melembapkan udara (benar). Pertukaran gas tidak di hidung tapi di alveolus (salah). Udara dihangatkan di hidung (benar).'
+},
+{
+  id: 'spn4',
+  tipe: 'isian',
+  tanya: 'Sebutkan dua fungsi utama hidung dalam sistem pernapasan!',
+  kunciText: 'Menyaring udara dan menghangatkan/ melembapkan udara',
+  bahas: 'Hidung berfungsi menyaring debu dan kotoran serta menghangatkan dan melembapkan udara sebelum masuk ke paru-paru.'
+},
+{
+  id: 'spn5',
+  tipe: 'pg',
+  tanya: 'Paru-paru manusia terdiri atas jutaan alveolus. Fungsi utama alveolus dalam sistem pernapasan adalah ...',
+  opsi: [
+    'Menghasilkan energi dari oksigen',
+    'Menyaring debu dan kotoran dari udara',
+    'Sebagai tempat pertukaran gas oksigen dan karbon dioksida',
+    'Menggerakkan udara keluar-masuk paru-paru'
+  ],
+  kunci: 2,
+  bahas: 'Alveolus adalah gelembung udara di paru-paru yang berfungsi sebagai tempat pertukaran gas O₂ dan CO₂ secara difusi.'
+},
+{
+  id: 'spn6',
+  tipe: 'cb',
+  tanya: 'Manakah pernyataan yang benar tentang alveolus?',
+  opsi: [
+    'Dinding alveolus tipis dan lembap untuk memudahkan difusi gas',
+    'Alveolus berhubungan langsung dengan pembuluh kapiler darah',
+    'Alveolus berfungsi menyaring udara yang masuk ke paru-paru',
+    'Pertukaran oksigen dan karbon dioksida terjadi di alveolus',
+    'Alveolus menghasilkan enzim untuk mencerna protein'
+  ],
+  kunci: [0,1,3],
+  bahas: 'Alveolus berdinding tipis dan lembap, dikelilingi kapiler darah, dan merupakan tempat pertukaran gas. Fungsi penyaring ada di hidung, bukan alveolus. Alveolus juga tidak menghasilkan enzim.'
+},
+{
+  id: 'spn7',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang alveolus:',
+  opsi: [
+    'Alveolus merupakan gelembung udara di paru-paru',
+    'Dinding alveolus tebal sehingga gas mudah berdifusi',
+    'Alveolus dikelilingi pembuluh darah kapiler',
+    'Pertukaran O₂ dan CO₂ terjadi melalui proses difusi'
+  ],
+  kunci: [true,false,true,true],
+  bahas: 'Alveolus berbentuk gelembung udara (benar). Dindingnya tipis, bukan tebal (salah). Alveolus dikelilingi kapiler darah (benar). Pertukaran gas berlangsung dengan difusi (benar).'
+},
+{
+  id: 'spn8',
+  tipe: 'isian',
+  tanya: 'Fungsi utama alveolus dalam paru-paru adalah ....',
+  kunciText: 'Tempat pertukaran gas oksigen dan karbon dioksida',
+  bahas: 'Alveolus berfungsi sebagai tempat pertukaran gas O₂ dan CO₂ antara udara dengan darah.'
+},
+{
+  id: 'spn9',
+  tipe: 'pg',
+  tanya: 'Pada pernapasan dada, inspirasi terjadi ketika ...',
+  opsi: [
+    'Otot diafragma berkontraksi sehingga rongga dada membesar',
+    'Otot antar tulang rusuk (interkostal eksternal) berkontraksi sehingga tulang rusuk terangkat',
+    'Otot interkostal internal berkontraksi sehingga rongga dada mengecil',
+    'Tulang rusuk turun akibat relaksasi otot'
+  ],
+  kunci: 1,
+  bahas: 'Inspirasi pernapasan dada terjadi ketika otot interkostal eksternal berkontraksi, tulang rusuk terangkat, volume rongga dada membesar, dan udara masuk ke paru-paru.'
+},
+{
+  id: 'spn10',
+  tipe: 'cb',
+  tanya: 'Manakah yang benar tentang inspirasi pernapasan dada?',
+  opsi: [
+    'Otot interkostal eksternal berkontraksi',
+    'Tulang rusuk terangkat',
+    'Rongga dada mengecil',
+    'Tekanan udara dalam paru-paru menurun',
+    'Udara masuk ke dalam paru-paru'
+  ],
+  kunci: [0,1,3,4],
+  bahas: 'Pada inspirasi pernapasan dada: otot interkostal eksternal berkontraksi → tulang rusuk terangkat → volume rongga dada membesar → tekanan udara dalam paru menurun → udara masuk.'
+},
+{
+  id: 'spn11',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang inspirasi pernapasan dada:',
+  opsi: [
+    'Otot interkostal eksternal berkontraksi saat inspirasi dada',
+    'Tulang rusuk turun pada saat inspirasi dada',
+    'Rongga dada membesar pada saat inspirasi dada',
+    'Udara keluar dari paru-paru saat inspirasi dada'
+  ],
+  kunci: [true,false,true,false],
+  bahas: 'Inspirasi dada: otot interkostal eksternal berkontraksi (benar), tulang rusuk naik bukan turun (salah), rongga dada membesar (benar), dan udara masuk bukan keluar (salah).'
+},
+{
+  id: 'spn12',
+  tipe: 'isian',
+  tanya: 'Saat inspirasi pernapasan dada, otot yang berkontraksi adalah ....',
+  kunciText: 'Otot interkostal eksternal',
+  bahas: 'Inspirasi pernapasan dada terjadi karena kontraksi otot interkostal eksternal yang mengangkat tulang rusuk sehingga rongga dada membesar.'
+},
+{
+  id: 'spn13',
+  tipe: 'pg',
+  tanya: 'Rokok mengandung nikotin. Akibat utama dari nikotin bagi tubuh adalah ...',
+  opsi: [
+    'Merusak fungsi hati',
+    'Menimbulkan ketergantungan (adiksi)',
+    'Mengiritasi lambung',
+    'Menyebabkan pendarahan'
+  ],
+  kunci: 1,
+  bahas: 'Nikotin bersifat adiktif sehingga menimbulkan ketergantungan bagi perokok.'
+},
+{
+  id: 'spn14',
+  tipe: 'cb',
+  tanya: 'Zat-zat berbahaya dalam rokok beserta akibatnya adalah ...',
+  opsi: [
+    'Nikotin → menimbulkan ketergantungan',
+    'Tar → menyebabkan kanker paru-paru',
+    'Karbon monoksida → mengikat hemoglobin sehingga mengurangi kadar oksigen dalam darah',
+    'Vitamin C → memperkuat daya tahan tubuh'
+  ],
+  kunci: [0,1,2],
+  bahas: 'Nikotin menyebabkan adiksi, tar bersifat karsinogenik, karbon monoksida mengikat Hb sehingga mengurangi oksigen. Vitamin C bukan zat berbahaya dalam rokok.'
+},
+{
+  id: 'spn15',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang zat dalam rokok:',
+  opsi: [
+    'Nikotin dapat menyebabkan kecanduan',
+    'Tar dalam rokok meningkatkan risiko kanker paru-paru',
+    'Karbon monoksida meningkatkan jumlah oksigen dalam darah',
+    'Rokok aman dikonsumsi dalam jumlah sedikit karena tidak berbahaya'
+  ],
+  kunci: [true,true,false,false],
+  bahas: 'Nikotin membuat kecanduan, tar karsinogenik, karbon monoksida justru menurunkan oksigen, dan rokok tetap berbahaya meskipun sedikit.'
+},
+{
+  id: 'spn16',
+  tipe: 'isian',
+  tanya: 'Zat tar dalam rokok dapat menyebabkan penyakit ....',
+  kunciText: 'kanker paru-paru',
+  bahas: 'Tar bersifat karsinogenik (pemicu kanker) yang dapat menyebabkan kanker paru-paru pada perokok.'
+}
+
+
+  ]
+},
+
+    'Sistem Pencernaan': {
+      materi: `
+<h2 class="text-xl font-bold mb-2">Sistem Pencernaan</h2>
+<p>
+  Sistem pencernaan adalah sistem organ pada manusia yang berfungsi mengolah makanan menjadi zat gizi yang dapat diserap tubuh 
+  dan membuang sisa yang tidak diperlukan. Proses pencernaan melibatkan organ-organ pencernaan utama dan organ pencernaan tambahan.
+</p>
+
+<h3 class="text-lg font-semibold mt-4">1. Organ Pencernaan Utama</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>Mulut</b>: tempat makanan masuk, terjadi pencernaan mekanik (oleh gigi) dan kimiawi (oleh enzim amilase dalam air liur).</li>
+  <li><b>Kerongkongan</b>: menyalurkan makanan ke lambung dengan gerakan peristaltik.</li>
+  <li><b>Lambung</b>: mencerna protein dengan bantuan enzim pepsin dan asam lambung (HCl).</li>
+  <li><b>Usus Halus</b>: terjadi pencernaan kimiawi lengkap dan penyerapan zat gizi (glukosa, asam amino, asam lemak, vitamin, mineral).</li>
+  <li><b>Usus Besar</b>: menyerap air dan mineral, membentuk feses.</li>
+  <li><b>Anus</b>: tempat keluarnya sisa pencernaan.</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">2. Organ Pencernaan Tambahan</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>Hati</b>: menghasilkan empedu untuk mengemulsikan lemak.</li>
+  <li><b>Pankreas</b>: menghasilkan enzim lipase, amilase, dan tripsin untuk membantu pencernaan lemak, karbohidrat, dan protein.</li>
+  <li><b>Kelenjar ludah</b>: menghasilkan air liur yang mengandung enzim amilase.</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">3. Proses Pencernaan</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>Pencernaan mekanik</b>: penghancuran makanan secara fisik (pengunyahan, pengadukan di lambung).</li>
+  <li><b>Pencernaan kimiawi</b>: pemecahan zat makanan kompleks menjadi sederhana oleh enzim.</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">4. Enzim Pencernaan</h3>
+<table class="table-auto border-collapse border border-gray-500 my-4">
+  <thead>
+    <tr>
+      <th class="border border-gray-500 px-2 py-1">Enzim</th>
+      <th class="border border-gray-500 px-2 py-1">Substrat</th>
+      <th class="border border-gray-500 px-2 py-1">Produk</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="border border-gray-500 px-2 py-1">Amilase</td>
+      <td class="border border-gray-500 px-2 py-1">Amilum</td>
+      <td class="border border-gray-500 px-2 py-1">Maltosa</td>
+    </tr>
+    <tr>
+      <td class="border border-gray-500 px-2 py-1">Pepsin</td>
+      <td class="border border-gray-500 px-2 py-1">Protein</td>
+      <td class="border border-gray-500 px-2 py-1">Peptida</td>
+    </tr>
+    <tr>
+      <td class="border border-gray-500 px-2 py-1">Lipase</td>
+      <td class="border border-gray-500 px-2 py-1">Lemak</td>
+      <td class="border border-gray-500 px-2 py-1">Asam lemak + Gliserol</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 class="text-lg font-semibold mt-4">5. Gangguan pada Sistem Pencernaan</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>Gastritis</b>: peradangan lambung akibat kelebihan asam.</li>
+  <li><b>Diare</b>: gangguan usus besar, feses cair karena penyerapan air terganggu.</li>
+  <li><b>Konstipasi</b>: sulit buang air besar karena penyerapan air berlebih di usus besar.</li>
+  <li><b>Hepatitis</b>: peradangan hati akibat virus.</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">6. Contoh Soal</h3>
+<p><b>Contoh 1:</b> Enzim apa yang berfungsi memecah protein menjadi peptida? <i>Jawab: Pepsin</i>.</p>
+<p><b>Contoh 2:</b> Apa fungsi empedu dalam pencernaan? <i>Jawab: Mengemulsikan lemak</i>.</p>
+`,
+      video: ['3DbA6B5FYyQ'],
+
+      soal: [
+        {
+  id: 'sp1',
+  tipe: 'pg',
+  tanya: 'Di dalam lambung, makanan mengalami pencernaan kimiawi dengan bantuan enzim dan asam lambung. Enzim pepsin berfungsi untuk ...',
+  opsi: [
+    'Mengubah amilum menjadi maltosa',
+    'Mengubah protein menjadi pepton',
+    'Mengubah lemak menjadi asam lemak dan gliserol',
+    'Mengemulsikan lemak menjadi butiran halus'
+  ],
+  kunci: 1,
+  bahas: 'Enzim pepsin dalam lambung berfungsi memecah protein menjadi pepton. Amilum dipecah di mulut, lemak dipecah oleh lipase di usus halus.'
+},
+{
+  id: 'sp2',
+  tipe: 'cb',
+  tanya: 'Manakah pernyataan yang benar tentang proses kimiawi di lambung?',
+  opsi: [
+    'HCl berfungsi membunuh kuman pada makanan',
+    'Pepsin mengubah protein menjadi pepton',
+    'Renin menggumpalkan protein susu',
+    'Lipase memecah amilum menjadi glukosa'
+  ],
+  kunci: [0,1,2],
+  bahas: 'Di lambung terdapat HCl (membunuh kuman), pepsin (mengubah protein menjadi pepton), dan renin (menggumpalkan kasein pada susu). Lipase berperan di usus halus, bukan di lambung.'
+},
+{
+  id: 'sp3',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang lambung:',
+  opsi: [
+    'HCl dalam lambung membantu kerja enzim pepsin',
+    'Pencernaan di lambung hanya berupa pencernaan mekanik',
+    'Enzim pepsin aktif pada suasana asam',
+    'Enzim renin berfungsi menggumpalkan protein susu'
+  ],
+  kunci: [true,false,true,true],
+  bahas: 'HCl membantu mengaktifkan pepsin (benar). Di lambung ada pencernaan mekanik dan kimiawi (jadi pernyataan salah). Pepsin aktif di suasana asam (benar). Renin menggumpalkan kasein pada susu (benar).'
+},
+{
+  id: 'sp4',
+  tipe: 'isian',
+  tanya: 'Enzim utama yang berperan dalam mencerna protein di lambung adalah ....',
+  kunciText: 'Pepsin',
+  bahas: 'Enzim pepsin memecah protein menjadi pepton di lambung.'
+},
+{
+  id: 'sp5',
+  tipe: 'pg',
+  tanya: 'Pankreas menghasilkan enzim amilase yang berfungsi untuk ...',
+  opsi: [
+    'Mengubah protein menjadi pepton',
+    'Mengubah amilum menjadi maltosa',
+    'Mengubah lemak menjadi asam lemak dan gliserol',
+    'Mengubah maltosa menjadi glukosa'
+  ],
+  kunci: 1,
+  bahas: 'Amilase pankreas berfungsi memecah amilum (polisakarida) menjadi maltosa (disakarida).'
+},
+{
+  id: 'sp6',
+  tipe: 'cb',
+  tanya: 'Manakah enzim-enzim yang dihasilkan oleh pankreas?',
+  opsi: [
+    'Amilase',
+    'Pepsin',
+    'Lipase',
+    'Tripsin',
+    'Maltase'
+  ],
+  kunci: [0,2,3,4],
+  bahas: 'Enzim pankreas antara lain: amilase (amilum → maltosa), lipase (lemak → asam lemak + gliserol), tripsin (protein → peptida), dan disakaridase (maltase, laktase, sukrase). Pepsin bukan enzim pankreas, melainkan enzim lambung.'
+},
+{
+  id: 'sp7',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang pankreas:',
+  opsi: [
+    'Amilase pankreas memecah amilum menjadi maltosa',
+    'Lipase pankreas memecah lemak menjadi asam lemak dan gliserol',
+    'Tripsin pankreas berperan memecah protein',
+    'Pepsin adalah enzim utama pankreas'
+  ],
+  kunci: [true,true,true,false],
+  bahas: 'Amilase pankreas memecah amilum (benar), lipase pankreas memecah lemak (benar), tripsin pankreas memecah protein (benar). Pepsin adalah enzim lambung, bukan pankreas (salah).'
+},
+{
+  id: 'sp8',
+  tipe: 'pg',
+  tanya: 'Enzim lipase berfungsi untuk ...',
+  opsi: [
+    'Mengubah protein menjadi pepton',
+    'Mengubah lemak menjadi asam lemak dan gliserol',
+    'Mengubah amilum menjadi maltosa',
+    'Mengubah maltosa menjadi glukosa'
+  ],
+  kunci: 1,
+  bahas: 'Enzim lipase berfungsi memecah lemak menjadi asam lemak dan gliserol. Protein dipecah oleh pepsin/tripsin, amilum oleh amilase, maltosa oleh maltase.'
+},
+{
+  id: 'sp9',
+  tipe: 'cb',
+  tanya: 'Pasangkan enzim dengan fungsi yang benar!',
+  opsi: [
+    'Amilase – memecah amilum menjadi maltosa',
+    'Pepsin – memecah protein menjadi pepton',
+    'Lipase – memecah lemak menjadi asam lemak dan gliserol',
+    'Maltase – memecah maltosa menjadi glukosa',
+    'Tripsin – menggumpalkan protein susu'
+  ],
+  kunci: [0,1,2,3],
+  bahas: 'Amilase → amilum → maltosa, pepsin → protein → pepton, lipase → lemak → asam lemak+gliserol, maltase → maltosa → glukosa. Tripsin tidak menggumpalkan susu, itu tugas renin.'
+},
+{
+  id: 'sp10',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut:',
+  opsi: [
+    'Pepsin memecah protein menjadi pepton',
+    'Amilase memecah amilum menjadi glukosa langsung',
+    'Maltase memecah maltosa menjadi glukosa',
+    'Lipase berfungsi memecah lemak'
+  ],
+  kunci: [true,false,true,true],
+  bahas: 'Pepsin benar (protein → pepton). Amilase tidak langsung menghasilkan glukosa, tapi maltosa (jadi salah). Maltase menghasilkan glukosa (benar). Lipase memecah lemak (benar).'
+},
+{
+  id: 'sp11',
+  tipe: 'pg',
+  tanya: 'Seorang anak sering mengalami diare setelah mengonsumsi susu. Hal ini disebabkan karena tubuhnya tidak dapat menghasilkan enzim ...',
+  opsi: [
+    'Amilase',
+    'Maltase',
+    'Laktase',
+    'Lipase'
+  ],
+  kunci: 2,
+  bahas: 'Penderita intoleransi laktosa tidak memiliki enzim laktase, sehingga laktosa dalam susu tidak dapat dipecah dan menyebabkan diare.'
+},
+{
+  id: 'sp12',
+  tipe: 'cb',
+  tanya: 'Seseorang mengalami sakit maag yang ditandai nyeri pada lambung. Hal ini dapat disebabkan oleh ...',
+  opsi: [
+    'Produksi asam lambung berlebih',
+    'Infeksi bakteri Helicobacter pylori',
+    'Kekurangan enzim amilase',
+    'Pola makan tidak teratur',
+    'Kekurangan hormon insulin'
+  ],
+  kunci: [0,1,3],
+  bahas: 'Maag dapat disebabkan oleh produksi asam lambung berlebih, infeksi H. pylori, dan pola makan tidak teratur. Kekurangan enzim amilase tidak berhubungan, sedangkan insulin berkaitan dengan diabetes.'
+},
+{
+  id: 'sp13',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut terkait penyakit pencernaan:',
+  opsi: [
+    'Hepatitis disebabkan oleh virus',
+    'Sariawan disebabkan oleh bakteri Helicobacter pylori',
+    'Diare dapat disebabkan oleh infeksi bakteri atau virus',
+    'Konstipasi terjadi karena kurang serat'
+  ],
+  kunci: [true,false,true,true],
+  bahas: 'Hepatitis → virus (benar). Sariawan umumnya karena jamur Candida atau kekurangan vitamin, bukan H. pylori (salah). Diare dapat karena bakteri/virus (benar). Konstipasi karena kurang serat (benar).'
+},
+{
+  id: 'sp14',
+  tipe: 'isian',
+  tanya: 'Penyakit tifus disebabkan oleh infeksi bakteri ....',
+  kunciText: 'Salmonella typhi',
+  bahas: 'Tifus (typhoid fever) disebabkan oleh infeksi bakteri Salmonella typhi.'
+},
+
+      ]
+    },
+'Sistem Peredaran Darah': {
+  materi: `
+<h2 class="text-xl font-bold mb-2">Sistem Peredaran Darah</h2>
+<p>
+  Sistem peredaran darah pada manusia berfungsi mengedarkan oksigen, zat makanan, hormon, dan membuang zat sisa metabolisme. 
+  Sistem ini melibatkan jantung, pembuluh darah, dan darah sebagai komponen utama.
+</p>
+
+<h3 class="text-lg font-semibold mt-4">1. Organ Utama Sistem Peredaran Darah</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>Jantung</b>: organ pemompa darah yang terdiri atas serambi kanan-kiri dan bilik kanan-kiri.</li>
+  <li><b>Pembuluh darah</b>: terdiri dari arteri (mengalirkan darah keluar jantung), vena (mengalirkan darah kembali ke jantung), dan kapiler (tempat pertukaran zat).</li>
+  <li><b>Darah</b>: terdiri dari plasma darah, sel darah merah (eritrosit), sel darah putih (leukosit), dan keping darah (trombosit).</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">2. Jenis Peredaran Darah</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>Peredaran darah kecil</b>: dari jantung → paru-paru → kembali ke jantung.</li>
+  <li><b>Peredaran darah besar</b>: dari jantung → seluruh tubuh → kembali ke jantung.</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">3. Fungsi Darah</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li>Mengangkut oksigen dan karbon dioksida.</li>
+  <li>Mengangkut zat makanan dari usus halus ke seluruh tubuh.</li>
+  <li>Mengangkut hormon ke organ sasaran.</li>
+  <li>Melawan infeksi melalui leukosit.</li>
+  <li>Membekukan darah dengan trombosit.</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">4. Golongan Darah</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li>A, B, AB, dan O (berdasarkan antigen pada eritrosit).</li>
+  <li>Rhesus (+) dan (-).</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">5. Gangguan Sistem Peredaran Darah</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>Anemia</b>: kekurangan hemoglobin atau sel darah merah.</li>
+  <li><b>Leukemia</b>: produksi sel darah putih berlebihan dan abnormal.</li>
+  <li><b>Hipertensi</b>: tekanan darah tinggi.</li>
+  <li><b>Stroke</b>: pecah atau tersumbatnya pembuluh darah otak.</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">6. Contoh Soal</h3>
+<p><b>Contoh 1:</b> Apa perbedaan utama antara peredaran darah besar dan kecil? <i>Jawab: Peredaran darah kecil melalui paru-paru, sedangkan peredaran darah besar ke seluruh tubuh.</i>.</p>
+<p><b>Contoh 2:</b> Sel darah apa yang berfungsi melawan infeksi? <i>Jawab: Leukosit</i>.</p>
+`,
+  video: ['H04d3J8gz-Q'],
+
+  soal: [
+    {
+  id: 'spd1',
+  tipe: 'pg',
+  tanya: 'Keping darah memiliki fungsi utama dalam sistem peredaran darah. Fungsi yang paling tepat dari keping darah adalah ...',
+  opsi: [
+    'Mengangkut oksigen ke seluruh tubuh',
+    'Menghancurkan kuman penyakit',
+    'Membantu proses pembekuan darah',
+    'Mengangkut hormon ke organ target'
+  ],
+  kunci: 2,
+  bahas: 'Keping darah (trombosit) berperan dalam proses pembekuan darah dengan membentuk sumbat sementara dan menghasilkan faktor pembekuan.'
+},
+{
+  id: 'spd2',
+  tipe: 'cb',
+  tanya: 'Manakah pernyataan berikut yang benar mengenai keping darah (trombosit)?',
+  opsi: [
+    'Jumlahnya normal sekitar 150.000–450.000 per mikroliter darah',
+    'Berperan dalam mencegah kehilangan darah saat terjadi luka',
+    'Mengandung hemoglobin untuk mengikat oksigen',
+    'Menghasilkan faktor yang memicu pembentukan fibrin'
+  ],
+  kunci: [0,1,3],
+  bahas: 'Trombosit tidak mengandung hemoglobin, jadi tidak berfungsi mengangkut oksigen. Mereka berperan dalam pembekuan darah dengan menghasilkan faktor koagulasi yang memicu pembentukan fibrin.'
+},
+{
+  id: 'spd3',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang keping darah:',
+  opsi: [
+    'Keping darah disebut juga trombosit',
+    'Keping darah berumur sekitar 8–12 hari',
+    'Kekurangan keping darah dapat menyebabkan hemofilia',
+    'Keping darah terbentuk di sumsum tulang merah'
+  ],
+  kunci: [true,true,false,true],
+  bahas: 'Trombosit = keping darah (benar). Umurnya 8–12 hari (benar). Hemofilia disebabkan kelainan genetik faktor pembekuan, bukan jumlah trombosit (salah). Trombosit dibentuk di sumsum tulang merah (benar).'
+},
+{
+  id: 'spd4',
+  tipe: 'isian',
+  tanya: 'Sebutkan proses yang terjadi jika tubuh mengalami luka hingga terbentuk bekuan darah yang melibatkan keping darah!',
+  kunciText: 'Trombosit menempel pada luka → melepaskan faktor pembekuan → memicu pembentukan fibrin → terbentuk jaring fibrin yang menutup luka.',
+  bahas: 'Ketika terjadi luka, trombosit menempel di lokasi luka, melepaskan faktor pembekuan, memicu pembentukan benang fibrin, lalu terbentuk bekuan darah yang menutup luka.'
+},
+{
+  id: 'spd5',
+  tipe: 'pg',
+  tanya: 'Pembuluh darah yang membawa darah dari jantung ke seluruh tubuh dengan dinding tebal dan elastis disebut ...',
+  opsi: [
+    'Vena',
+    'Kapiler',
+    'Aorta',
+    'Arteri'
+  ],
+  kunci: 3,
+  bahas: 'Aorta adalah arteri terbesar yang keluar dari jantung. Arteri memiliki dinding tebal dan elastis untuk menahan tekanan darah tinggi dari jantung.'
+},
+{
+  id: 'spd6',
+  tipe: 'cb',
+  tanya: 'Manakah pernyataan yang benar tentang pembuluh vena?',
+  opsi: [
+    'Membawa darah kembali ke jantung',
+    'Dindingnya tebal dan elastis',
+    'Memiliki katup untuk mencegah aliran balik darah',
+    'Darahnya selalu kaya oksigen'
+  ],
+  kunci: [0,2],
+  bahas: 'Vena mengalirkan darah kembali ke jantung dan memiliki katup untuk mencegah aliran balik. Dindingnya tipis (bukan tebal), dan tidak semua vena membawa darah kaya oksigen (contoh: vena pulmonalis membawa darah kaya oksigen).'
+},
+{
+  id: 'spd7',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang pembuluh kapiler:',
+  opsi: [
+    'Pembuluh kapiler menghubungkan arteriol dengan venula',
+    'Dinding kapiler hanya setebal satu lapis sel',
+    'Pertukaran gas, nutrisi, dan sisa metabolisme terjadi di kapiler',
+    'Darah dalam kapiler selalu bertekanan tinggi'
+  ],
+  kunci: [true,true,true,false],
+  bahas: 'Kapiler adalah pembuluh darah terkecil, dindingnya 1 lapis sel, berfungsi sebagai tempat pertukaran zat. Tekanan darahnya rendah, bukan tinggi.'
+},
+{
+  id: 'spd8',
+  tipe: 'isian',
+  tanya: 'Pembuluh darah yang membawa darah dari paru-paru menuju jantung adalah ....',
+  kunciText: 'Vena pulmonalis',
+  bahas: 'Vena pulmonalis adalah satu-satunya vena yang membawa darah kaya oksigen dari paru-paru ke jantung.'
+},
+{
+  id: 'spd9',
+  tipe: 'pg',
+  tanya: 'Sistem peredaran darah besar pada manusia dimulai dari ...',
+  opsi: [
+    'Bilik kanan → paru-paru → serambi kiri',
+    'Bilik kiri → seluruh tubuh → serambi kanan',
+    'Serambi kanan → paru-paru → bilik kiri',
+    'Bilik kanan → paru-paru → bilik kiri'
+  ],
+  kunci: 1,
+  bahas: 'Peredaran darah besar dimulai dari bilik kiri → darah kaya oksigen dipompa ke seluruh tubuh → kembali ke jantung melalui serambi kanan.'
+},
+{
+  id: 'spd10',
+  tipe: 'cb',
+  tanya: 'Manakah pernyataan berikut yang benar tentang peredaran darah besar?',
+  opsi: [
+    'Berawal dari bilik kiri',
+    'Mengalirkan darah kaya oksigen ke seluruh tubuh',
+    'Berakhir di serambi kanan',
+    'Menghubungkan jantung dengan paru-paru'
+  ],
+  kunci: [0,1,2],
+  bahas: 'Peredaran darah besar berawal dari bilik kiri, mengalirkan darah kaya oksigen ke seluruh tubuh, lalu kembali ke jantung melalui serambi kanan. Menghubungkan jantung dengan paru-paru adalah fungsi peredaran darah kecil.'
+},
+{
+  id: 'spd11',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang peredaran darah besar:',
+  opsi: [
+    'Membawa darah kaya oksigen dari jantung ke tubuh',
+    'Membawa darah miskin oksigen dari tubuh ke jantung',
+    'Berawal dari bilik kanan jantung',
+    'Berakhir di serambi kanan jantung'
+  ],
+  kunci: [true,true,false,true],
+  bahas: 'Peredaran darah besar berawal dari bilik kiri (bukan bilik kanan). Membawa darah kaya oksigen ke tubuh (benar), membawa darah miskin oksigen kembali ke serambi kanan (benar).'
+},
+{
+  id: 'spd12',
+  tipe: 'isian',
+  tanya: 'Sistem peredaran darah besar pada manusia dimulai dari bilik kiri dan berakhir di ....',
+  kunciText: 'Serambi kanan',
+  bahas: 'Peredaran darah besar: bilik kiri → seluruh tubuh → kembali ke jantung → serambi kanan.'
+},
+{
+  id: 'spd13',
+  tipe: 'pg',
+  tanya: 'Seorang remaja sering merasa cepat lelah, pucat, dan pusing. Dokter menyatakan ia mengalami anemia karena kekurangan zat besi. Makanan manakah yang paling tepat untuk mencegah anemia tersebut?',
+  opsi: [
+    'Nasi putih dan singkong',
+    'Bayam, hati ayam, dan daging merah',
+    'Roti tawar dan mie instan',
+    'Buah semangka dan pepaya'
+  ],
+  kunci: 1,
+  bahas: 'Anemia akibat kekurangan zat besi dapat dicegah dengan mengonsumsi makanan kaya zat besi, seperti sayuran hijau (bayam), hati ayam, dan daging merah.'
+},
+{
+  id: 'spd14',
+  tipe: 'cb',
+  tanya: 'Makanan berikut mengandung zat besi tinggi untuk mencegah anemia, yaitu ...',
+  opsi: [
+    'Hati ayam',
+    'Bayam',
+    'Daging merah',
+    'Es krim'
+  ],
+  kunci: [0,1,2],
+  bahas: 'Hati ayam, bayam, dan daging merah merupakan sumber zat besi. Es krim bukan sumber zat besi.'
+},
+{
+  id: 'spd15',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang pencegahan anemia:',
+  opsi: [
+    'Mengonsumsi makanan kaya zat besi dapat membantu mencegah anemia',
+    'Vitamin C membantu penyerapan zat besi dalam tubuh',
+    'Hanya dengan minum susu sudah cukup untuk mencegah anemia',
+    'Daging merah termasuk makanan yang baik untuk mencegah anemia'
+  ],
+  kunci: [true,true,false,true],
+  bahas: 'Anemia dicegah dengan zat besi. Vitamin C membantu penyerapannya. Susu saja tidak cukup, meskipun bergizi.'
+},
+{
+  id: 'spd16',
+  tipe: 'isian',
+  tanya: 'Anemia akibat kekurangan zat besi dapat dicegah dengan mengonsumsi makanan yang kaya akan ....',
+  kunciText: 'zat besi',
+  bahas: 'Zat besi adalah mineral penting untuk pembentukan hemoglobin. Kekurangan zat besi menyebabkan anemia.'
+},
+  ]
+},
+'Usaha': {
+  materi: `
+<h2 class="text-xl font-bold mb-2">Usaha (Work) dalam Fisika</h2>
+<p>
+  Dalam fisika, <b>usaha</b> didefinisikan sebagai hasil kali gaya yang bekerja pada suatu benda dengan perpindahan 
+  benda tersebut, serta mempertimbangkan arah gaya dan perpindahan. Usaha bernilai positif jika gaya searah dengan 
+  perpindahan, dan bernilai negatif jika gaya berlawanan dengan perpindahan.
+</p>
+
+<h3 class="text-lg font-semibold mt-4">1. Rumus Usaha</h3>
+<p>
+  Rumus umum usaha:
+</p>
+<p class="ml-6">
+  W = F × s × cos θ
+</p>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>W</b> = usaha (Joule, J)</li>
+  <li><b>F</b> = gaya (Newton, N)</li>
+  <li><b>s</b> = perpindahan (meter, m)</li>
+  <li><b>θ</b> = sudut antara arah gaya dan perpindahan</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">2. Ciri-ciri Usaha</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li>Terjadi gaya yang bekerja pada benda.</li>
+  <li>Terjadi perpindahan benda.</li>
+  <li>Ada komponen gaya yang searah dengan perpindahan.</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">3. Contoh Usaha dalam Kehidupan Sehari-hari</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li>Menarik gerobak dengan gaya tertentu hingga berpindah sejauh beberapa meter.</li>
+  <li>Mendorong meja hingga bergeser.</li>
+  <li>Ketika seseorang membawa beban naik ke atas tangga.</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">4. Hubungan Usaha dengan Energi</h3>
+<p>
+  Usaha memiliki hubungan erat dengan energi. Usaha yang dilakukan pada benda dapat mengubah energi benda tersebut, 
+  baik berupa energi kinetik maupun energi potensial.
+</p>
+
+<h3 class="text-lg font-semibold mt-4">5. Contoh Soal</h3>
+<p><b>Contoh 1:</b> Sebuah gaya 20 N menggeser benda sejauh 5 m searah gaya. Usaha yang dilakukan adalah .... <i>Jawab: W = 20 × 5 = 100 J</i>.</p>
+<p><b>Contoh 2:</b> Seseorang menarik koper dengan gaya 50 N membentuk sudut 60° terhadap arah mendatar sejauh 10 m. Usaha yang dilakukan adalah .... <i>Jawab: W = 50 × 10 × cos 60° = 250 J</i>.</p>
+`,
+  video: ['H0HgP5zC4wE'],
+
+  soal: [
+    {
+  id: 'us1',
+  tipe: 'pg',
+  tanya: 'Seorang siswa mendorong meja dengan gaya 50 N sejauh 2 meter di lantai datar. Berdasarkan deskripsi tersebut, definisi usaha yang benar adalah ...',
+  opsi: [
+    'Perpindahan benda yang disebabkan oleh adanya massa',
+    'Hasil kali gaya yang bekerja dengan waktu gaya itu diberikan',
+    'Hasil kali gaya dengan perpindahan searah gaya',
+    'Energi potensial yang dimiliki benda karena posisinya'
+  ],
+  kunci: 2,
+  bahas: 'Usaha dalam fisika didefinisikan sebagai hasil kali gaya dengan perpindahan searah gaya, ditulis W = F × s × cos θ.'
+},
+{
+  id: 'us2',
+  tipe: 'cb',
+  tanya: 'Seorang pekerja menarik kereta dengan gaya tertentu. Pernyataan yang benar tentang usaha adalah ...',
+  opsi: [
+    'Usaha terjadi jika ada gaya dan perpindahan',
+    'Usaha bernilai nol jika tidak terjadi perpindahan',
+    'Usaha tidak dipengaruhi arah gaya terhadap perpindahan',
+    'Usaha bernilai negatif jika gaya berlawanan arah dengan perpindahan'
+  ],
+  kunci: [0,1,3],
+  bahas: 'Usaha hanya terjadi jika ada gaya dan perpindahan. Jika tidak ada perpindahan, usaha = 0. Usaha bernilai negatif bila gaya berlawanan arah dengan perpindahan.'
+},
+{
+  id: 'us3',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang usaha:',
+  opsi: [
+    'Usaha selalu bernilai positif',
+    'Jika gaya tegak lurus terhadap perpindahan maka usaha = 0',
+    'Usaha dapat bernilai negatif',
+    'Usaha adalah energi yang ditransfer oleh gaya'
+  ],
+  kunci: [false,true,true,true],
+  bahas: 'Usaha tidak selalu positif (salah). Jika gaya tegak lurus perpindahan, W=0 (benar). Usaha bisa negatif bila gaya berlawanan arah dengan perpindahan (benar). Usaha adalah bentuk transfer energi (benar).'
+},
+{
+  id: 'us4',
+  tipe: 'isian',
+  tanya: 'Seorang siswa mendorong benda dengan gaya F sehingga benda berpindah sejauh s. Rumus umum usaha dalam fisika adalah ....',
+  kunciText: 'W = F × s × cos θ',
+  bahas: 'Usaha dihitung dengan rumus W = F × s × cos θ, di mana θ adalah sudut antara arah gaya dan perpindahan.'
+},
+// ======= US5: PG =======
+{
+  id: 'us5',
+  tipe: 'pg',
+  tanya: 'Perhatikan gambar berikut! Sebuah benda dikenai gaya F1=12 N ke kanan, F2=24 N ke kanan, dan F3=36 N ke kiri. Besarnya usaha total jika benda berpindah sejauh 5 m ke kanan adalah ...',
+  gambar: 'https://imgix2.ruangguru.com/assets/miscellaneous/png_lt9tbe_8541.png',
+  opsi: [
+    '0 J',
+    '30 J',
+    '60 J',
+    '150 J'
+  ],
+  kunci: 0,
+  bahas: 'Usaha total = ΣF × s = (F1 + F2 - F3) × s = (12 + 24 - 36) × 5 = 0 × 5 = 0 J. Jadi benda tidak melakukan usaha bersih ke kanan.'
+},
+
+// ======= Usaha Isian =======
+{
+  id: 'us_isian1',
+  tipe: 'isian',
+  tanya: 'Perhatikan gambar berikut: <br><img src="http://4.bp.blogspot.com/-fWqPTq98cPU/T_Fdyrned8I/AAAAAAAABOw/U2IzvcFs4r0/s320/soal-usaha-smp-6.png" class="my-2 w-64"><br>Benda digerakkan sejauh 5 m ke kanan. Diketahui F1 = 36 N searah perpindahan, usaha total W = 120 J. Hitung besar F2 (gaya ke kiri)!',
+  kunciText: '12',
+  bahas: 'Usaha: W = (F1 - F2) × s → F2 = F1 - W/s = 36 - 120/5 = 36 - 24 = 12 N.'
+},
+// ======= Usaha Isian =======
+{
+  id: 'us_isian2',
+  tipe: 'isian',
+  tanya: 'Perhatikan gambar berikut: <br><img src="http://3.bp.blogspot.com/-4AqcMlRaIxo/T_FdyD4b7uI/AAAAAAAABOY/6nznVJ4FaTU/s320/soal-usaha-smp-4.png" class="my-2 w-64"><br>Dua buah gaya bekerja pada sebuah benda: F1 = 10 N dan F2 = 5 N ke kanan. Jika benda berpindah sejauh 5 m ke kanan, tentukan usaha total yang dilakukan kedua gaya tersebut!',
+  kunciText: '75',
+  bahas: 'Usaha total: W_total = F1 × s + F2 × s = (10 + 5) × 5 = 15 × 5 = 75 J.'
+},
+
+
+  ]
+},
+'Energi': {
+  materi: `
+<h2 class="text-xl font-bold mb-2">Energi dalam Fisika</h2>
+<p>
+  <b>Energi</b> adalah kemampuan suatu benda untuk melakukan usaha. Energi dapat berbentuk berbagai jenis, 
+  antara lain energi kinetik, energi potensial, dan energi mekanik. Energi dapat berpindah dari satu benda ke benda lain 
+  atau berubah bentuk, tetapi jumlah total energi dalam sistem tertutup tetap (hukum kekekalan energi).
+</p>
+
+<h3 class="text-lg font-semibold mt-4">1. Energi Kinetik (EK)</h3>
+<p>
+  Energi kinetik adalah energi yang dimiliki benda karena geraknya. Besarnya energi kinetik suatu benda dihitung dengan rumus:
+</p>
+<p class="ml-6">EK = 1/2 × m × v²</p>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>m</b> = massa benda (kg)</li>
+  <li><b>v</b> = kecepatan benda (m/s)</li>
+  <li><b>EK</b> = energi kinetik (Joule, J)</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">2. Energi Potensial (EP)</h3>
+<p>
+  Energi potensial adalah energi yang dimiliki benda karena posisinya. Contoh paling umum adalah energi potensial gravitasi:
+</p>
+<p class="ml-6">EP = m × g × h</p>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>m</b> = massa benda (kg)</li>
+  <li><b>g</b> = percepatan gravitasi (m/s²)</li>
+  <li><b>h</b> = ketinggian benda dari titik acuan (m)</li>
+  <li><b>EP</b> = energi potensial (Joule, J)</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">3. Hubungan Energi Kinetik dan Potensial</h3>
+<p>
+  Dalam sistem mekanik, energi potensial dapat berubah menjadi energi kinetik dan sebaliknya. Total energi mekanik 
+  (EM) adalah jumlah energi kinetik dan energi potensial:
+</p>
+<p class="ml-6">EM = EK + EP</p>
+<p>Jika tidak ada gaya luar yang bekerja (gesekan diabaikan), total energi mekanik benda tetap.</p>
+
+<h3 class="text-lg font-semibold mt-4">4. Hubungan Energi dengan Usaha</h3>
+<p>
+  Usaha yang dilakukan pada benda akan mengubah energi benda tersebut. Misalnya:
+</p>
+<ul class="list-disc ml-6 mb-4">
+  <li>Usaha positif → meningkatkan energi kinetik atau energi potensial</li>
+  <li>Usaha negatif → mengurangi energi benda</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">5. Contoh Soal</h3>
+<p><b>Contoh 1:</b> Sebuah benda bermassa 2 kg jatuh bebas dari ketinggian 5 m. Hitung kecepatan benda saat menyentuh tanah (g = 10 m/s²)!</p>
+<p><i>Jawab:</i> EP awal = EK akhir → mgh = 1/2 m v² → 2×10×5 = 1/2×2×v² → 100 = v² → v = 10 m/s</p>
+
+<p><b>Contoh 2:</b> Sebuah mobil bermassa 1000 kg melaju dengan kecepatan 20 m/s. Hitung energi kinetiknya!</p>
+<p><i>Jawab:</i> EK = 1/2 m v² = 1/2 × 1000 × 20² = 200.000 J</p>
+`,
+  video: ['H0HgP5zC4wE'], // bisa diganti sesuai video energi
+
+  soal: [
+    // ======= E1: PG =======
+{
+  id: 'e1',
+  tipe: 'pg',
+  tanya: 'Sebuah benda bermassa 2 kg berada di atas meja setinggi 3 m dari lantai. Besarnya energi potensial benda terhadap lantai adalah ... (gunakan g = 10 m/s²)',
+  opsi: [
+    '5 J',
+    '20 J',
+    '30 J',
+    '60 J'
+  ],
+  kunci: 3,
+  bahas: 'EP = m × g × h = 2 × 10 × 3 = 60 J. Jadi energi potensial benda terhadap lantai adalah 60 J.'
+},
+// ======= E1: CB =======
+{
+  id: 'e1_cb',
+  tipe: 'cb',
+  tanya: 'Pilih pernyataan yang benar tentang energi potensial benda:',
+  opsi: [
+    'EP meningkat jika massa benda bertambah',
+    'EP menurun jika benda dinaikkan lebih tinggi',
+    'EP tergantung ketinggian dari titik acuan',
+    'EP tidak dipengaruhi oleh gravitasi'
+  ],
+  kunci: [0,2],
+  bahas: 'Energi potensial EP = m × g × h. Jadi EP bertambah jika massa bertambah dan tergantung tinggi. Gravitasi memengaruhi EP, jadi pernyataan 3 benar, 1 benar, 2 dan 4 salah.'
+},
+// ======= E1: BS =======
+{
+  id: 'e1_bs',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang energi potensial:',
+  opsi: [
+    'Semakin tinggi posisi benda, semakin besar EP',
+    'EP hanya bergantung pada massa benda',
+    'EP bernilai nol jika benda berada di titik acuan',
+    'EP dapat bernilai negatif jika benda berada di bawah titik acuan'
+  ],
+  kunci: [true,false,true,true],
+  bahas: 'EP = m × g × h. Semakin tinggi benda → EP lebih besar (benar). EP juga dipengaruhi g dan h, bukan hanya massa (salah). Di titik acuan → EP = 0 (benar). Di bawah titik acuan → h negatif → EP negatif (benar).'
+},
+// ======= E1: Isian =======
+{
+  id: 'e1_isian',
+  tipe: 'isian',
+  tanya: 'Sebuah benda bermassa 3 kg berada di ketinggian 4 m dari lantai. Hitung energi potensialnya (g = 10 m/s²)!',
+  kunciText: '120',
+  bahas: 'EP = m × g × h = 3 × 10 × 4 = 120 J.'
+},
+// ======= E2: PG =======
+{
+  id: 'e2',
+  tipe: 'pg',
+  tanya: 'Sebuah benda bermassa 2 kg jatuh bebas dari ketinggian 5 m. Jika g = 10 m/s², kecepatan benda saat menyentuh tanah adalah ...',
+  opsi: [
+    '5 m/s',
+    '10 m/s',
+    '15 m/s',
+    '20 m/s'
+  ],
+  kunci: 1,
+  bahas: 'Menggunakan hukum kekekalan energi: EP awal = EK akhir → mgh = 1/2 m v². \n2 × 10 × 5 = 1/2 × 2 × v² → 100 = v² → v = √100 = 10 m/s.\nJadi kecepatan saat menyentuh tanah adalah 10 m/s.'
+},
+
+// ======= E2: CB =======
+{
+  id: 'e2_cb',
+  tipe: 'cb',
+  tanya: 'Pilih pernyataan yang benar tentang benda jatuh bebas:',
+  opsi: [
+    'Energi potensial diubah menjadi energi kinetik saat jatuh',
+    'Kecepatan benda konstan selama jatuh bebas',
+    'Benda memiliki energi kinetik nol di permulaan jatuh',
+    'Energi mekanik total selalu berkurang'
+  ],
+  kunci: [0,2],
+  bahas: 'Saat jatuh bebas, EP berubah menjadi EK (benar). Di awal, kecepatan = 0 → EK = 0 (benar). Kecepatan bertambah selama jatuh (salah). Energi mekanik total tetap (salah).'
+},
+
+// ======= E2: BS =======
+{
+  id: 'e2_bs',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang benda jatuh:',
+  opsi: [
+    'Kecepatan benda saat menyentuh tanah dapat dihitung dari EP awal',
+    'Benda kehilangan energi mekanik saat jatuh bebas jika tidak ada gesekan udara',
+    'Energi potensial maksimum terjadi di posisi paling tinggi',
+    'Energi kinetik maksimum terjadi di posisi paling bawah'
+  ],
+  kunci: [true,false,true,true],
+  bahas: 'Kecepatan dapat dihitung dari EP awal (benar). Tanpa gesekan → energi mekanik tetap (salah). EP maksimum di titik tertinggi (benar). EK maksimum di titik paling rendah (benar).'
+},
+
+// ======= E2: Isian =======
+{
+  id: 'e2_isian',
+  tipe: 'isian',
+  tanya: 'Sebuah benda bermassa 3 kg jatuh dari ketinggian 8 m. Hitung kecepatan benda saat menyentuh tanah (g = 10 m/s²)!',
+  kunciText: '12.65',
+  bahas: 'EP awal = EK akhir → mgh = 1/2 m v² → 3×10×8 = 1/2×3×v² → 240 = 1.5 v² → v² = 160 → v = √160 ≈ 12.65 m/s.'
+},
+// ======= E3: PG =======
+{
+  id: 'e3',
+  tipe: 'pg',
+  tanya: 'Manakah yang termasuk sumber energi tak terbarukan?',
+  opsi: [
+    'Minyak bumi',
+    'Tenaga surya',
+    'Angin',
+    'Air'
+  ],
+  kunci: 0,
+  bahas: 'Energi tak terbarukan adalah energi yang jumlahnya terbatas dan tidak dapat diperbarui dalam waktu singkat. Contohnya adalah minyak bumi, batu bara, dan gas alam.'
+},
+
+// ======= E3: CB =======
+{
+  id: 'e3_cb',
+  tipe: 'cb',
+  tanya: 'Pilih semua yang termasuk energi tak terbarukan!',
+  opsi: [
+    'Batu bara',
+    'Gas alam',
+    'Tenaga angin',
+    'Minyak bumi',
+    'Tenaga air'
+  ],
+  kunci: [0,1,3],
+  bahas: 'Batu bara, gas alam, dan minyak bumi termasuk energi tak terbarukan. Tenaga angin dan air adalah energi terbarukan.'
+},
+
+// ======= E3: BS =======
+{
+  id: 'e3_bs',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (B) atau salah (S) pernyataan berikut tentang energi tak terbarukan:',
+  opsi: [
+    'Minyak bumi termasuk energi tak terbarukan',
+    'Tenaga surya termasuk energi tak terbarukan',
+    'Batu bara adalah contoh energi tak terbarukan',
+    'Gas alam tidak termasuk energi tak terbarukan'
+  ],
+  kunci: [true,false,true,false],
+  bahas: 'Minyak bumi dan batu bara termasuk energi tak terbarukan. Tenaga surya adalah energi terbarukan. Gas alam termasuk energi tak terbarukan.'
+},
+
+// ======= E3: Isian =======
+{
+  id: 'e3_isian',
+  tipe: 'isian',
+  tanya: 'Sebutkan salah satu contoh energi tak terbarukan!',
+  kunciText: 'Minyak bumi',
+  bahas: 'Contoh energi tak terbarukan antara lain minyak bumi, batu bara, dan gas alam.'
+},
+
+  ]
+},
+'Pesawat Sederhana': {
+  materi: `
+<h2 class="text-xl font-bold mb-2">Pesawat Sederhana</h2>
+<p>
+  <b>Pesawat sederhana</b> adalah alat mekanik yang digunakan untuk mempermudah melakukan usaha dengan mengubah besar gaya, arah gaya, atau jarak perpindahan gaya. Pesawat sederhana tidak mengurangi jumlah usaha, tetapi memudahkan pelaksanaannya.
+</p>
+
+<h3 class="text-lg font-semibold mt-4">1. Jenis-jenis Pesawat Sederhana</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>Tuas (Lever)</b>: Alat yang digunakan untuk mengangkat atau memindahkan benda dengan cara memutar di titik tumpu.</li>
+  <li><b>Katrol (Pulley)</b>: Roda beralur dengan tali yang digunakan untuk mengangkat beban. Bisa tetap atau bergerak.</li>
+  <li><b>Bidang Miring (Inclined Plane)</b>: Permukaan miring yang memudahkan mengangkat benda dengan mengurangi gaya yang diperlukan.</li>
+  <li><b>Roda dan Poros (Wheel and Axle)</b>: Memudahkan memutar atau menggerakkan benda dengan gaya lebih kecil.</li>
+  <li><b>Wedge (Baji)</b>: Digunakan untuk membelah atau memotong benda dengan gaya yang lebih kecil.</li>
+  <li><b>Sekrup (Screw)</b>: Bidang miring yang melingkar digunakan untuk mengubah gaya putar menjadi gaya linier.</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">2. Prinsip Kerja Pesawat Sederhana</h3>
+<p>
+  Pesawat sederhana bekerja berdasarkan prinsip <b>keuntungan mekanis (mechanical advantage)</b>, yaitu perbandingan gaya beban terhadap gaya yang dikeluarkan:
+</p>
+<p class="ml-6">
+  Keuntungan mekanis = Gaya beban / Gaya kuasa
+</p>
+<p>
+  Keuntungan mekanis lebih dari 1 berarti gaya kuasa yang diberikan lebih kecil dari berat benda, tetapi jarak perpindahan lebih panjang.
+</p>
+
+<h3 class="text-lg font-semibold mt-4">3. Contoh Penggunaan Pesawat Sederhana</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li>Mengangkat ember menggunakan katrol.</li>
+  <li>Mendorong batu besar ke atas menggunakan bidang miring.</li>
+  <li>Membuka tutup botol dengan tuas (lever).</li>
+  <li>Memotong kayu menggunakan baji (wedge).</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">4. Hubungan dengan Usaha</h3>
+<p>
+  Pesawat sederhana tidak mengurangi jumlah usaha yang dilakukan, tetapi memudahkan cara melakukan usaha. Usaha yang dilakukan tetap sama: 
+</p>
+<p class="ml-6">
+  W = F × s
+</p>
+<p>
+  Jika gaya berkurang, jarak yang ditempuh gaya menjadi lebih panjang agar usaha tetap sama.
+</p>
+
+<h3 class="text-lg font-semibold mt-4">5. Contoh Soal</h3>
+<p><b>Contoh 1:</b> Sebuah benda seberat 100 N diangkat menggunakan bidang miring dengan panjang 5 m dan tinggi 1 m. Gaya minimum yang diperlukan adalah ... <i>Jawab: F = 100 × (1/5) = 20 N</i>.</p>
+<p><b>Contoh 2:</b> Mengangkat ember menggunakan katrol tetap, berat ember 50 N. Jika tali ditarik sejauh 2 m, berapa usaha yang dilakukan? <i>Jawab: W = F × s = 50 × 2 = 100 J</i>.</p>
+`,
+  video: ['dQw4w9WgXcQ'], // bisa diganti dengan video pembelajaran pesawat sederhana
+
+  soal: [
+    
+// ===== Soal PG =====
+{
+  id: 'tuas_pg1',
+  tipe: 'pg',
+  tanya: 'Perhatikan gambar tuas berikut: <br><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhCyVCq-Edor8u0sZ94N8su2mJsyG0nm3yfzXqq-qdcjsEhiOpvXYwbPGjr9mfC3PPUIzlI9LM0BPG3IXK258gEwIbkhT-9lqj7doTA0uL5PRUE7o2_reM-PkABqwNp6UhiU88_ZNgd5g5X/s320/contoh+soal+1+tuas+pengungkit.jpg" class="my-2 w-64"><br>Beban = 800 N, jarak titik tumpu ke beban = 4 cm, jarak kuasa ke tumpu = 160 cm. Besar gaya kuasa yang diperlukan adalah ...',
+  opsi: [
+    '\\(10\\,\\text{N}\\)',
+    '\\(20\\,\\text{N}\\)',
+    '\\(40\\,\\text{N}\\)',
+    '\\(80\\,\\text{N}\\)'
+  ],
+  kunci: 1,
+  bahas: 'Rumus tuas: \\(F_\\text{kuasa} \\times L_\\text{kuasa} = W \\times L_\\text{beban}\\). Jadi \\(F_\\text{kuasa} = \\frac{800 \\times 0.04}{1.6} = 20\\,\\text{N}\\).'
+},
+{
+  id: 'tuas_cb1',
+  tipe: 'cb',
+gambar:'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhCyVCq-Edor8u0sZ94N8su2mJsyG0nm3yfzXqq-qdcjsEhiOpvXYwbPGjr9mfC3PPUIzlI9LM0BPG3IXK258gEwIbkhT-9lqj7doTA0uL5PRUE7o2_reM-PkABqwNp6UhiU88_ZNgd5g5X/s320/contoh+soal+1+tuas+pengungkit.jpg',
+  tanya: 'Manakah pernyataan berikut yang benar tentang tuas pada soal di atas?',
+  opsi: [
+    '\\(F_\\text{kuasa} \\times L_\\text{kuasa} = W \\times L_\\text{beban}\\)',
+    'Jika jarak kuasa diperpendek, gaya kuasa meningkat',
+    'Jika jarak beban diperbesar, gaya kuasa tetap sama',
+    'Usaha yang dilakukan tetap sama meskipun gaya kuasa berbeda'
+  ],
+  kunci: [0,1,3],
+  bahas: 'Rumus tuas: \\(F \\times L = W \\times L_b\\). Jika jarak kuasa lebih pendek, gaya meningkat. Usaha total tetap sama karena \\(W = F \\times s\\).'
+},
+
+// ===== Soal Isian =====
+{
+  id: 'tuas_isian1',
+  tipe: 'isian',
+  tanya: 'Hitung besar gaya kuasa yang diperlukan agar tuas seimbang (Jawaban dalam N):',
+  kunciText: '20',
+  bahas: '\\(F_\\text{kuasa} = \\frac{W \\times L_b}{L_k} = \\frac{800 \\times 0.04}{1.6} = 20\\,\\text{N}\\).'
+},
+// ===== Soal PG =====
+{
+  id: 'katrol_pg1',
+  tipe: 'pg',
+  tanya: 'Perhatikan gambar katrol berikut: <br><img src="https://www.quipper.com/id/blog/wp-content/uploads/2019/11/Yuk-Belajar-tentang-Katrol-Selengkapnya-di-Sini-15.png" class="my-2 w-64"><br> Besar gaya kuasa yang diperlukan adalah ...',
+  opsi: [
+    '\\(300\\,\\text{N}\\)',
+    '\\(600\\,\\text{N}\\)',
+    '\\(900\\,\\text{N}\\)',
+    '\\(1800\\,\\text{N}\\)'
+  ],
+  kunci: 1,
+  bahas: 'Pada katrol majemuk: \\(F_\\text{kuasa} = \\frac{W}{n} = \\frac{1800}{3} = 600\\,\\text{N}\\).'
+},
+
+{
+  id: 'katrol_cb2',
+  tipe: 'cb',
+  tanya: 'Perhatikan gambar katrol berikut: <br><img src="https://www.quipper.com/id/blog/wp-content/uploads/2019/11/Yuk-Belajar-tentang-Katrol-Selengkapnya-di-Sini-15.png" class="my-2 w-64"><br> . Pilih pernyataan yang benar terkait katrol tersebut:',
+  opsi: [
+    'Katrol ini termasuk katrol majemuk',
+    'Keuntungan mekanik katrol ini lebih dari 1',
+    'Beban dibagi rata pada jumlah tali yang menopang',
+    'Gaya kuasa yang diperlukan lebih kecil dari beban',
+    'Jumlah tali tidak memengaruhi gaya kuasa',
+    'Semua jenis katrol menghasilkan gaya sama dengan beban'
+  ],
+  kunci: [0,1,2,3],
+  bahas: 'Katrol pada gambar adalah katrol majemuk. Katrol majemuk memiliki keuntungan mekanik > 1, sehingga gaya kuasa yang diperlukan lebih kecil dari beban. Beban dibagi sesuai jumlah tali yang menopang. Jumlah tali berpengaruh pada gaya kuasa. Tidak semua katrol menghasilkan gaya sama dengan beban.'
+},
+
+// ===== Soal Isian =====
+{
+  id: 'katrol_isian1',
+  tipe: 'isian',
+  tanya: 'Besar gaya kuasa yang diperlukan untuk mengangkat beban \\(1800\\,\\text{N}\\) dengan katrol majemuk 3 tali adalah ... (Jawaban dalam N)',
+  kunciText: '600',
+  bahas: 'F_\\text{kuasa} = W / n = 1800 / 3 = 600 N.'
+},
+// ===== Soal PG =====
+{
+  id: 'bidang_pg3',
+  tipe: 'pg',
+  tanya: 'Perhatikan gambar bidang miring berikut: <br><img src="https://roboguru-forum-cdn.ruangguru.com/811adf73-ca53-4093-8bb3-bb0643899bd5.JPG?convert=webp" class="my-2 w-64"><br>Benda dengan berat \\(W = 500\\,\\text{N}\\) berada pada bidang miring setinggi \\(2\\,\\text{m}\\) dan panjang bidang \\(s = 10\\,\\text{m}\\). Besar gaya yang diperlukan menggunakan keuntungan mekanik adalah ...',
+  opsi: [
+    '\\(80\\,\\text{N}\\)',
+    '\\(87\\,\\text{N}\\)',
+    '\\(100\\,\\text{N}\\)',
+    '\\(120\\,\\text{N}\\)'
+  ],
+  kunci: 2,
+  bahas: 'Keuntungan mekanik: \\(KM = s/h = 10/2 = 5\\). Gaya kuasa: \\(F = W/KM = 500/5 = 100\\,\\text{N}\\).'
+},
+
+
+// ===== Soal CB =====
+{
+  id: 'bidang_cb3',
+  tipe: 'cb',
+  tanya: 'Pernyataan yang benar tentang benda pada bidang miringberikut adalah ... <br><img src="https://roboguru-forum-cdn.ruangguru.com/811adf73-ca53-4093-8bb3-bb0643899bd5.JPG?convert=webp" class="my-2 w-64"><br>',
+  opsi: [
+    'Besar gaya kuasa < berat benda',
+    'Keuntungan mekanik = s / h > 1',
+    'Jika panjang bidang miring diperpendek, gaya kuasa meningkat',
+    'Gaya kuasa sama dengan berat benda',
+    'Bidang miring memungkinkan gaya lebih kecil dari berat'
+  ],
+  kunci: [0,1,2,4],
+  bahas: 'Gaya kuasa < berat benda. KM = s/h > 1. Jika bidang lebih pendek, KM berkurang → gaya kuasa meningkat. Bidang miring membantu mengurangi gaya yang diperlukan.'
+},
+
+// ===== Soal Isian =====
+{
+  id: 'bidang_isian3',
+  tipe: 'isian',
+  tanya: 'Besar gaya yang diperlukan untuk menaikkan benda \\(W = 500\\,\\text{N}\\) pada bidang miring \\(h = 2\\,\\text{m}, s = 10\\,\\text{m}\\) menggunakan keuntungan mekanik adalah ... (Jawaban dalam N)',
+  kunciText: '100',
+  bahas: 'KM = s/h = 10/2 = 5 → F = W/KM = 500/5 = 100 N.'
+}
+
+
+  ]
+},
+
+
+  }
+},
+
+    'Matematika': {
+  bab: {
+'Penjumlahan dan Pengurangan Bilangan Cacah': {
+  materi: `
+<h2 class="text-xl font-bold mb-2">Penjumlahan dan Pengurangan Bilangan Cacah</h2>
+<p>
+  Bilangan cacah adalah bilangan positif termasuk 0, digunakan untuk menghitung atau menunjukkan banyaknya benda. Operasi dasar pada bilangan cacah meliputi penjumlahan dan pengurangan.
+</p>
+
+<h3 class="text-lg font-semibold mt-4">1. Penjumlahan Bilangan Cacah</h3>
+<p>
+  Penjumlahan adalah proses menggabungkan dua bilangan atau lebih menjadi satu jumlah. Contoh aturan:
+</p>
+<ul class="list-disc ml-6 mb-4">
+  <li>Jika hasil penjumlahan lebih dari 9, lakukan penjumlahan bersusun dengan membawa angka puluhan. Contoh: 345 + 678 = 1023</li>
+  <li>Penjumlahan 3 digit dan 4 digit harus memperhatikan posisi ratusan, ribuan, puluhan, dan satuan.</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">2. Pengurangan Bilangan Cacah</h3>
+<p>
+  Pengurangan adalah proses mengambil sebagian dari suatu bilangan. Contoh aturan:
+</p>
+<ul class="list-disc ml-6 mb-4">
+  <li>Jika bilangan yang dikurangi lebih kecil, lakukan peminjaman. Contoh: 1002 - 678 = 324</li>
+  <li>Pengurangan 3 digit dan 4 digit memerlukan perhatian terhadap ribuan, ratusan, puluhan, dan satuan.</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">3. Tips Penjumlahan dan Pengurangan Cepat</h3>
+<ul class="list-disc ml-6 mb-4">
+  <li>Gunakan cara bersusun untuk angka besar agar lebih rapi.</li>
+  <li>Periksa kembali hasil dengan membalik operasi (misal: setelah menjumlahkan, lakukan pengurangan untuk mengecek).</li>
+</ul>
+
+<h3 class="text-lg font-semibold mt-4">4. Contoh Soal</h3>
+<p><b>Contoh 1:</b> Hitung 345 + 678 = 1023</p>
+<p><b>Contoh 2:</b> Hitung 1002 - 678 = 324</p>
+<p><b>Contoh 3:</b> Hitung 4721 + 358 = 5079</p>
+<p><b>Contoh 4:</b> Hitung 5020 - 2874 = 2146</p>
+`,
+
+  video: ['dQw4w9WgXcQ'], // placeholder
+
+  soal: [
+    {
+      id: 'ppc1',
+      tipe: 'pg',
+      tanya: 'Hasil dari 345 + 678 adalah...',
+      opsi: ['1022', '1023', '1013', '1033'],
+      kunci: 1,
+      bahas: '345 + 678 = 1023'
+    },
+    {
+      id: 'ppc2',
+      tipe: 'pg',
+      tanya: 'Hasil dari 1002 - 678 adalah...',
+      opsi: ['324', '325', '334', '326'],
+      kunci: 0,
+      bahas: '1002 - 678 = 324'
+    },
+    {
+      id: 'ppc3',
+      tipe: 'cb',
+      tanya: 'Manakah yang merupakan hasil penjumlahan benar?',
+      opsi: [
+        '4721 + 358 = 5079',
+        '503 + 289 = 792',
+        '1000 + 999 = 1999',
+        '2345 + 4321 = 6655'
+      ],
+      kunci: [0,1,2],
+      bahas: '4721+358=5079 benar, 503+289=792 benar, 1000+999=1999 benar, 2345+4321=6666 salah'
+    },
+    {
+      id: 'ppc4',
+      tipe: 'bs',
+      tanya: 'Tentukan benar atau salah pernyataan berikut:',
+      opsi: [
+        '5020 - 2874 = 2146',
+        '345 + 678 = 1022',
+        '1002 - 678 = 324',
+        '4721 + 358 = 5079'
+      ],
+      kunci: [0,2,3],
+      bahas: '5020-2874=2146 benar, 345+678=1022 salah, 1002-678=324 benar, 4721+358=5079 benar'
+    },
+    {
+      id: 'ppc5',
+      tipe: 'pg',
+      tanya: 'Hasil dari 2345 + 4321 adalah...',
+      opsi: ['6666', '6665', '6676', '6677'],
+      kunci: 0,
+      bahas: '2345 + 4321 = 6666'
+    },
+ {
+      id: 'pg4d1',
+      tipe: 'pg',
+      tanya: 'Hitung 8567 - 4321 - 1234 = ...',
+      opsi: ['3012', '3010', '3011', '3002'],
+      kunci: 2,
+      bahas: '8567 - 4321 = 4246; 4246 - 1234 = 3012'
+    },
+    {
+      id: 'pg4d2',
+      tipe: 'pg',
+      tanya: 'Hasil dari 9321 - 4876 - 2345 adalah...',
+      opsi: ['1100', '1105', '1100', '1101'],
+      kunci: 0,
+      bahas: '9321 - 4876 = 4445; 4445 - 2345 = 2100'
+    },
+    {
+      id: 'pg4d3',
+      tipe: 'bs',
+      tanya: 'Tentukan benar atau salah pernyataan berikut:',
+      opsi: [
+        '7421 - 3856 - 1267 = 2298',
+        '8567 - 4321 - 1234 = 3012',
+        '9321 - 4876 - 2345 = 2100',
+        '5000 - 1234 - 876 = 2890'
+      ],
+      kunci: [0,1,2,3],
+      bahas: 'Semua pernyataan benar, dihitung bertahap: 7421-3856=3565; 3565-1267=2298, dan seterusnya.'
+    },
+    {
+      id: 'pg4d4',
+      tipe: 'pg',
+      tanya: 'Hitung 6234 - 4321 - 1111 = ...',
+      opsi: ['802', '802', '802', '802'],
+      kunci: 0,
+      bahas: '6234 - 4321 = 1913; 1913 - 1111 = 802'
+    },
+    {
+      id: 'pg4d5',
+      tipe: 'pg',
+      tanya: 'Hasil dari 9000 - 4567 - 1234 adalah...',
+      opsi: ['3199', '3199', '3199', '3199'],
+      kunci: 0,
+      bahas: '9000 - 4567 = 4433; 4433 - 1234 = 3199'
+    }
+  ]
+}
+
+  }
+},
+
+  };
+
+ // ======= Helpers =======
+  const $ = (sel, par=document) => par.querySelector(sel);
+  const $$ = (sel, par=document) => Array.from(par.querySelectorAll(sel));
+  function setTab(name){
+    $$('.tab-pane').forEach(p => p.classList.add('hidden'));
+    $('#tab-'+name).classList.remove('hidden');
+    $$('.tab-btn').forEach(b=>{
+      const active = b.dataset.tab===name;
+      b.classList.toggle('bg-emerald-600', active);
+      b.classList.toggle('text-white', active);
+      b.classList.toggle('border', !active);
+      b.classList.toggle('chip', !active);
+      b.classList.toggle('bg-white', !active);
+      b.classList.toggle('text-gray-700', !active);
+    })
+  }
+
+  function populateSelect(sel, list){
+    sel.innerHTML = '';
+    list.forEach(v=>{
+      const opt=document.createElement('option');
+      opt.value=v; opt.textContent=v; sel.appendChild(opt);
+    })
+  }
+
+  function renderMateri(mapel, bab){
+    const item = DB[mapel]?.bab?.[bab];
+    if(!item){
+      $('#materiKonten').innerHTML = '<p class="text-gray-500">Materi belum tersedia.</p>';
+      $('#materiVideo').innerHTML = '<span class="text-sm">Video belum tersedia.</span>';
+      return;
+    }
+    $('#materiKonten').innerHTML = item.materi;
+    if(item.video){
+      $('#materiVideo').innerHTML = `<iframe class="w-full h-full" src="https://www.youtube.com/embed/${item.video}" title="Video pembelajaran" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+    } else {
+      $('#materiVideo').innerHTML = '<span class="text-sm">Video belum tersedia.</span>';
+    }
+if(window.MathJax){
+    MathJax.typesetPromise([$('#materiKonten')]);
+  }
+  }
+
+  function buildSoalCard(q, idx, prefix){
+  const wrap = document.createElement('div');
+  wrap.className = 'p-4 rounded-xl border chip';
+  wrap.dataset.id = q.id;
+
+  // ===== HEAD: hanya nomor & tipe soal =====
+  const head = document.createElement('div');
+  head.className = 'flex items-start justify-between gap-3';
+  head.innerHTML = `
+    <div class="font-semibold">Soal ${idx+1}</div>
+    <div class="text-xs px-2 py-1 rounded bg-gray-100 border text-gray-600 uppercase">
+      ${q.tipe}
+    </div>`;
+  wrap.appendChild(head);
+
+  // ===== BODY: tanya, bacaan, gambar, opsi =====
+  const body = document.createElement('div');
+  body.className = 'mt-3 space-y-2';
+
+  // tampilkan pertanyaan
+  
+
+  if(q.gambar){
+    const img = document.createElement('img');
+    img.src = q.gambar;
+    img.alt = 'Gambar soal';
+    img.className = 'my-3 w-full max-w-md rounded-lg border';
+    body.appendChild(img);
+  }
+
+  if(q.bacaan){
+    const teks = document.createElement('div');
+    teks.className = 'mb-4 p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm whitespace-pre-line text-justify';
+    teks.innerText = q.bacaan;
+    body.appendChild(teks);
+  }
+if(q.tanya){
+    const pertanyaan = document.createElement('div');
+    pertanyaan.className = 'text-base font-medium';
+    pertanyaan.innerHTML = q.tanya.replace(/\n/g,'<br>');
+    body.appendChild(pertanyaan);
+  }
+  // ====== PILIHAN GANDA ======
+  if(q.tipe === 'pg'){
+    q.opsi.forEach((o,i)=>{
+      const row = document.createElement('label');
+      row.className = 'flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 border border-transparent';
+      row.innerHTML = `<input type="radio" name="${prefix}-${q.id}" value="${i}" class="accent-emerald-600"> <span>${String.fromCharCode(65+i)}. ${o}</span>`;
+      body.appendChild(row);
+    });
+  }
+
+  // ====== CHECKBOX ======
+  if(q.tipe === 'cb'){
+    q.opsi.forEach((o,i)=>{
+      const row = document.createElement('label');
+      row.className = 'flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 border border-transparent';
+      row.innerHTML = `<input type="checkbox" name="${prefix}-${q.id}" value="${i}" class="accent-emerald-600"> <span>${String.fromCharCode(65+i)}. ${o}</span>`;
+      body.appendChild(row);
+    });
+  }
+  // ====== CONSERVATION & RELAXATION ======
+  if(q.tipe === 'cr'){
+    const table = document.createElement('table');
+    table.className = 'w-full border border-gray-200 rounded-lg';
+
+    // Header tabel
+    const thead = document.createElement('thead');
+    thead.innerHTML = `
+      <tr class="bg-gray-100 text-center">
+        <th class="p-2 border">places</th>
+        <th class="p-2 border w-28">Conservation</th>
+        <th class="p-2 border w-28">Relaxation</th>
+      </tr>`;
+    table.appendChild(thead);
+
+    // Body tabel
+    const tbody = document.createElement('tbody');
+    q.opsi.forEach((o,i)=>{
+      const idCon = `${prefix}-${q.id}-cr-${i}-con`;
+      const idRel = `${prefix}-${q.id}-cr-${i}-rel`;
+
+      const row = document.createElement('tr');
+      row.className = 'border-t';
+      row.innerHTML = `
+        <td class="p-2 border">${o}</td>
+        <td class="p-2 text-center border">
+          <input type="radio" id="${idCon}" name="${prefix}-${q.id}-cr-${i}" value="conservation" class="accent-emerald-600">
+        </td>
+        <td class="p-2 text-center border">
+          <input type="radio" id="${idRel}" name="${prefix}-${q.id}-cr-${i}" value="relaxation" class="accent-rose-600">
+        </td>`;
+      tbody.appendChild(row);
+    });
+
+    table.appendChild(tbody);
+    body.appendChild(table);
+  }
+  // ====== TRUE / FALSE (English Version) ======
+  if(q.tipe === 'tf'){
+    const table = document.createElement('table');
+    table.className = 'w-full border border-gray-200 rounded-lg';
+
+    const thead = document.createElement('thead');
+    thead.innerHTML = `
+      <tr class="bg-gray-100 text-center">
+        <th class="p-2 border">Statement</th>
+        <th class="p-2 border w-20">True</th>
+        <th class="p-2 border w-20">False</th>
+      </tr>`;
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    q.opsi.forEach((o,i)=>{
+      const idTrue = `${prefix}-${q.id}-tf-${i}-true`;
+      const idFalse = `${prefix}-${q.id}-tf-${i}-false`;
+
+      const row = document.createElement('tr');
+      row.className = 'border-t';
+      row.innerHTML = `
+        <td class="p-2 border">${o}</td>
+        <td class="p-2 text-center border">
+          <input type="radio" id="${idTrue}" name="${prefix}-${q.id}-tf-${i}" value="true" class="accent-emerald-600">
+        </td>
+        <td class="p-2 text-center border">
+          <input type="radio" id="${idFalse}" name="${prefix}-${q.id}-tf-${i}" value="false" class="accent-rose-600">
+        </td>`;
+      tbody.appendChild(row);
+    });
+
+    table.appendChild(tbody);
+    body.appendChild(table);
+  }
+
+  // ====== BENAR / SALAH ======
+  if(q.tipe === 'bs'){
+    const table = document.createElement('table');
+    table.className = 'w-full border border-gray-200 rounded-lg';
+
+    const thead = document.createElement('thead');
+    thead.innerHTML = `
+      <tr class="bg-gray-100 text-center">
+        <th class="p-2 border">Pernyataan</th>
+        <th class="p-2 border w-20">Benar</th>
+        <th class="p-2 border w-20">Salah</th>
+      </tr>`;
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    q.opsi.forEach((o,i)=>{
+      const idBenar = `${prefix}-${q.id}-bs-${i}-benar`;
+      const idSalah = `${prefix}-${q.id}-bs-${i}-salah`;
+
+      const row = document.createElement('tr');
+      row.className = 'border-t';
+      row.innerHTML = `
+        <td class="p-2 border">${o}</td>
+        <td class="p-2 text-center border">
+          <input type="radio" id="${idBenar}" name="${prefix}-${q.id}-bs-${i}" value="true" class="accent-emerald-600">
+        </td>
+        <td class="p-2 text-center border">
+          <input type="radio" id="${idSalah}" name="${prefix}-${q.id}-bs-${i}" value="false" class="accent-rose-600">
+        </td>`;
+      tbody.appendChild(row);
+    });
+
+    table.appendChild(tbody);
+    body.appendChild(table);
+  }
+
+  // ====== ISIAN ======
+  if(q.tipe === 'isian'){
+    const inp = document.createElement('input');
+    inp.type = 'text';
+    inp.placeholder = 'Ketik jawaban singkat…';
+    inp.className = 'w-full px-3 py-2 rounded-lg border chip focus:outline-none focus:ring-2 focus:ring-emerald-300';
+    inp.name = `${prefix}-${q.id}-isian`;
+    body.appendChild(inp);
+  }
+// ====== MATCHING ======
+    if(q.tipe === 'matching'){
+      const container = document.createElement('div');
+      container.className = 'relative flex gap-12 min-h-[150px]';
+
+      const leftCol = document.createElement('div');
+      leftCol.className = 'flex flex-col gap-3 z-10';
+      const rightCol = document.createElement('div');
+      rightCol.className = 'flex flex-col gap-3 z-10';
+
+      const svg = document.createElementNS("http://www.w3.org/2000/svg","svg");
+      svg.setAttribute("class","absolute inset-0 w-full h-full pointer-events-none");
+      container.append(leftCol, rightCol, svg);
+      body.appendChild(container);
+
+      let startIdx = null;
+      const pairs = [];
+
+      q.opsi.kiri.forEach((o,i)=>{
+        const btn = document.createElement('button');
+        btn.className = 'px-3 py-2 border rounded bg-white hover:bg-gray-50';
+        btn.textContent = o;
+        btn.dataset.side = "left";
+        btn.dataset.idx = i;
+        leftCol.appendChild(btn);
+      });
+      q.opsi.kanan.forEach((o,i)=>{
+        const btn = document.createElement('button');
+        btn.className = 'px-3 py-2 border rounded bg-white hover:bg-gray-50';
+        btn.textContent = o;
+        btn.dataset.side = "right";
+        btn.dataset.idx = i;
+        rightCol.appendChild(btn);
+      });
+
+      container.addEventListener('click',e=>{
+        if(e.target.tagName!=='BUTTON') return;
+        const btn = e.target;
+        const side = btn.dataset.side;
+        const idx = Number(btn.dataset.idx);
+
+        if(side==="left"){
+          startIdx = idx;
+        } else if(side==="right" && startIdx!==null){
+          pairs.push([startIdx, idx]);
+          drawLine(startIdx, idx);
+
+          // highlight tombol kiri & kanan
+          leftCol.children[startIdx].classList.add("bg-emerald-100","border-emerald-500");
+          rightCol.children[idx].classList.add("bg-emerald-100","border-emerald-500");
+
+          // disable tombol biar gak dipakai ulang
+          leftCol.children[startIdx].disabled = true;
+          rightCol.children[idx].disabled = true;
+
+          startIdx = null;
+        }
+      });
+
+      function drawLine(li,ri){
+        const lbtn = leftCol.children[li];
+        const rbtn = rightCol.children[ri];
+        const lbox = lbtn.getBoundingClientRect();
+        const rbox = rbtn.getBoundingClientRect();
+        const cbox = container.getBoundingClientRect();
+
+        const x1 = lbox.right - cbox.left;
+        const y1 = lbox.top + lbox.height/2 - cbox.top;
+        const x2 = rbox.left - cbox.left;
+        const y2 = rbox.top + rbox.height/2 - cbox.top;
+
+        const line = document.createElementNS("http://www.w3.org/2000/svg","line");
+        line.setAttribute("x1",x1);
+        line.setAttribute("y1",y1);
+        line.setAttribute("x2",x2);
+        line.setAttribute("y2",y2);
+        line.setAttribute("stroke","#10b981");
+        line.setAttribute("stroke-width","2");
+        svg.appendChild(line);
+      }
+
+      // simpan untuk cek jawaban
+      q._pairs = pairs;
+    }
+  // ====== AKSI ======
+  const actions = document.createElement('div');
+  actions.className = 'mt-3 flex flex-wrap items-center gap-2';
+
+  const btnCek = document.createElement('button');
+  btnCek.className = 'btn px-3 py-2 rounded-lg bg-emerald-600 text-white text-sm';
+  btnCek.textContent = 'Cek Jawaban';
+
+  const btnBahas = document.createElement('button');
+  btnBahas.className = 'btn px-3 py-2 rounded-lg border chip text-sm';
+  btnBahas.textContent = 'Pembahasan';
+
+  const status = document.createElement('span');
+  status.className = 'ml-auto text-sm';
+
+  const bahas = document.createElement('div');
+  bahas.className = 'mt-3 hidden p-3 rounded-lg bg-emerald-50 border border-emerald-100 text-sm';
+  bahas.textContent = q.bahas || 'Belum ada pembahasan.';
+
+  // ====== EVENT CEK JAWABAN ======
+  btnCek.addEventListener('click',()=>{
+    let benar = false;
+
+    if(q.tipe === 'pg'){
+      const v = (document.querySelector(`input[name='${prefix}-${q.id}']:checked`)||{}).value;
+      benar = Number(v) === Number(q.kunci);
+    }
+    else if(q.tipe === 'cb'){
+      const checked = [...document.querySelectorAll(`input[name='${prefix}-${q.id}']:checked`)].map(el=>Number(el.value));
+      const kunci = Array.isArray(q.kunci) ? q.kunci.slice().sort() : [q.kunci];
+      benar = checked.slice().sort().toString() === kunci.toString();
+    }
+    else if(q.tipe === 'tf'){
+      const jawabanUser = q.opsi.map((o,i)=>{
+        const el = document.querySelector(`input[name='${prefix}-${q.id}-tf-${i}']:checked`);
+        return el ? el.value === 'true' : null;
+      });
+
+      if(jawabanUser.includes(null)){
+        alert('Please select True/False for all statements!');
+        return;
+      }
+      benar = jawabanUser.every((val,i)=> val === q.kunci[i]);
+    }
+
+    else if(q.tipe === 'bs'){
+      const jawabanUser = q.opsi.map((o,i)=>{
+        const el = document.querySelector(`input[name='${prefix}-${q.id}-bs-${i}']:checked`);
+        return el ? el.value === 'true' : null;
+      });
+
+      if(jawabanUser.includes(null)){
+        alert('Pilih jawaban untuk semua pernyataan!');
+        return;
+      }
+      benar = jawabanUser.every((val,i)=> val === q.kunci[i]);
+    }
+    else if(q.tipe === 'cr'){
+      const jawabanUser = q.opsi.map((o,i)=>{
+        const el = document.querySelector(`input[name='${prefix}-${q.id}-cr-${i}']:checked`);
+        return el ? el.value : null;
+      });
+
+      if(jawabanUser.includes(null)){
+        alert('Pilih jawaban Conservation / Relaxation untuk semua pernyataan!');
+        return;
+      }
+      benar = jawabanUser.every((val,i)=> val === q.kunci[i]);
+    }
+    else {
+      const v = (document.querySelector(`input[name='${prefix}-${q.id}-isian']`)||{}).value||'';
+      benar = v.trim().toLowerCase() === String(q.kunciText||'').trim().toLowerCase();
+    }
+if(q.tipe==='matching'){
+        const pairs = q._pairs||[];
+        benar = JSON.stringify(pairs.sort())===JSON.stringify(q.kunci.sort());
+      }
+
+    status.textContent = benar ? '✅ Benar' : '❌ Salah';
+    status.classList.toggle('text-emerald-600', benar);
+    status.classList.toggle('text-rose-600', !benar);
+  });
+
+  btnBahas.addEventListener('click',()=> bahas.classList.toggle('hidden'));
+
+  actions.append(btnCek, btnBahas, status);
+  wrap.append(body, actions, bahas);
+  return wrap;
+}
+
+  function loadLatihan(mapel,bab){
+    const item = DB[mapel]?.bab?.[bab];
+    const box = $('#latihanContainer');
+    box.innerHTML='';
+    if(!item){ 
+        box.innerHTML = '<p class="text-gray-500">Soal belum tersedia.</p>'; 
+        return; 
+    }
+    item.soal.forEach((q,i)=> box.appendChild(buildSoalCard(q,i,'lat')) );
+
+    // Tambahkan ini agar MathJax render ulang rumus pada soal latihan
+    if(window.MathJax){
+        MathJax.typesetPromise([box]);
+    }
+}
+
+
+  // ======= SIMULASI =======
+  let simState = {timer:null, endAt: null, daftar: [], mapel:'', durasi: 0};
+
+  function startSimulasi(mapel, jumlah, durasiMenit){
+    const pools = Object.values(DB[mapel]?.bab || {}).flatMap(x=>x.soal||[]);
+    if(pools.length===0){
+      $('#simContainer').innerHTML = '<p class="text-gray-500">Bank soal untuk mapel ini belum tersedia.</p>';
+      return;
+    }
+    const shuffled=[...pools].sort(()=>Math.random()-0.5).slice(0, Math.min(jumlah,pools.length));
+    simState = {timer:null, endAt: Date.now()+durasiMenit*60*1000, daftar: shuffled, mapel, durasi:durasiMenit};
+    renderSimulasi();
+    runTimer();
+  }
+
+  function renderSimulasi(){
+    const box = $('#simContainer');
+    box.innerHTML='';
+    simState.daftar.forEach((q,i)=> box.appendChild(buildSoalCard(q,i,'sim')) );
+    $('#simHasil').classList.add('hidden');
+
+    // Tambahkan ini agar MathJax render ulang rumus pada soal simulasi
+    if(window.MathJax){
+        MathJax.typesetPromise([box]);
+    }
+}
+
+
+  function runTimer(){
+    clearInterval(simState.timer);
+    const info = $('#simInfo');
+    const tick = ()=>{
+      const remain = Math.max(0, simState.endAt - Date.now());
+      const mm = String(Math.floor(remain/60000)).padStart(2,'0');
+      const ss = String(Math.floor((remain%60000)/1000)).padStart(2,'0');
+      info.textContent = `Mapel: ${simState.mapel} • Sisa waktu ${mm}:${ss}`;
+      if(remain===0){
+        clearInterval(simState.timer);
+        selesaiSimulasi();
+      }
+    };
+    tick();
+    simState.timer = setInterval(tick, 250);
+  }
+
+  function nilaiPG(q){
+    const v = (document.querySelector(`input[name='sim-${q.id}']:checked`)||{}).value;
+    return Number(v)===Number(q.kunci);
+  }
+  function nilaiIsian(q){
+    const v = (document.querySelector(`input[name='sim-${q.id}-isian']`)||{}).value||'';
+    return v.trim().toLowerCase() === String(q.kunciText||'').trim().toLowerCase();
+  }
+
+  function selesaiSimulasi(){
+    const total = simState.daftar.length;
+    let benar = 0;
+    simState.daftar.forEach(q=>{
+      benar += (q.tipe==='pg') ? (nilaiPG(q)?1:0) : (nilaiIsian(q)?1:0);
+    });
+    const skor = Math.round((benar/total)*100);
+    const hasil = $('#simHasil');
+    hasil.classList.remove('hidden');
+    hasil.innerHTML = `<div class="font-semibold">Hasil Simulasi</div>
+      <div class="mt-1 text-sm">Benar: <strong>${benar}</strong> dari ${total} soal • Skor: <strong>${skor}</strong></div>
+      <button id="btnReview" class="btn mt-3 px-3 py-2 rounded-lg border chip text-sm">Tampilkan Pembahasan</button>`;
+    $('#simInfo').textContent = `Selesai • Mapel: ${simState.mapel}`;
+
+    $('#btnReview').addEventListener('click',()=>{
+      // Tampilkan semua pembahasan
+      $$('#simContainer .p-4').forEach(card=>{
+        const pemb = card.querySelector('div.mt-3.hidden');
+        if(pemb) pemb.classList.remove('hidden');
+      })
+    })
+  }
+
+  // ======= INIT =======
+  function initSelectors(){
+    const mapels = Object.keys(DB);
+    populateSelect($('#materiMapel'), mapels);
+    populateSelect($('#latihMapel'), mapels);
+    populateSelect($('#simMapel'), mapels);
+
+    const firstBab = (mapel)=> Object.keys(DB[mapel].bab);
+
+    // Materi default
+    const m0 = mapels[0];
+    populateSelect($('#materiBab'), firstBab(m0));
+    // Latihan default
+    populateSelect($('#latihBab'), firstBab(mapels[0]));
+
+    $('#materiMapel').addEventListener('change', e=>{
+      populateSelect($('#materiBab'), firstBab(e.target.value));
+    });
+    $('#latihMapel').addEventListener('change', e=>{
+      populateSelect($('#latihBab'), firstBab(e.target.value));
+    });
+
+    $('#btnLoadMateri').addEventListener('click',()=>{
+      renderMateri($('#materiMapel').value, $('#materiBab').value);
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+
+    $('#btnLoadLatihan').addEventListener('click',()=>{
+      loadLatihan($('#latihMapel').value, $('#latihBab').value);
+    });
+
+    $('#btnPeriksaSemua').addEventListener('click',()=>{
+      $$('#latihanContainer .p-4').forEach(card=>{
+        const cek = card.querySelector('button');
+        cek?.click();
+      });
+    });
+
+    $('#btnMulaiSim').addEventListener('click',()=>{
+      const map = $('#simMapel').value;
+      const j = Math.max(5, Math.min(50, Number($('#simJumlah').value||10)));
+      const d = Math.max(5, Math.min(180, Number($('#simDurasi').value||15)));
+      startSimulasi(map, j, d);
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+
+    // Muat awal
+    renderMateri($('#materiMapel').value, $('#materiBab').value);
+    loadLatihan($('#latihMapel').value, $('#latihBab').value);
+  }
+
+  // Tab switching
+  $$('.tab-btn').forEach(b=> b.addEventListener('click',()=> setTab(b.dataset.tab)) );
+
+  // Start
+  setTab('materi');
+  initSelectors();
+  </script>
+</body>
+</html>
+
+
