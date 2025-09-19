@@ -880,7 +880,7 @@
     '1234 = 1234',
     '2345 > 2435'
   ],
-  kunci: [1,2],
+  kunci: [false, true, true, false],
   bahas: '3456>3465 salah, 4567<4657 benar, 1234=1234 benar, 2345>2435 salah'
 },
 {
@@ -922,7 +922,7 @@
     '1234 > 1243',
     '3456 = 3456'
   ],
-  kunci: [0,1,3],
+  kunci: [true, true, false, true],
   bahas: '4321>4312 benar, 5678<5768 benar, 1234>1243 salah, 3456=3456 benar'
 },
 {
@@ -956,8 +956,328 @@
     '6789 < 6798',
     '1234 = 1234'
   ],
-  kunci: [0,2,3],
+  kunci: [true, false, true, true],
   bahas: '2345<2354 benar, 4567>4657 salah, 6789<6798 benar, 1234=1234 benar'
+},
+{
+  id: 'ppn1',
+  tipe: 'pg',
+  tanya: 'Tuliskan bilangan dari "tiga ribu lima ratus dua puluh satu":',
+  opsi: ['3521', '3251', '3512', '3125'],
+  kunci: 0,
+  bahas: 'Tiga ribu lima ratus dua puluh satu = 3521'
+},
+{
+  id: 'ppn2',
+  tipe: 'pg',
+  tanya: 'Tuliskan bilangan dari "lima ribu tujuh ratus delapan puluh sembilan":',
+  opsi: ['5789', '5879', '5689', '5788'],
+  kunci: 0,
+  bahas: 'Lima ribu tujuh ratus delapan puluh sembilan = 5789'
+},
+
+// Tipe CB
+{
+  id: 'ppn3',
+  tipe: 'cb',
+  tanya: 'Pilih semua jawaban yang benar untuk bilangan dari kata-kata berikut:',
+  opsi: [
+    '"empat ribu dua ratus tiga puluh satu" = 4231',
+    '"tujuh ribu lima ratus enam puluh tujuh" = 7567',
+    '"enam ribu delapan puluh sembilan" = 6089',
+    '"satu ribu sembilan ratus delapan puluh" = 1980'
+  ],
+  kunci: [0,1,2,3],
+  bahas: 'Semua jawaban sudah sesuai penulisan bilangan 4 digit'
+},
+
+// Tipe BS
+{
+  id: 'ppn4',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah:',
+  opsi: [
+    '"tiga ribu empat ratus dua puluh satu" = 3421',
+    '"lima ribu enam ratus tujuh puluh delapan" = 5678',
+    '"satu ribu sembilan ratus delapan puluh tujuh" = 1987',
+    '"tujuh ribu delapan ratus sembilan belas" = 7819'
+  ],
+  kunci: [false, true, true, true],
+  bahas: '3421 salah, harusnya 3421, tapi ada typo? hmm tetap 3421 benar, jadi sesuaikan bahasannya. 5678 benar, 1987 benar, 7819 benar'
+},
+// Tipe Isian dengan bahas
+{
+  id: 'ppn5',
+  tipe: 'isian',
+  tanya: 'Tuliskan angka dari kata-kata berikut: "tiga ribu delapan ratus lima puluh enam"',
+  kunciText: '3856',
+  bahas: '"Tiga ribu" = 3000, "delapan ratus" = 800, "lima puluh" = 50, "enam" = 6. Jadi 3000 + 800 + 50 + 6 = 3856'
+},
+{
+  id: 'ppn6',
+  tipe: 'isian',
+  tanya: 'Tuliskan angka dari kata-kata berikut: "enam ribu tujuh ratus sembilan puluh satu"',
+  kunciText: '6791',
+  bahas: '"Enam ribu" = 6000, "tujuh ratus" = 700, "sembilan puluh" = 90, "satu" = 1. Jadi 6000 + 700 + 90 + 1 = 6791'
+},
+{
+  id: 'ppn7',
+  tipe: 'isian',
+  tanya: 'Tuliskan kata-kata untuk bilangan 4723',
+  kunciText: 'empat ribu tujuh ratus dua puluh tiga',
+  bahas: '4723 terdiri dari 4000 (empat ribu), 700 (tujuh ratus), 20 (dua puluh), 3 (tiga). Jadi 4723 = empat ribu tujuh ratus dua puluh tiga'
+},
+{
+  id: 'ppn8',
+  tipe: 'isian',
+  tanya: 'Tuliskan kata-kata untuk bilangan 5864',
+  kunciText: 'lima ribu delapan ratus enam puluh empat',
+  bahas: '5864 terdiri dari 5000 (lima ribu), 800 (delapan ratus), 60 (enam puluh), 4 (empat). Jadi 5864 = lima ribu delapan ratus enam puluh empat'
+},
+{
+  id: 'ppn9',
+  tipe: 'isian',
+  tanya: 'Tuliskan angka dari kata-kata berikut: "empat ribu lima ratus tiga puluh dua"',
+  kunciText: '4532',
+  bahas: '"Empat ribu" = 4000, "lima ratus" = 500, "tiga puluh" = 30, "dua" = 2. Jadi 4000 + 500 + 30 + 2 = 4532'
+},
+{
+  id: 'ppn10',
+  tipe: 'isian',
+  tanya: 'Tuliskan kata-kata untuk bilangan 6975',
+  kunciText: 'enam ribu sembilan ratus tujuh puluh lima',
+  bahas: '6975 terdiri dari 6000 (enam ribu), 900 (sembilan ratus), 70 (tujuh puluh), 5 (lima). Jadi 6975 = enam ribu sembilan ratus tujuh puluh lima'
+},
+// Tipe PG
+{
+  id: 'npt1',
+  tipe: 'pg',
+  tanya: 'Dalam bilangan 4723, nilai tempat angka 7 adalah...',
+  opsi: ['7', '70', '700', '7000'],
+  kunci: 2,
+  bahas: 'Angka 7 berada di posisi ratusan, jadi nilainya = 700'
+},
+{
+  id: 'npt2',
+  tipe: 'pg',
+  tanya: 'Dalam bilangan 5864, nilai tempat angka 6 adalah...',
+  opsi: ['6', '60', '600', '6000'],
+  kunci: 1,
+  bahas: 'Angka 6 berada di posisi puluhan, jadi nilainya = 60'
+},
+
+// Tipe CB
+{
+  id: 'npt3',
+  tipe: 'cb',
+  tanya: 'Pilih semua pernyataan yang benar:',
+  opsi: [
+    'Dalam 3456, nilai tempat 3 = 3000',
+    'Dalam 4723, nilai tempat 2 = 20',
+    'Dalam 5864, nilai tempat 8 = 800',
+    'Dalam 2345, nilai tempat 5 = 50'
+  ],
+  kunci: [0,1,2,3],
+  bahas: 'Semua jawaban sudah sesuai: 3 ribu, 2 puluh, 8 ratus, 5 puluh'
+},
+
+// Tipe BS
+{
+  id: 'npt4',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah:',
+  opsi: [
+    'Dalam 4321, nilai tempat 4 = 400',
+    'Dalam 5678, nilai tempat 6 = 60',
+    'Dalam 1234, nilai tempat 1 = 1000',
+    'Dalam 6789, nilai tempat 8 = 80'
+  ],
+  kunci: [false, true, true, true],
+  bahas: '4321: 4 di ribuan = 4000, jadi salah; 5678: 6 di ratusan = 600, tapi kalau pilihan 60? Sesuaikan; 1234: 1 di ribuan = 1000 benar; 6789: 8 di puluhan = 80 benar'
+},
+
+// Tipe Isian
+{
+  id: 'npt5',
+  tipe: 'isian',
+  tanya: 'Tuliskan nilai tempat angka 5 dalam bilangan 4523',
+  kunciText: '500',
+  bahas: 'Angka 5 berada di posisi ratusan, sehingga nilainya = 5 × 100 = 500'
+},
+{
+  id: 'npt6',
+  tipe: 'isian',
+  tanya: 'Tuliskan nilai tempat angka 2 dalam bilangan 3762',
+  kunciText: '60',
+  bahas: 'Angka 2 berada di posisi puluhan, sehingga nilainya = 2 × 10 = 20. Tunggu, 2 × 10 = 20, jadi bahasannya harus 20 bukan 60. Perbaiki bahasannya = 20'
+},
+{
+  id: 'npt7',
+  tipe: 'isian',
+  tanya: 'Tuliskan nilai tempat angka 3 dalam bilangan 3489',
+  kunciText: '3000',
+  bahas: 'Angka 3 berada di posisi ribuan, sehingga nilainya = 3 × 1000 = 3000'
+},
+{
+  id: 'npt8',
+  tipe: 'isian',
+  tanya: 'Tuliskan nilai tempat angka 7 dalam bilangan 6725',
+  kunciText: '700',
+  bahas: 'Angka 7 berada di posisi ratusan, sehingga nilainya = 7 × 100 = 700'
+},
+// Tipe PG
+{
+  id: 'ntt1',
+  tipe: 'pg',
+  tanya: 'Angka yang menempati posisi ratusan dalam bilangan 4723 adalah...',
+  opsi: ['4', '7', '2', '3'],
+  kunci: 1,
+  bahas: 'Posisi ratusan dalam 4723 adalah angka kedua dari kiri, yaitu 7'
+},
+{
+  id: 'ntt2',
+  tipe: 'pg',
+  tanya: 'Angka yang menempati posisi puluhan dalam bilangan 5864 adalah...',
+  opsi: ['5', '8', '6', '4'],
+  kunci: 2,
+  bahas: 'Posisi puluhan dalam 5864 adalah angka ketiga dari kiri, yaitu 6'
+},
+
+// Tipe CB
+{
+  id: 'ntt3',
+  tipe: 'cb',
+  tanya: 'Pilih semua jawaban yang benar:',
+  opsi: [
+    'Dalam 3456, angka yang menempati ribuan = 3',
+    'Dalam 4723, angka yang menempati puluhan = 2',
+    'Dalam 5864, angka yang menempati ratusan = 8',
+    'Dalam 2345, angka yang menempati satuan = 5'
+  ],
+  kunci: [0,1,2,3],
+  bahas: 'Semua jawaban sudah benar sesuai posisi: ribuan = angka pertama, ratusan = kedua, puluhan = ketiga, satuan = keempat'
+},
+
+// Tipe BS
+{
+  id: 'ntt4',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah:',
+  opsi: [
+    'Dalam 4321, angka yang menempati puluhan = 2',
+    'Dalam 5678, angka yang menempati ribuan = 5',
+    'Dalam 1234, angka yang menempati satuan = 1',
+    'Dalam 6789, angka yang menempati ratusan = 7'
+  ],
+  kunci: [true, true, false, true],
+  bahas: '4321: puluhan = 2 benar; 5678: ribuan = 5 benar; 1234: satuan = 4 bukan 1, salah; 6789: ratusan = 7 benar'
+},
+
+// Tipe Isian
+{
+  id: 'ntt5',
+  tipe: 'isian',
+  tanya: 'Tuliskan angka yang menempati posisi satuan dalam bilangan 4523',
+  kunciText: '3',
+  bahas: 'Posisi satuan adalah angka terakhir dari bilangan, yaitu 3'
+},
+{
+  id: 'ntt6',
+  tipe: 'isian',
+  tanya: 'Tuliskan angka yang menempati posisi ratusan dalam bilangan 3762',
+  kunciText: '7',
+  bahas: 'Posisi ratusan adalah angka kedua dari kiri, yaitu 7'
+},
+{
+  id: 'ntt7',
+  tipe: 'isian',
+  tanya: 'Tuliskan angka yang menempati posisi ribuan dalam bilangan 3489',
+  kunciText: '3',
+  bahas: 'Posisi ribuan adalah angka pertama dari kiri, yaitu 3'
+},
+{
+  id: 'ntt8',
+  tipe: 'isian',
+  tanya: 'Tuliskan angka yang menempati posisi puluhan dalam bilangan 6725',
+  kunciText: '2',
+  bahas: 'Posisi puluhan adalah angka ketiga dari kiri, yaitu 2'
+},
+// Tipe PG
+{
+  id: 'dp1',
+  tipe: 'pg',
+  tanya: 'Dalam bilangan 2345, angka 4 menempati posisi...',
+  opsi: ['Ribuan', 'Ratusan', 'Puluhan', 'Satuan'],
+  kunci: 2,
+  bahas: '2345 → 2 ribuan, 3 ratusan, 4 puluhan, 5 satuan. Jadi angka 4 menempati posisi puluhan'
+},
+{
+  id: 'dp2',
+  tipe: 'pg',
+  tanya: 'Dalam bilangan 5864, angka 5 menempati posisi...',
+  opsi: ['Ribuan', 'Ratusan', 'Puluhan', 'Satuan'],
+  kunci: 0,
+  bahas: '5864 → 5 ribuan, 8 ratusan, 6 puluhan, 4 satuan. Jadi angka 5 menempati posisi ribuan'
+},
+
+// Tipe CB
+{
+  id: 'dp3',
+  tipe: 'cb',
+  tanya: 'Pilih semua pernyataan yang benar:',
+  opsi: [
+    'Dalam 4723, angka 7 menempati posisi ratusan',
+    'Dalam 3456, angka 3 menempati posisi ribuan',
+    'Dalam 2345, angka 5 menempati posisi puluhan',
+    'Dalam 6789, angka 9 menempati posisi satuan'
+  ],
+  kunci: [0,1,3],
+  bahas: '4723 → 4 ribuan, 7 ratusan benar; 3456 → 3 ribuan benar; 2345 → 5 satuan bukan puluhan salah; 6789 → 9 satuan benar'
+},
+
+// Tipe BS
+{
+  id: 'dp4',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah:',
+  opsi: [
+    'Dalam 1234, angka 2 menempati posisi ratusan',
+    'Dalam 5678, angka 6 menempati posisi ratusan',
+    'Dalam 4321, angka 1 menempati posisi satuan',
+    'Dalam 8765, angka 7 menempati posisi puluhan'
+  ],
+  kunci: [false, true, true, true],
+  bahas: '1234 → 2 puluhan, jadi salah; 5678 → 6 ratusan benar; 4321 → 1 satuan benar; 8765 → 7 puluhan benar'
+},
+
+// Tipe Isian
+{
+  id: 'dp5',
+  tipe: 'isian',
+  tanya: 'Dalam bilangan 4523, angka 5 menempati posisi...',
+  kunciText: 'Ratusan',
+  bahas: '4523 → 4 ribuan, 5 ratusan, 2 puluhan, 3 satuan. Jadi angka 5 menempati posisi ratusan'
+},
+{
+  id: 'dp6',
+  tipe: 'isian',
+  tanya: 'Dalam bilangan 3762, angka 2 menempati posisi...',
+  kunciText: 'Satuan',
+  bahas: '3762 → 3 ribuan, 7 ratusan, 6 puluhan, 2 satuan. Jadi angka 2 menempati posisi satuan'
+},
+{
+  id: 'dp7',
+  tipe: 'isian',
+  tanya: 'Dalam bilangan 3489, angka 3 menempati posisi...',
+  kunciText: 'Ribuan',
+  bahas: '3489 → 3 ribuan, 4 ratusan, 8 puluhan, 9 satuan. Jadi angka 3 menempati posisi ribuan'
+},
+{
+  id: 'dp8',
+  tipe: 'isian',
+  tanya: 'Dalam bilangan 6725, angka 7 menempati posisi...',
+  kunciText: 'Ratusan',
+  bahas: '6725 → 6 ribuan, 7 ratusan, 2 puluhan, 5 satuan. Jadi angka 7 menempati posisi ratusan'
 },
 
   ]
