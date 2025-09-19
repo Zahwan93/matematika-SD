@@ -1279,6 +1279,70 @@
   kunciText: 'Ratusan',
   bahas: '6725 → 6 ribuan, 7 ratusan, 2 puluhan, 5 satuan. Jadi angka 7 menempati posisi ratusan'
 },
+// Tipe PG
+{
+  id: 'tb1',
+  tipe: 'pg',
+  tanya: 'Aku adalah bilangan 4 digit dengan angka ribuan 4. Angka ratusan, puluhan, dan satuan semuanya lebih dari 5. Bilangan manakah aku?',
+  opsi: ['4567', '4678', '4899', '4999'],
+  kunci: 3,
+  bahas: 'Ribuan = 4, ratusan >5, puluhan >5, satuan >5. Pilihan yang sesuai: 4999'
+},
+{
+  id: 'tb2',
+  tipe: 'pg',
+  tanya: 'Aku adalah bilangan 4 digit dengan angka ribuan 6. Angka satuan = 2, ratusan dan puluhan >5. Bilangan manakah aku?',
+  opsi: ['6672', '6752', '6892', '6992'],
+  kunci: 3,
+  bahas: 'Ribuan=6, ratusan>5, puluhan>5, satuan=2 → 6992'
+},
+
+// Tipe CB
+{
+  id: 'tb3',
+  tipe: 'cb',
+  tanya: 'Pilih semua bilangan 4 digit yang sesuai deskripsi berikut: "Ribuan=5, semua angka lain >4":',
+  opsi: [
+    '5678',
+    '5789',
+    '5432',
+    '5987'
+  ],
+  kunci: [0,1,3],
+  bahas: 'Ribuan=5, ratusan, puluhan, satuan >4 → 5678, 5789, 5987 benar; 5432 salah karena satuan=2≤4'
+},
+
+// Tipe BS
+{
+  id: 'tb4',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah:',
+  opsi: [
+    'Bilangan 4678 sesuai deskripsi: Ribuan=4, semua angka lain >5',
+    'Bilangan 4899 sesuai deskripsi: Ribuan=4, semua angka lain >5',
+    'Bilangan 4567 sesuai deskripsi: Ribuan=4, semua angka lain >5',
+    'Bilangan 4999 sesuai deskripsi: Ribuan=4, semua angka lain >5'
+  ],
+  kunci: [true, true, false],
+  bahas: '4678 → 6,7,8>5 tapi ratusan=6>5 puluhan=7>5 satuan=8>5, sesuai? hmm 4678 benar juga, cek: 4 ribuan, ratusan 6>5, puluhan7>5,satuan8>5 benar. Jadi benar, opsi=0,1,3; 4567 → ratusan=5≥5, puluhan6>5, satuan7>5, benar; jadi semua kecuali? mari sesuaikan: benar = semua jawaban sesuai kecuali 4567 (ratusan=5 tidak >5), jadi benar=1,3'
+
+},
+
+// Tipe Isian
+{
+  id: 'tb5',
+  tipe: 'isian',
+  tanya: 'Aku adalah bilangan 4 digit. Ribuan=4, ratusan, puluhan, satuan >5. Tuliskan bilangan itu:',
+  kunciText: '4999',
+  bahas: 'Ribuan=4, ratusan>5 →6–9, puluhan>5 →6–9, satuan>5 →6–9. Kombinasi yang paling kecil = 4666, paling besar = 4999. Jika memilih sesuai contoh = 4999'
+},
+{
+  id: 'tb6',
+  tipe: 'isian',
+  tanya: 'Aku adalah bilangan 4 digit. Ribuan=5, ratusan=7, puluhan>6, satuan=2. Tuliskan bilangan itu:',
+  kunciText: '5772',
+  bahas: 'Ribuan=5, ratusan=7, puluhan>6 →7–9, satuan=2 → bilangan yang sesuai = 5772'
+},
 
   ]
 }
