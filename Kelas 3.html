@@ -999,10 +999,10 @@
   opsi: [
     '"tiga ribu empat ratus dua puluh satu" = 3421',
     '"lima ribu enam ratus tujuh puluh delapan" = 5678',
-    '"satu ribu sembilan ratus delapan puluh tujuh" = 1987',
+    '"seribu sembilan ratus delapan puluh tujuh" = 1987',
     '"tujuh ribu delapan ratus sembilan belas" = 7819'
   ],
-  kunci: [false, true, true, true],
+  kunci: [true, true, true, true],
   bahas: '3421 salah, harusnya 3421, tapi ada typo? hmm tetap 3421 benar, jadi sesuaikan bahasannya. 5678 benar, 1987 benar, 7819 benar'
 },
 // Tipe Isian dengan bahas
@@ -1077,8 +1077,8 @@
     'Dalam 5864, nilai tempat 8 = 800',
     'Dalam 2345, nilai tempat 5 = 50'
   ],
-  kunci: [0,1,2,3],
-  bahas: 'Semua jawaban sudah sesuai: 3 ribu, 2 puluh, 8 ratus, 5 puluh'
+  kunci: [0,1,2],
+  bahas: 'opsi ke 4 salah harusnya 5 bukan 50
 },
 
 // Tipe BS
@@ -1092,8 +1092,8 @@
     'Dalam 1234, nilai tempat 1 = 1000',
     'Dalam 6789, nilai tempat 8 = 80'
   ],
-  kunci: [false, true, true, true],
-  bahas: '4321: 4 di ribuan = 4000, jadi salah; 5678: 6 di ratusan = 600, tapi kalau pilihan 60? Sesuaikan; 1234: 1 di ribuan = 1000 benar; 6789: 8 di puluhan = 80 benar'
+  kunci: [false, false, true, true],
+  bahas: '4321: 4 di ribuan = 4000, jadi salah; 5678: 6 di ratusan = 600 jadi salah, ; 1234: 1 di ribuan = 1000 benar; 6789: 8 di puluhan = 80 benar'
 },
 
 // Tipe Isian
@@ -1108,8 +1108,8 @@
   id: 'npt6',
   tipe: 'isian',
   tanya: 'Tuliskan nilai tempat angka 2 dalam bilangan 3762',
-  kunciText: '60',
-  bahas: 'Angka 2 berada di posisi puluhan, sehingga nilainya = 2 × 10 = 20. Tunggu, 2 × 10 = 20, jadi bahasannya harus 20 bukan 60. Perbaiki bahasannya = 20'
+  kunciText: '2',
+  bahas: 'Angka 2 berada di posisi satuan, sehingga nilainya = 2'
 },
 {
   id: 'npt7',
@@ -1246,8 +1246,8 @@
     'Dalam 4321, angka 1 menempati posisi satuan',
     'Dalam 8765, angka 7 menempati posisi puluhan'
   ],
-  kunci: [false, true, true, true],
-  bahas: '1234 → 2 puluhan, jadi salah; 5678 → 6 ratusan benar; 4321 → 1 satuan benar; 8765 → 7 puluhan benar'
+  kunci: [true, true, true, false],
+  bahas: '1234 → 2 ratusan benar; 5678 → 6 ratusan benar; 4321 → 1 satuan benar; 8765 → 7 puluhan salah'
 },
 
 // Tipe Isian
@@ -1284,7 +1284,7 @@
   id: 'tb1',
   tipe: 'pg',
   tanya: 'Aku adalah bilangan 4 digit dengan angka ribuan 4. Angka ratusan, puluhan, dan satuan semuanya lebih dari 5. Bilangan manakah aku?',
-  opsi: ['4567', '4678', '4899', '4999'],
+  opsi: ['4537', '4478', '4892', '4999'],
   kunci: 3,
   bahas: 'Ribuan = 4, ratusan >5, puluhan >5, satuan >5. Pilihan yang sesuai: 4999'
 },
@@ -1292,7 +1292,7 @@
   id: 'tb2',
   tipe: 'pg',
   tanya: 'Aku adalah bilangan 4 digit dengan angka ribuan 6. Angka satuan = 2, ratusan dan puluhan >5. Bilangan manakah aku?',
-  opsi: ['6672', '6752', '6892', '6992'],
+  opsi: ['6632', '6252', '6242', '6992'],
   kunci: 3,
   bahas: 'Ribuan=6, ratusan>5, puluhan>5, satuan=2 → 6992'
 },
@@ -1323,25 +1323,111 @@
     'Bilangan 4567 sesuai deskripsi: Ribuan=4, semua angka lain >5',
     'Bilangan 4999 sesuai deskripsi: Ribuan=4, semua angka lain >5'
   ],
-  kunci: [true, true, false],
+  kunci: [true, true, false, true],
   bahas: '4678 → 6,7,8>5 tapi ratusan=6>5 puluhan=7>5 satuan=8>5, sesuai? hmm 4678 benar juga, cek: 4 ribuan, ratusan 6>5, puluhan7>5,satuan8>5 benar. Jadi benar, opsi=0,1,3; 4567 → ratusan=5≥5, puluhan6>5, satuan7>5, benar; jadi semua kecuali? mari sesuaikan: benar = semua jawaban sesuai kecuali 4567 (ratusan=5 tidak >5), jadi benar=1,3'
 
+},
+{
+  id: 'xc1',
+  tipe: 'isian',
+  tanya: 'Tulis nilai tempat dari bilangan 3415 dalam bentuk penjumlahan: 3415 = ... ribuan + ... ratusan + ... puluhan + ... satuan',
+  kunciText: '3,4,1,5',
+  bahas: '3415 → 3 ribuan, 4 ratusan, 1 puluhan, 5 satuan'
+},
+{
+  id: 'xc2',
+  tipe: 'isian',
+  tanya: 'Tulis nilai tempat dari bilangan 5892 dalam bentuk penjumlahan: 5892 = ... ribuan + ... ratusan + ... puluhan + ... satuan',
+  kunciText: '5,8,9,2',
+  bahas: '5892 → 5 ribuan, 8 ratusan, 9 puluhan, 2 satuan'
+},
+{
+  id: 'xc3',
+  tipe: 'isian',
+  tanya: 'Tulis nilai tempat dari bilangan 7206 dalam bentuk penjumlahan: 7206 = ... ribuan + ... ratusan + ... puluhan + ... satuan',
+  kunciText: '7,2,0,6',
+  bahas: '7206 → 7 ribuan, 2 ratusan, 0 puluhan, 6 satuan'
+},
+{
+  id: 'xc4',
+  tipe: 'isian',
+  tanya: 'Tulis nilai tempat dari bilangan 4068 dalam bentuk penjumlahan: 4068 = ... ribuan + ... ratusan + ... puluhan + ... satuan',
+  kunciText: '4,0,6,8',
+  bahas: '4068 → 4 ribuan, 0 ratusan, 6 puluhan, 8 satuan'
+},
+// Tipe PG
+{
+  id: 'xc13',
+  tipe: 'pg',
+  tanya: 'Dalam bilangan 3415, nilai tempatnya adalah...',
+  opsi: [
+    '3 ribuan + 4 ratusan + 1 puluhan + 5 satuan',
+    '3 ribuan + 1 ratusan + 4 puluhan + 5 satuan',
+    '4 ribuan + 3 ratusan + 1 puluhan + 5 satuan',
+    '5 ribuan + 1 ratusan + 4 puluhan + 3 satuan'
+  ],
+  kunci: 0,
+  bahas: '3415 → 3 ribuan + 4 ratusan + 1 puluhan + 5 satuan. Jadi jawabannya opsi pertama'
+},
+
+// Tipe CB
+{
+  id: 'xc14',
+  tipe: 'cb',
+  tanya: 'Pilih semua pernyataan yang benar:',
+  opsi: [
+    '3415 = 3 ribuan + 4 ratusan + 1 puluhan + 5 satuan',
+    '5892 = 5 ribuan + 8 ratusan + 9 puluhan + 2 satuan',
+    '7206 = 7 ribuan + 0 ratusan + 2 puluhan + 6 satuan',
+    '4068 = 4 ribuan + 0 ratusan + 6 puluhan + 8 satuan'
+  ],
+  kunci: [0,1,3],
+  bahas: '3415 benar; 5892 benar; 7206 salah (harusnya 7 ribuan + 2 ratusan + 0 puluhan + 6 satuan); 4068 benar'
+},
+
+// Tipe BS
+{
+  id: 'xc15',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah:',
+  opsi: [
+    '3415 = 3 ribuan + 4 ratusan + 1 puluhan + 5 satuan',
+    '5892 = 5 ribuan + 9 ratusan + 8 puluhan + 2 satuan',
+    '7206 = 7 ribuan + 2 ratusan + 0 puluhan + 6 satuan',
+    '4068 = 4 ribuan + 0 ratusan + 8 puluhan + 6 satuan'
+  ],
+  kunci: [true, false, true, false],
+  bahas: '3415 benar; 5892 salah (harus 5 ribuan + 8 ratusan + 9 puluhan + 2 satuan); 7206 benar; 4068 salah (harus 4 ribuan + 0 ratusan + 6 puluhan + 8 satuan)'
 },
 
 // Tipe Isian
 {
-  id: 'tb5',
+  id: 'xc16',
   tipe: 'isian',
-  tanya: 'Aku adalah bilangan 4 digit. Ribuan=4, ratusan, puluhan, satuan >5. Tuliskan bilangan itu:',
-  kunciText: '4999',
-  bahas: 'Ribuan=4, ratusan>5 →6–9, puluhan>5 →6–9, satuan>5 →6–9. Kombinasi yang paling kecil = 4666, paling besar = 4999. Jika memilih sesuai contoh = 4999'
+  tanya: 'Tulis nilai tempat dari bilangan 3415 = ...',
+  kunciText: '3 ribuan + 4 ratusan + 1 puluhan + 5 satuan',
+  bahas: '3415 → 3 ribuan + 4 ratusan + 1 puluhan + 5 satuan'
 },
 {
-  id: 'tb6',
+  id: 'xc17',
   tipe: 'isian',
-  tanya: 'Aku adalah bilangan 4 digit. Ribuan=5, ratusan=7, puluhan>6, satuan=2. Tuliskan bilangan itu:',
-  kunciText: '5772',
-  bahas: 'Ribuan=5, ratusan=7, puluhan>6 →7–9, satuan=2 → bilangan yang sesuai = 5772'
+  tanya: 'Tulis nilai tempat dari bilangan 5892 = ...',
+  kunciText: '5 ribuan + 8 ratusan + 9 puluhan + 2 satuan',
+  bahas: '5892 → 5 ribuan + 8 ratusan + 9 puluhan + 2 satuan'
+},
+{
+  id: 'xc18',
+  tipe: 'isian',
+  tanya: 'Tulis nilai tempat dari bilangan 7206 = ...',
+  kunciText: '7 ribuan + 2 ratusan + 0 puluhan + 6 satuan',
+  bahas: '7206 → 7 ribuan + 2 ratusan + 0 puluhan + 6 satuan'
+},
+{
+  id: 'xc19',
+  tipe: 'isian',
+  tanya: 'Tulis nilai tempat dari bilangan 4068 = ...',
+  kunciText: '4 ribuan + 0 ratusan + 6 puluhan + 8 satuan',
+  bahas: '4068 → 4 ribuan + 0 ratusan + 6 puluhan + 8 satuan'
 },
 
   ]
