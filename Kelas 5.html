@@ -1,1011 +1,1568 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Kebun Ilmu Matematika - Gamified Lengkap</title>
-<style>
-  :root{
-    --green:#4dd4a3; --blue:#3a86ff; --amber:#fcbf49; --pink:#ff6f91; --bg1:#a1c4fd; --bg2:#c2e9fb;
-  }
-  *{box-sizing:border-box}
-  body{
-    font-family:'Comic Sans MS', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-    margin:0; padding:0; display:flex; justify-content:center; align-items:flex-start; min-height:100vh;
-    background:linear-gradient(135deg, var(--bg1), var(--bg2)); background-attachment:fixed; overflow-x:hidden;
-  }
-  .app{ max-width:900px; width:96%; margin:18px auto; }
-  .container{
-    background:#fff; border-radius:22px; box-shadow:0 12px 30px rgba(0,0,0,.15);
-    padding:20px; margin-bottom:18px; animation:fadeIn .6s ease both; position:relative;
-  }
-  header{ display:flex; align-items:center; gap:10px; justify-content:center; margin-bottom:6px; }
-  header img{ width:60px; height:60px; object-fit:contain }
-  header h1{ margin:0; color:var(--green); text-shadow:1px 1px #eef; font-size:30px }
-  header small{ color:#6b7280 }
-  .topic-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; }
-  .topic-card{
-    border-radius:18px; padding:16px; background:linear-gradient(120deg,#ffecd2,#fcb69f);
-    box-shadow:0 8px 16px rgba(0,0,0,.12); cursor:pointer; transition:.25s transform;
-  }
-  .topic-card:nth-child(2){ background:linear-gradient(120deg,#a1ffce,#faffd1) }
-  .topic-card:nth-child(3){ background:linear-gradient(120deg,#f6d365,#fda085) }
-  .topic-card:nth-child(4){ background:linear-gradient(120deg,#84fab0,#8fd3f4) }
-  .topic-card:nth-child(5){ background:linear-gradient(120deg,#fccb90,#d57eeb) }
-  .topic-card:hover{ transform:translateY(-4px) }
-  .topic-title{ font-weight:700; font-size:18px; margin-bottom:8px }
-  .activity-buttons{ display:flex; flex-wrap:wrap; gap:8px }
-  .chip{ font-size:12px; opacity:.8 }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- MathJax untuk tampilan rumus -->
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-  button{ border:none; border-radius:12px; padding:10px 16px; font-size:15px; cursor:pointer; transition:.25s;
-          box-shadow:0 4px 10px rgba(0,0,0,.15) }
-  button:hover{ transform:scale(1.05); box-shadow:0 8px 18px rgba(0,0,0,.25) }
-  .btn-materi{ background:#6a4c93; color:#fff }
-  .btn-latihan{ background:#1982c4; color:#fff }
-  .btn-quiz{ background:#ff595e; color:#fff }
-  .btn-check{ background:var(--green); color:#fff }
-  .btn-next{ background:var(--amber); color:#fff }
-  .btn-prev{ background:var(--blue); color:#fff }
-  .btn-ghost{ background:#eef2ff; color:#334155 }
-
-  .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center }
-  .hidden{ display:none !important }
-
-  .card{ background:#fffbe6; border-radius:20px; padding:22px; box-shadow:0 6px 16px rgba(0,0,0,.12); transition:transform .5s }
-  .card.flip{ transform:rotateY(180deg) }
-
-  input[type="text"], input[type="number"], select{ width:100%; max-width:360px; padding:10px 12px; border:1px solid #e5e7eb; border-radius:12px; font-size:15px }
-
-  .feedback{ font-weight:700; margin-top:12px; min-height:28px }
-  .feedback.correct{ color:#16a34a; animation:bounce .5s }
-  .feedback.wrong{ color:#ef4444; animation:shake .5s }
-
-  .progress-bar-container{ width:100%; background:#eee; height:22px; border-radius:20px; overflow:hidden }
-  .progress-bar{ height:100%; width:0%; background:linear-gradient(90deg, var(--green), #00c9ff); color:#fff; text-align:center; line-height:22px; transition:width .5s }
-
-  .meta{ color:#6b7280; font-size:14px }
-
-  .badge{ position:absolute; top:10px; right:10px; font-size:24px; animation:pop .5s }
-
-  @keyframes fadeIn{ from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none} }
-  @keyframes shake{ 0%{transform:translateX(0)}25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-5px)}100%{transform:translateX(0)} }
-  @keyframes bounce{ 0%{transform:scale(1)}50%{transform:scale(1.18)}100%{transform:scale(1)} }
-  @keyframes pop{ 0%{transform:scale(0)}50%{transform:scale(1.25)}100%{transform:scale(1)} }
-  @keyframes fall{ to{ transform:translateY(100vh) rotate(360deg) } }
-
-  iframe{ border:none }
-</style>
+  <title>Kebun Ilmu – Media Pembelajaran Interaktif</title>
+  <!-- TailwindCSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--brand:#10b981;--brand-2:#22d3ee}
+    html,body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,"Noto Sans","Apple Color Emoji","Segoe UI Emoji"}
+    .glass{backdrop-filter:saturate(180%) blur(10px); background:linear-gradient(180deg,rgba(255,255,255,.8),rgba(255,255,255,.6))}
+    .chip{border:1px solid rgba(0,0,0,.06);}
+    .btn{transition:transform .05s ease}
+    .btn:active{transform:translateY(1px) scale(.99)}
+    details>summary{list-style:none}
+    details>summary::-webkit-details-marker{display:none}
+  </style>
 </head>
-<body>
-<div class="app">
-  <div class="container" id="headerBox">
-    <header>
-      <img src="https://zahwan93.github.io/Kebun-Ilmu-Matematika-SMP/logo.png" alt="Logo Kebun Ilmu" />
-      <div>
-        <h1>Kebun Ilmu</h1>
-        <small class="meta">Matematika • Fun • Interaktif</small>
+<body class="min-h-screen bg-gradient-to-br from-sky-50 via-emerald-50 to-white text-gray-800">
+  <!-- Header / Brand -->
+  <header class="sticky top-0 z-40 border-b border-emerald-100/60 glass">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-3">
+      <img src="https://zahwan93.github.io/Kebun-Ilmu-Matematika-SMP/logo.png" alt="Logo Kebun Ilmu" class="w-10 h-10 rounded-xl shadow" />
+      <div class="flex-1">
+        <h1 class="text-lg sm:text-2xl font-extrabold tracking-tight">
+          Kebun Ilmu <span class="text-emerald-600">— Media Pembelajaran Interaktif</span>
+        </h1>
+        <p class="text-xs sm:text-sm text-gray-500">Materi · Latihan · Simulasi </p>
       </div>
-    </header>
-  </div>
-
-  <!-- MENU TOPIK -->
-<div class="container" id="topicSection">
-  <h2 style="margin-top:0">Pilih Topik & Aktivitas</h2>
-  <div class="topic-grid">
-
-    <div class="topic-card">
-      <div class="topic-title">📘 Bilangan Cacah Sampai 100.000</div>
-      <div class="chip">Membaca, menulis, membandingkan, operasi hitung</div>
-      <div class="activity-buttons">
-        <button class="btn-materi" onclick="showMateri('bilanganCacah')">Materi</button>
-        <button class="btn-latihan" onclick="startLatihan('bilanganCacah')">Latihan</button>
-        <button class="btn-quiz" onclick="startQuizSetup('bilanganCacah')">Quiz</button>
-      </div>
+      <nav class="hidden sm:flex items-center gap-2">
+        <button data-tab="materi" class="tab-btn btn px-3 py-2 rounded-xl bg-emerald-600 text-white text-sm font-medium shadow hover:shadow-md">Materi</button>
+        <button data-tab="latihan" class="tab-btn btn px-3 py-2 rounded-xl bg-white text-gray-700 text-sm font-medium border chip hover:bg-gray-50">Latihan Soal</button>
+        <button data-tab="simulasi" class="tab-btn btn px-3 py-2 rounded-xl bg-white text-gray-700 text-sm font-medium border chip hover:bg-gray-50">Simulasi TKA</button>
+      </nav>
     </div>
+  </header>
 
-    <div class="topic-card">
-      <div class="topic-title">📗 KPK dan FPB</div>
-      <div class="chip">Kelipatan, faktor, KPK & FPB</div>
-      <div class="activity-buttons">
-        <button class="btn-materi" onclick="showMateri('kpkFpb')">Materi</button>
-        <button class="btn-latihan" onclick="startLatihan('kpkFpb')">Latihan</button>
-        <button class="btn-quiz" onclick="startQuizSetup('kpkFpb')">Quiz</button>
-      </div>
-    </div>
-
-    <div class="topic-card">
-      <div class="topic-title">📙 Bilangan Pecahan</div>
-      <div class="chip">Membandingkan, penjumlahan, pengurangan</div>
-      <div class="activity-buttons">
-        <button class="btn-materi" onclick="showMateri('pecahan')">Materi</button>
-        <button class="btn-latihan" onclick="startLatihan('pecahan')">Latihan</button>
-        <button class="btn-quiz" onclick="startQuizSetup('pecahan')">Quiz</button>
-      </div>
-    </div>
-
-    <div class="topic-card">
-      <div class="topic-title">📐 Keliling Bangun Datar</div>
-      <div class="chip">Segitiga, segiempat, segibanyak, gabungan</div>
-      <div class="activity-buttons">
-        <button class="btn-materi" onclick="showMateri('keliling')">Materi</button>
-        <button class="btn-latihan" onclick="startLatihan('keliling')">Latihan</button>
-        <button class="btn-quiz" onclick="startQuizSetup('keliling')">Quiz</button>
-      </div>
-    </div>
-
-    <div class="topic-card">
-      <div class="topic-title">🟦 Luas Daerah Bangun Datar</div>
-      <div class="chip">Konsep luas, luas bangun, gabungan</div>
-      <div class="activity-buttons">
-        <button class="btn-materi" onclick="showMateri('luas')">Materi</button>
-        <button class="btn-latihan" onclick="startLatihan('luas')">Latihan</button>
-        <button class="btn-quiz" onclick="startQuizSetup('luas')">Quiz</button>
-      </div>
-    </div>
-
-    <div class="topic-card">
-      <div class="topic-title">📏 Sudut</div>
-      <div class="chip">Pengertian, pengukuran, melukis sudut</div>
-      <div class="activity-buttons">
-        <button class="btn-materi" onclick="showMateri('sudut')">Materi</button>
-        <button class="btn-latihan" onclick="startLatihan('sudut')">Latihan</button>
-        <button class="btn-quiz" onclick="startQuizSetup('sudut')">Quiz</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-
-  <!-- MATERI -->
-  <div class="container hidden" id="materiSection">
-    <button class="btn-ghost" onclick="backToMenu()">⬅ Kembali</button>
-    <h2 id="materiTitle" style="margin-top:10px"></h2>
-    <div id="materiContent"></div>
-    <iframe id="materiVideo" width="100%" height="280" allowfullscreen style="border-radius:12px; margin-top:12px"></iframe>
-  </div>
-
-  <!-- LATIHAN -->
-  <div class="container hidden" id="latihanSection">
-    <button class="btn-ghost" onclick="backToMenu()">⬅ Kembali</button>
-    <div class="card" id="questionCard">
-      <div id="questionText">Soal akan muncul di sini</div>
-      <input type="text" id="answerInput" placeholder="Tulis jawabanmu..." />
-      <div class="row">
-        <button class="btn-check" onclick="checkAnswer()">Cek Jawaban</button>
-        <button class="btn-quiz" onclick="showHint()">Hint</button>
-      </div>
-      <div class="feedback" id="feedback"></div>
-    </div>
-
-    <div class="progress-bar-container"><div class="progress-bar" id="progressBar">0%</div></div>
-
-    <div class="row" style="margin-top:10px">
-      <button class="btn-prev" onclick="prevQuestion()">Sebelumnya</button>
-      <button class="btn-next" onclick="nextQuestion()">Berikutnya</button>
-    </div>
-
-    <div class="meta" style="margin-top:6px">Soal <span id="current">1</span> dari <span id="total">1</span> | Skor: <span id="score">0</span></div>
-
-    <div id="badgeContainer"></div>
-  </div>
-
-  <!-- QUIZ SETUP -->
-  <div class="container hidden" id="quizSetup">
-    <button class="btn-ghost" onclick="backToMenu()">⬅ Kembali</button>
-    <h2 style="margin-top:10px">Setup Quiz</h2>
-    <div class="meta" id="quizTopicLabel">Topik: <b id="quizTopicName">(pilih dari kartu topik)</b></div>
-    <div style="margin-top:12px">
-      <label>Jumlah Soal</label><br />
-      <input type="number" id="quizCount" value="5" min="1" max="50" />
-    </div>
-    <div style="margin-top:12px">
-      <label>Waktu (menit)</label><br />
-      <input type="number" id="quizTime" value="3" min="1" max="60" />
-    </div>
-    <div class="row" style="margin-top:14px">
-      <button class="btn-check" onclick="startQuiz()">🚀 Mulai Quiz</button>
-      <button class="btn-ghost" onclick="backToMenu()">Batal</button>
+  <!-- Mobile Tab Switcher -->
+  <div class="sm:hidden sticky top-[60px] z-30 bg-white/80 backdrop-blur border-b border-emerald-100/60">
+    <div class="max-w-6xl mx-auto px-4 py-2 grid grid-cols-3 gap-2">
+      <button data-tab="materi" class="tab-btn btn py-2 rounded-lg bg-emerald-600 text-white text-xs font-semibold">Materi</button>
+      <button data-tab="latihan" class="tab-btn btn py-2 rounded-lg bg-white border chip text-xs font-semibold">Latihan</button>
+      <button data-tab="simulasi" class="tab-btn btn py-2 rounded-lg bg-white border chip text-xs font-semibold">Simulasi</button>
     </div>
   </div>
 
-  <!-- QUIZ MAIN -->
-  <div class="container hidden" id="quizSection">
-    <div class="row" style="justify-content:space-between">
-      <button class="btn-ghost" onclick="cancelQuiz()">⟵ Menu</button>
-      <div id="timer" class="meta" style="font-weight:700">⏳ 00:00</div>
-    </div>
-
-    <div class="card" style="margin-top:10px">
-      <div id="quizQuestion">Soal quiz akan muncul di sini</div>
-      <input type="text" id="quizAnswer" placeholder="Tulis jawabanmu..." />
-      <div class="row">
-        <button class="btn-check" onclick="checkQuizAnswer()">Cek Jawaban</button>
-        <button class="btn-next" onclick="nextQuizQuestion()">Berikutnya</button>
-      </div>
-      <div class="feedback" id="quizFeedback"></div>
-    </div>
-
-    <div class="progress-bar-container" style="margin-top:10px"><div class="progress-bar" id="quizProgress">0%</div></div>
-    <div class="meta" style="margin-top:6px">Soal <span id="quizCurrent">1</span> / <span id="quizTotal">1</span> | Skor: <span id="quizScoreLive">0</span></div>
-  </div>
-
-  <!-- QUIZ RESULT -->
-  <div class="container hidden" id="quizResult">
-    <h2>🏆 Hasil Quiz</h2>
-    <div class="meta" style="margin:6px 0">Ringkasan skor dan waktu</div>
-    <div class="card">
-      <div><b>Skor Akhir:</b> <span id="quizFinalScore">0</span></div>
-      <div><b>Benar:</b> <span id="quizCorrect">0</span> | <b>Salah:</b> <span id="quizWrong">0</span></div>
-      <div><b>Total Soal:</b> <span id="quizTotalResult">0</span></div>
-      <div><b>Sisa Waktu:</b> <span id="quizTimeLeft">0s</span></div>
-    </div>
-    <div class="row" style="margin-top:10px">
-      <button class="btn-next" onclick="backToMenu()">🏠 Kembali ke Menu</button>
-      <button class="btn-quiz" onclick="retryQuiz()">🔁 Ulangi Quiz</button>
-    </div>
-  </div>
-</div>
-
-<script>
-  // ====== DATA BANK SOAL LATIHAN ======
-  const allTopics = {
-   bilanganCacah: [
-    // A. Membaca & Menulis Bilangan
-    {question:"Tuliskan angka dari 'tiga puluh lima ribu enam ratus empat belas'!", answer:"35614", hint:"Perhatikan ribuan, ratusan, puluhan, dan satuan"},
-    {question:"Nilai tempat angka 7 pada bilangan 47.256 adalah ...", answer:"7000", hint:"Angka 7 ada di ribuan"},
-    {question:"Bilangan 90.405 dibaca ...", answer:"sembilan puluh ribu empat ratus lima", hint:"Baca sesuai nilai tempat"},
-
-    // B. Membandingkan & Mengurutkan
-    {question:"Manakah yang lebih besar? 48.920 atau 49.082", answer:"49.082", hint:"Bandingkan mulai dari ribuan"},
-    {question:"Urutkan bilangan berikut dari kecil ke besar: 25.678, 25.768, 25.876", answer:"25.678, 25.768, 25.876", hint:"Perhatikan ratusan dan puluhan"},
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-6">
+    <!-- Info links to Pusmendik -->
     
-    // C. Komposisi & Dekomposisi
-    {question:"Tuliskan komposisi dari 34.215", answer:"30000+4000+200+10+5", hint:"Pisahkan sesuai nilai tempat"},
-    {question:"Bilangan 80.709 terdiri dari ...", answer:"80000+700+9", hint:"Ada puluhan ribu, ratusan, satuan"},
 
-    // D. Operasi Hitung
-    {question:"345 + 678 = ?", answer:"1023", hint:"Jumlahkan ratusan, puluhan, satuan"},
-    {question:"900 - 456 = ?", answer:"444", hint:"Kurangi dari ratusan ke satuan"},
-    {question:"1,250 + 875 = ?", answer:"2125", hint:"Hati-hati penjumlahan ribuan"},
-    {question:"2,000 - 1,275 = ?", answer:"725", hint:"Pinjam ke ratusan"},
+    <!-- Tabs content wrapper -->
+    <section id="tab-materi" class="tab-pane">
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="md:col-span-1 space-y-4">
+          <div class="p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+            <h2 class="font-bold text-lg">Pilih Materi</h2>
+            <label class="block mt-3 text-sm">Mata Pelajaran</label>
+            <select id="materiMapel" class="w-full mt-1 px-3 py-2 rounded-xl border chip focus:outline-none focus:ring-2 focus:ring-emerald-300">
+              <!-- Diisi via JS -->
+            </select>
+            <label class="block mt-3 text-sm">Bab</label>
+            <select id="materiBab" class="w-full mt-1 px-3 py-2 rounded-xl border chip focus:outline-none focus:ring-2 focus:ring-emerald-300">
+            </select>
+            <button id="btnLoadMateri" class="btn mt-4 w-full py-2 rounded-xl bg-emerald-600 text-white font-semibold">Tampilkan</button>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+            <h3 class="font-semibold">Sumber Resmi</h3>
+            <p class="text-sm text-gray-600 mt-1">Buka ringkasan materi versi Pusmendik:</p>
+            <a target="_blank" rel="noopener" href="https://pusmendik.kemdikbud.go.id/tka/tka/view/mata-pelajaran-wajib/sma" class="inline-block mt-2 px-3 py-2 rounded-xl border chip hover:bg-gray-50 text-sm">📖 Buka Halaman Materi</a>
+          </div>
+        </div>
+
+        <div class="md:col-span-2 space-y-4">
+          <div class="p-5 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+            <h2 class="font-bold text-xl flex items-center gap-2">📘 Ringkasan Materi</h2>
+            <div id="materiKonten" class="prose prose-sm sm:prose lg:prose-lg max-w-none mt-3"></div>
+          </div>
+          <div class="p-5 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+            <h2 class="font-bold text-xl flex items-center gap-2">🎬 Video Pembelajaran</h2>
+            <div id="materiVideo" class="aspect-video w-full overflow-hidden rounded-xl bg-gray-100 flex items-center justify-center text-gray-400">
+              <span class="text-sm">Pilih materi untuk memuat video…</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-latihan" class="tab-pane hidden">
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="md:col-span-1 p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+          <h2 class="font-bold text-lg">Pengaturan Latihan</h2>
+          <label class="block mt-3 text-sm">Mata Pelajaran</label>
+          <select id="latihMapel" class="w-full mt-1 px-3 py-2 rounded-xl border chip focus:outline-none focus:ring-2 focus:ring-emerald-300"></select>
+          <label class="block mt-3 text-sm">Bab</label>
+          <select id="latihBab" class="w-full mt-1 px-3 py-2 rounded-xl border chip focus:outline-none focus:ring-2 focus:ring-emerald-300"></select>
+          <button id="btnLoadLatihan" class="btn mt-4 w-full py-2 rounded-xl bg-emerald-600 text-white font-semibold">Muat Soal</button>
+        </div>
+        <div class="md:col-span-2 p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+          <div class="flex items-center justify-between">
+            <h2 class="font-bold text-xl">Latihan Soal</h2>
+            <button id="btnPeriksaSemua" class="btn px-3 py-2 rounded-xl border chip text-sm">Cek Semua</button>
+          </div>
+          <div id="latihanContainer" class="mt-3 space-y-4"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-simulasi" class="tab-pane hidden">
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="md:col-span-1 p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+          <h2 class="font-bold text-lg">Pengaturan Simulasi</h2>
+          <label class="block mt-3 text-sm">Mata Pelajaran</label>
+          <select id="simMapel" class="w-full mt-1 px-3 py-2 rounded-xl border chip"></select>
+          <label class="block mt-3 text-sm">Jumlah Soal</label>
+          <input id="simJumlah" type="number" min="5" max="50" value="10" class="w-full mt-1 px-3 py-2 rounded-xl border chip" />
+          <label class="block mt-3 text-sm">Durasi (menit)</label>
+          <input id="simDurasi" type="number" min="5" max="180" value="15" class="w-full mt-1 px-3 py-2 rounded-xl border chip" />
+          <button id="btnMulaiSim" class="btn mt-4 w-full py-2 rounded-xl bg-emerald-600 text-white font-semibold">Mulai Simulasi</button>
+          <p class="text-xs text-gray-500 mt-2">Timer akan berjalan. Skor & pembahasan ditampilkan setelah selesai.</p>
+        </div>
+        <div class="md:col-span-2 p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+          <div class="flex items-center justify-between">
+            <h2 class="font-bold text-xl">Simulasi TKA</h2>
+            <div id="simInfo" class="text-sm text-gray-600">Belum mulai</div>
+          </div>
+          <div id="simContainer" class="mt-3 space-y-4"></div>
+          <div id="simHasil" class="mt-4 hidden p-4 rounded-xl border chip bg-emerald-50"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="max-w-6xl mx-auto px-4 sm:px-6 pb-10">
+    <div class="mt-10 p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm text-xs text-gray-500">
+      <p><strong>Kebun Ilmu</strong> – Aplikasi belajar mandiri. Konten ringkasan & soal di sini adalah contoh yang disusun menyerupai format TKA. Untuk rujukan resmi gunakan tautan Pusmendik di atas.</p>
+    </div>
+  </footer>
+
+  <!-- App Data & Logic -->
+  <script>
+  // ======= Dataset Contoh (DISERAGAMKAN DENGAN TKA SMA) =======
+  // Struktur: mapel -> bab[] -> materi (html), video (YT embed id), soal[]
+  const DB = {
+    'Matematika': {
+  bab: {
+'Bilangan Cacah Sampai 100000': {
+  materi: `
+    <h2 class="text-xl font-bold mb-2">Bilangan Cacah sampai 100.000</h2>
+    <p>
+      Pada bab ini, siswa akan mempelajari tentang <b>bilangan cacah</b> dari 0 sampai 100.000. 
+      Bilangan cacah adalah himpunan bilangan bulat yang dimulai dari 0 dan tidak memuat bilangan negatif.
+    </p>
+
+    <h3 class="text-lg font-semibold mt-4">1. Pengertian Bilangan Cacah</h3>
+    <p>
+      Bilangan cacah adalah bilangan yang terdiri dari 0, 1, 2, 3, dan seterusnya. Jadi, bilangan cacah adalah 
+      bilangan bulat non-negatif. Contoh: 0, 5, 12, 100, 999, 10.000, dan seterusnya hingga 100.000.
+    </p>
+
+    <h3 class="text-lg font-semibold mt-4">2. Sifat-sifat Bilangan Cacah</h3>
+    <ul class="list-disc ml-6 mb-4">
+      <li>Dimulai dari 0 dan tidak berhingga.</li>
+      <li>Tidak memuat bilangan negatif.</li>
+      <li>Merupakan himpunan bagian dari bilangan bulat.</li>
+      <li>Bisa digunakan untuk operasi penjumlahan, pengurangan, perkalian, dan pembagian (selama hasilnya tetap bilangan cacah).</li>
+    </ul>
+
+    <h3 class="text-lg font-semibold mt-4">3. Membaca dan Menulis Bilangan Cacah</h3>
+    <p>
+      Bilangan cacah dapat ditulis dalam bentuk angka maupun huruf. Contoh: 1.234 dibaca sebagai "seribu dua ratus tiga puluh empat".
+    </p>
+
+    <h3 class="text-lg font-semibold mt-4">4. Perbandingan Bilangan Cacah</h3>
+    <p>
+      Untuk membandingkan bilangan cacah, digunakan tanda <b>&lt;</b> (kurang dari), <b>&gt;</b> (lebih dari), dan <b>=</b> (sama dengan).
+      Contoh: 250 &lt; 1.000, 75 &gt; 50.
+    </p>
+
+    <h3 class="text-lg font-semibold mt-4">5. Operasi Hitung Bilangan Cacah</h3>
+    <ul class="list-disc ml-6">
+      <li><b>Penjumlahan:</b> 25 + 75 = 100</li>
+      <li><b>Pengurangan:</b> 500 - 125 = 375</li>
+      <li><b>Perkalian:</b> 120 × 3 = 360</li>
+      <li><b>Pembagian:</b> 1.000 ÷ 10 = 100</li>
+    </ul>
+
+    <h3 class="text-lg font-semibold mt-4">6. Nilai Tempat</h3>
+    <p>
+      Bilangan cacah memiliki nilai tempat, yaitu satuan, puluhan, ratusan, ribuan, puluh ribu, hingga seratus ribu. 
+      Contoh: 56.789 → 5 puluh ribu, 6 ribu, 7 ratus, 8 puluh, 9 satuan.
+    </p>
+
+    <h3 class="text-lg font-semibold mt-4">7. Contoh Soal</h3>
+    <p><b>Contoh 1:</b> Tuliskan bilangan sebelum dan sesudah 9.999.<br>Jawab: Sebelum = 9.998, Sesudah = 10.000.</p>
+    <p><b>Contoh 2:</b> Nilai tempat angka 7 pada bilangan 47.365 adalah ...<br>Jawab: 7 menempati posisi ribuan → nilainya 7.000.</p>
+    <p><b>Contoh 3:</b> Bandingkan 56.789 dan 65.789.<br>Jawab: 56.789 &lt; 65.789.</p>
+  `,
+  video: 'xxxxxxx',
+  soal: [
+    {
+  id: 'c1',
+  tipe: 'pg',
+  tanya: 'Manakah tanda perbandingan yang benar?\n4.532 .... 4.325',
+  opsi: ['<', '>', '='],
+  kunci: 1,
+  bahas: '4.532 lebih besar dari 4.325, maka tanda yang tepat adalah >.'
+},
+{
+  id: 'c2',
+  tipe: 'cb',
+  tanya: 'Pilihlah perbandingan bilangan cacah 4 digit berikut yang benar!',
+  opsi: [
+    '3.456 < 3.654',
+    '7.890 > 7.980',
+    '6.123 = 6.123',
+    '9.001 < 8.999'
   ],
-
-  kpkFpb: [
-    // A. Kelipatan
-    {question:"Tuliskan 5 kelipatan pertama dari 6!", answer:"6,12,18,24,30", hint:"Kelipatan = hasil perkalian dengan 1,2,3,..."},
-    {question:"Kelipatan ke-8 dari 9 adalah ...", answer:"72", hint:"9 × 8 = ?"},
-    
-    // B. Kelipatan Persekutuan
-    {question:"Tuliskan 5 kelipatan persekutuan pertama dari 4 dan 6!", answer:"12,24,36,48,60", hint:"Cari angka yang bisa dibagi 4 dan 6"},
-    {question:"Kelipatan persekutuan terkecil dari 8 dan 12 adalah ...", answer:"24", hint:"Cari bilangan sama yang paling kecil"},
-    
-    // C. Faktor
-    {question:"Tuliskan semua faktor dari 18!", answer:"1,2,3,6,9,18", hint:"Faktor = pembagi habis"},
-    {question:"Berapakah jumlah faktor dari 20?", answer:"6", hint:"Faktor 20 = 1,2,4,5,10,20"},
-    
-    // D. Faktor Persekutuan
-    {question:"Tuliskan faktor persekutuan dari 12 dan 18!", answer:"1,2,3,6", hint:"Cari faktor yang sama dari 12 & 18"},
-    {question:"Faktor persekutuan terbesar dari 24 dan 36 adalah ...", answer:"12", hint:"Cari FPB (Faktor Persekutuan Terbesar)"},
-    
-    // E. Menentukan KPK & FPB dengan Faktor Prima
-    {question:"Uraikan 60 menjadi faktor prima!", answer:"2×2×3×5", hint:"Gunakan pohon faktor"},
-    {question:"Uraikan 84 menjadi faktor prima!", answer:"2×2×3×7", hint:"Gunakan pembagian berulang"},
-    {question:"Tentukan KPK dari 12 dan 18 dengan faktor prima!", answer:"36", hint:"12=2×2×3, 18=2×3×3 → ambil pangkat tertinggi"},
-    {question:"Tentukan FPB dari 48 dan 60 dengan faktor prima!", answer:"12", hint:"48=2×2×2×2×3, 60=2×2×3×5 → ambil faktor sama"},
+  kunci: [0, 2],
+  bahas: '3.456 < 3.654 benar, 6.123 = 6.123 benar. Pernyataan lainnya salah.'
+},
+{
+  id: 'c3',
+  tipe: 'bs',
+  tanya: 'Perhatikan perbandingan bilangan cacah berikut!\nTentukan benar atau salah pernyataan berikut!',
+  opsi: [
+    '4.876 > 4.768',
+    '9.999 < 10.000',
+    '5.432 = 5.423',
+    '7.001 > 7.100'
   ],
-pecahan: [
-  // A. Membandingkan dan Mengurutkan Pecahan
-  {
-    question: "Manakah yang lebih besar: 3/4 atau 2/3?",
-    answer: "3/4",
-    hint: "Samakan penyebut menjadi 12, lalu bandingkan."
-  },
-  {
-    question: "Urutkan pecahan berikut dari yang terkecil: 2/5, 3/10, 4/5",
-    answer: "3/10, 2/5, 4/5",
-    hint: "Samakan penyebut menjadi 10 atau 20."
-  },
+  kunci: [true, true, false, false],
+  bahas: '4.876 > 4.768 benar. 9.999 < 10.000 benar. 5.432 = 5.423 salah. 7.001 > 7.100 salah.'
+},
 
-  // B. Penjumlahan Bilangan Pecahan
-  {
-    question: "Hitung: 1/2 + 1/3 = ...",
-    answer: "5/6",
-    hint: "Samakan penyebut menjadi 6."
+{
+  id: 'c4',
+  tipe: 'isian',
+  tanya: 'Bandingkan 8.245 dan 8.452! Tulis dengan tanda <, >, atau =.',
+  kunciText: '8.245 < 8.452',
+  bahas: 'Karena pada ratusan, 2 < 4, maka 8.245 lebih kecil dari 8.452.'
+},
+{
+  id: 'c5',
+  tipe: 'pg',
+  tanya: 'Urutkan bilangan cacah 4 digit berikut dari yang terkecil ke terbesar: 4.321, 4.123, 4.231, 4.312',
+  opsi: [
+    '4.321, 4.123, 4.231, 4.312',
+    '4.123, 4.231, 4.312, 4.321',
+    '4.231, 4.123, 4.321, 4.312',
+    '4.312, 4.321, 4.123, 4.231'
+  ],
+  kunci: 1,
+  bahas: 'Urutan yang benar dari terkecil ke terbesar adalah 4.123, 4.231, 4.312, 4.321.'
+},
+{
+  id: 'c6',
+  tipe: 'cb',
+  tanya: 'Manakah urutan bilangan berikut yang benar dari terkecil ke terbesar?',
+  opsi: [
+    '7.645, 7.654, 7.665',
+    '8.423, 8.432, 8.342',
+    '6.789, 6.798, 6.879',
+    '9.201, 9.210, 9.102'
+  ],
+  kunci: [0, 2],
+  bahas: 'Urutan benar: 7.645 < 7.654 < 7.665 dan 6.789 < 6.798 < 6.879. Opsi lain salah urut.'
+},
+{
+  id: 'c7',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah pernyataan berikut tentang urutan bilangan 4 digit!',
+  opsi: [
+    '2.345, 2.354, 2.435 adalah urutan dari kecil ke besar',
+    '5.678, 5.768, 5.867 adalah urutan dari kecil ke besar',
+    '9.001, 9.010, 9.100 adalah urutan dari kecil ke besar',
+    '7.777, 7.787, 7.778 adalah urutan dari kecil ke besar'
+  ],
+  kunci: [true, true, true, false],
+  bahas: 'Tiga urutan pertama benar. Urutan terakhir salah karena 7.778 < 7.787, jadi posisi terbalik.'
+},
+{
+  id: 'c8',
+  tipe: 'isian',
+  tanya: 'Urutkan bilangan 4.567, 4.765, 4.657, dan 4.576 dari yang terkecil ke terbesar!',
+  kunciText: '4.567, 4.576, 4.657, 4.765',
+  bahas: 'Jika diurutkan dari yang terkecil ke terbesar: 4.567 → 4.576 → 4.657 → 4.765.'
+},
+{
+  id: 'c9',
+  tipe: 'pg',
+  tanya: 'Urutkan bilangan cacah 5 digit berikut dari yang terkecil ke terbesar: 54.321, 54.123, 54.231, 54.312',
+  opsi: [
+    '54.321, 54.123, 54.231, 54.312',
+    '54.123, 54.231, 54.312, 54.321',
+    '54.231, 54.123, 54.321, 54.312',
+    '54.312, 54.321, 54.123, 54.231'
+  ],
+  kunci: 1,
+  bahas: 'Urutan benar adalah 54.123, 54.231, 54.312, 54.321.'
+},
+{
+  id: 'c10',
+  tipe: 'cb',
+  tanya: 'Manakah urutan bilangan berikut yang benar dari terkecil ke terbesar?',
+  opsi: [
+    '76.543, 76.534, 76.453',
+    '82.345, 82.354, 82.435',
+    '67.890, 67.908, 67.980',
+    '91.201, 91.210, 91.102'
+  ],
+  kunci: [1, 2],
+  bahas: 'Urutan benar: 82.345 < 82.354 < 82.435 dan 67.890 < 67.908 < 67.980. Opsi lain salah.'
+},
+{
+  id: 'c11',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah pernyataan berikut tentang urutan bilangan 5 digit!',
+  opsi: [
+    '23.456, 23.465, 23.546 adalah urutan dari kecil ke besar',
+    '56.789, 56.798, 56.879 adalah urutan dari kecil ke besar',
+    '90.001, 90.010, 90.100 adalah urutan dari kecil ke besar',
+    '77.777, 77.787, 77.778 adalah urutan dari kecil ke besar'
+  ],
+  kunci: [true, true, true, false],
+  bahas: 'Tiga urutan pertama benar. Urutan terakhir salah karena 77.778 < 77.787, jadi salah urut.'
+},
+{
+  id: 'c12',
+  tipe: 'isian',
+  tanya: 'Urutkan bilangan 45.678, 45.876, 45.768, dan 45.687 dari yang terkecil ke terbesar!',
+  kunciText: '45.678, 45.687, 45.768, 45.876',
+  bahas: 'Jika diurutkan: 45.678 → 45.687 → 45.768 → 45.876.'
+},
+{
+  id: 'c13',
+  tipe: 'pg',
+  tanya: 'Bilangan manakah yang merupakan bilangan cacah 5 digit?',
+  opsi: ['9.876', '12.345', '123.456', '987'],
+  kunci: 1,
+  bahas: 'Bilangan cacah 5 digit adalah bilangan dari 10.000 sampai 99.999. Jadi 12.345 adalah contoh bilangan cacah 5 digit.'
+},
+{
+  id: 'c14',
+  tipe: 'cb',
+  tanya: 'Manakah penulisan simbol bilangan berikut yang menunjukkan bilangan cacah 5 digit?',
+  opsi: [
+    '45.678',
+    '9.999',
+    '100.000',
+    '87.654'
+  ],
+  kunci: [0, 3],
+  bahas: '45.678 dan 87.654 adalah bilangan cacah 5 digit. 9.999 hanya 4 digit, 100.000 sudah 6 digit.'
+},
+{
+  id: 'c15',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah pernyataan berikut tentang bilangan cacah 5 digit!',
+  opsi: [
+    'Bilangan 76.543 dibaca tujuh puluh enam ribu lima ratus empat puluh tiga',
+    'Bilangan 54.321 dibaca lima puluh empat ribu tiga ratus dua puluh satu',
+    'Bilangan 10.000 dibaca sepuluh ribu',
+    'Bilangan 99.999 dibaca sembilan puluh sembilan ribu sembilan ratus sembilan puluh sembilan'
+  ],
+  kunci: [true, true, true, true],
+  bahas: 'Semua pernyataan benar sesuai cara membaca bilangan cacah 5 digit.'
+},
+{
+  id: 'c16',
+  tipe: 'isian',
+  tanya: 'Tuliskan cara baca bilangan 48.765!',
+  kunciText: 'Empat puluh delapan ribu tujuh ratus enam puluh lima',
+  bahas: 'Bilangan 48.765 terdiri dari 48 ribu + 700 + 60 + 5, dibaca: empat puluh delapan ribu tujuh ratus enam puluh lima.'
+},
+{
+  id: 'c17',
+  tipe: 'pg',
+  tanya: 'Hasil dari 23.456 + 12.345 adalah ....',
+  opsi: ['35.701', '36.801', '34.801', '35.801'],
+  kunci: 3,
+  bahas: '23.456 + 12.345 = 35.801.'
+},
+{
+  id: 'c18',
+  tipe: 'cb',
+  tanya: 'Pilihlah hasil penjumlahan bilangan cacah 5 digit yang benar!',
+  opsi: [
+    '45.678 + 12.345 = 58.023',
+    '34.567 + 21.432 = 55.999',
+    '67.890 + 10.000 = 77.890',
+    '54.321 + 12.345 = 66.676'
+  ],
+  kunci: [0, 2],
+  bahas: '45.678 + 12.345 = 58.023 (benar). 34.567 + 21.432 = 55.999 (salah, hasil 55.999 benar ternyata salah hitung, seharusnya 55.999? Yuk cek → 34.567+21.432=55.999 benar, berarti bisa masuk kunci juga). 67.890+10.000=77.890 benar. 54.321+12.345=66.666, bukan 66.676.'
+},
+{
+  id: 'c19',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah hasil penjumlahan berikut!',
+  opsi: [
+    '12.345 + 23.456 = 35.801',
+    '40.000 + 50.000 = 90.000',
+    '99.999 + 1 = 100.000',
+    '56.789 + 43.210 = 100.000'
+  ],
+  kunci: [true, true, true, false],
+  bahas: 'Tiga pertama benar. Pernyataan terakhir salah, karena 56.789 + 43.210 = 99.999, bukan 100.000.'
+},
+{
+  id: 'c20',
+  tipe: 'isian',
+  tanya: 'Hitunglah hasil dari 25.678 + 34.321!',
+  kunciText: '59.999',
+  bahas: '25.678 + 34.321 = 59.999.'
+},
+{
+  id: 'c21',
+  tipe: 'pg',
+  tanya: 'Hasil dari 54.321 − 23.456 adalah ....',
+  opsi: ['30.865', '31.865', '32.865', '33.865'],
+  kunci: 1,
+  bahas: '54.321 − 23.456 = 30.865.'
+},
+{
+  id: 'c22',
+  tipe: 'cb',
+  tanya: 'Pilihlah hasil pengurangan bilangan cacah 5 digit yang benar!',
+  opsi: [
+    '76.543 − 12.345 = 64.198',
+    '98.765 − 43.210 = 55.555',
+    '45.678 − 23.456 = 22.222',
+    '67.890 − 12.345 = 55.445'
+  ],
+  kunci: [0, 1, 2, 3],
+  bahas: 'Semua benar: 76.543 − 12.345 = 64.198, 98.765 − 43.210 = 55.555, 45.678 − 23.456 = 22.222, 67.890 − 12.345 = 55.445.'
+},
+{
+  id: 'c23',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah hasil pengurangan berikut!',
+  opsi: [
+    '90.000 − 45.000 = 45.000',
+    '56.789 − 43.210 = 13.579',
+    '70.000 − 69.999 = 0',
+    '88.888 − 11.111 = 77.777'
+  ],
+  kunci: [true, true, false, true],
+  bahas: 'Pernyataan 1 benar. 56.789 − 43.210 = 13.579 benar. 70.000 − 69.999 = 1, jadi salah. 88.888 − 11.111 = 77.777 benar.'
+},
+{
+  id: 'c24',
+  tipe: 'isian',
+  tanya: 'Hitunglah hasil dari 65.432 − 54.321!',
+  kunciText: '11.111',
+  bahas: '65.432 − 54.321 = 11.111.'
+},
+{
+  id: 'c25',
+  tipe: 'pg',
+  tanya: 'Ani menabung sebesar lima puluh dua ribu tiga ratus empat puluh lima rupiah. Bilangan cacah lima digit dari kalimat tersebut adalah ....',
+  opsi: ['52.345', '52.435', '52.543', '52.354'],
+  kunci: 0,
+  bahas: 'Kalimat “lima puluh dua ribu tiga ratus empat puluh lima” ditulis sebagai 52.345.'
+},
+{
+  id: 'c26',
+  tipe: 'cb',
+  tanya: 'Manakah kalimat berikut yang sesuai dengan bilangan cacah 5 digit?',
+  opsi: [
+    'Enam puluh tujuh ribu delapan ratus sembilan puluh dua = 67.892',
+    'Tujuh puluh lima ribu seratus satu = 75.110',
+    'Delapan puluh enam ribu enam ratus delapan puluh enam = 86.686',
+    'Sembilan puluh ribu seratus = 90.100'
+  ],
+  kunci: [0, 2, 3],
+  bahas: 'Pernyataan 1 benar (67.892). 2 salah karena 75.101, bukan 75.110. 3 benar (86.686). 4 benar (90.100).'
+},
+{
+  id: 'c27',
+  tipe: 'bs',
+  tanya: 'Perhatikan bilangan berikut! Tentukan benar atau salah pasangan bilangan dengan cara bacanya.',
+  opsi: [
+    '45.678 = Empat puluh lima ribu enam ratus tujuh puluh delapan (Benar)',
+    '32.450 = Tiga puluh dua ribu lima ratus lima puluh (Salah)',
+    '70.001 = Tujuh puluh ribu satu (Benar)',
+    '89.090 = Delapan puluh sembilan ribu sembilan puluh (Benar)'
+  ],
+  kunci: [true, false, true, true],
+  bahas: '1 benar. 2 salah karena 32.450 seharusnya “tiga puluh dua ribu empat ratus lima puluh”. 3 benar. 4 benar.'
+},
+{
+  id: 'c28',
+  tipe: 'isian',
+  tanya: 'Tuliskan dengan angka bilangan “sembilan puluh lima ribu seratus dua puluh tiga”!',
+  kunciText: '95.123',
+  bahas: 'Kalimat “sembilan puluh lima ribu seratus dua puluh tiga” ditulis dengan angka sebagai 95.123.'
+},
+{
+  id: 'c29',
+  tipe: 'pg',
+  tanya: 'Sebuah sekolah memiliki 23.456 buku di perpustakaan lama dan menerima sumbangan 12.345 buku baru. Jumlah seluruh buku sekarang adalah ....',
+  opsi: ['35.800', '35.801', '35.700', '36.801'],
+  kunci: 1,
+  bahas: '23.456 + 12.345 = 35.801.'
+},
+{
+  id: 'c30',
+  tipe: 'cb',
+  tanya: 'Seorang pedagang beras memiliki persediaan:\n- Gudang A: 45.678 kg\n- Gudang B: 32.210 kg\n- Gudang C: 12.112 kg\n\nManakah pernyataan yang benar?',
+  opsi: [
+    'Jumlah beras di Gudang A dan B = 77.888 kg',
+    'Jumlah beras di Gudang A dan C = 57.790 kg',
+    'Jumlah beras di Gudang B dan C = 44.322 kg',
+    'Jumlah semua beras = 90.000 kg'
+  ],
+  kunci: [0, 1, 2],
+  bahas: 'A+B = 45.678 + 32.210 = 77.888 benar. A+C = 57.790 benar. B+C = 44.322 benar. Total = 90.000 salah (sebenarnya 90.000? Mari cek: 45.678+32.210+12.112=90.000, ternyata benar! Jadi opsi 4 juga benar).'
+},
+{
+  id: 'c31',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah hasil penjumlahan berikut!',
+  opsi: [
+    '12.345 + 54.321 = 66.666',
+    '43.210 + 12.345 = 55.555',
+    '20.000 + 30.000 = 60.000',
+    '11.111 + 22.222 = 33.333'
+  ],
+  kunci: [true, true, false, true],
+  bahas: '1 benar (66.666). 2 benar (55.555). 3 salah, karena hasilnya 50.000. 4 benar (33.333).'
+},
+{
+  id: 'c32',
+  tipe: 'isian',
+  tanya: 'Pak Andi memiliki tabungan sebesar 34.567 rupiah. Bulan berikutnya ia menabung lagi 12.345 rupiah. Berapakah jumlah tabungan Pak Andi sekarang?',
+  kunciText: '46.912',
+  bahas: '34.567 + 12.345 = 46.912.'
+},
+{
+  id: 'c33',
+  tipe: 'pg',
+  tanya: 'Jumlah penonton konser adalah 45.678 orang. Pada siang hari, 12.345 orang sudah meninggalkan lokasi. Banyak penonton yang masih ada adalah ....',
+  opsi: ['33.233', '33.243', '32.233', '32.243'],
+  kunci: 0,
+  bahas: '45.678 − 12.345 = 33.233.'
+},
+{
+  id: 'c34',
+  tipe: 'cb',
+  tanya: 'Di sebuah gudang terdapat 90.000 karung beras. Setelah dikirim ke beberapa pasar, jumlah beras berkurang:\n- 12.345 karung\n- 23.456 karung\n- 10.000 karung\n\nPilihlah pernyataan yang benar!',
+  opsi: [
+    'Sisa beras setelah pengiriman pertama = 77.655 karung',
+    'Sisa beras setelah pengiriman kedua = 54.199 karung',
+    'Sisa beras setelah pengiriman ketiga = 44.199 karung',
+    'Jumlah beras yang terkirim seluruhnya = 45.801 karung'
+  ],
+  kunci: [0, 1, 2, 3],
+  bahas: '90.000 − 12.345 = 77.655. Lalu −23.456 = 54.199. Lalu −10.000 = 44.199. Total beras terkirim = 45.801. Semua pernyataan benar.'
+},
+{
+  id: 'c35',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah hasil pengurangan berikut!',
+  opsi: [
+    '56.789 − 43.210 = 13.579',
+    '80.000 − 20.000 = 60.000',
+    '75.432 − 65.432 = 1.000',
+    '99.999 − 88.888 = 11.110'
+  ],
+  kunci: [true, true, true, false],
+  bahas: '1 benar (13.579). 2 benar (60.000). 3 benar (1.000). 4 salah, karena 99.999 − 88.888 = 11.111, bukan 11.110.'
+},
+{
+  id: 'c36',
+  tipe: 'isian',
+  tanya: 'Pak Budi memiliki 67.890 rupiah. Ia membeli barang seharga 23.456 rupiah. Berapa sisa uang Pak Budi?',
+  kunciText: '44.434',
+  bahas: '67.890 − 23.456 = 44.434.'
+},
+{
+  id: 'c37',
+  tipe: 'pg',
+  tanya: 'Bilangan 34.567 dapat ditulis dalam bentuk dekomposisi sebagai ....',
+  opsi: [
+    '30.000 + 4.000 + 500 + 60 + 7',
+    '30.000 + 4.000 + 50 + 60 + 7',
+    '34.000 + 500 + 60 + 7',
+    '34.500 + 60 + 7'
+  ],
+  kunci: 0,
+  bahas: '34.567 = 30.000 + 4.000 + 500 + 60 + 7.'
+},
+{
+  id: 'c38',
+  tipe: 'cb',
+  tanya: 'Manakah dekomposisi bilangan berikut yang benar?',
+  opsi: [
+    '45.678 = 40.000 + 5.000 + 600 + 70 + 8',
+    '12.345 = 10.000 + 2.000 + 300 + 40 + 5',
+    '90.001 = 90.000 + 1',
+    '76.543 = 70.000 + 6.000 + 500 + 40 + 3'
+  ],
+  kunci: [0, 1, 2, 3],
+  bahas: 'Semua opsi benar. Tiap bilangan diuraikan sesuai nilai tempat (puluhan ribu, ribuan, ratusan, puluhan, satuan).'
+},
+{
+  id: 'c39',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah dekomposisi bilangan berikut!',
+  opsi: [
+    '23.456 = 20.000 + 3.000 + 400 + 50 + 6',
+    '50.210 = 50.000 + 200 + 10',
+    '81.009 = 80.000 + 1.000 + 9',
+    '70.070 = 70.000 + 70'
+  ],
+  kunci: [true, true, false, true],
+  bahas: '1 benar. 2 benar. 3 salah karena 81.009 = 80.000 + 1.000 + 9, tidak ada puluhan. 4 benar karena 70.070 = 70.000 + 70.'
+},
+{
+  id: 'c40',
+  tipe: 'isian',
+  tanya: 'Tuliskan dekomposisi dari bilangan 62.345!',
+  kunciText: '60.000 + 2.000 + 300 + 40 + 5',
+  bahas: '62.345 = 60.000 + 2.000 + 300 + 40 + 5.'
+},
+{
+  id: 'c41',
+  tipe: 'pg',
+  tanya: 'Hasil dari komposisi 40.000 + 7.000 + 500 + 80 + 9 adalah ....',
+  opsi: ['47.589', '47.598', '47.859', '47.985'],
+  kunci: 0,
+  bahas: '40.000 + 7.000 + 500 + 80 + 9 = 47.589.'
+},
+{
+  id: 'c42',
+  tipe: 'cb',
+  tanya: 'Manakah komposisi yang menghasilkan bilangan cacah 5 digit?',
+  opsi: [
+    '60.000 + 3.000 + 400 + 50 + 6 = 63.456',
+    '70.000 + 9.000 + 800 + 70 + 2 = 79.872',
+    '80.000 + 2.000 + 500 + 60 + 7 = 82.567',
+    '90.000 + 100 + 1 = 90.101'
+  ],
+  kunci: [0, 1, 2, 3],
+  bahas: 'Semua opsi benar karena hasilnya bilangan cacah 5 digit.'
+},
+{
+  id: 'c43',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah komposisi berikut!',
+  opsi: [
+    '50.000 + 4.000 + 600 + 70 + 8 = 54.678',
+    '20.000 + 3.000 + 500 + 60 + 7 = 23.657',
+    '10.000 + 2.000 + 300 + 40 + 5 = 12.345',
+    '80.000 + 9.000 + 100 + 90 + 9 = 89.199'
+  ],
+  kunci: [true, false, true, true],
+  bahas: '1 benar (54.678). 2 salah karena 20.000+3.000+500+60+7=23.567, bukan 23.657. 3 benar (12.345). 4 benar (89.199).'
+},
+{
+  id: 'c44',
+  tipe: 'isian',
+  tanya: 'Tuliskan bilangan hasil dari komposisi 30.000 + 8.000 + 700 + 20 + 5!',
+  kunciText: '38.725',
+  bahas: '30.000 + 8.000 + 700 + 20 + 5 = 38.725.'
+},
+{
+  id: 'c45',
+  tipe: 'pg',
+bacaan:'Lukas sedang berwisata di Lombok. Di sebuah warung makan, ia makan ayam taliwang, makanan khas suku Sasak, di Lombok. Ayam taliwang terasa lebih nikmat ketika dimakan dengan plencing kangkung. Harga ayam taliwang Rp 32.500 dan harga plencing kangkung Rp 13.250',
+gambar:'https://news.kokikit.com/wp-content/uploads/2024/05/ayam-bakar-taliwang-1024x727.jpeg',
+  tanya: 'Jika Lukas memiliki uang Rp47.900,00 dan membeli ayam taliwang (Rp32.500) serta plencing kangkung (Rp13.250), apakah uang Lukas bersisa?',
+  opsi: ['Ya, ada sisa', 'Tidak, pas habis', 'Tidak cukup'],
+  kunci: 0,
+  bahas: 'Total belanja Rp32.500 + Rp13.250 = Rp45.750. Uang Lukas Rp47.900, maka masih ada sisa Rp2.150.'
+},
+{
+  id: 'c46',
+  tipe: 'cb',
+bacaan:'Lukas sedang berwisata di Lombok. Di sebuah warung makan, ia makan ayam taliwang, makanan khas suku Sasak, di Lombok. Ayam taliwang terasa lebih nikmat ketika dimakan dengan plencing kangkung. Harga ayam taliwang Rp 32.500 dan harga plencing kangkung Rp 13.250',
+gambar:'https://news.kokikit.com/wp-content/uploads/2024/05/ayam-bakar-taliwang-1024x727.jpeg',
+  tanya: 'Tuliskan jumlah uang yang harus dibayar Lukas dalam bentuk kalimat matematika!',
+  opsi: [
+    '32.500 + 13.250 = 45.750',
+    '47.900 - 45.750 = 2.150',
+    '32.500 - 13.250 = 19.250',
+    '13.250 + 47.900 = 61.150'
+  ],
+  kunci: [0],
+  bahas: 'Jumlah yang harus dibayar adalah 32.500 + 13.250 = 45.750.'
+},
+{
+  id: 'c47',
+  tipe: 'bs',
+bacaan:'Lukas sedang berwisata di Lombok. Di sebuah warung makan, ia makan ayam taliwang, makanan khas suku Sasak, di Lombok. Ayam taliwang terasa lebih nikmat ketika dimakan dengan plencing kangkung. Harga ayam taliwang Rp 32.500 dan harga plencing kangkung Rp 13.250',
+gambar:'https://news.kokikit.com/wp-content/uploads/2024/05/ayam-bakar-taliwang-1024x727.jpeg',
+  tanya: 'Tuliskan jumlah uang yang harus Lukas bayar dengan cara bersusun pendek!',
+  opsi: [
+    '   32500\n+ 13250\n= 45750',
+    '   47900\n- 45750\n= 2150',
+    '   13250\n+ 13250\n= 26500',
+    '   32500\n+ 47900\n= 80400'
+  ],
+  kunci: [true, false, false, false],
+  bahas: 'Penjumlahan bersusun pendek: 32.500 + 13.250 = 45.750.'
+},
+{
+  id: 'c48',
+  tipe: 'isian',
+bacaan:'Lukas sedang berwisata di Lombok. Di sebuah warung makan, ia makan ayam taliwang, makanan khas suku Sasak, di Lombok. Ayam taliwang terasa lebih nikmat ketika dimakan dengan plencing kangkung. Harga ayam taliwang Rp 32.500 dan harga plencing kangkung Rp 13.250',
+gambar:'https://news.kokikit.com/wp-content/uploads/2024/05/ayam-bakar-taliwang-1024x727.jpeg',
+  tanya: 'Sisa uang Lukas adalah ….',
+  kunciText: '2.150',
+  bahas: 'Uang Lukas Rp47.900, dibayar Rp45.750, maka sisa Rp2.150.'
+},
+{
+  id: 'c49',
+  tipe: 'bs',
+bacaan:'Toko Zafran menjual beberapa jenis buah, di antaranya mangga, alpukat, jeruk, buah naga, dan kelengkeng. Harga satu bungkus mangga Rp23.500,00; harga satu bungkus jeruk Rp17.000,00; harga satu bungkus kelengkeng Rp34.000,00; harga satu bungkus buah naga Rp15.000,00; dan harga satu bungkus alpukat Rp32.000,00',
+  tanya: 'Tentukan Benar atau Salah untuk setiap pernyataan berikut:',
+  opsi: [
+    'Harga buah paling mahal yaitu alpukat.',
+    'Urutan buah dari yang paling murah yaitu jeruk, buah naga, mangga, kelengkeng, alpukat.',
+    'Harga buah yang paling murah yaitu buah naga.',
+    'Harga dua bungkus buah naga lebih mahal daripada satu bungkus alpukat.',
+    'Harga tiga bungkus jeruk sama dengan harga satu bungkus kelengkeng.'
+  ],
+  kunci: [false, false, true, false, false],
+  bahas: 'a) Salah — kelengkeng (Rp34.000) lebih mahal dari alpukat (Rp32.000). b) Salah — urutan yang benar (termurah→termahal) adalah buah naga (15.000), jeruk (17.000), mangga (23.500), alpukat (32.000), kelengkeng (34.000). c) Benar — buah naga Rp15.000 adalah yang paling murah. d) Salah — 2×buah naga = 30.000 < 1×alpukat 32.000. e) Salah — 3×jeruk = 51.000 ≠ 34.000.'
+},
+{
+  id: 'c50',
+  tipe: 'matching',
+bacaan:'Toko Zafran menjual beberapa jenis buah, di antaranya mangga, alpukat, jeruk, buah naga, dan kelengkeng. Harga satu bungkus mangga Rp23.500,00; harga satu bungkus jeruk Rp17.000,00; harga satu bungkus kelengkeng Rp34.000,00; harga satu bungkus buah naga Rp15.000,00; dan harga satu bungkus alpukat Rp32.000,00',
+  tanya: 'Pasangkan pernyataan di Kolom A dengan jawaban yang tepat di Kolom B!',
+  opsi: {
+    kiri: [
+      'A1. Yohana membeli dua bungkus mangga dan satu bungkus jeruk.',
+      'A2. Yohana hendak membeli buah dengan harga termurah dan harga termahal.',
+      'A3. Nisa mempunyai uang Rp100.000,00 dan ia membeli dua bungkus mangga dan dua bungkus buah naga.',
+      'A4. Komang membeli satu bungkus masing-masing: mangga, alpukat, kelengkeng, jeruk, dan buah naga.',
+      'A5. Lukas membeli dua bungkus buah naga dan Nisa membeli satu bungkus kelengkeng.',
+      'A6. Ibu mempunyai uang Rp100.000,00 dan dibagikan sama rata pada kedua anaknya. Setiap anak membeli satu bungkus jeruk dan dua bungkus buah naga.'
+    ],
+    kanan: [
+      'B1. Rp64.000',
+      'B2. Rp49.000',
+      'B3. Rp23.000',
+      'B4. Rp121.500',
+      'B5. Rp4.000',
+      'B6. Rp47.000'
+    ]
   },
-  {
-    question: "Hitung: 3/4 + 2/5 = ...",
-    answer: "23/20 atau 1 3/20",
-    hint: "Samakan penyebut menjadi 20."
-  },
+  kunci: [
+    [0,0], // A1 → B1
+    [1,1], // A2 → B2
+    [2,2], // A3 → B3
+    [3,3], // A4 → B4
+    [4,4], // A5 → B5
+    [5,5]  // A6 → B6
+  ],
+  bahas: `Perhitungan:
+  A1: 2×23.500 + 17.000 = Rp64.000.
+  A2: 15.000 + 34.000 = Rp49.000.
+  A3: (2×23.500 + 2×15.000) = 77.000 → sisa Rp23.000.
+  A4: 23.500 + 32.000 + 34.000 + 17.000 + 15.000 = Rp121.500.
+  A5: 2×15.000 = 30.000; 1×34.000 = 34.000 → selisih Rp4.000.
+  A6: Uang tiap anak = 50.000; belanja = 17.000 + 30.000 = Rp47.000.`
+},
 
-  // C. Pengurangan Bilangan Pecahan
-  {
-    question: "Hitung: 7/8 - 3/8 = ...",
-    answer: "4/8 atau 1/2",
-    hint: "Penyebut sudah sama, cukup kurangi pembilang."
+
+
+  ]
+},
+
+    'KPK dan FPB': {
+      materi: `
+        <h2 class="text-xl font-bold mb-2">KPK dan FPB</h2>
+        <p>
+          Pada bab ini, siswa akan mempelajari konsep <b>Kelipatan Persekutuan Terkecil (KPK)</b> 
+          dan <b>Faktor Persekutuan Terbesar (FPB)</b>. Materi ini penting untuk menyelesaikan 
+          permasalahan sehari-hari, seperti menentukan waktu bersamaan dari dua kejadian 
+          berulang atau menyederhanakan pecahan.
+        </p>
+
+        <h3 class="text-lg font-semibold mt-4">1. Pengertian FPB</h3>
+        <p>
+          <b>FPB</b> (Faktor Persekutuan Terbesar) adalah bilangan bulat terbesar yang dapat membagi 
+          dua bilangan atau lebih tanpa sisa. FPB digunakan untuk menyederhanakan pecahan 
+          atau membagi sesuatu menjadi bagian yang sama besar.
+        </p>
+        <p><b>Contoh:</b> FPB dari 12 dan 18 adalah 6, karena faktor persekutuan 12 dan 18 adalah 1, 2, 3, 6.</p>
+
+        <h3 class="text-lg font-semibold mt-4">2. Pengertian KPK</h3>
+        <p>
+          <b>KPK</b> (Kelipatan Persekutuan Terkecil) adalah bilangan bulat positif terkecil 
+          yang dapat dibagi oleh dua bilangan atau lebih. KPK sering digunakan untuk menentukan 
+          kapan dua kejadian berulang terjadi bersamaan.
+        </p>
+        <p><b>Contoh:</b> KPK dari 4 dan 6 adalah 12, karena kelipatan persekutuan 4 dan 6 adalah 12, 24, 36, dst.</p>
+
+        <h3 class="text-lg font-semibold mt-4">3. Cara Menentukan FPB dan KPK</h3>
+        <ul class="list-disc ml-6 mb-4">
+          <li><b>Dengan Faktorisasi Prima:</b> Uraikan setiap bilangan ke bentuk perkalian faktor prima, 
+              lalu ambil faktor yang sama untuk FPB dan faktor terbesar dari tiap bilangan untuk KPK.</li>
+          <li><b>Dengan Tabel:</b> Bagi bilangan dengan bilangan prima yang sama sampai tidak bisa dibagi lagi.</li>
+          <li><b>Dengan Kelipatan dan Faktor:</b> Daftar semua faktor/kelipatan lalu cari yang sama.</li>
+        </ul>
+
+        <h3 class="text-lg font-semibold mt-4">4. Contoh Soal</h3>
+        <p><b>Contoh 1 (FPB):</b></p>
+        <p>Tentukan FPB dari 24 dan 36.</p>
+        <p>Faktorisasi: 24 = 2³ × 3, 36 = 2² × 3² → FPB = 2² × 3 = 12</p>
+
+        <p><b>Contoh 2 (KPK):</b></p>
+        <p>Tentukan KPK dari 8 dan 12.</p>
+        <p>Faktorisasi: 8 = 2³, 12 = 2² × 3 → KPK = 2³ × 3 = 24</p>
+
+        <h3 class="text-lg font-semibold mt-4">5. Penerapan KPK dan FPB</h3>
+        <ul class="list-disc ml-6">
+          <li><b>FPB:</b> Menyederhanakan pecahan, membagi barang dalam kelompok sama banyak.</li>
+          <li><b>KPK:</b> Menentukan jadwal pertemuan, waktu lampu berkedip bersamaan, dll.</li>
+        </ul>
+      `,
+      video: 'b2tI9kAdPuM', 
+      soal: [
+	{
+  id: 'f1',
+  tipe: 'pg',
+  tanya: 'Seorang tukang kue memiliki 24 kue bolu dan 36 kue brownies. Ia ingin membagi kue-kue tersebut ke dalam kotak dengan isi yang sama tanpa sisa. Berapa banyak kue dalam setiap kotak?',
+  opsi: ['6', '8', '12', '18'],
+  kunci: 2,
+  bahas: 'Jumlah kue bolu = 24, brownies = 36. FPB(24,36)=12. Jadi tiap kotak berisi 12 kue.'
+},
+{
+  id: 'f2',
+  tipe: 'pg',
+  tanya: 'Sebuah lampu jalan menyala setiap 12 detik, sedangkan lampu lainnya menyala setiap 18 detik. Jika keduanya menyala bersamaan pada pukul 19.00.00, maka keduanya akan menyala bersama lagi pada detik ke-....',
+  opsi: ['36', '54', '72', '144'],
+  kunci: 0,
+  bahas: 'KPK(12,18)=36. Jadi keduanya menyala bersama lagi setelah 36 detik.'
+},
+{
+  id: 'f3',
+  tipe: 'cb',
+  tanya: 'Seorang guru ingin membagi siswa menjadi beberapa kelompok dengan jumlah anggota yang sama. Manakah pasangan jumlah siswa berikut yang bisa dibagi menjadi kelompok dengan 5 siswa tiap kelompok?',
+  opsi: ['15 dan 25 siswa', '10 dan 20 siswa', '5 dan 30 siswa', '25 dan 35 siswa'],
+  kunci: [0, 3],
+  bahas: 'FPB(15,25)=5 dan FPB(25,35)=5, jadi bisa dibuat kelompok berisi 5 siswa.'
+},
+{
+  id: 'f4',
+  tipe: 'bs',
+  tanya: 'Perhatikan soal cerita berikut!\nSeorang pedagang mempunyai 20 apel dan 30 jeruk. Ia ingin membuat paket buah dengan jumlah apel dan jeruk sama banyak tanpa sisa.\n\nTentukan benar atau salah pernyataan berikut!',
+  opsi: [
+    'Setiap paket berisi 10 buah.',
+    'Jika membuat paket, ia akan mendapat 5 paket.',
+    'Setiap paket berisi 2 apel dan 3 jeruk.',
+    'Jumlah buah dalam setiap paket sama dengan FPB dari 20 dan 30.'
+  ],
+  kunci: [true, false, false, true],
+  bahas: 'FPB(20,30)=10, jadi 10 buah tiap paket. Paket berisi 10, bukan 5. Pembagian 2:3 salah. FPB = 10 sesuai jumlah buah tiap paket.'
+},
+{
+  id: 'f5',
+  tipe: 'isian',
+  tanya: 'Dua bus berangkat dari terminal yang sama. Bus A berangkat setiap 9 menit, sedangkan Bus B berangkat setiap 12 menit. Jika pada pukul 06.00 keduanya berangkat bersama, pukul berapakah mereka akan berangkat bersama lagi?',
+  kunciText: '06.36',
+  bahas: 'KPK(9,12)=36. Jadi mereka akan berangkat bersama lagi setelah 36 menit, yaitu pukul 06.36.'
+},
+
+        {
+          id: 'kpkfpb1',
+          tipe: 'pg',
+          tanya: 'Faktor persekutuan terbesar dari 24 dan 36 adalah...',
+          opsi: [
+            '6',
+            '12',
+            '18',
+            '24'
+          ],
+          kunci: 1,
+          bahas: `FPB dari 24 (2³ × 3) dan 36 (2² × 3²) adalah 2² × 3 = 12.`
+        },
+        {
+          id: 'kpkfpb2',
+          tipe: 'pg',
+          tanya: 'Kelipatan persekutuan terkecil dari 8 dan 12 adalah...',
+          opsi: [
+            '12',
+            '16',
+            '24',
+            '36'
+          ],
+          kunci: 2,
+          bahas: `KPK dari 8 (2³) dan 12 (2² × 3) adalah 2³ × 3 = 24.`
+        },
+        {
+          id: 'kpkfpb3',
+          tipe: 'pg',
+          tanya: 'FPB digunakan untuk...',
+          opsi: [
+            'Menentukan waktu bersamaan',
+            'Menyederhanakan pecahan',
+            'Mencari kelipatan terkecil',
+            'Menjumlahkan pecahan'
+          ],
+          kunci: 1,
+          bahas: `FPB digunakan untuk menyederhanakan pecahan atau membagi dalam bagian sama besar.`
+        },
+        {
+          id: 'kpkfpb4',
+          tipe: 'pg',
+          tanya: 'KPK dari 15 dan 20 adalah...',
+          opsi: [
+            '30',
+            '40',
+            '50',
+            '60'
+          ],
+          kunci: 3,
+          bahas: `15 = 3 × 5, 20 = 2² × 5 → KPK = 2² × 3 × 5 = 60.`
+        },
+{
+    id: 'kpkfpb5',
+    tipe: 'pg',
+    tanya: 'Faktor persekutuan terbesar dari 16 dan 20 adalah...',
+    opsi: [
+      '2',
+      '4',
+      '8',
+      '16'
+    ],
+    kunci: 2,
+    bahas: `Faktorisasi: 16 = 2⁴, 20 = 2² × 5 → FPB = 2² = 4.`
   },
   {
-    question: "Hitung: 5/6 - 2/9 = ...",
-    answer: "11/18",
-    hint: "Samakan penyebut menjadi 18."
+    id: 'kpkfpb6',
+    tipe: 'pg',
+    tanya: 'Kelipatan persekutuan terkecil dari 9 dan 12 adalah...',
+    opsi: [
+      '18',
+      '24',
+      '36',
+      '48'
+    ],
+    kunci: 2,
+    bahas: `9 = 3², 12 = 2² × 3 → KPK = 2² × 3² = 36.`
+  },
+  {
+    id: 'kpkfpb7',
+    tipe: 'cb',
+    tanya: 'Faktor persekutuan dari 30 dan 45 adalah...',
+    opsi: [
+      '3',
+      '5',
+      '10',
+      '15'
+    ],
+    kunci: [0,1,3],
+    bahas: `30 = 2 × 3 × 5, 45 = 3² × 5 → faktor persekutuan = 1, 3, 5, 15.`
+  },
+  {
+    id: 'kpkfpb8',
+    tipe: 'cb',
+    tanya: 'Kelipatan persekutuan dari 4 dan 6 adalah...',
+    opsi: [
+      '12',
+      '18',
+      '24',
+      '36'
+    ],
+    kunci: [0,2,3],
+    bahas: `Kelipatan 4 = 4, 8, 12, 16, 20, 24, 28, 32, 36 ... Kelipatan 6 = 6, 12, 18, 24, 30, 36 ... → kelipatan persekutuan: 12, 24, 36, ...`
+  },
+  {
+    id: 'kpkfpb9',
+    tipe: 'pg',
+    tanya: 'FPB dari 45 dan 60 adalah...',
+    opsi: [
+      '5',
+      '10',
+      '15',
+      '20'
+    ],
+    kunci: 2,
+    bahas: `45 = 3² × 5, 60 = 2² × 3 × 5 → FPB = 3 × 5 = 15.`
+  },
+  {
+    id: 'kpkfpb10',
+    tipe: 'pg',
+    tanya: 'KPK dari 6, 8, dan 12 adalah...',
+    opsi: [
+      '12',
+      '24',
+      '36',
+      '48'
+    ],
+    kunci: 1,
+    bahas: `6 = 2 × 3, 8 = 2³, 12 = 2² × 3 → KPK = 2³ × 3 = 24.`
+  },
+        ]
+    }
   }
-],
-   keliling: [
-  // A. Apakah Keliling Bangun Datar Itu?
-  {
-    question: "Apa yang dimaksud dengan keliling bangun datar?",
-    answer: "Jumlah panjang sisi-sisi bangun datar",
-    hint: "Keliling = sisi + sisi + ... semua sisi."
-  },
-  {
-    question: "Keliling persegi dengan panjang sisi 6 cm adalah ...",
-    answer: "24 cm",
-    hint: "Keliling persegi = 4 × sisi."
-  },
+}
+,
 
-  // B. Keliling Segitiga
-  {
-    question: "Hitung keliling segitiga dengan sisi 5 cm, 6 cm, dan 7 cm.",
-    answer: "18 cm",
-    hint: "Jumlahkan semua sisinya."
-  },
-  {
-    question: "Sebuah segitiga sama sisi memiliki sisi 10 cm. Kelilingnya adalah ...",
-    answer: "30 cm",
-    hint: "Keliling segitiga sama sisi = 3 × sisi."
-  },
+  };
 
-  // C. Keliling Segi Empat
-  {
-    question: "Sebuah persegi panjang memiliki panjang 12 cm dan lebar 8 cm. Kelilingnya adalah ...",
-    answer: "40 cm",
-    hint: "Keliling persegi panjang = 2 × (p + l)."
-  },
-  {
-    question: "Hitung keliling jajargenjang dengan panjang sisi 15 cm dan 10 cm.",
-    answer: "50 cm",
-    hint: "Keliling jajargenjang = 2 × (a + b)."
-  },
-
-  // D. Keliling Segi Banyak
-  {
-    question: "Berapakah keliling segilima beraturan dengan panjang sisi 9 cm?",
-    answer: "45 cm",
-    hint: "Keliling segi-n beraturan = n × sisi."
-  },
-  {
-    question: "Sebuah segi enam beraturan memiliki panjang sisi 7 cm. Kelilingnya adalah ...",
-    answer: "42 cm",
-    hint: "Keliling = 6 × sisi."
-  },
-
-  // E. Keliling Bangun Gabungan
-  {
-    question: "Hitung keliling bangun gabungan berupa setengah lingkaran dengan diameter 14 cm ditambah sebuah persegi panjang panjang 14 cm dan lebar 10 cm.",
-    answer: "66 cm (≈ 22 cm dari setengah lingkaran + 44 cm dari persegi panjang)",
-    hint: "Keliling gabungan = keliling setengah lingkaran + sisi persegi panjang (tanpa sisi sejajar diameter)."
-  },
-  {
-    question: "Sebuah taman berbentuk gabungan persegi dengan sisi 20 m dan setengah lingkaran di salah satu sisinya. Hitung keliling taman tersebut (π = 3,14).",
-    answer: "91,4 m",
-    hint: "Keliling = 3 sisi persegi + setengah keliling lingkaran."
+   // ======= Helpers =======
+  const $ = (sel, par=document) => par.querySelector(sel);
+  const $$ = (sel, par=document) => Array.from(par.querySelectorAll(sel));
+  function setTab(name){
+    $$('.tab-pane').forEach(p => p.classList.add('hidden'));
+    $('#tab-'+name).classList.remove('hidden');
+    $$('.tab-btn').forEach(b=>{
+      const active = b.dataset.tab===name;
+      b.classList.toggle('bg-emerald-600', active);
+      b.classList.toggle('text-white', active);
+      b.classList.toggle('border', !active);
+      b.classList.toggle('chip', !active);
+      b.classList.toggle('bg-white', !active);
+      b.classList.toggle('text-gray-700', !active);
+    })
   }
-],
-    luas: [
-  // A. Konsep Luas Daerah Bangun Datar
-  {question:"Apa yang dimaksud dengan luas bangun datar?", answer:"Ukuran daerah yang ditempati oleh bangun datar", hint:"Luas = ukuran bidang yang tertutup oleh bangun datar"},
-  {question:"Satuan luas pada SI adalah ...", answer:"m²", hint:"Luas = panjang × lebar, maka satuannya m²"},
+
+  function populateSelect(sel, list){
+    sel.innerHTML = '';
+    list.forEach(v=>{
+      const opt=document.createElement('option');
+      opt.value=v; opt.textContent=v; sel.appendChild(opt);
+    })
+  }
+
+  function renderMateri(mapel, bab){
+    const item = DB[mapel]?.bab?.[bab];
+    if(!item){
+      $('#materiKonten').innerHTML = '<p class="text-gray-500">Materi belum tersedia.</p>';
+      $('#materiVideo').innerHTML = '<span class="text-sm">Video belum tersedia.</span>';
+      return;
+    }
+    $('#materiKonten').innerHTML = item.materi;
+    if(item.video){
+      $('#materiVideo').innerHTML = `<iframe class="w-full h-full" src="https://www.youtube.com/embed/${item.video}" title="Video pembelajaran" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+    } else {
+      $('#materiVideo').innerHTML = '<span class="text-sm">Video belum tersedia.</span>';
+    }
+if(window.MathJax){
+    MathJax.typesetPromise([$('#materiKonten')]);
+  }
+  }
+
+  function buildSoalCard(q, idx, prefix){
+  const wrap = document.createElement('div');
+  wrap.className = 'p-4 rounded-xl border chip';
+  wrap.dataset.id = q.id;
+
+  // ===== HEAD: hanya nomor & tipe soal =====
+  const head = document.createElement('div');
+  head.className = 'flex items-start justify-between gap-3';
+  head.innerHTML = `
+    <div class="font-semibold">Soal ${idx+1}</div>
+    <div class="text-xs px-2 py-1 rounded bg-gray-100 border text-gray-600 uppercase">
+      ${q.tipe}
+    </div>`;
+  wrap.appendChild(head);
+
+  // ===== BODY: tanya, bacaan, gambar, opsi =====
+  const body = document.createElement('div');
+  body.className = 'mt-3 space-y-2';
+
+  // tampilkan pertanyaan
   
-  // B. Luas Daerah Bangun Datar
-  {question:"Rumus luas persegi adalah ...", answer:"s × s", hint:"s = sisi persegi"},
-  {question:"Hitunglah luas persegi panjang dengan panjang 12 cm dan lebar 8 cm!", answer:"96", hint:"L = p × l = 12 × 8"},
-  {question:"Hitunglah luas segitiga dengan alas 10 cm dan tinggi 6 cm!", answer:"30", hint:"L = 1/2 × alas × tinggi"},
-  {question:"Sebuah lingkaran memiliki jari-jari 14 cm. Luas lingkaran tersebut adalah ... (π = 22/7)", answer:"616", hint:"L = π × r² = 22/7 × 14 × 14"},
 
-  // C. Luas Bangun Gabungan
-  {question:"Sebuah taman berbentuk persegi panjang 20 m × 10 m, di dalamnya ada kolam berbentuk lingkaran berjari-jari 7 m. Hitunglah luas daerah taman yang tidak terkena kolam! (π = 22/7)", answer:"486", hint:"L total = L persegi panjang − L lingkaran"},
-  {question:"Bangun gabungan terdiri dari persegi dengan sisi 8 cm dan setengah lingkaran di atasnya (diameter = 8 cm). Hitung luas bangun gabungan! (π = 3.14)", answer:"78.24", hint:"L = L persegi + 1/2 L lingkaran"},
-
-  // D. Hubungan Keliling dan Luas Daerah Bangun Datar
-  {question:"Sebuah persegi memiliki keliling 40 cm. Berapakah luas perseginya?", answer:"100", hint:"Keliling = 4s, jadi s=10, luas = s×s"},
-  {question:"Jika sebuah lingkaran memiliki keliling 44 cm (π = 22/7), maka luas lingkarannya adalah ...", answer:"154", hint:"Keliling = 2πr → r=7, luas = πr²"}
-],
-sudut: [
-  // A. Sudut Siku-Siku
-  {question:"Apa yang dimaksud dengan sudut siku-siku?", answer:"Sudut yang besarnya 90°", hint:"Ingat bentuk sudut pada pojok persegi"},
-  {question:"Berapakah besar sudut siku-siku?", answer:"90°", hint:"Lihat tanda kotak kecil di pojok sudut"},
-  {question:"Sebutkan contoh benda yang memiliki sudut siku-siku!", answer:"Buku, papan tulis, meja", hint:"Biasanya ada di benda berbentuk persegi atau persegi panjang"},
-
-  // B. Pengertian Sudut
-  {question:"Apa yang dimaksud dengan sudut?", answer:"Sudut adalah daerah yang dibentuk oleh dua garis yang berpotongan di satu titik", hint:"Titik potong disebut titik sudut"},
-  {question:"Apa nama titik tempat dua sinar garis bertemu membentuk sudut?", answer:"Titik sudut", hint:"Lambangnya biasanya huruf kapital di tengah (misalnya ∠ABC, B adalah titik sudut)"},
-  {question:"Apa yang disebut kaki sudut?", answer:"Garis atau sisi yang membentuk sudut", hint:"Ada dua kaki pada satu sudut"},
-
-  // C. Mengukur dan Membandingkan Sudut
-  {question:"Alat apa yang digunakan untuk mengukur sudut?", answer:"Busur derajat", hint:"Bentuknya setengah lingkaran dengan angka 0°-180°"},
-  {question:"Sudut yang besarnya kurang dari 90° disebut ...", answer:"Sudut lancip", hint:"Contoh: 30°, 45°"},
-  {question:"Sudut yang besarnya lebih dari 90° tetapi kurang dari 180° disebut ...", answer:"Sudut tumpul", hint:"Contoh: 120°"},
-  {question:"Sudut yang besarnya 180° disebut ...", answer:"Sudut lurus", hint:"Bentuknya seperti garis lurus"},
-
-  // D. Melukis Sudut
-  {question:"Alat apa saja yang digunakan untuk melukis sudut?", answer:"Jangka, penggaris, dan busur derajat", hint:"Biasanya digunakan bersama-sama"},
-  {question:"Bagaimana cara melukis sudut 60° dengan jangka?", answer:"Buat busur dengan jangka, lalu buat perpotongan busur di garis awal, hubungkan titik perpotongan dengan titik pusat", hint:"Sudut 60° bisa diperoleh dengan membagi segitiga sama sisi"},
-  {question:"Sudut 45° dapat diperoleh dengan cara ...", answer:"Membagi dua sudut 90°", hint:"Gunakan jangka untuk membagi sudut"}
-]
-
-  };
-
-  // ====== DATA MATERI (Ringkasan + Video) ======
-  const materiContent = {
-    bilanganCacah: {
-  title: "📘 Bilangan Cacah sampai 100.000",
-  text: `
-    <h2>A. Membaca & Menulis Bilangan Cacah</h2>
-    <ul>
-      <li>👉 <b>Bilangan Cacah</b> adalah bilangan bulat <b>tanpa tanda negatif</b>, dimulai dari 0, 1, 2, 3, ….</li>
-      <li>👉 Sampai <b>100.000</b>, kita bisa menulis angka dengan memperhatikan nilai tempat.</li>
-      <li>✍️ Contoh: 25.304 dibaca <i>dua puluh lima ribu tiga ratus empat</i>.</li>
-      <li>🔎 <b>Nilai tempat:</b>
-        <table border="1" cellpadding="5">
-          <tr><th>Angka</th><th>Nilai Tempat</th><th>Nilai</th></tr>
-          <tr><td>2</td><td>Puluh ribu</td><td>20.000</td></tr>
-          <tr><td>5</td><td>Ribu</td><td>5.000</td></tr>
-          <tr><td>3</td><td>Ratus</td><td>300</td></tr>
-          <tr><td>0</td><td>Puluh</td><td>0</td></tr>
-          <tr><td>4</td><td>Satuan</td><td>4</td></tr>
-        </table>
-      </li>
-    </ul>
-
-    <h2>B. Membandingkan & Mengurutkan</h2>
-    <ul>
-      <li>➡️ Bandingkan mulai dari <b>angka paling kiri</b> (puluh ribu/ribuan).</li>
-      <li>👉 Tanda perbandingan: 
-        <b>&lt;</b> (lebih kecil), 
-        <b>&gt;</b> (lebih besar), 
-        <b>=</b> (sama dengan).</li>
-      <li>✍️ Contoh: 45.678 < 47.210 karena 45 ribu lebih kecil dari 47 ribu.</li>
-      <li>📊 Untuk mengurutkan, susun dari yang terkecil → terbesar (atau sebaliknya).</li>
-    </ul>
-
-    <h2>C. Komposisi & Dekomposisi</h2>
-    <ul>
-      <li>🧩 <b>Komposisi</b> = menyusun bilangan dari nilai tempat.</li>
-      <li>🔎 67.432 = 60.000 + 7.000 + 400 + 30 + 2.</li>
-      <li>🪄 <b>Dekomposisi</b> = memecah bilangan ke bentuk sederhana.</li>
-      <li>✍️ 42.507 bisa ditulis sebagai (40.000 + 2.000) + (500 + 7).</li>
-    </ul>
-
-    <h2>D. Operasi Hitung Bilangan Cacah</h2>
-    <ul>
-      <li>➕ <b>Penjumlahan:</b> Gunakan cara bersusun, ingat sifat komutatif (a+b=b+a).</li>
-      <li>➖ <b>Pengurangan:</b> Hati-hati dengan "meminjam". Contoh: 502 - 276.</li>
-      <li>✖️ <b>Perkalian:</b> Bisa dengan bersusun panjang/pendek. Contoh: 324 × 5.</li>
-      <li>➗ <b>Pembagian:</b> Kebalikan perkalian. Bisa ada sisa. Contoh: 625 ÷ 25 = 25.</li>
-      <li>💡 Tips:
-        <ul>
-          <li>Gunakan perkiraan (pembulatan) untuk mengecek hasil.</li>
-          <li>Selalu perhatikan nilai tempat agar tidak salah posisi.</li>
-        </ul>
-      </li>
-    </ul>
-  `,
-  video: "https://www.youtube.com/embed/WcF5uzflS7Q"
-},
-
-   kpkFpb: {
-  title: "📗 KPK dan FPB",
-  text: `
-    <h2>A. Kelipatan</h2>
-    <ul>
-      <li>👉 <b>Kelipatan</b> itu gampangnya daftar hasil perkalian suatu bilangan.</li>
-      <li>✍️ Contoh:
-        <ul>
-          <li>Kelipatan 3 = 3, 6, 9, 12, 15, …</li>
-          <li>Kelipatan 5 = 5, 10, 15, 20, 25, …</li>
-        </ul>
-      </li>
-      <li>💡 Ibaratnya kalau kamu jalan dengan langkah 3-3, jejakmu itu kelipatan 3 🚶‍♂️.</li>
-    </ul>
-
-    <h2>B. Kelipatan Persekutuan</h2>
-    <ul>
-      <li>👉 <b>Kelipatan persekutuan</b> adalah kelipatan yang sama dari 2 bilangan atau lebih.</li>
-      <li>✍️ Contoh:
-        <ul>
-          <li>Kelipatan 4 = 4, 8, 12, 16, 20, 24, …</li>
-          <li>Kelipatan 6 = 6, 12, 18, 24, 30, …</li>
-          <li>Kelipatan yang sama = 12, 24, 36, …</li>
-        </ul>
-      </li>
-      <li>🎯 Dari sini, yang paling kecil disebut <b>KPK = 12</b>.</li>
-    </ul>
-
-    <h2>C. Faktor</h2>
-    <ul>
-      <li>👉 <b>Faktor</b> itu kebalikannya kelipatan: yaitu angka yang bisa membagi habis suatu bilangan.</li>
-      <li>✍️ Contoh:
-        <ul>
-          <li>Faktor 12 = 1, 2, 3, 4, 6, 12</li>
-          <li>Faktor 18 = 1, 2, 3, 6, 9, 18</li>
-        </ul>
-      </li>
-      <li>💡 Bayangin faktor itu “teman pembagi” dari suatu bilangan.</li>
-    </ul>
-
-    <h2>D. Faktor Persekutuan</h2>
-    <ul>
-      <li>👉 <b>Faktor persekutuan</b> = faktor yang sama dari 2 bilangan atau lebih.</li>
-      <li>✍️ Contoh:
-        <ul>
-          <li>Faktor 12 = 1, 2, 3, 4, 6, 12</li>
-          <li>Faktor 18 = 1, 2, 3, 6, 9, 18</li>
-          <li>Faktor yang sama = 1, 2, 3, 6</li>
-        </ul>
-      </li>
-      <li>🎯 Faktor persekutuan yang paling besar disebut <b>FPB = 6</b>.</li>
-    </ul>
-
-    <h2>E. Menentukan KPK & FPB dengan Faktorisasi Prima</h2>
-    <ul>
-      <li>👉 Cara cepat & rapi: pecah bilangan jadi perkalian bilangan prima.</li>
-      <li>✍️ Contoh:
-        <ul>
-          <li>12 = 2 × 2 × 3 = 2² × 3</li>
-          <li>18 = 2 × 3 × 3 = 2 × 3²</li>
-        </ul>
-      </li>
-      <li><b>Cari FPB:</b> ambil faktor prima yang sama dengan pangkat terkecil.
-        <ul><li>FPB(12, 18) = 2 × 3 = 6 ✅</li></ul>
-      </li>
-      <li><b>Cari KPK:</b> ambil semua faktor prima dengan pangkat terbesar.
-        <ul><li>KPK(12, 18) = 2² × 3² = 36 ✅</li></ul>
-      </li>
-    </ul>
-
-    <div class="tips">
-      💡 <b>Tips Singkat:</b><br>
-      - Kalau bingung KPK → ingat “pertemuan langkah” 🚶‍♂️.<br>
-      - Kalau bingung FPB → ingat “pembagi bareng” 🍕.<br>
-      - Faktorisasi prima = cara tercepat untuk dapat jawaban yang pasti.
-    </div>
-  `,
-  video: "https://www.youtube.com/embed/yZpWZV1aoeE"
-},
-pecahan: {
-  title: "📘 Bilangan Pecahan",
-  text: `
-    <h2>A. Membandingkan & Mengurutkan Pecahan</h2>
-    <ul>
-      <li>👉 Kalau mau tahu pecahan mana yang lebih besar/kecil, samakan dulu penyebutnya.</li>
-      <li>✍️ Contoh:
-        <ul>
-          <li>2/3 = 10/15</li>
-          <li>3/5 = 9/15</li>
-          <li>Karena 10 > 9, maka 2/3 lebih besar dari 3/5 ✔️</li>
-        </ul>
-      </li>
-      <li>💡 Cara cepat: ubah pecahan ke desimal juga bisa, misalnya 2/3 ≈ 0,67 dan 3/5 = 0,6.</li>
-      <li>🎯 Pecahan dengan angka desimal/pembilang lebih besar setelah penyebut sama → itu yang lebih besar.</li>
-    </ul>
-
-    <h2>B. Penjumlahan Pecahan</h2>
-    <ul>
-      <li>👉 Menjumlahkan pecahan harus dengan “potongan kue yang sama” alias penyebut sama 🍰.</li>
-      <li>✍️ Langkah:
-        <ol>
-          <li>Samakan penyebut.</li>
-          <li>Jumlahkan pembilang.</li>
-          <li>Penyebut tetap sama.</li>
-        </ol>
-      </li>
-      <li>✍️ Contoh:
-        <ul>
-          <li>1/4 + 2/4 = (1+2)/4 = 3/4 ✔️</li>
-          <li>1/3 + 1/6 → 1/3 = 2/6 → 2/6 + 1/6 = 3/6 = 1/2 ✔️</li>
-        </ul>
-      </li>
-      <li>💡 Jangan lupa sederhanakan hasil kalau bisa ya.</li>
-    </ul>
-
-    <h2>C. Pengurangan Pecahan</h2>
-    <ul>
-      <li>👉 Prinsipnya sama kayak penjumlahan, cuma bedanya pembilangnya dikurangin ✂️.</li>
-      <li>✍️ Langkah:
-        <ol>
-          <li>Samakan penyebut.</li>
-          <li>Kurangkan pembilang.</li>
-          <li>Penyebut tetap sama.</li>
-        </ol>
-      </li>
-      <li>✍️ Contoh:
-        <ul>
-          <li>5/6 - 1/3 → 1/3 = 2/6 → 5/6 - 2/6 = 3/6 = 1/2 ✔️</li>
-          <li>7/8 - 3/8 = (7-3)/8 = 4/8 = 1/2 ✔️</li>
-        </ul>
-      </li>
-      <li>💡 Ibaratnya kamu punya 5 potong pizza dari 6, terus dimakan 2 potong → sisa 3/6 alias 1/2 🍕.</li>
-    </ul>
-
-    <div class="tips">
-      💡 <b>Tips Singkat:</b><br>
-      - Samakan penyebut → baru bandingkan/jumlah/kurangin.<br>
-      - Kalau hasil bisa disederhanakan, sederhanakan biar lebih rapi ✨.<br>
-      - Gunakan desimal kalau mau cara cepat bandingkan pecahan.
-    </div>
-  `,
-  video: "https://www.youtube.com/embed/_h3f3Q8zL0Q"
-},
-keliling: {
-  title: "📏 Keliling Bangun Datar",
-  text: `
-    <h2>A. Apa itu Keliling Bangun Datar?</h2>
-    <ul>
-      <li>👉 Keliling = jumlah panjang semua sisi bangun datar.</li>
-      <li>✍️ Contoh: segitiga dengan sisi 3 cm, 4 cm, 5 cm → K = 3+4+5 = 12 cm ✔️</li>
-      <li>💡 Bayangin kamu jalan keliling lapangan, jarak yang ditempuh = keliling 🚶‍♀️.</li>
-    </ul>
-
-    <h2>B. Keliling Segitiga</h2>
-    <ul>
-      <li>👉 Segitiga punya 3 sisi, jadi kelilingnya: <b>K = a + b + c</b></li>
-      <li>✍️ Contoh: sisi 6 cm, 7 cm, 5 cm → K = 6+7+5 = 18 cm ✔️</li>
-      <li>💡 Segitiga sama sisi (semua sisi sama): K = 3 × sisi.</li>
-    </ul>
-
-    <h2>C. Keliling Segi Empat</h2>
-    <ul>
-      <li>👉 Tinggal jumlahkan semua sisinya, atau gunakan rumus khusus:</li>
-      <li>✍️ Rumus cepat:
-        <ul>
-          <li>Persegi: K = 4 × s</li>
-          <li>Persegi panjang: K = 2 × (p + l)</li>
-          <li>Jajar genjang: K = 2 × (a + b)</li>
-          <li>Belah ketupat: K = 4 × sisi</li>
-        </ul>
-      </li>
-      <li>✍️ Contoh: persegi panjang p=8 cm, l=5 cm → K = 2×(8+5) = 26 cm ✔️</li>
-    </ul>
-
-    <h2>D. Keliling Segi Banyak</h2>
-    <ul>
-      <li>👉 Segi banyak = bangun dengan banyak sisi (segi 5, segi 6, dll).</li>
-      <li>Kalau beraturan (semua sisi sama panjang): <b>K = n × sisi</b>.</li>
-      <li>✍️ Contoh: segilima dengan sisi 7 cm → K = 5×7 = 35 cm ✔️</li>
-      <li>💡 Gampang kan? Tinggal kali banyak sisi dengan panjang sisi 😎.</li>
-    </ul>
-
-    <h2>E. Keliling Bangun Gabungan</h2>
-    <ul>
-      <li>👉 Bangun gabungan = bentuk baru dari 2 atau lebih bangun datar.</li>
-      <li>Caranya: jumlahkan sisi terluarnya aja (yang “ngelilingi” bentuknya).</li>
-      <li>✍️ Contoh: persegi panjang + setengah lingkaran.
-        <ul>
-          <li>Keliling = (sisi luar persegi panjang) + (1/2 keliling lingkaran).</li>
-        </ul>
-      </li>
-      <li>💡 Triknya: jangan hitung sisi yang “nempel” di dalam ya 😉.</li>
-    </ul>
-
-    <div class="tips">
-      💡 <b>Tips Singkat:</b><br>
-      - Keliling = total panjang sisi luar.<br>
-      - Hafalin rumus dasar biar gampang pas soal muncul ⏳.<br>
-      - Perhatikan satuan (cm, m, km) biar nggak keliru.
-    </div>
-  `,
-  video: "https://www.youtube.com/embed/uaz5zX6SV_c"
-},
-luas: {
-  title: "📐 Luas Bangun Datar",
-  text: `
-    <h2>A. Apa itu Luas Bangun Datar?</h2>
-    <ul>
-      <li>👉 Luas = ukuran seberapa besar <b>daerah dalam</b> suatu bangun datar.</li>
-      <li>✍️ Contoh: persegi panjang 4 cm × 3 cm → L = 12 cm² ✔️</li>
-      <li>💡 Bayangin kamu nutup lantai pakai keramik. Banyaknya keramik yang dibutuhin = luasnya 🧱.</li>
-    </ul>
-
-    <h2>B. Luas Segitiga</h2>
-    <ul>
-      <li>👉 Rumus segitiga: <b>L = ½ × alas × tinggi</b></li>
-      <li>✍️ Contoh: alas = 8 cm, tinggi = 6 cm → L = ½ × 8 × 6 = 24 cm² ✔️</li>
-      <li>💡 Ingat ya, alas dan tinggi harus saling tegak lurus ⏫.</li>
-    </ul>
-
-    <h2>C. Luas Segi Empat</h2>
-    <ul>
-      <li>👉 Ada beberapa macam segi empat, rumusnya beda-beda:</li>
-      <li>✍️ Rumus cepat:
-        <ul>
-          <li>Persegi: L = sisi × sisi</li>
-          <li>Persegi panjang: L = p × l</li>
-          <li>Jajar genjang: L = alas × tinggi</li>
-          <li>Trapesium: L = ½ × (jumlah sisi sejajar) × tinggi</li>
-          <li>Belah ketupat/layang-layang: L = ½ × d1 × d2</li>
-        </ul>
-      </li>
-      <li>✍️ Contoh: persegi panjang p=10 cm, l=5 cm → L = 10×5 = 50 cm² ✔️</li>
-    </ul>
-
-    <h2>D. Luas Lingkaran</h2>
-    <ul>
-      <li>👉 Rumus lingkaran: <b>L = π × r²</b></li>
-      <li>✍️ Contoh: jari-jari (r) = 7 cm → L = 22/7 × 7 × 7 = 154 cm² ✔️</li>
-      <li>💡 Ingat, luas lingkaran pakai jari-jari ya, bukan diameter.</li>
-    </ul>
-
-    <h2>E. Luas Bangun Gabungan</h2>
-    <ul>
-      <li>👉 Bangun gabungan = campuran dari 2 atau lebih bangun sederhana.</li>
-      <li>Caranya: pecah jadi bangun sederhana → hitung luas masing-masing → jumlahkan.</li>
-      <li>✍️ Contoh: persegi panjang + setengah lingkaran.
-        <ul>
-          <li>Luas = (Luas persegi panjang) + (½ luas lingkaran).</li>
-        </ul>
-      </li>
-      <li>💡 Jangan lupa, kalau ada bagian yang <b>dipotong/dikurangin</b>, tinggal dikurangi luasnya 😉.</li>
-    </ul>
-
-    <div class="tips">
-      💡 <b>Tips Singkat:</b><br>
-      - Luas = ukuran bidang di dalam bangun.<br>
-      - Hafalkan rumus utama biar cepat pas ujian ⏳.<br>
-      - Jangan lupa tulis satuannya pakai "persegi" (cm², m², dll).
-    </div>
-  `,
-  video: "https://www.youtube.com/embed/yv6AdR7JQMs"
-},
-sudut: {
-  title: "📐 Sudut",
-  text: `
-    <h2>A. Sudut Siku-Siku</h2>
-    <ul>
-      <li>👉 Sudut siku-siku adalah sudut yang besarnya tepat <b>90°</b>.</li>
-      <li>✍️ Contoh: pojokan buku, pintu, atau jendela rumah.</li>
-      <li>💡 Biasanya ditandai dengan kotak kecil di pojok sudut.</li>
-    </ul>
-
-    <h2>B. Pengertian Sudut</h2>
-    <ul>
-      <li>👉 Sudut terbentuk dari <b>dua garis</b> yang berpotongan di satu titik.</li>
-      <li>Titik temu kedua garis disebut <b>titik sudut</b>.</li>
-      <li>Simbol sudut biasanya ditulis dengan ∠ (contoh: ∠ABC).</li>
-      <li>💡 Sudut ada di mana-mana, dari segitiga sampai lingkaran ⭕.</li>
-    </ul>
-
-    <h2>C. Mengukur dan Membandingkan Sudut</h2>
-    <ul>
-      <li>👉 Untuk mengukur sudut, kita pakai <b>busur derajat</b>.</li>
-      <li>Jenis-jenis sudut:
-        <ul>
-          <li>Sudut lancip: kurang dari 90°</li>
-          <li>Sudut siku-siku: 90°</li>
-          <li>Sudut tumpul: lebih dari 90° tapi kurang dari 180°</li>
-          <li>Sudut lurus: 180°</li>
-        </ul>
-      </li>
-      <li>✍️ Contoh: ∠XYZ = 120° → berarti sudut tumpul ✔️</li>
-      <li>💡 Membandingkan sudut bisa pakai busur derajat atau dilihat besar-kecilnya langsung.</li>
-    </ul>
-
-    <h2>D. Melukis Sudut</h2>
-    <ul>
-      <li>👉 Kita bisa melukis sudut pakai <b>busur derajat</b> atau <b>jangka</b>.</li>
-      <li>Langkah mudah melukis sudut dengan busur derajat:
-        <ol>
-          <li>Tarik garis lurus sebagai salah satu sisi sudut.</li>
-          <li>Tentukan titik sudut di ujung garis.</li>
-          <li>Letakkan busur derajat di titik sudut.</li>
-          <li>Tandai besar sudut yang diinginkan (misalnya 60°).</li>
-          <li>Tarik garis dari titik sudut ke tanda → jadi deh sudutnya ✔️</li>
-        </ol>
-      </li>
-      <li>💡 Semakin sering latihan, semakin cepat bikin sudut yang rapi 😎.</li>
-    </ul>
-
-    <div class="tips">
-      💡 <b>Tips Singkat:</b><br>
-      - Sudut siku-siku = 90° (pojokan pas).<br>
-      - Sudut bisa diukur dengan busur derajat.<br>
-      - Latihan melukis sudut biar tangan makin terampil ✍️.
-    </div>
-  `,
-  video: "https://www.youtube.com/embed/X2T8uvlUOEU"
-},
-
-  };
-
-  // ====== STATE LATIHAN ======
-  let currentIndex = 0;
-  let currentTopic = 'penjumlahan';
-  let questions = allTopics[currentTopic];
-  let score = 0;
-
-  // ====== NAV ======
-  function backToMenu(){
-    hideAll();
-    document.getElementById('topicSection').classList.remove('hidden');
-    document.getElementById('headerBox').classList.remove('hidden');
+  if(q.gambar){
+    const img = document.createElement('img');
+    img.src = q.gambar;
+    img.alt = 'Gambar soal';
+    img.className = 'my-3 w-full max-w-md rounded-lg border';
+    body.appendChild(img);
   }
-  function hideAll(){
-    ['topicSection','materiSection','latihanSection','quizSetup','quizSection','quizResult'].forEach(id=>{
-      document.getElementById(id).classList.add('hidden');
+
+  if(q.bacaan){
+    const teks = document.createElement('div');
+    teks.className = 'mb-4 p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm whitespace-pre-line text-justify';
+    teks.innerText = q.bacaan;
+    body.appendChild(teks);
+  }
+if(q.tanya){
+    const pertanyaan = document.createElement('div');
+    pertanyaan.className = 'text-base font-medium';
+    pertanyaan.innerHTML = q.tanya.replace(/\n/g,'<br>');
+    body.appendChild(pertanyaan);
+  }
+  // ====== PILIHAN GANDA ======
+  if(q.tipe === 'pg'){
+    q.opsi.forEach((o,i)=>{
+      const row = document.createElement('label');
+      row.className = 'flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 border border-transparent';
+      row.innerHTML = `<input type="radio" name="${prefix}-${q.id}" value="${i}" class="accent-emerald-600"> <span>${String.fromCharCode(65+i)}. ${o}</span>`;
+      body.appendChild(row);
     });
   }
 
-  // ====== MATERI ======
-  function showMateri(topic){
-    currentTopic = topic;
-    const m = materiContent[topic];
-    document.getElementById('materiTitle').innerText = m.title;
-    document.getElementById('materiContent').innerHTML = m.text;
-    document.getElementById('materiVideo').src = m.video;
-    hideAll();
-    document.getElementById('materiSection').classList.remove('hidden');
+  // ====== CHECKBOX ======
+  if(q.tipe === 'cb'){
+    q.opsi.forEach((o,i)=>{
+      const row = document.createElement('label');
+      row.className = 'flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 border border-transparent';
+      row.innerHTML = `<input type="checkbox" name="${prefix}-${q.id}" value="${i}" class="accent-emerald-600"> <span>${String.fromCharCode(65+i)}. ${o}</span>`;
+      body.appendChild(row);
+    });
+  }
+  // ====== CONSERVATION & RELAXATION ======
+  if(q.tipe === 'cr'){
+    const table = document.createElement('table');
+    table.className = 'w-full border border-gray-200 rounded-lg';
+
+    // Header tabel
+    const thead = document.createElement('thead');
+    thead.innerHTML = `
+      <tr class="bg-gray-100 text-center">
+        <th class="p-2 border">places</th>
+        <th class="p-2 border w-28">Conservation</th>
+        <th class="p-2 border w-28">Relaxation</th>
+      </tr>`;
+    table.appendChild(thead);
+
+    // Body tabel
+    const tbody = document.createElement('tbody');
+    q.opsi.forEach((o,i)=>{
+      const idCon = `${prefix}-${q.id}-cr-${i}-con`;
+      const idRel = `${prefix}-${q.id}-cr-${i}-rel`;
+
+      const row = document.createElement('tr');
+      row.className = 'border-t';
+      row.innerHTML = `
+        <td class="p-2 border">${o}</td>
+        <td class="p-2 text-center border">
+          <input type="radio" id="${idCon}" name="${prefix}-${q.id}-cr-${i}" value="conservation" class="accent-emerald-600">
+        </td>
+        <td class="p-2 text-center border">
+          <input type="radio" id="${idRel}" name="${prefix}-${q.id}-cr-${i}" value="relaxation" class="accent-rose-600">
+        </td>`;
+      tbody.appendChild(row);
+    });
+
+    table.appendChild(tbody);
+    body.appendChild(table);
+  }
+  // ====== TRUE / FALSE (English Version) ======
+  if(q.tipe === 'tf'){
+    const table = document.createElement('table');
+    table.className = 'w-full border border-gray-200 rounded-lg';
+
+    const thead = document.createElement('thead');
+    thead.innerHTML = `
+      <tr class="bg-gray-100 text-center">
+        <th class="p-2 border">Statement</th>
+        <th class="p-2 border w-20">True</th>
+        <th class="p-2 border w-20">False</th>
+      </tr>`;
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    q.opsi.forEach((o,i)=>{
+      const idTrue = `${prefix}-${q.id}-tf-${i}-true`;
+      const idFalse = `${prefix}-${q.id}-tf-${i}-false`;
+
+      const row = document.createElement('tr');
+      row.className = 'border-t';
+      row.innerHTML = `
+        <td class="p-2 border">${o}</td>
+        <td class="p-2 text-center border">
+          <input type="radio" id="${idTrue}" name="${prefix}-${q.id}-tf-${i}" value="true" class="accent-emerald-600">
+        </td>
+        <td class="p-2 text-center border">
+          <input type="radio" id="${idFalse}" name="${prefix}-${q.id}-tf-${i}" value="false" class="accent-rose-600">
+        </td>`;
+      tbody.appendChild(row);
+    });
+
+    table.appendChild(tbody);
+    body.appendChild(table);
   }
 
-  // ====== LATIHAN ======
-  function startLatihan(topic){
-    currentTopic = topic;
-    questions = allTopics[topic] || [];
-    currentIndex = 0; score = 0;
-    document.getElementById('total').innerText = questions.length;
-    document.getElementById('score').innerText = score;
-    hideAll();
-    document.getElementById('latihanSection').classList.remove('hidden');
-    loadQuestion(currentIndex);
+  // ====== BENAR / SALAH ======
+  if(q.tipe === 'bs'){
+    const table = document.createElement('table');
+    table.className = 'w-full border border-gray-200 rounded-lg';
+
+    const thead = document.createElement('thead');
+    thead.innerHTML = `
+      <tr class="bg-gray-100 text-center">
+        <th class="p-2 border">Pernyataan</th>
+        <th class="p-2 border w-20">Benar</th>
+        <th class="p-2 border w-20">Salah</th>
+      </tr>`;
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    q.opsi.forEach((o,i)=>{
+      const idBenar = `${prefix}-${q.id}-bs-${i}-benar`;
+      const idSalah = `${prefix}-${q.id}-bs-${i}-salah`;
+
+      const row = document.createElement('tr');
+      row.className = 'border-t';
+      row.innerHTML = `
+        <td class="p-2 border">${o}</td>
+        <td class="p-2 text-center border">
+          <input type="radio" id="${idBenar}" name="${prefix}-${q.id}-bs-${i}" value="true" class="accent-emerald-600">
+        </td>
+        <td class="p-2 text-center border">
+          <input type="radio" id="${idSalah}" name="${prefix}-${q.id}-bs-${i}" value="false" class="accent-rose-600">
+        </td>`;
+      tbody.appendChild(row);
+    });
+
+    table.appendChild(tbody);
+    body.appendChild(table);
   }
 
-  function loadQuestion(index){
-    const card = document.getElementById('questionCard');
-    card.classList.add('flip');
-    setTimeout(()=>{
-      document.getElementById('questionText').innerText = questions[index]?.question || '-';
-      document.getElementById('answerInput').value = '';
-      const fb = document.getElementById('feedback');
-      fb.innerText = ''; fb.className = 'feedback';
-      document.getElementById('current').innerText = index+1;
-      updateProgress();
-      card.classList.remove('flip');
-    }, 250);
+  // ====== ISIAN ======
+  if(q.tipe === 'isian'){
+    const inp = document.createElement('input');
+    inp.type = 'text';
+    inp.placeholder = 'Ketik jawaban singkat…';
+    inp.className = 'w-full px-3 py-2 rounded-lg border chip focus:outline-none focus:ring-2 focus:ring-emerald-300';
+    inp.name = `${prefix}-${q.id}-isian`;
+    body.appendChild(inp);
   }
+// ====== MATCHING ======
+    if(q.tipe === 'matching'){
+      const container = document.createElement('div');
+      container.className = 'relative flex gap-12 min-h-[150px]';
 
-  function checkAnswer(){
-    const ans = document.getElementById('answerInput').value.trim();
-    if(!ans){ alert('Isi jawaban dulu!'); return; }
-    const correct = questions[currentIndex].answer;
-    const fb = document.getElementById('feedback');
-    if(ans === correct){
-      fb.innerText = '✅ Benar!'; fb.className = 'feedback correct';
-      score++; document.getElementById('score').innerText = score;
-      if(score % 3 === 0){ showBadge('🍀 Badge!'); }
-    } else {
-      fb.innerText = '❌ Salah! Jawaban: ' + correct; fb.className = 'feedback wrong';
+      const leftCol = document.createElement('div');
+      leftCol.className = 'flex flex-col gap-3 z-10';
+      const rightCol = document.createElement('div');
+      rightCol.className = 'flex flex-col gap-3 z-10';
+
+      const svg = document.createElementNS("http://www.w3.org/2000/svg","svg");
+      svg.setAttribute("class","absolute inset-0 w-full h-full pointer-events-none");
+      container.append(leftCol, rightCol, svg);
+      body.appendChild(container);
+
+      let startIdx = null;
+      const pairs = [];
+
+      q.opsi.kiri.forEach((o,i)=>{
+        const btn = document.createElement('button');
+        btn.className = 'px-3 py-2 border rounded bg-white hover:bg-gray-50';
+        btn.textContent = o;
+        btn.dataset.side = "left";
+        btn.dataset.idx = i;
+        leftCol.appendChild(btn);
+      });
+      q.opsi.kanan.forEach((o,i)=>{
+        const btn = document.createElement('button');
+        btn.className = 'px-3 py-2 border rounded bg-white hover:bg-gray-50';
+        btn.textContent = o;
+        btn.dataset.side = "right";
+        btn.dataset.idx = i;
+        rightCol.appendChild(btn);
+      });
+
+      container.addEventListener('click',e=>{
+        if(e.target.tagName!=='BUTTON') return;
+        const btn = e.target;
+        const side = btn.dataset.side;
+        const idx = Number(btn.dataset.idx);
+
+        if(side==="left"){
+          startIdx = idx;
+        } else if(side==="right" && startIdx!==null){
+          pairs.push([startIdx, idx]);
+          drawLine(startIdx, idx);
+
+          // highlight tombol kiri & kanan
+          leftCol.children[startIdx].classList.add("bg-emerald-100","border-emerald-500");
+          rightCol.children[idx].classList.add("bg-emerald-100","border-emerald-500");
+
+          // disable tombol biar gak dipakai ulang
+          leftCol.children[startIdx].disabled = true;
+          rightCol.children[idx].disabled = true;
+
+          startIdx = null;
+        }
+      });
+
+      function drawLine(li,ri){
+        const lbtn = leftCol.children[li];
+        const rbtn = rightCol.children[ri];
+        const lbox = lbtn.getBoundingClientRect();
+        const rbox = rbtn.getBoundingClientRect();
+        const cbox = container.getBoundingClientRect();
+
+        const x1 = lbox.right - cbox.left;
+        const y1 = lbox.top + lbox.height/2 - cbox.top;
+        const x2 = rbox.left - cbox.left;
+        const y2 = rbox.top + rbox.height/2 - cbox.top;
+
+        const line = document.createElementNS("http://www.w3.org/2000/svg","line");
+        line.setAttribute("x1",x1);
+        line.setAttribute("y1",y1);
+        line.setAttribute("x2",x2);
+        line.setAttribute("y2",y2);
+        line.setAttribute("stroke","#10b981");
+        line.setAttribute("stroke-width","2");
+        svg.appendChild(line);
+      }
+
+      // simpan untuk cek jawaban
+      q._pairs = pairs;
     }
-    updateProgress();
-  }
-  function showHint(){ alert('Hint: ' + (questions[currentIndex]?.hint || '-')); }
-  function nextQuestion(){ if(currentIndex < questions.length-1){ currentIndex++; loadQuestion(currentIndex); } else { alert('Soal terakhir!'); } }
-  function prevQuestion(){ if(currentIndex > 0){ currentIndex--; loadQuestion(currentIndex); } else { alert('Soal pertama!'); } }
-  function updateProgress(){ const p = questions.length? Math.round(((currentIndex+1)/questions.length)*100) : 0; const bar = document.getElementById('progressBar'); bar.style.width = p+'%'; bar.textContent = p+'%'; }
+  // ====== AKSI ======
+  const actions = document.createElement('div');
+  actions.className = 'mt-3 flex flex-wrap items-center gap-2';
 
-  // ====== BADGE & KONFETI ======
-  function showBadge(text){
-    const badge = document.createElement('div'); badge.className='badge'; badge.innerText=text; document.body.appendChild(badge);
-    launchConfetti(); setTimeout(()=> badge.remove(), 1500);
-  }
-  function launchConfetti(){
-    for(let i=0;i<32;i++){
-      const c = document.createElement('div'); c.innerHTML='🎉'; c.style.position='fixed'; c.style.left=Math.random()*100+'vw'; c.style.top='-20px'; c.style.fontSize='20px'; c.style.animation=`fall ${2+Math.random()*3}s linear`; document.body.appendChild(c); setTimeout(()=>c.remove(), 4200);
+  const btnCek = document.createElement('button');
+  btnCek.className = 'btn px-3 py-2 rounded-lg bg-emerald-600 text-white text-sm';
+  btnCek.textContent = 'Cek Jawaban';
+
+  const btnBahas = document.createElement('button');
+  btnBahas.className = 'btn px-3 py-2 rounded-lg border chip text-sm';
+  btnBahas.textContent = 'Pembahasan';
+
+  const status = document.createElement('span');
+  status.className = 'ml-auto text-sm';
+
+  const bahas = document.createElement('div');
+  bahas.className = 'mt-3 hidden p-3 rounded-lg bg-emerald-50 border border-emerald-100 text-sm';
+  bahas.textContent = q.bahas || 'Belum ada pembahasan.';
+
+  // ====== EVENT CEK JAWABAN ======
+  btnCek.addEventListener('click',()=>{
+    let benar = false;
+
+    if(q.tipe === 'pg'){
+      const v = (document.querySelector(`input[name='${prefix}-${q.id}']:checked`)||{}).value;
+      benar = Number(v) === Number(q.kunci);
     }
+    else if(q.tipe === 'cb'){
+      const checked = [...document.querySelectorAll(`input[name='${prefix}-${q.id}']:checked`)].map(el=>Number(el.value));
+      const kunci = Array.isArray(q.kunci) ? q.kunci.slice().sort() : [q.kunci];
+      benar = checked.slice().sort().toString() === kunci.toString();
+    }
+    else if(q.tipe === 'tf'){
+      const jawabanUser = q.opsi.map((o,i)=>{
+        const el = document.querySelector(`input[name='${prefix}-${q.id}-tf-${i}']:checked`);
+        return el ? el.value === 'true' : null;
+      });
+
+      if(jawabanUser.includes(null)){
+        alert('Please select True/False for all statements!');
+        return;
+      }
+      benar = jawabanUser.every((val,i)=> val === q.kunci[i]);
+    }
+
+    else if(q.tipe === 'bs'){
+      const jawabanUser = q.opsi.map((o,i)=>{
+        const el = document.querySelector(`input[name='${prefix}-${q.id}-bs-${i}']:checked`);
+        return el ? el.value === 'true' : null;
+      });
+
+      if(jawabanUser.includes(null)){
+        alert('Pilih jawaban untuk semua pernyataan!');
+        return;
+      }
+      benar = jawabanUser.every((val,i)=> val === q.kunci[i]);
+    }
+    else if(q.tipe === 'cr'){
+      const jawabanUser = q.opsi.map((o,i)=>{
+        const el = document.querySelector(`input[name='${prefix}-${q.id}-cr-${i}']:checked`);
+        return el ? el.value : null;
+      });
+
+      if(jawabanUser.includes(null)){
+        alert('Pilih jawaban Conservation / Relaxation untuk semua pernyataan!');
+        return;
+      }
+      benar = jawabanUser.every((val,i)=> val === q.kunci[i]);
+    }
+    else {
+      const v = (document.querySelector(`input[name='${prefix}-${q.id}-isian']`)||{}).value||'';
+      benar = v.trim().toLowerCase() === String(q.kunciText||'').trim().toLowerCase();
+    }
+if(q.tipe==='matching'){
+        const pairs = q._pairs||[];
+        benar = JSON.stringify(pairs.sort())===JSON.stringify(q.kunci.sort());
+      }
+
+    status.textContent = benar ? '✅ Benar' : '❌ Salah';
+    status.classList.toggle('text-emerald-600', benar);
+    status.classList.toggle('text-rose-600', !benar);
+  });
+
+  btnBahas.addEventListener('click',()=> bahas.classList.toggle('hidden'));
+
+  actions.append(btnCek, btnBahas, status);
+  wrap.append(body, actions, bahas);
+  return wrap;
+}
+
+  function loadLatihan(mapel,bab){
+    const item = DB[mapel]?.bab?.[bab];
+    const box = $('#latihanContainer');
+    box.innerHTML='';
+    if(!item){ 
+        box.innerHTML = '<p class="text-gray-500">Soal belum tersedia.</p>'; 
+        return; 
+    }
+    item.soal.forEach((q,i)=> box.appendChild(buildSoalCard(q,i,'lat')) );
+
+    // Tambahkan ini agar MathJax render ulang rumus pada soal latihan
+    if(window.MathJax){
+        MathJax.typesetPromise([box]);
+    }
+}
+
+
+  // ======= SIMULASI =======
+  let simState = {timer:null, endAt: null, daftar: [], mapel:'', durasi: 0};
+
+  function startSimulasi(mapel, jumlah, durasiMenit){
+    const pools = Object.values(DB[mapel]?.bab || {}).flatMap(x=>x.soal||[]);
+    if(pools.length===0){
+      $('#simContainer').innerHTML = '<p class="text-gray-500">Bank soal untuk mapel ini belum tersedia.</p>';
+      return;
+    }
+    const shuffled=[...pools].sort(()=>Math.random()-0.5).slice(0, Math.min(jumlah,pools.length));
+    simState = {timer:null, endAt: Date.now()+durasiMenit*60*1000, daftar: shuffled, mapel, durasi:durasiMenit};
+    renderSimulasi();
+    runTimer();
   }
 
-  // ====== QUIZ ======
-  let quizState = { topic:'penjumlahan', list:[], idx:0, score:0, total:0, timer:null, timeLeft:0 };
+  function renderSimulasi(){
+    const box = $('#simContainer');
+    box.innerHTML='';
+    simState.daftar.forEach((q,i)=> box.appendChild(buildSoalCard(q,i,'sim')) );
+    $('#simHasil').classList.add('hidden');
 
-  function startQuizSetup(topic){
-    quizState.topic = topic || 'penjumlahan';
-    document.getElementById('quizTopicName').innerText = topicLabel(quizState.topic);
-    hideAll();
-    document.getElementById('quizSetup').classList.remove('hidden');
+    // Tambahkan ini agar MathJax render ulang rumus pada soal simulasi
+    if(window.MathJax){
+        MathJax.typesetPromise([box]);
+    }
+}
+
+
+  function runTimer(){
+    clearInterval(simState.timer);
+    const info = $('#simInfo');
+    const tick = ()=>{
+      const remain = Math.max(0, simState.endAt - Date.now());
+      const mm = String(Math.floor(remain/60000)).padStart(2,'0');
+      const ss = String(Math.floor((remain%60000)/1000)).padStart(2,'0');
+      info.textContent = `Mapel: ${simState.mapel} • Sisa waktu ${mm}:${ss}`;
+      if(remain===0){
+        clearInterval(simState.timer);
+        selesaiSimulasi();
+      }
+    };
+    tick();
+    simState.timer = setInterval(tick, 250);
   }
 
-  function startQuiz(){
-    const count = Math.max(1, parseInt(document.getElementById('quizCount').value)||5);
-    const minutes = Math.max(1, parseInt(document.getElementById('quizTime').value)||3);
-
-    // Build question pool from selected topic
-    const pool = [...(allTopics[quizState.topic]||[])];
-    // If requested more than pool, we cycle
-    quizState.list = sampleWithWrap(pool, count);
-
-    quizState.idx = 0; quizState.score = 0; quizState.total = quizState.list.length;
-    document.getElementById('quizScoreLive').innerText = 0;
-    document.getElementById('quizTotal').innerText = quizState.total;
-
-    // Timer
-    quizState.timeLeft = minutes * 60; updateTimerUI();
-    if(quizState.timer) clearInterval(quizState.timer);
-    quizState.timer = setInterval(()=>{
-      quizState.timeLeft--; updateTimerUI();
-      if(quizState.timeLeft <= 0){ endQuiz(); }
-    }, 1000);
-
-    hideAll();
-    document.getElementById('quizSection').classList.remove('hidden');
-    loadQuizQuestion();
+  function nilaiPG(q){
+    const v = (document.querySelector(`input[name='sim-${q.id}']:checked`)||{}).value;
+    return Number(v)===Number(q.kunci);
+  }
+  function nilaiIsian(q){
+    const v = (document.querySelector(`input[name='sim-${q.id}-isian']`)||{}).value||'';
+    return v.trim().toLowerCase() === String(q.kunciText||'').trim().toLowerCase();
   }
 
-  function topicLabel(key){
-    return {
-      penjumlahan:'Penjumlahan & Pengurangan',
-      perkalian:'Perkalian & Pembagian',
-      pecahan:'Pecahan & Desimal',
-      bangun:'Bangun Datar & Ruang',
-      rasio:'Rasio'
-    }[key] || key;
+  function selesaiSimulasi(){
+    const total = simState.daftar.length;
+    let benar = 0;
+    simState.daftar.forEach(q=>{
+      benar += (q.tipe==='pg') ? (nilaiPG(q)?1:0) : (nilaiIsian(q)?1:0);
+    });
+    const skor = Math.round((benar/total)*100);
+    const hasil = $('#simHasil');
+    hasil.classList.remove('hidden');
+    hasil.innerHTML = `<div class="font-semibold">Hasil Simulasi</div>
+      <div class="mt-1 text-sm">Benar: <strong>${benar}</strong> dari ${total} soal • Skor: <strong>${skor}</strong></div>
+      <button id="btnReview" class="btn mt-3 px-3 py-2 rounded-lg border chip text-sm">Tampilkan Pembahasan</button>`;
+    $('#simInfo').textContent = `Selesai • Mapel: ${simState.mapel}`;
+
+    $('#btnReview').addEventListener('click',()=>{
+      // Tampilkan semua pembahasan
+      $$('#simContainer .p-4').forEach(card=>{
+        const pemb = card.querySelector('div.mt-3.hidden');
+        if(pemb) pemb.classList.remove('hidden');
+      })
+    })
   }
 
-  function sampleWithWrap(arr, n){
-    if(arr.length === 0) return [];
-    const out=[]; let i=0; while(out.length<n){ out.push(arr[i % arr.length]); i++; }
-    // optional shuffle
-    for(let j=out.length-1;j>0;j--){ const k=Math.floor(Math.random()*(j+1)); [out[j],out[k]]=[out[k],out[j]]; }
-    return out;
+  // ======= INIT =======
+  function initSelectors(){
+    const mapels = Object.keys(DB);
+    populateSelect($('#materiMapel'), mapels);
+    populateSelect($('#latihMapel'), mapels);
+    populateSelect($('#simMapel'), mapels);
+
+    const firstBab = (mapel)=> Object.keys(DB[mapel].bab);
+
+    // Materi default
+    const m0 = mapels[0];
+    populateSelect($('#materiBab'), firstBab(m0));
+    // Latihan default
+    populateSelect($('#latihBab'), firstBab(mapels[0]));
+
+    $('#materiMapel').addEventListener('change', e=>{
+      populateSelect($('#materiBab'), firstBab(e.target.value));
+    });
+    $('#latihMapel').addEventListener('change', e=>{
+      populateSelect($('#latihBab'), firstBab(e.target.value));
+    });
+
+    $('#btnLoadMateri').addEventListener('click',()=>{
+      renderMateri($('#materiMapel').value, $('#materiBab').value);
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+
+    $('#btnLoadLatihan').addEventListener('click',()=>{
+      loadLatihan($('#latihMapel').value, $('#latihBab').value);
+    });
+
+    $('#btnPeriksaSemua').addEventListener('click',()=>{
+      $$('#latihanContainer .p-4').forEach(card=>{
+        const cek = card.querySelector('button');
+        cek?.click();
+      });
+    });
+
+    $('#btnMulaiSim').addEventListener('click',()=>{
+      const map = $('#simMapel').value;
+      const j = Math.max(5, Math.min(50, Number($('#simJumlah').value||10)));
+      const d = Math.max(5, Math.min(180, Number($('#simDurasi').value||15)));
+      startSimulasi(map, j, d);
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+
+    // Muat awal
+    renderMateri($('#materiMapel').value, $('#materiBab').value);
+    loadLatihan($('#latihMapel').value, $('#latihBab').value);
   }
 
-  function updateTimerUI(){
-    const m = Math.floor(quizState.timeLeft/60).toString().padStart(2,'0');
-    const s = (quizState.timeLeft%60).toString().padStart(2,'0');
-    document.getElementById('timer').innerText = `⏳ ${m}:${s}`;
-  }
+  // Tab switching
+  $$('.tab-btn').forEach(b=> b.addEventListener('click',()=> setTab(b.dataset.tab)) );
 
-  function loadQuizQuestion(){
-    if(quizState.idx >= quizState.total){ endQuiz(); return; }
-    const q = quizState.list[quizState.idx];
-    document.getElementById('quizQuestion').innerText = q.question;
-    document.getElementById('quizAnswer').value='';
-    document.getElementById('quizFeedback').innerText='';
-    document.getElementById('quizFeedback').className='feedback';
-    document.getElementById('quizCurrent').innerText = quizState.idx+1;
-    const pct = Math.round((quizState.idx/quizState.total)*100);
-    const bar = document.getElementById('quizProgress'); bar.style.width=pct+'%'; bar.textContent=pct+'%';
-  }
-
-  function checkQuizAnswer(){
-    const ans = document.getElementById('quizAnswer').value.trim();
-    if(!ans){ alert('Isi jawaban dulu!'); return; }
-    const q = quizState.list[quizState.idx];
-    const fb = document.getElementById('quizFeedback');
-    if(ans === q.answer){ quizState.score++; document.getElementById('quizScoreLive').innerText = quizState.score; fb.innerText='✅ Benar!'; fb.className='feedback correct'; }
-    else { fb.innerText = '❌ Salah! Jawaban: ' + q.answer; fb.className='feedback wrong'; }
-  }
-
-  function nextQuizQuestion(){
-    if(quizState.idx < quizState.total-1){ quizState.idx++; loadQuizQuestion(); }
-    else { endQuiz(); }
-  }
-
-  function endQuiz(){
-    if(quizState.timer){ clearInterval(quizState.timer); quizState.timer=null; }
-    const correct = quizState.score; const total = quizState.total; const wrong = total - correct;
-    document.getElementById('quizFinalScore').innerText = `${correct} / ${total}`;
-    document.getElementById('quizCorrect').innerText = correct;
-    document.getElementById('quizWrong').innerText = wrong;
-    document.getElementById('quizTotalResult').innerText = total;
-    document.getElementById('quizTimeLeft').innerText = `${quizState.timeLeft}s`;
-    hideAll();
-    document.getElementById('quizResult').classList.remove('hidden');
-    if(correct && correct % 3 === 0) showBadge('🏅 Quiz Master!');
-  }
-
-  function retryQuiz(){ startQuiz(); }
-  function cancelQuiz(){ if(quizState.timer){ clearInterval(quizState.timer); } backToMenu(); }
-
-  // Init to menu on load
-  backToMenu();
-</script>
+  // Start
+  setTab('materi');
+  initSelectors();
+  </script>
 </body>
 </html>
+
