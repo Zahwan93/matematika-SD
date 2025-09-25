@@ -149,6 +149,579 @@
   // ======= Dataset Contoh (DISERAGAMKAN DENGAN TKA SMA) =======
   // Struktur: mapel -> bab[] -> materi (html), video (YT embed id), soal[]
   const DB = {
+'Fikih': {
+  bab: {
+    'Zakat Fitrah': {
+      materi: `
+        <h2 class="text-xl font-bold mb-2">Zakat Fitrah</h2>
+        <p>
+          Zakat fitrah adalah zakat yang wajib dikeluarkan oleh setiap muslim pada bulan Ramadhan
+          menjelang Idul Fitri. Zakat ini berfungsi sebagai penyuci jiwa dan penyempurna ibadah puasa.
+        </p>
+
+        <h3 class="text-lg font-semibold mt-4">1. Pengertian Zakat Fitrah</h3>
+        <p>
+          Zakat fitrah adalah zakat yang diwajibkan atas setiap jiwa, baik laki-laki maupun perempuan,
+          anak-anak maupun dewasa, sebagai bentuk kepedulian sosial dan ibadah kepada Allah.
+        </p>
+
+        <h3 class="text-lg font-semibold mt-4">2. Hukum Zakat Fitrah</h3>
+        <p>
+          Zakat fitrah hukumnya <b>wajib</b> bagi setiap muslim yang hidup pada malam Idul Fitri
+          dan memiliki kelebihan makanan untuk dirinya dan keluarganya sehari semalam.
+        </p>
+
+        <h3 class="text-lg font-semibold mt-4">3. Besaran Zakat Fitrah</h3>
+        <p>
+          Besaran zakat fitrah adalah <b>1 sha’</b> atau setara dengan ± 2,5 kg – 3 kg makanan pokok
+          (seperti beras di Indonesia). 
+        </p>
+
+        <h3 class="text-lg font-semibold mt-4">4. Waktu Membayar Zakat Fitrah</h3>
+        <ul class="list-disc ml-6 mb-4">
+          <li>Sejak awal Ramadhan hingga menjelang shalat Idul Fitri (waktu utama).</li>
+          <li>Setelah shalat Idul Fitri, zakat fitrah menjadi sedekah biasa (tidak lagi bernilai zakat).</li>
+        </ul>
+
+        <h3 class="text-lg font-semibold mt-4">5. Penerima Zakat Fitrah</h3>
+        <p>
+          Zakat fitrah diberikan kepada 8 golongan (asnaf) yang berhak menerima zakat, seperti fakir, miskin,
+          amil zakat, mualaf, riqab, gharimin, fisabilillah, dan ibnu sabil.
+        </p>
+
+        <h3 class="text-lg font-semibold mt-4">6. Hikmah Zakat Fitrah</h3>
+        <ul class="list-disc ml-6 mb-4">
+          <li>Menyucikan jiwa dan menyempurnakan ibadah puasa Ramadhan.</li>
+          <li>Membantu fakir miskin agar ikut bergembira di hari raya.</li>
+          <li>Mempererat ukhuwah islamiyah dan solidaritas sosial.</li>
+        </ul>
+
+        <h3 class="text-lg font-semibold mt-4">7. Contoh Soal</h3>
+        <p><b>Contoh 1:</b> Siapakah yang wajib membayar zakat fitrah?<br>
+        <b>Jawab:</b> Setiap muslim, laki-laki atau perempuan, anak-anak atau dewasa, yang memiliki kelebihan makanan sehari semalam pada malam Idul Fitri.</p>
+
+        <p><b>Contoh 2:</b> Berapa ukuran zakat fitrah dalam bentuk beras?<br>
+        <b>Jawab:</b> Sekitar 2,5 – 3 kg beras per orang.</p>
+      `,
+      video: 'xxxxxxx',
+      soal: [
+        {
+          id: 'zf1',
+          tipe: 'pg',
+          tanya: 'Apa hukum membayar zakat fitrah bagi setiap muslim?',
+          opsi: ['Sunnah', 'Mubah', 'Wajib', 'Makruh'],
+          kunci: 2,
+          bahas: 'Zakat fitrah hukumnya wajib bagi setiap muslim yang hidup pada malam Idul Fitri.'
+        },
+        {
+          id: 'zf2',
+          tipe: 'cb',
+          tanya: 'Siapa saja yang wajib mengeluarkan zakat fitrah?',
+          opsi: [
+            'Anak-anak',
+            'Orang dewasa',
+            'Orang kaya',
+            'Orang kafir'
+          ],
+          kunci: [0, 1, 2],
+          bahas: 'Setiap muslim, baik anak-anak, dewasa, maupun orang kaya wajib mengeluarkan zakat fitrah.'
+        },
+        {
+          id: 'zf3',
+          tipe: 'bs',
+          tanya: 'Tentukan benar atau salah pernyataan berikut tentang zakat fitrah!',
+          opsi: [
+            'Zakat fitrah dikeluarkan pada bulan Ramadhan.',
+            'Besarnya zakat fitrah adalah 1 sha’ makanan pokok.',
+            'Zakat fitrah boleh ditunda setelah shalat Idul Fitri tanpa masalah.',
+            'Zakat fitrah diberikan kepada fakir miskin dan golongan penerima zakat lainnya.'
+          ],
+          kunci: [true, true, false, true],
+          bahas: 'Zakat fitrah wajib dikeluarkan sebelum shalat Idul Fitri. Jika ditunda, tidak bernilai zakat lagi.'
+        },
+        {
+          id: 'zf4',
+          tipe: 'isian',
+          tanya: 'Tuliskan ukuran zakat fitrah dalam bentuk beras (kg)!',
+          kunciText: '± 2,5 – 3 kg',
+          bahas: 'Ukuran zakat fitrah adalah sekitar 2,5 – 3 kg beras atau makanan pokok per orang.'
+        },
+{
+  id: 'zf5',
+  tipe: 'pg',
+  tanya: 'Apa yang dimaksud dengan zakat fitrah?',
+  opsi: [
+    'Zakat yang dikeluarkan dari hasil pertanian',
+    'Zakat yang dikeluarkan pada akhir bulan Ramadhan sebagai penyuci diri',
+    'Zakat yang dikeluarkan setiap kali mendapat keuntungan usaha',
+    'Zakat yang dikeluarkan untuk pembangunan masjid'
+  ],
+  kunci: 1,
+  bahas: 'Zakat fitrah adalah zakat yang wajib dikeluarkan setiap muslim pada akhir bulan Ramadhan sebagai penyuci diri dan penyempurna ibadah puasa.'
+},
+{
+  id: 'zf6',
+  tipe: 'cb',
+  tanya: 'Apa tujuan zakat fitrah bagi seorang muslim?',
+  opsi: [
+    'Menyucikan diri dari dosa dan kekurangan selama puasa',
+    'Membantu fakir miskin',
+    'Menyempurnakan ibadah Ramadhan',
+    'Sebagai syarat sah shalat Idul Fitri'
+  ],
+  kunci: [0, 1, 2],
+  bahas: 'Tujuan zakat fitrah adalah untuk menyucikan diri dari kekurangan selama berpuasa, menyempurnakan ibadah Ramadhan, serta membantu fakir miskin.'
+},
+{
+  id: 'zf7',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah pernyataan berikut tentang pengertian zakat fitrah!',
+  opsi: [
+    'Zakat fitrah disebut juga zakat nafs atau zakat badan.',
+    'Zakat fitrah hanya wajib bagi orang kaya.',
+    'Zakat fitrah dikeluarkan sebagai tanda syukur setelah menjalankan puasa Ramadhan.',
+    'Zakat fitrah boleh dibayarkan dalam bentuk uang atau makanan pokok sesuai kebiasaan ulama setempat.'
+  ],
+  kunci: [true, false, true, true],
+  bahas: 'Zakat fitrah wajib bagi semua muslim, bukan hanya orang kaya. Tujuannya sebagai penyuci jiwa, tanda syukur, dan diberikan kepada yang berhak.'
+},
+{
+  id: 'zf8',
+  tipe: 'isian',
+  tanya: 'Sebutkan istilah lain dari zakat fitrah yang sering digunakan dalam kitab fikih!',
+  kunciText: 'Zakat nafs / zakat badan',
+  bahas: 'Dalam kitab fikih, zakat fitrah sering disebut juga zakat nafs atau zakat badan karena diwajibkan atas setiap jiwa muslim.'
+},
+{
+  id: 'zf9',
+  tipe: 'pg',
+bacaan:'Ali bekerja di kota dan pulang ke kampung halaman sehari sebelum Idul Fitri. Ia membawa istri dan dua anaknya. Saat malam takbiran, ia mendengar khotbah di masjid yang mengingatkan tentang kewajiban zakat fitrah.',
+  tanya: 'Berdasarkan cerita tersebut, berapa orang yang wajib ditunaikan zakat fitrahnya oleh Ali?',
+  opsi: [
+    '1 orang',
+    '2 orang',
+    '3 orang',
+    '4 orang'
+  ],
+  kunci: 3,
+  bahas: 'Ali wajib menunaikan zakat fitrah untuk dirinya sendiri, istrinya, dan kedua anaknya, jadi total 4 orang.'
+},
+{
+  id: 'zf10',
+  tipe: 'cb',
+bacaan:'Siti seorang ibu rumah tangga dengan tiga anak. Suaminya bekerja di luar negeri. Menjelang Idul Fitri, ia diberi uang oleh suaminya untuk membayar zakat fitrah keluarga. ',
+  tanya: 'Berdasarkan cerita tersebut, apa saja kewajiban yang harus ditunaikan Siti?',
+  opsi: [
+    'Mengeluarkan zakat fitrah untuk dirinya',
+    'Mengeluarkan zakat fitrah untuk ketiga anaknya',
+    'Mengeluarkan zakat fitrah untuk suaminya',
+    'Tidak perlu membayar zakat fitrah karena suaminya jauh'
+  ],
+  kunci: [0, 1, 2],
+  bahas: 'Zakat fitrah ditunaikan untuk seluruh anggota keluarga muslim, termasuk suami, istri, dan anak-anak. Jadi Siti wajib membayarkan zakat fitrah untuk semuanya.'
+},
+{
+  id: 'zf11',
+  tipe: 'bs',
+bacaan:'Budi adalah seorang mahasiswa yang masih ditanggung orang tuanya. Pada akhir Ramadhan, ia ingin membayar zakat fitrah sendiri dari uang tabungannya.',
+  tanya: 'Tentukan benar atau salah pernyataan berikut!',
+  opsi: [
+    'Zakat fitrah Budi tetap wajib, meskipun ia masih ditanggung orang tuanya.',
+    'Orang tuanya boleh tetap membayarkan zakat fitrah untuk Budi.',
+    'Zakat fitrah hanya berlaku bagi orang yang sudah bekerja.',
+    'Zakat fitrah dapat dibayarkan oleh dirinya sendiri jika ia mampu.'
+  ],
+  kunci: [true, true, false, true],
+  bahas: 'Zakat fitrah wajib bagi setiap muslim, tanpa melihat apakah sudah bekerja atau belum. Orang tua boleh menanggungnya, tetapi jika Budi mampu membayar sendiri, itu juga sah.'
+},
+{
+  id: 'zf12',
+  tipe: 'isian',
+bacaan:'Pak Ahmad memiliki seorang istri dan 5 anak. ',
+  tanya: 'Berapa jumlah jiwa yang wajib ia bayarkan zakat fitrahnya?',
+  kunciText: '7',
+  bahas: 'Pak Ahmad wajib membayarkan zakat fitrah untuk dirinya, istrinya, dan kelima anaknya, total 7 jiwa.'
+},
+{
+  id: 'zf13',
+  tipe: 'pg',
+  tanya: 'Apa hukum zakat fitrah bagi setiap muslim?',
+  opsi: ['Sunnah', 'Mubah', 'Wajib', 'Makruh'],
+  kunci: 2,
+  bahas: 'Zakat fitrah hukumnya wajib bagi setiap muslim yang hidup pada malam Idul Fitri.'
+},
+{
+  id: 'zf14',
+  tipe: 'cb',
+  tanya: 'Siapa saja yang terkena kewajiban zakat fitrah?',
+  opsi: [
+    'Muslim',
+    'Hidup pada malam Idul Fitri',
+    'Mampu membayar zakat fitrah',
+    'Non-muslim'
+  ],
+  kunci: [0, 1, 2],
+  bahas: 'Zakat fitrah wajib bagi setiap muslim yang hidup pada malam Idul Fitri dan mampu menunaikannya.'
+},
+{
+  id: 'zf15',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah pernyataan berikut tentang hukum zakat fitrah!',
+  opsi: [
+    'Zakat fitrah hukumnya wajib.',
+    'Zakat fitrah boleh ditunda tanpa alasan.',
+    'Zakat fitrah hanya untuk orang dewasa.',
+    'Zakat fitrah adalah penyempurna ibadah puasa Ramadhan.'
+  ],
+  kunci: [true, false, false, true],
+  bahas: 'Zakat fitrah wajib atas semua muslim (baik dewasa maupun anak-anak), harus ditunaikan tepat waktu, dan berfungsi menyempurnakan ibadah puasa Ramadhan.'
+},
+{
+  id: 'zf16',
+  tipe: 'isian',
+  tanya: 'Tuliskan hadis yang menjadi dasar hukum wajibnya zakat fitrah menurut Ibnu Umar!',
+  kunciText: '“Rasulullah SAW mewajibkan zakat fitrah satu sha’ kurma atau gandum atas setiap muslim.” (HR. Bukhari dan Muslim dari Ibnu Umar)',
+  bahas: 'Hadis Ibnu Umar menjelaskan kewajiban zakat fitrah atas setiap muslim, baik anak-anak maupun dewasa.'
+},
+{
+  id: 'zf17',
+  tipe: 'pg',
+  bacaan: 'Rina seorang muslimah yang masih hidup pada malam Idul Fitri. Ia mendengar pengumuman di masjid bahwa setiap muslim wajib menunaikan zakat fitrah sebelum shalat Idul Fitri.',
+  tanya: 'Apa hukum zakat fitrah bagi Rina?',
+  opsi: ['Sunnah', 'Wajib', 'Mubah', 'Makruh'],
+  kunci: 1,
+  bahas: 'Zakat fitrah hukumnya wajib bagi setiap muslim yang hidup pada malam Idul Fitri.'
+},
+{
+  id: 'zf18',
+  tipe: 'cb',
+  bacaan: 'Andi adalah seorang muslim yang sehat, memiliki keluarga, dan cukup mampu untuk membayar zakat fitrah. Namun tetangganya, Dodi, seorang non-muslim, bertanya apakah dirinya juga wajib membayar zakat fitrah.',
+  tanya: 'Berdasarkan cerita tersebut, siapa yang wajib mengeluarkan zakat fitrah?',
+  opsi: [
+    'Andi',
+    'Keluarga Andi',
+    'Dodi',
+    'Anak-anak Andi yang masih kecil'
+  ],
+  kunci: [0, 1, 3],
+  bahas: 'Zakat fitrah hanya diwajibkan bagi muslim, termasuk anak-anak yang masih kecil, yang dibayarkan oleh walinya. Non-muslim tidak wajib membayar zakat fitrah.'
+},
+{
+  id: 'zf19',
+  tipe: 'bs',
+  bacaan: 'Menjelang Idul Fitri, Ustaz Rahmat menjelaskan kepada jamaah bahwa zakat fitrah wajib dikeluarkan oleh setiap muslim, baik kaya maupun miskin, asalkan mampu. Ia juga menegaskan bahwa zakat fitrah menyempurnakan ibadah puasa Ramadhan.',
+  tanya: 'Tentukan benar atau salah pernyataan berikut!',
+  opsi: [
+    'Zakat fitrah hukumnya wajib.',
+    'Zakat fitrah hanya wajib bagi orang kaya.',
+    'Zakat fitrah menjadi penyempurna ibadah puasa Ramadhan.',
+    'Zakat fitrah boleh ditinggalkan tanpa dosa.'
+  ],
+  kunci: [true, false, true, false],
+  bahas: 'Zakat fitrah wajib bagi semua muslim yang mampu, bukan hanya orang kaya, dan tidak boleh ditinggalkan.'
+},
+{
+  id: 'zf20',
+  tipe: 'isian',
+  bacaan: 'Dalam sebuah pengajian, ustaz menyebutkan dalil hadis dari Ibnu Umar tentang zakat fitrah.',
+  tanya: 'Siapa yang mewajibkan zakat fitrah dalam hadis tersebut?',
+  kunciText: 'Rasulullah SAW',
+  bahas: 'Hadis Ibnu Umar menjelaskan bahwa Rasulullah SAW mewajibkan zakat fitrah atas setiap muslim.'
+},
+{
+  id: 'zf21',
+  tipe: 'pg',
+  tanya: 'Berapakah ukuran zakat fitrah yang wajib dikeluarkan setiap muslim?',
+  opsi: [
+    '1 kg makanan pokok',
+    '± 2,5 – 3 kg makanan pokok',
+    '5 kg makanan pokok',
+    'Sesuai kemampuan masing-masing'
+  ],
+  kunci: 1,
+  bahas: 'Ukuran zakat fitrah adalah sekitar 1 sha’ atau setara dengan ± 2,5 – 3 kg makanan pokok per orang.'
+},
+{
+  id: 'zf22',
+  tipe: 'cb',
+  tanya: 'Apa saja yang dapat digunakan untuk membayar zakat fitrah?',
+  opsi: [
+    'Beras',
+    'Kurma',
+    'Gandum',
+    'Emas batangan'
+  ],
+  kunci: [0, 1, 2],
+  bahas: 'Zakat fitrah ditunaikan dengan makanan pokok seperti beras, kurma, atau gandum, bukan dengan emas batangan.'
+},
+{
+  id: 'zf23',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah pernyataan berikut tentang ketentuan zakat fitrah!',
+  opsi: [
+    'Zakat fitrah wajib ditunaikan sebelum shalat Idul Fitri.',
+    'Zakat fitrah boleh ditunda kapan saja tanpa masalah.',
+    'Zakat fitrah lebih utama jika diserahkan pada malam takbiran hingga sebelum shalat Id.',
+    'Jika zakat fitrah ditunda setelah shalat Id, maka nilainya bukan lagi zakat, tetapi hanya sedekah.'
+  ],
+  kunci: [true, false, true, true],
+  bahas: 'Zakat fitrah wajib ditunaikan sebelum shalat Id, paling utama pada malam takbiran. Jika ditunda setelah shalat Id, statusnya bukan zakat melainkan sedekah biasa.'
+},
+{
+  id: 'zf24',
+  tipe: 'isian',
+  tanya: 'Tuliskan makanan pokok yang biasa digunakan untuk zakat fitrah di Indonesia!',
+  kunciText: 'Beras',
+  bahas: 'Di Indonesia, zakat fitrah umumnya ditunaikan dalam bentuk beras sebagai makanan pokok masyarakat.'
+},
+{
+  id: 'zf25',
+  tipe: 'pg',
+  bacaan: 'Menjelang Idul Fitri, Ustaz Hasan menjelaskan di masjid bahwa setiap muslim wajib menunaikan zakat fitrah sesuai ketentuan ukuran yang telah ditetapkan.',
+  tanya: 'Berapakah ukuran zakat fitrah yang harus dikeluarkan setiap muslim?',
+  opsi: [
+    '1 kg makanan pokok',
+    '± 2,5 – 3 kg makanan pokok',
+    '5 kg makanan pokok',
+    'Sesuai kemampuan masing-masing'
+  ],
+  kunci: 1,
+  bahas: 'Ukuran zakat fitrah adalah sekitar 1 sha’ atau setara dengan ± 2,5 – 3 kg makanan pokok per orang.'
+},
+{
+  id: 'zf26',
+  tipe: 'cb',
+  bacaan: 'Pak Jono ingin membayar zakat fitrah untuk keluarganya. Ia bertanya kepada ustaz, jenis makanan apa saja yang boleh digunakan untuk zakat fitrah.',
+  tanya: 'Apa saja yang dapat digunakan untuk membayar zakat fitrah?',
+  opsi: [
+    'Beras',
+    'Kurma',
+    'Gandum',
+    'Emas batangan'
+  ],
+  kunci: [0, 1, 2],
+  bahas: 'Zakat fitrah ditunaikan dengan makanan pokok seperti beras, kurma, atau gandum, bukan dengan emas batangan.'
+},
+{
+  id: 'zf27',
+  tipe: 'bs',
+  bacaan: 'Di sebuah pengajian Ramadhan, Ustaz Rahim menjelaskan bahwa zakat fitrah wajib dikeluarkan sebelum shalat Idul Fitri. Ia juga menambahkan bahwa zakat fitrah lebih utama jika diberikan pada malam takbiran.',
+  tanya: 'Tentukan benar atau salah pernyataan berikut!',
+  opsi: [
+    'Zakat fitrah wajib ditunaikan sebelum shalat Idul Fitri.',
+    'Zakat fitrah boleh ditunda kapan saja tanpa masalah.',
+    'Zakat fitrah lebih utama jika diserahkan pada malam takbiran hingga sebelum shalat Id.',
+    'Jika zakat fitrah ditunda setelah shalat Id, maka nilainya bukan lagi zakat, tetapi hanya sedekah.'
+  ],
+  kunci: [true, false, true, true],
+  bahas: 'Zakat fitrah wajib ditunaikan sebelum shalat Id, paling utama pada malam takbiran. Jika ditunda setelah shalat Id, statusnya bukan zakat melainkan sedekah biasa.'
+},
+{
+  id: 'zf28',
+  tipe: 'isian',
+  bacaan: 'Di Indonesia, masyarakat umumnya menunaikan zakat fitrah menggunakan makanan pokok sehari-hari.',
+  tanya: 'Tuliskan makanan pokok yang biasa digunakan untuk zakat fitrah di Indonesia!',
+  kunciText: 'Beras',
+  bahas: 'Di Indonesia, zakat fitrah umumnya ditunaikan dalam bentuk beras sebagai makanan pokok masyarakat.'
+},
+{
+  id: 'zf29',
+  tipe: 'pg',
+  tanya: 'Kapan waktu yang paling utama untuk menunaikan zakat fitrah?',
+  opsi: [
+    'Sejak awal bulan Ramadhan',
+    'Pada malam takbiran hingga sebelum shalat Idul Fitri',
+    'Setelah shalat Idul Fitri',
+    'Kapan saja setelah Ramadhan'
+  ],
+  kunci: 1,
+  bahas: 'Waktu paling utama menunaikan zakat fitrah adalah pada malam takbiran hingga sebelum shalat Idul Fitri.'
+},
+{
+  id: 'zf30',
+  tipe: 'cb',
+  tanya: 'Bagaimana tata cara yang benar dalam menunaikan zakat fitrah?',
+  opsi: [
+    'Mengeluarkan sesuai ukuran yang telah ditentukan',
+    'Menyerahkan kepada fakir miskin atau amil zakat',
+    'Membaca niat saat menunaikannya',
+    'Menyerahkan setelah shalat Id agar lebih praktis'
+  ],
+  kunci: [0, 1, 2],
+  bahas: 'Tata cara zakat fitrah adalah mengeluarkan sesuai ukuran (±2,5–3 kg makanan pokok), membaca niat, dan menyerahkannya kepada fakir miskin atau amil zakat sebelum shalat Id.'
+},
+{
+  id: 'zf31',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah pernyataan berikut tentang tata cara zakat fitrah!',
+  opsi: [
+    'Zakat fitrah dibayarkan untuk setiap jiwa muslim.',
+    'Zakat fitrah sah jika dibayarkan setelah shalat Id.',
+    'Zakat fitrah boleh diwakilkan kepada orang lain.',
+    'Zakat fitrah dapat diberikan langsung kepada fakir miskin.'
+  ],
+  kunci: [true, false, true, true],
+  bahas: 'Zakat fitrah ditunaikan untuk setiap muslim, boleh diwakilkan, dan bisa disalurkan langsung kepada fakir miskin. Jika ditunaikan setelah shalat Id, maka tidak sah sebagai zakat.'
+},
+{
+  id: 'zf32',
+  tipe: 'isian',
+  tanya: 'Sebutkan jumlah orang yang wajib ditunaikan zakat fitrahnya oleh seorang ayah jika ia memiliki seorang istri dan dua anak!',
+  kunciText: '4 orang',
+  bahas: 'Seorang ayah wajib membayarkan zakat fitrah untuk dirinya, istrinya, dan kedua anaknya, sehingga total ada 4 jiwa.'
+},
+{
+  id: 'zf33',
+  tipe: 'pg',
+  bacaan: 'Pada malam takbiran, Ustaz Ahmad mengingatkan jamaah bahwa zakat fitrah harus ditunaikan pada waktu tertentu agar sah.',
+  tanya: 'Kapan waktu yang paling utama untuk menunaikan zakat fitrah?',
+  opsi: [
+    'Sejak awal bulan Ramadhan',
+    'Pada malam takbiran hingga sebelum shalat Idul Fitri',
+    'Setelah shalat Idul Fitri',
+    'Kapan saja setelah Ramadhan'
+  ],
+  kunci: 1,
+  bahas: 'Waktu paling utama menunaikan zakat fitrah adalah pada malam takbiran hingga sebelum shalat Idul Fitri.'
+},
+{
+  id: 'zf34',
+  tipe: 'cb',
+  bacaan: 'Pak Rudi hendak menunaikan zakat fitrah untuk keluarganya. Ia bertanya kepada ustaz tentang tata cara yang benar dalam membayar zakat fitrah.',
+  tanya: 'Bagaimana tata cara yang benar dalam menunaikan zakat fitrah?',
+  opsi: [
+    'Mengeluarkan sesuai ukuran yang telah ditentukan',
+    'Menyerahkan kepada fakir miskin atau amil zakat',
+    'Membaca niat saat menunaikannya',
+    'Menyerahkan setelah shalat Id agar lebih praktis'
+  ],
+  kunci: [0, 1, 2],
+  bahas: 'Tata cara zakat fitrah adalah mengeluarkan sesuai ukuran (±2,5–3 kg makanan pokok), membaca niat, dan menyerahkannya kepada fakir miskin atau amil zakat sebelum shalat Id.'
+},
+{
+  id: 'zf35',
+  tipe: 'bs',
+  bacaan: 'Budi mendengar penjelasan bahwa zakat fitrah boleh diberikan langsung kepada fakir miskin, namun juga boleh disalurkan melalui amil zakat. Ia juga diberi tahu bahwa zakat fitrah harus ditunaikan sebelum shalat Id.',
+  tanya: 'Tentukan benar atau salah pernyataan berikut!',
+  opsi: [
+    'Zakat fitrah dibayarkan untuk setiap jiwa muslim.',
+    'Zakat fitrah sah jika dibayarkan setelah shalat Id.',
+    'Zakat fitrah boleh diwakilkan kepada orang lain.',
+    'Zakat fitrah dapat diberikan langsung kepada fakir miskin.'
+  ],
+  kunci: [true, false, true, true],
+  bahas: 'Zakat fitrah ditunaikan untuk setiap muslim, boleh diwakilkan, dan bisa disalurkan langsung kepada fakir miskin. Jika ditunaikan setelah shalat Id, maka tidak sah sebagai zakat.'
+},
+{
+  id: 'zf36',
+  tipe: 'isian',
+  bacaan: 'Pak Anwar memiliki seorang istri dan dua anak. Ia menyiapkan beras untuk membayar zakat fitrah seluruh keluarganya.',
+  tanya: 'Berapa jumlah jiwa yang wajib ditunaikan zakat fitrahnya oleh Pak Anwar?',
+  kunciText: '4 orang',
+  bahas: 'Pak Anwar wajib membayarkan zakat fitrah untuk dirinya, istrinya, dan kedua anaknya, sehingga total 4 jiwa.'
+},
+{
+  id: 'zf37',
+  tipe: 'pg',
+  bacaan: 'Pada khutbah Idul Fitri, khatib menjelaskan bahwa zakat fitrah bukan hanya kewajiban ibadah, tetapi juga memiliki banyak hikmah sosial.',
+  tanya: 'Apa salah satu hikmah zakat fitrah bagi orang miskin?',
+  opsi: [
+    'Membuat mereka wajib membayar zakat',
+    'Meringankan beban hidup di hari raya',
+    'Melatih mereka untuk lebih kaya',
+    'Menjadi syarat agar ibadah puasa diterima'
+  ],
+  kunci: 1,
+  bahas: 'Hikmah zakat fitrah bagi orang miskin adalah meringankan beban hidup mereka di hari raya sehingga bisa bergembira bersama.'
+},
+{
+  id: 'zf38',
+  tipe: 'cb',
+  bacaan: 'Seorang ustaz menjelaskan di pengajian bahwa zakat fitrah bukan hanya membersihkan jiwa, tetapi juga mempererat persaudaraan.',
+  tanya: 'Apa saja hikmah zakat fitrah bagi umat Islam?',
+  opsi: [
+    'Membersihkan jiwa dari sifat kikir',
+    'Menyempurnakan ibadah puasa Ramadhan',
+    'Meningkatkan kepedulian sosial',
+    'Menambah kewajiban baru di luar Ramadhan'
+  ],
+  kunci: [0, 1, 2],
+  bahas: 'Hikmah zakat fitrah antara lain membersihkan jiwa dari sifat kikir, menyempurnakan puasa Ramadhan, dan menumbuhkan kepedulian sosial.'
+},
+{
+  id: 'zf39',
+  tipe: 'bs',
+  bacaan: 'Di sebuah kajian, Ustazah Fatimah menjelaskan bahwa zakat fitrah memiliki hikmah besar bagi kehidupan individu dan masyarakat.',
+  tanya: 'Tentukan benar atau salah pernyataan berikut!',
+  opsi: [
+    'Zakat fitrah membantu kaum miskin merasakan kebahagiaan di hari raya.',
+    'Zakat fitrah dapat mempererat hubungan antar sesama muslim.',
+    'Zakat fitrah hanya bermanfaat bagi yang kaya.',
+    'Zakat fitrah menjadi penyuci bagi orang yang berpuasa.'
+  ],
+  kunci: [true, true, false, true],
+  bahas: 'Zakat fitrah bermanfaat bagi fakir miskin, mempererat persaudaraan, dan menyucikan jiwa orang berpuasa. Jadi tidak hanya untuk orang kaya.'
+},
+{
+  id: 'zf40',
+  tipe: 'isian',
+  bacaan: 'Imam masjid menjelaskan bahwa salah satu hikmah zakat fitrah adalah menyempurnakan ibadah puasa Ramadhan.',
+  tanya: 'Zakat fitrah menjadi penyempurna ibadah apa?',
+  kunciText: 'Puasa Ramadhan',
+  bahas: 'Zakat fitrah berfungsi menyempurnakan ibadah puasa Ramadhan yang telah dilaksanakan umat Islam.'
+},
+{
+  id: 'zf41',
+  tipe: 'pg',
+  tanya: 'Apa salah satu hikmah zakat fitrah bagi orang yang berpuasa?',
+  opsi: [
+    'Meningkatkan harta kekayaan',
+    'Membersihkan jiwa dan menyempurnakan puasa',
+    'Meringankan kewajiban agama',
+    'Menghapus semua dosa besar'
+  ],
+  kunci: 1,
+  bahas: 'Zakat fitrah berfungsi untuk membersihkan jiwa dari kekurangan saat berpuasa dan menyempurnakan ibadah Ramadhan.'
+},
+{
+  id: 'zf42',
+  tipe: 'cb',
+  tanya: 'Apa saja hikmah zakat fitrah bagi kehidupan sosial?',
+  opsi: [
+    'Meningkatkan kepedulian antar sesama',
+    'Membantu fakir miskin bergembira di hari raya',
+    'Menumbuhkan persaudaraan umat',
+    'Menjadikan zakat hanya untuk orang kaya'
+  ],
+  kunci: [0, 1, 2],
+  bahas: 'Hikmah zakat fitrah dalam kehidupan sosial adalah menumbuhkan kepedulian, membantu fakir miskin, dan mempererat persaudaraan.'
+},
+{
+  id: 'zf43',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah pernyataan berikut tentang hikmah zakat fitrah!',
+  opsi: [
+    'Zakat fitrah menyempurnakan ibadah puasa Ramadhan.',
+    'Zakat fitrah membuat orang miskin ikut bergembira di hari raya.',
+    'Zakat fitrah hanya bermanfaat untuk orang kaya.',
+    'Zakat fitrah menumbuhkan kepedulian sosial.'
+  ],
+  kunci: [true, true, false, true],
+  bahas: 'Hikmah zakat fitrah antara lain menyempurnakan puasa, membahagiakan fakir miskin, dan menumbuhkan kepedulian sosial.'
+},
+{
+  id: 'zf44',
+  tipe: 'isian',
+  tanya: 'Salah satu hikmah zakat fitrah adalah mempererat ______ antar sesama muslim.',
+  kunciText: 'persaudaraan',
+  bahas: 'Zakat fitrah mempererat persaudaraan antar sesama muslim karena menumbuhkan rasa peduli dan saling berbagi.'
+},
+
+      ]
+    }
+  }
+},
+
     'Matematika': {
   bab: {
 'Bilangan Cacah Sampai 100000': {
@@ -1431,7 +2004,7 @@ bacaan:'Toko Zafran menjual beberapa jenis buah, di antaranya mangga, alpukat, j
   tipe: 'cb',
   tanya: 'Dua kereta berangkat dari stasiun yang sama. Kereta A setiap 5 jam, kereta B setiap 7 jam. Pilih semua waktu (dalam jam) ketika keduanya akan sampai bersamaan dalam 35 jam!',
   opsi: ['5', '10', '35', '14', '21'],
-  kunci: [2, 3, 4],
+  kunci: [2],
   bahas: 'KPK 5 dan 7 = 35, jadi keduanya bersamaan di jam ke-35. Selain itu kelipatan 7 hingga 35 adalah 7,14,21,28,35; kelipatan 5 hingga 35 adalah 5,10,15,20,25,30,35; persekutuan = 35. Jika dihitung semua pertemuan sebelum 35 jam: 35 saja.'
 },
 {
@@ -1462,7 +2035,7 @@ bacaan:'Toko Zafran menjual beberapa jenis buah, di antaranya mangga, alpukat, j
   tipe: 'cb',
   tanya: 'Dua bus berangkat dari terminal yang sama. Bus A tiap 6 jam, Bus B tiap 9 jam. Pilih semua jam ketika keduanya berangkat bersamaan dalam 36 jam!',
   opsi: ['6', '12', '18', '36', '24'],
-  kunci: [1, 3, 4],
+  kunci: [2, 3],
   bahas: 'KPK 6 dan 9 = 18. Jadi keduanya berangkat bersamaan pada jam ke-18, 36, dan seterusnya hingga 36 jam.'
 },
 {
