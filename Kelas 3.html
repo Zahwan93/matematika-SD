@@ -697,9 +697,343 @@
   kunciText: "keruh",
   bahas: "Katarak membuat lensa mata menjadi keruh sehingga penglihatan buram."
 },
-
       ]
-    }
+    },
+"Pengelompokan Hewan": {
+    materi: `
+<h2 class="text-xl font-bold mb-2">Pengelompokan Hewan</h2>
+<p>
+  Hewan dapat dikelompokkan berdasarkan berbagai kriteria, misalnya jenis makanannya, tempat hidupnya, 
+  atau jenis tulangnya. Dengan pengelompokan ini, kita dapat mempelajari ciri dan peran hewan lebih mudah.
+</p>
+
+<h3 class="text-lg font-semibold mt-4">1. Berdasarkan Jenis Makanannya</h3>
+<p>
+  Hewan dibagi menjadi tiga kelompok:
+  <ul class="list-disc ml-6">
+    <li><b>Herbivora</b> → hewan pemakan tumbuhan, contohnya sapi, kambing, dan kelinci.</li>
+    <li><b>Karnivora</b> → hewan pemakan daging, contohnya singa, harimau, dan elang.</li>
+    <li><b>Omnivora</b> → hewan pemakan segala, contohnya ayam, beruang, dan manusia.</li>
+  </ul>
+</p>
+
+<h3 class="text-lg font-semibold mt-4">2. Berdasarkan Tempat Hidupnya</h3>
+<p>
+  Hewan juga dapat dikelompokkan menurut habitatnya:
+  <ul class="list-disc ml-6">
+    <li><b>Hewan darat</b> → misalnya gajah, kuda, dan kucing.</li>
+    <li><b>Hewan air</b> → misalnya ikan, lumba-lumba, dan paus.</li>
+    <li><b>Hewan amfibi</b> → hidup di darat dan air, misalnya katak dan salamander.</li>
+  </ul>
+</p>
+
+<h3 class="text-lg font-semibold mt-4">3. Berdasarkan Ada Tidaknya Tulang Belakang</h3>
+<p>
+  Hewan terbagi menjadi:
+  <ul class="list-disc ml-6">
+    <li><b>Vertebrata</b> (bertulang belakang), contohnya burung, reptil, ikan, amfibi, dan mamalia.</li>
+    <li><b>Invertebrata</b> (tidak bertulang belakang), contohnya serangga, cacing, ubur-ubur, dan cumi-cumi.</li>
+  </ul>
+</p>
+
+<h3 class="text-lg font-semibold mt-4">4. Contoh Soal</h3>
+<p><b>Contoh 1:</b> Hewan pemakan tumbuhan disebut .... <i>Jawab: Herbivora</i>.</p>
+<p><b>Contoh 2:</b> Katak termasuk kelompok hewan .... <i>Jawab: Amfibi</i>.</p>
+`,
+    video: ["jM5D9iRk0LQ"],
+
+    soal: [
+      {
+        id: "ph1",
+        tipe: "pg",
+        bacaan: "Sapi adalah hewan pemakan tumbuhan.",
+        tanya: "Sapi termasuk jenis hewan apa?",
+        opsi: ["Karnivora", "Omnivora", "Herbivora", "Invertebrata"],
+        kunci: 2,
+        bahas: "Sapi termasuk herbivora karena makanannya berupa tumbuhan."
+      },
+      {
+        id: "ph2",
+        tipe: "cb",
+        bacaan: "Perhatikan hewan berikut: ayam, singa, kambing, dan kucing.",
+        tanya: "Manakah hewan yang termasuk omnivora? (Pilih semua jawaban yang benar)",
+        opsi: ["Ayam", "Singa", "Kambing", "Kucing"],
+        kunci: [0],
+        bahas: "Ayam termasuk omnivora karena memakan biji-bijian dan serangga. Yang lain bukan."
+      },
+      {
+        id: "ph3",
+        tipe: "bs",
+        bacaan: "Katak dapat hidup di darat dan di air.",
+        tanya: "Tentukan benar atau salah pernyataan berikut.",
+        opsi: [
+          "Katak termasuk hewan amfibi.",
+          "Katak termasuk hewan karnivora."
+        ],
+        kunci: [true, true],
+        bahas: "Katak benar termasuk amfibi dan juga karnivora karena memangsa serangga."
+      },
+      {
+        id: "ph4",
+        tipe: "isian",
+        bacaan: "Hewan yang memiliki tulang belakang disebut ....",
+        tanya: "Lengkapilah kalimat berikut.",
+        kunciText: "vertebrata",
+        bahas: "Hewan bertulang belakang disebut vertebrata."
+      },
+{
+  id: "hv1",
+  tipe: "pg",
+  bacaan: "Burung merpati adalah salah satu hewan yang memiliki tulang belakang.",
+  tanya: "Burung merpati termasuk kelompok hewan apa?",
+  opsi: ["Invertebrata", "Vertebrata", "Amfibi", "Serangga"],
+  kunci: 1,
+  bahas: "Burung merpati termasuk kelompok vertebrata karena memiliki tulang belakang."
+},
+{
+  id: "hv2",
+  tipe: "cb",
+  bacaan: "Perhatikan hewan berikut: ikan, katak, ular, dan kupu-kupu.",
+  tanya: "Manakah yang termasuk hewan vertebrata? (Pilih semua jawaban yang benar)",
+  opsi: ["Ikan", "Katak", "Ular", "Kupu-kupu"],
+  kunci: [0,1,2],
+  bahas: "Ikan, katak, dan ular termasuk vertebrata karena bertulang belakang, sedangkan kupu-kupu adalah invertebrata."
+},
+{
+  id: "hv3",
+  tipe: "bs",
+  bacaan: "Vertebrata terdiri atas lima kelas utama.",
+  tanya: "Tentukan benar atau salah pernyataan berikut.",
+  opsi: [
+    "Mamalia termasuk hewan vertebrata.",
+    "Ubur-ubur termasuk hewan vertebrata."
+  ],
+  kunci: [true, false],
+  bahas: "Mamalia termasuk vertebrata (benar), sedangkan ubur-ubur adalah invertebrata (salah)."
+},
+{
+  id: "hv4",
+  tipe: "isian",
+  bacaan: "Contoh hewan vertebrata yang hidup di air dan memiliki insang adalah ....",
+  tanya: "Lengkapilah kalimat berikut.",
+  kunciText: "ikan",
+  bahas: "Ikan adalah hewan vertebrata yang hidup di air dan bernapas dengan insang."
+},
+{
+  id: "hv5",
+  tipe: "pg",
+  bacaan: "Lumba-lumba hidup di laut, bernapas dengan paru-paru, dan menyusui anaknya.",
+  tanya: "Lumba-lumba termasuk ke dalam kelompok hewan apa?",
+  opsi: ["Ikan", "Amfibi", "Mamalia", "Reptil"],
+  kunci: 2,
+  bahas: "Walaupun hidup di air, lumba-lumba adalah mamalia karena bernapas dengan paru-paru, berdarah panas, dan menyusui anaknya."
+},
+{
+  id: "hv6",
+  tipe: "cb",
+  bacaan: "Perhatikan ciri berikut: (1) Berdarah dingin, (2) Bernapas dengan insang sepanjang hidup, (3) Jantung terdiri dari dua ruang, (4) Tubuh ditutupi sisik.",
+  tanya: "Ciri-ciri tersebut dimiliki oleh kelompok hewan apa? (Pilih semua jawaban yang benar)",
+  opsi: ["Ikan", "Amfibi", "Reptil", "Burung"],
+  kunci: [0],
+  bahas: "Ciri-ciri tersebut sesuai dengan ikan: berdarah dingin, bernapas dengan insang, jantung dua ruang, tubuh bersisik."
+},
+{
+  id: "hv7",
+  tipe: "bs",
+  bacaan: "Amfibi merupakan salah satu kelas vertebrata yang unik.",
+  tanya: "Tentukan benar atau salah pernyataan berikut.",
+  opsi: [
+    "Katak bernapas dengan insang pada fase larva dan paru-paru pada fase dewasa.",
+    "Amfibi berdarah panas."
+  ],
+  kunci: [true, false],
+  bahas: "Katak benar bernapas dengan insang saat berudu dan paru-paru saat dewasa (benar). Amfibi justru berdarah dingin, bukan berdarah panas (salah)."
+},
+{
+  id: "hv8",
+  tipe: "isian",
+  bacaan: "Hewan vertebrata yang memiliki tubuh ditutupi bulu dan berkembang biak dengan cara bertelur maupun melahirkan adalah ....",
+  tanya: "Lengkapilah kalimat berikut.",
+  kunciText: "burung",
+  bahas: "Burung ditutupi bulu, bernapas dengan paru-paru, dan biasanya berkembang biak dengan bertelur."
+},
+{
+  id: "hi1",
+  tipe: "pg",
+  bacaan: "Kupu-kupu adalah hewan yang memiliki tubuh beruas dan tidak memiliki tulang belakang.",
+  tanya: "Kupu-kupu termasuk kelompok hewan apa?",
+  opsi: ["Vertebrata", "Invertebrata", "Amfibi", "Mamalia"],
+  kunci: 1,
+  bahas: "Kupu-kupu termasuk invertebrata karena tidak memiliki tulang belakang."
+},
+{
+  id: "hi2",
+  tipe: "cb",
+  bacaan: "Perhatikan hewan berikut: ubur-ubur, belalang, ikan paus, cumi-cumi.",
+  tanya: "Manakah yang termasuk hewan invertebrata? (Pilih semua jawaban yang benar)",
+  opsi: ["Ubur-ubur", "Belalang", "Ikan paus", "Cumi-cumi"],
+  kunci: [0, 1, 3],
+  bahas: "Ubur-ubur, belalang, dan cumi-cumi adalah invertebrata. Ikan paus adalah vertebrata (mamalia)."
+},
+{
+  id: "hi3",
+  tipe: "bs",
+  bacaan: "Invertebrata adalah kelompok hewan yang paling banyak jumlah spesiesnya di bumi.",
+  tanya: "Tentukan benar atau salah pernyataan berikut.",
+  opsi: [
+    "Serangga termasuk invertebrata.",
+    "Cacing tanah termasuk vertebrata."
+  ],
+  kunci: [true, false],
+  bahas: "Serangga (benar) termasuk invertebrata, sedangkan cacing tanah juga invertebrata, bukan vertebrata (jadi salah)."
+},
+{
+  id: "hi4",
+  tipe: "isian",
+  bacaan: "Contoh hewan invertebrata yang memiliki tubuh lunak dan termasuk kelompok moluska adalah ....",
+  tanya: "Lengkapilah kalimat berikut.",
+  kunciText: "cumi-cumi",
+  bahas: "Cumi-cumi adalah contoh invertebrata dari kelompok moluska (hewan bertubuh lunak)."
+},
+{
+  id: "hi5",
+  tipe: "pg",
+  bacaan: "Bintang laut merupakan hewan laut yang memiliki sistem peredaran air dan simetri tubuh radial.",
+  tanya: "Bintang laut termasuk ke dalam kelompok invertebrata apa?",
+  opsi: ["Moluska", "Echinodermata", "Cnidaria", "Porifera"],
+  kunci: 1,
+  bahas: "Bintang laut termasuk Echinodermata karena hidup di laut, simetri radial, dan memiliki sistem peredaran air."
+},
+{
+  id: "hi6",
+  tipe: "cb",
+  bacaan: "Perhatikan ciri-ciri berikut: (1) Tubuh bersegmen, (2) Memiliki rangka luar (eksoskeleton), (3) Tubuh beruas-ruas, (4) Bernapas dengan insang, trakea, atau paru-paru buku.",
+  tanya: "Ciri-ciri tersebut dimiliki oleh kelompok hewan apa? (Pilih semua jawaban yang benar)",
+  opsi: ["Arthropoda", "Moluska", "Cnidaria", "Annelida"],
+  kunci: [0],
+  bahas: "Ciri-ciri tersebut adalah ciri khas Arthropoda, misalnya serangga, laba-laba, dan udang."
+},
+{
+  id: "hi7",
+  tipe: "bs",
+  bacaan: "Porifera dan Cnidaria adalah hewan invertebrata yang hidup di laut.",
+  tanya: "Tentukan benar atau salah pernyataan berikut.",
+  opsi: [
+    "Porifera memiliki tubuh berpori dan hidup menetap di dasar laut.",
+    "Cnidaria memiliki sel penyengat (knidosit) untuk melumpuhkan mangsa."
+  ],
+  kunci: [true, true],
+  bahas: "Porifera benar memiliki tubuh berpori, sedangkan Cnidaria seperti ubur-ubur memiliki sel penyengat (knidosit)."
+},
+{
+  id: "hi8",
+  tipe: "isian",
+  bacaan: "Hewan invertebrata yang tubuhnya lunak, ada yang bercangkang, dan termasuk kelompok Gastropoda adalah ....",
+  tanya: "Lengkapilah kalimat berikut.",
+  kunciText: "siput",
+  bahas: "Siput adalah contoh moluska dari kelas Gastropoda, tubuh lunak dengan cangkang pelindung."
+},
+
+    ]
+  },
+
+  "Ciri-Ciri Makhluk Hidup": {
+    materi: `
+<h2 class="text-xl font-bold mb-2">Ciri-Ciri Makhluk Hidup</h2>
+<p>
+  Semua makhluk hidup, baik hewan, tumbuhan, maupun manusia, memiliki ciri-ciri khusus yang membedakan mereka dengan benda mati.
+</p>
+
+<h3 class="text-lg font-semibold mt-4">1. Bernapas</h3>
+<p>
+  Bernapas adalah proses mengambil oksigen dari lingkungan dan mengeluarkan karbon dioksida. 
+  Semua makhluk hidup membutuhkan oksigen untuk menghasilkan energi.
+</p>
+
+<h3 class="text-lg font-semibold mt-4">2. Bergerak</h3>
+<p>
+  Makhluk hidup mampu bergerak, baik berpindah tempat (misalnya hewan) maupun bergerak sebagian (misalnya tumbuhan membuka stomata).
+</p>
+
+<h3 class="text-lg font-semibold mt-4">3. Tumbuh dan Berkembang</h3>
+<p>
+  Makhluk hidup tumbuh dengan bertambahnya ukuran tubuh, serta berkembang dengan bertambahnya kemampuan fungsi tubuh.
+</p>
+
+<h3 class="text-lg font-semibold mt-4">4. Berkembang Biak</h3>
+<p>
+  Untuk melestarikan jenisnya, makhluk hidup melakukan reproduksi. 
+  Ada yang secara seksual (perkawinan), ada juga yang aseksual (tanpa perkawinan).
+</p>
+
+<h3 class="text-lg font-semibold mt-4">5. Peka terhadap Rangsang</h3>
+<p>
+  Makhluk hidup dapat merespons rangsangan dari lingkungan, misalnya manusia menutup mata saat terkena cahaya terang.
+</p>
+
+<h3 class="text-lg font-semibold mt-4">6. Mengeluarkan Zat Sisa</h3>
+<p>
+  Semua makhluk hidup mengeluarkan sisa metabolisme agar tidak meracuni tubuh, contohnya keringat, urine, dan karbon dioksida.
+</p>
+
+<h3 class="text-lg font-semibold mt-4">7. Membutuhkan Makanan</h3>
+<p>
+  Makhluk hidup memerlukan makanan untuk mendapatkan energi dan pertumbuhan. 
+  Hewan mendapatkan makanan dari tumbuhan atau hewan lain, sedangkan tumbuhan hijau membuat makanan sendiri dengan fotosintesis.
+</p>
+
+<h3 class="text-lg font-semibold mt-4">8. Contoh Soal</h3>
+<p><b>Contoh 1:</b> Manusia menghirup oksigen untuk proses .... <i>Jawab: Bernapas</i>.</p>
+<p><b>Contoh 2:</b> Tumbuhan membuat makanan sendiri melalui proses .... <i>Jawab: Fotosintesis</i>.</p>
+`,
+    video: ["dVvCBG60Egc"],
+
+    soal: [
+      {
+        id: "cm1",
+        tipe: "pg",
+        bacaan: "Manusia mengeluarkan keringat setelah berlari.",
+        tanya: "Peristiwa tersebut menunjukkan ciri makhluk hidup apa?",
+        opsi: ["Bernapas", "Mengeluarkan zat sisa", "Tumbuh", "Berkembang biak"],
+        kunci: 1,
+        bahas: "Mengeluarkan keringat adalah bentuk pengeluaran zat sisa."
+      },
+      {
+        id: "cm2",
+        tipe: "cb",
+        bacaan: "Perhatikan pernyataan berikut:",
+        tanya: "Yang termasuk ciri makhluk hidup adalah .... (pilih semua yang benar)",
+        opsi: [
+          "Bisa tumbuh",
+          "Bisa berkembang biak",
+          "Bisa bernapas",
+          "Bisa berkarat"
+        ],
+        kunci: [0, 1, 2],
+        bahas: "Berkarat bukan ciri makhluk hidup, itu ciri benda mati (logam)."
+      },
+      {
+        id: "cm3",
+        tipe: "bs",
+        bacaan: "Tumbuhan dapat bergerak walaupun tidak berpindah tempat.",
+        tanya: "Tentukan benar atau salah pernyataan berikut.",
+        opsi: [
+          "Tumbuhan membuka stomata untuk keluar masuk gas.",
+          "Tumbuhan tidak bisa bergerak sama sekali."
+        ],
+        kunci: [true, false],
+        bahas: "Tumbuhan memang bisa bergerak sebagian (benar), bukan berarti tidak bisa bergerak sama sekali (salah)."
+      },
+      {
+        id: "cm4",
+        tipe: "isian",
+        bacaan: "Semua makhluk hidup membutuhkan ... untuk mendapatkan energi.",
+        tanya: "Lengkapilah kalimat di atas.",
+        kunciText: "makanan",
+        bahas: "Makanan adalah sumber energi bagi semua makhluk hidup."
+      }
+    ]
+  },
   }
 },
 
