@@ -149,6 +149,970 @@
   // ======= Dataset Contoh (DISERAGAMKAN DENGAN TKA SMA) =======
   // Struktur: mapel -> bab[] -> materi (html), video (YT embed id), soal[]
   const DB = {
+SKI: {
+  bab: {
+    'Respon Masyarakat Madinah terhadap Dakwah Nabi Muhammad Saw.': {
+      materi: `
+        <h2 class="text-xl font-bold mb-2">Respon Masyarakat Madinah terhadap Dakwah Nabi Muhammad Saw.</h2>
+        <p>
+          Setelah Rasulullah Saw. berdakwah di Makkah selama lebih dari 13 tahun, beliau mendapatkan penolakan keras dari kaum Quraisy. 
+          Allah SWT kemudian memerintahkan Nabi untuk hijrah ke Madinah, sebuah kota yang penduduknya terdiri dari suku Aus, Khazraj, 
+          serta beberapa kabilah Yahudi. Respon masyarakat Madinah terhadap dakwah Nabi berbeda-beda, ada yang menerima dengan lapang dada 
+          dan ada pula yang menolak.
+        </p>
+
+        <h3 class="text-lg font-semibold mt-4">1. Respon Suku Aus dan Khazraj</h3>
+        <p>
+          Suku Aus dan Khazraj yang selama ini sering berkonflik, melihat Islam sebagai jalan perdamaian. 
+          Mereka berjumpa dengan Rasulullah Saw. di Makkah saat musim haji, lalu beriman dan mengadakan 
+          Bai’at Aqabah Pertama dan Kedua. Sejak saat itu, Aus dan Khazraj menjadi pendukung utama Rasulullah Saw. 
+          dan membuka jalan bagi hijrah kaum Muslimin ke Madinah.
+        </p>
+
+        <h3 class="text-lg font-semibold mt-4">2. Respon Kaum Yahudi</h3>
+        <p>
+          Kaum Yahudi Madinah, seperti Bani Qainuqa’, Bani Nadhir, dan Bani Quraizhah, pada awalnya menyambut Nabi Muhammad Saw. 
+          karena mereka mengetahui ciri-ciri kenabian dari kitab Taurat. Namun, setelah Islam semakin berkembang, 
+          banyak dari mereka menolak dakwah Nabi karena khawatir kehilangan pengaruh politik dan ekonomi. 
+          Bahkan, mereka sering melanggar perjanjian dan bersekutu dengan musuh Islam.
+        </p>
+
+        <h3 class="text-lg font-semibold mt-4">3. Ibrah dari Respon Masyarakat Madinah</h3>
+        <ul class="list-disc ml-6 mb-4">
+          <li><b>Menjunjung nilai toleransi:</b> Hidup dalam masyarakat majemuk membutuhkan sikap saling menghormati dan adil.</li>
+          <li><b>Tidak mudah putus asa dalam menegakkan agama Islam:</b> Penolakan tidak membuat Nabi berhenti berdakwah, justru semakin sabar dan teguh.</li>
+          <li><b>Meyakini pertolongan Allah SWT:</b> Perkembangan Islam di Madinah adalah bukti bahwa Allah menolong hamba-Nya yang ikhlas.</li>
+        </ul>
+      `,
+      video: 'xxxxxxx',
+      soal: [
+        {
+          id: 'ski1',
+          tipe: 'pg',
+          tanya: 'Siapakah dua suku besar di Madinah yang menjadi pendukung utama dakwah Nabi Muhammad Saw.?',
+          opsi: ['Aus dan Khazraj', 'Quraisy dan Bani Nadhir', 'Aus dan Quraisy', 'Khazraj dan Quraisy'],
+          kunci: 0,
+          bahas: 'Suku Aus dan Khazraj beriman kepada Nabi Muhammad Saw. dan mendukung perjuangannya melalui Bai’at Aqabah.'
+        },
+        {
+          id: 'ski2',
+          tipe: 'cb',
+          tanya: 'Siapa saja kaum Yahudi yang tinggal di Madinah pada masa Nabi Muhammad Saw.?',
+          opsi: ['Bani Qainuqa’', 'Bani Nadhir', 'Bani Quraizhah', 'Bani Hasyim'],
+          kunci: [0, 1, 2],
+          bahas: 'Kaum Yahudi Madinah terdiri dari Bani Qainuqa’, Bani Nadhir, dan Bani Quraizhah.'
+        },
+        {
+          id: 'ski3',
+          tipe: 'bs',
+          tanya: 'Tentukan benar atau salah pernyataan berikut!',
+          opsi: [
+            'Suku Aus dan Khazraj mendukung dakwah Nabi Muhammad Saw.',
+            'Kaum Yahudi Madinah semuanya menerima Islam dengan sepenuh hati.',
+            'Bai’at Aqabah menjadi tonggak dukungan masyarakat Madinah kepada Nabi.',
+            'Kaum Yahudi sering melanggar perjanjian dengan Nabi.'
+          ],
+          kunci: [true, false, true, true],
+          bahas: 'Aus dan Khazraj mendukung dakwah Nabi, sementara sebagian besar Yahudi menolak dan melanggar perjanjian.'
+        },
+        {
+          id: 'ski4',
+          tipe: 'isian',
+          tanya: 'Apa hikmah yang dapat diambil dari sikap Nabi Muhammad Saw. menghadapi penolakan dakwah di Madinah?',
+          kunciText: 'Tidak mudah putus asa dan selalu meyakini pertolongan Allah SWT.',
+          bahas: 'Sikap Nabi mengajarkan umat Islam agar sabar, tidak putus asa, dan yakin Allah akan menolong.'
+        }
+      ]
+    }
+  }
+},
+IPAS: {
+  bab: {
+    'Ekosistem yang Seimbang': {
+      materi: `
+        <h2 class="text-xl font-bold mb-2">Ekosistem yang Seimbang</h2>
+        <p>
+          Ekosistem adalah suatu sistem yang terbentuk dari hubungan timbal balik antara makhluk hidup (biotik) dengan 
+          lingkungannya (abiotik). Ekosistem yang seimbang terjadi jika semua komponen di dalamnya saling berinteraksi dengan baik 
+          dan berjalan secara alami.
+        </p>
+
+        <h3 class="text-lg font-semibold mt-4">A. Ekosistem di Sekitar Kita</h3>
+
+        <h4 class="font-semibold mt-2">1. Komponen-Komponen Ekosistem</h4>
+        <p>
+          Komponen ekosistem terbagi menjadi dua:
+        </p>
+        <ul class="list-disc ml-6 mb-4">
+          <li><b>Komponen biotik:</b> semua makhluk hidup, misalnya tumbuhan, hewan, manusia, dan mikroorganisme.</li>
+          <li><b>Komponen abiotik:</b> faktor fisik dan kimia seperti cahaya, udara, tanah, air, suhu, dan mineral.</li>
+        </ul>
+
+        <h4 class="font-semibold mt-2">2. Pengelompokan Makhluk Hidup Berdasarkan Perannya</h4>
+        <ul class="list-disc ml-6 mb-4">
+          <li><b>Produsen:</b> organisme yang dapat membuat makanan sendiri, misalnya tumbuhan hijau.</li>
+          <li><b>Konsumen:</b> makhluk hidup yang memakan organisme lain, seperti hewan dan manusia.</li>
+          <li><b>Pengurai (dekomposer):</b> organisme yang menguraikan sisa-sisa makhluk hidup, contohnya bakteri dan jamur.</li>
+        </ul>
+
+        <h4 class="font-semibold mt-2">3. Interaksi Makhluk Hidup</h4>
+        <p>
+          Interaksi antar makhluk hidup dapat berupa:
+        </p>
+        <ul class="list-disc ml-6 mb-4">
+          <li><b>Simbiosis mutualisme:</b> hubungan saling menguntungkan, seperti kupu-kupu dengan bunga.</li>
+          <li><b>Simbiosis komensalisme:</b> hubungan yang menguntungkan salah satu pihak tanpa merugikan pihak lain, seperti ikan remora dengan ikan hiu.</li>
+          <li><b>Simbiosis parasitisme:</b> hubungan yang menguntungkan salah satu pihak namun merugikan pihak lain, seperti benalu pada pohon.</li>
+          <li><b>Predasi:</b> hubungan makan dan dimakan, misalnya singa memangsa zebra.</li>
+          <li><b>Kompetisi:</b> persaingan antar makhluk hidup, misalnya tumbuhan berebut cahaya matahari.</li>
+        </ul>
+
+        <h3 class="text-lg font-semibold mt-4">B. Peristiwa Makan dan Dimakan</h3>
+
+        <h4 class="font-semibold mt-2">1. Rantai Makanan</h4>
+        <p>
+          Rantai makanan adalah peristiwa makan dan dimakan antar makhluk hidup dengan urutan tertentu. 
+          Contoh: rumput → belalang → katak → ular → elang.
+        </p>
+
+        <h4 class="font-semibold mt-2">2. Jaring-Jaring Makanan</h4>
+        <p>
+          Jaring-jaring makanan adalah gabungan dari beberapa rantai makanan yang saling berhubungan dalam suatu ekosistem. 
+          Hal ini menggambarkan hubungan makan yang lebih kompleks.
+        </p>
+
+        <h4 class="font-semibold mt-2">3. Piramida Makanan atau Energi</h4>
+        <p>
+          Piramida makanan menunjukkan aliran energi dari tingkat trofik rendah ke tingkat trofik lebih tinggi. 
+          Energi terbesar berada pada produsen dan semakin berkurang pada konsumen tingkat atas.
+        </p>
+
+        <h3 class="text-lg font-semibold mt-4">C. Keseimbangan Ekosistem</h3>
+
+        <h4 class="font-semibold mt-2">1. Pengaruh Perubahan Lingkungan terhadap Keseimbangan Ekosistem</h4>
+        <p>
+          Perubahan lingkungan seperti kebakaran hutan, banjir, kekeringan, atau letusan gunung api dapat merusak ekosistem 
+          dan mengganggu keseimbangannya.
+        </p>
+
+        <h4 class="font-semibold mt-2">2. Pengaruh Aktivitas Manusia terhadap Keseimbangan Ekosistem</h4>
+        <p>
+          Aktivitas manusia yang merusak keseimbangan ekosistem antara lain:
+        </p>
+        <ul class="list-disc ml-6 mb-4">
+          <li>Penebangan hutan liar (deforestasi).</li>
+          <li>Pencemaran udara, air, dan tanah.</li>
+          <li>Penggunaan bahan kimia berlebihan.</li>
+          <li>Perburuan hewan langka.</li>
+        </ul>
+        <p>
+          Untuk menjaga keseimbangan ekosistem, manusia perlu melakukan reboisasi, mengurangi pencemaran, 
+          serta menjaga keanekaragaman hayati.
+        </p>
+      `,
+      video: 'xxxxxxx',
+      soal: [
+        {
+          id: 'ipa1',
+          tipe: 'pg',
+          tanya: 'Siapakah yang berperan sebagai produsen dalam suatu ekosistem?',
+          opsi: ['Hewan', 'Tumbuhan hijau', 'Jamur', 'Manusia'],
+          kunci: 1,
+          bahas: 'Tumbuhan hijau berperan sebagai produsen karena dapat membuat makanan sendiri melalui fotosintesis.'
+        },
+        {
+          id: 'ipa2',
+          tipe: 'cb',
+          tanya: 'Manakah dari berikut ini yang termasuk komponen abiotik dalam ekosistem?',
+          opsi: ['Air', 'Udara', 'Tumbuhan', 'Tanah', 'Cahaya matahari'],
+          kunci: [0, 1, 3, 4],
+          bahas: 'Komponen abiotik adalah faktor non-hidup seperti air, udara, tanah, dan cahaya matahari.'
+        },
+        {
+          id: 'ipa3',
+          tipe: 'bs',
+          tanya: 'Tentukan benar atau salah pernyataan berikut!',
+          opsi: [
+            'Simbiosis mutualisme adalah hubungan yang saling menguntungkan.',
+            'Rantai makanan lebih kompleks dibanding jaring-jaring makanan.',
+            'Energi terbesar dalam piramida makanan terdapat pada produsen.',
+            'Aktivitas manusia tidak berpengaruh terhadap keseimbangan ekosistem.'
+          ],
+          kunci: [true, false, true, false],
+          bahas: 'Mutualisme saling menguntungkan, jaring-jaring lebih kompleks dari rantai, produsen punya energi terbesar, dan manusia sangat berpengaruh.'
+        },
+        {
+          id: 'ipa4',
+          tipe: 'isian',
+          tanya: 'Sebutkan salah satu contoh simbiosis parasitisme dalam ekosistem!',
+          kunciText: 'Benalu dengan pohon inangnya.',
+          bahas: 'Benalu mengambil makanan dari pohon inangnya sehingga menguntungkan benalu tetapi merugikan pohon.'
+        },
+{
+  id: 'ipa5',
+  tipe: 'pg',
+  tanya: 'Apa yang termasuk produsen dalam ekosistem?',
+  opsi: ['Kucing', 'Pohon mangga', 'Burung', 'Ikan'],
+  kunci: 1,
+  bahas: 'Pohon mangga termasuk produsen karena dapat membuat makanan sendiri dengan fotosintesis.'
+},
+{
+  id: 'ipa6',
+  tipe: 'cb',
+  tanya: 'Pilih yang termasuk komponen abiotik!',
+  opsi: ['Air', 'Matahari', 'Bunga', 'Udara', 'Kelinci'],
+  kunci: [0, 1, 3],
+  bahas: 'Komponen abiotik adalah benda tak hidup seperti air, matahari, dan udara.'
+},
+{
+  id: 'ipa7',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah pernyataan berikut!',
+  opsi: [
+    'Hewan termasuk komponen biotik.',
+    'Tanah termasuk komponen abiotik.',
+    'Produsen bisa membuat makanan sendiri.',
+    'Matahari adalah makhluk hidup.'
+  ],
+  kunci: [true, true, true, false],
+  bahas: 'Hewan = biotik, tanah = abiotik, produsen bisa buat makanan, matahari bukan makhluk hidup.'
+},
+{
+  id: 'ipa8',
+  tipe: 'pg',
+  tanya: 'Siapakah yang disebut konsumen dalam ekosistem?',
+  opsi: ['Tumbuhan', 'Hewan', 'Air', 'Batu'],
+  kunci: 1,
+  bahas: 'Hewan disebut konsumen karena mendapatkan makanan dari tumbuhan atau hewan lain.'
+},
+{
+  id: 'ipa9',
+  tipe: 'cb',
+  tanya: 'Pilih contoh komponen biotik!',
+  opsi: ['Kupu-kupu', 'Air sungai', 'Rumput', 'Kucing', 'Batu'],
+  kunci: [0, 2, 3],
+  bahas: 'Komponen biotik adalah makhluk hidup seperti kupu-kupu, rumput, dan kucing.'
+},
+{
+  id: 'ipa10',
+  tipe: 'pg',
+  tanya: 'Mengapa tumbuhan disebut sebagai produsen?',
+  opsi: [
+    'Karena memakan hewan',
+    'Karena menghasilkan oksigen dan makanan',
+    'Karena hidup di tanah',
+    'Karena tidak bisa bergerak'
+  ],
+  kunci: 1,
+  bahas: 'Tumbuhan disebut produsen karena bisa menghasilkan makanan sendiri melalui fotosintesis dan menghasilkan oksigen.'
+},
+{
+  id: 'ipa11',
+  tipe: 'cb',
+  tanya: 'Manakah hubungan yang menunjukkan simbiosis mutualisme?',
+  opsi: [
+    'Lebah dan bunga',
+    'Benalu dan pohon mangga',
+    'Kerbau dan burung jalak',
+    'Kucing dan tikus',
+    'Manusia dan nyamuk'
+  ],
+  kunci: [0, 2],
+  bahas: 'Lebah mendapat madu, bunga terbantu penyerbukan; kerbau dibersihkan kutunya oleh burung jalak.'
+},
+{
+  id: 'ipa12',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah pernyataan berikut!',
+  opsi: [
+    'Komponen biotik dan abiotik saling berhubungan dalam ekosistem.',
+    'Jika produsen berkurang, jumlah konsumen juga akan terpengaruh.',
+    'Komponen abiotik tidak penting bagi makhluk hidup.',
+    'Rantai makanan selalu dimulai dari produsen.'
+  ],
+  kunci: [true, true, false, true],
+  bahas: 'Biotik & abiotik saling berhubungan, berkurangnya produsen memengaruhi konsumen, abiotik sangat penting, dan rantai makanan dimulai dari produsen.'
+},
+{
+  id: 'ipa13',
+  tipe: 'pg',
+  tanya: 'Apa yang terjadi jika semua konsumen hilang dari ekosistem?',
+  opsi: [
+    'Produsen akan tetap seimbang',
+    'Tidak ada yang memakan produsen, sehingga ekosistem terganggu',
+    'Dekomposer tidak bisa bekerja',
+    'Abiotik akan hilang'
+  ],
+  kunci: 1,
+  bahas: 'Jika konsumen hilang, produsen tidak terkendali jumlahnya dan keseimbangan ekosistem terganggu.'
+},
+{
+  id: 'ipa14',
+  tipe: 'cb',
+  tanya: 'Pilih contoh peran dekomposer dalam ekosistem!',
+  opsi: [
+    'Menguraikan daun kering',
+    'Menghasilkan oksigen',
+    'Mengubah bangkai menjadi zat hara',
+    'Memakan tumbuhan',
+    'Menyuburkan tanah'
+  ],
+  kunci: [0, 2, 4],
+  bahas: 'Dekomposer menguraikan sisa makhluk hidup, menghasilkan zat hara, dan menyuburkan tanah.'
+},
+{
+  id: 'ipa15',
+  tipe: 'pg',
+  bacaan: 'Di sebuah taman kota terdapat banyak pohon mangga, rumput, dan bunga. Burung pipit makan biji rumput, sedangkan ular memangsa burung pipit. Selain itu, ada jamur yang tumbuh di batang pohon mati dan menguraikannya menjadi zat hara bagi tanah. Matahari menjadi sumber energi utama bagi semua makhluk hidup di taman tersebut.',
+  tanya: 'Berdasarkan bacaan, siapa yang berperan sebagai produsen?',
+  opsi: ['Burung pipit', 'Rumput dan pohon mangga', 'Ular', 'Jamur'],
+  kunci: 1,
+  bahas: 'Rumput dan pohon mangga berperan sebagai produsen karena dapat membuat makanan sendiri dengan fotosintesis.'
+},
+{
+  id: 'ipa16',
+  tipe: 'cb',
+  bacaan: 'Di sebuah taman kota terdapat banyak pohon mangga, rumput, dan bunga. Burung pipit makan biji rumput, sedangkan ular memangsa burung pipit. Selain itu, ada jamur yang tumbuh di batang pohon mati dan menguraikannya menjadi zat hara bagi tanah. Matahari menjadi sumber energi utama bagi semua makhluk hidup di taman tersebut.',
+  tanya: 'Dari bacaan, manakah yang termasuk konsumen?',
+  opsi: ['Burung pipit', 'Ular', 'Jamur', 'Pohon mangga'],
+  kunci: [0, 1],
+  bahas: 'Burung pipit memakan biji (konsumen primer) dan ular memakan burung pipit (konsumen sekunder).'
+},
+{
+  id: 'ipa17',
+  tipe: 'bs',
+  bacaan: 'Di sebuah taman kota terdapat banyak pohon mangga, rumput, dan bunga. Burung pipit makan biji rumput, sedangkan ular memangsa burung pipit. Selain itu, ada jamur yang tumbuh di batang pohon mati dan menguraikannya menjadi zat hara bagi tanah. Matahari menjadi sumber energi utama bagi semua makhluk hidup di taman tersebut.',
+  tanya: 'Tentukan benar atau salah pernyataan berikut berdasarkan bacaan!',
+  opsi: [
+    'Jamur berperan sebagai dekomposer.',
+    'Energi utama dalam ekosistem taman berasal dari tanah.',
+    'Ular merupakan konsumen sekunder.',
+    'Rantai makanan dalam bacaan dimulai dari matahari.'
+  ],
+  kunci: [true, false, true, true],
+  bahas: 'Jamur = dekomposer, energi utama dari matahari, ular = konsumen sekunder, rantai makanan selalu dimulai dari energi matahari melalui produsen.'
+},
+{
+  id: 'ipa18',
+  tipe: 'pg',
+  bacaan: 'Di sebuah taman kota terdapat banyak pohon mangga, rumput, dan bunga. Burung pipit makan biji rumput, sedangkan ular memangsa burung pipit. Selain itu, ada jamur yang tumbuh di batang pohon mati dan menguraikannya menjadi zat hara bagi tanah. Matahari menjadi sumber energi utama bagi semua makhluk hidup di taman tersebut.',
+  tanya: 'Jika jumlah burung pipit di taman berkurang drastis, apa dampaknya?',
+  opsi: [
+    'Jumlah ular akan berkurang karena kekurangan makanan',
+    'Jumlah rumput berkurang karena dimakan banyak hewan lain',
+    'Jamur akan hilang dari ekosistem',
+    'Pohon mangga tidak bisa berfotosintesis'
+  ],
+  kunci: 0,
+  bahas: 'Jika burung pipit berkurang, ular akan kehilangan sumber makanan sehingga jumlahnya ikut menurun.'
+},
+{
+  id: 'ipa19',
+  tipe: 'cb',
+  bacaan: 'Di sebuah taman kota terdapat banyak pohon mangga, rumput, dan bunga. Burung pipit makan biji rumput, sedangkan ular memangsa burung pipit. Selain itu, ada jamur yang tumbuh di batang pohon mati dan menguraikannya menjadi zat hara bagi tanah. Matahari menjadi sumber energi utama bagi semua makhluk hidup di taman tersebut.',
+  tanya: 'Dari bacaan, pilih hubungan rantai makanan yang benar!',
+  opsi: [
+    'Matahari → Pohon mangga → Burung pipit → Ular',
+    'Matahari → Rumput → Burung pipit → Ular',
+    'Matahari → Jamur → Pohon mangga',
+    'Matahari → Bunga → Burung pipit',
+    'Matahari → Tanah → Jamur'
+  ],
+  kunci: [0, 1, 3],
+  bahas: 'Rantai makanan yang benar dari bacaan adalah melalui produsen (pohon/rumput/bunga) → burung pipit → ular. Jamur bukan produsen, melainkan dekomposer.'
+},
+{
+  id: 'ipa20',
+  tipe: 'pg',
+  tanya: 'Hubungan antara lebah dan bunga disebut simbiosis apa?',
+  opsi: ['Parasitisme', 'Kompetisi', 'Mutualisme', 'Predasi'],
+  kunci: 2,
+  bahas: 'Lebah mendapat madu, bunga terbantu penyerbukannya. Itu disebut simbiosis mutualisme.'
+},
+{
+  id: 'ipa21',
+  tipe: 'cb',
+  tanya: 'Pilih contoh hubungan simbiosis mutualisme!',
+  opsi: [
+    'Kerbau dan burung jalak',
+    'Ikan badut dan anemon laut',
+    'Benalu dan pohon mangga',
+    'Nyamuk dan manusia',
+    'Lebah dan bunga'
+  ],
+  kunci: [0, 1, 4],
+  bahas: 'Kerbau–jalak, ikan badut–anemon, lebah–bunga semuanya saling menguntungkan.'
+},
+{
+  id: 'ipa22',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah pernyataan berikut!',
+  opsi: [
+    'Parasitisme adalah hubungan yang saling merugikan.',
+    'Kompetisi adalah persaingan antar makhluk hidup.',
+    'Mutualisme adalah hubungan saling menguntungkan.',
+    'Predasi adalah hubungan memangsa.'
+  ],
+  kunci: [false, true, true, true],
+  bahas: 'Parasitisme = untung satu rugi satu, bukan saling rugi; kompetisi = persaingan; mutualisme = saling untung; predasi = memangsa.'
+},
+{
+  id: 'ipa23',
+  tipe: 'pg',
+  tanya: 'Hubungan antara kucing dan tikus disebut...',
+  opsi: ['Mutualisme', 'Parasitisme', 'Predasi', 'Kompetisi'],
+  kunci: 2,
+  bahas: 'Kucing memangsa tikus, hubungan ini disebut predasi.'
+},
+{
+  id: 'ipa24',
+  tipe: 'cb',
+  tanya: 'Yang termasuk contoh hubungan parasitisme adalah...',
+  opsi: [
+    'Benalu dengan pohon mangga',
+    'Cacing pita dalam usus manusia',
+    'Kerbau dengan burung jalak',
+    'Nyamuk dengan manusia',
+    'Ikan badut dengan anemon laut'
+  ],
+  kunci: [0, 1, 3],
+  bahas: 'Parasitisme adalah untung satu pihak, rugi pihak lain, contohnya benalu, cacing pita, dan nyamuk.'
+},
+{
+  id: 'ipa25',
+  tipe: 'pg',
+  tanya: 'Mengapa hubungan kerbau dan burung jalak disebut mutualisme?',
+  opsi: [
+    'Kerbau memakan burung jalak',
+    'Keduanya sama-sama mendapat keuntungan',
+    'Burung jalak merugikan kerbau',
+    'Kerbau tidak mendapatkan apa-apa'
+  ],
+  kunci: 1,
+  bahas: 'Kerbau mendapat manfaat karena kutunya dimakan, burung jalak mendapat makanan. Keduanya untung.'
+},
+{
+  id: 'ipa26',
+  tipe: 'cb',
+  tanya: 'Pilih contoh interaksi kompetisi!',
+  opsi: [
+    'Pohon jati dan pohon mahoni berebut cahaya',
+    'Harimau memangsa rusa',
+    'Kucing dan anjing berebut makanan',
+    'Burung jalak membersihkan kerbau',
+    'Rumput dan jagung tumbuh berdampingan di lahan sempit'
+  ],
+  kunci: [0, 2, 4],
+  bahas: 'Kompetisi = persaingan antar makhluk hidup, contohnya berebut cahaya, makanan, atau ruang tumbuh.'
+},
+{
+  id: 'ipa27',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah pernyataan berikut!',
+  opsi: [
+    'Hubungan kucing dan tikus termasuk predasi.',
+    'Mutualisme selalu merugikan salah satu pihak.',
+    'Kompetisi dapat terjadi antar tumbuhan maupun hewan.',
+    'Parasitisme hanya terjadi pada hewan.'
+  ],
+  kunci: [true, false, true, false],
+  bahas: 'Kucing–tikus = predasi, mutualisme = saling untung, kompetisi bisa pada tumbuhan/hewan, parasitisme juga ada pada tumbuhan (misal benalu).'
+},
+{
+  id: 'ipa28',
+  tipe: 'pg',
+  tanya: 'Apa dampak jika di suatu ekosistem semua predator hilang?',
+  opsi: [
+    'Jumlah mangsa akan terus bertambah',
+    'Jumlah mangsa berkurang drastis',
+    'Tidak ada perubahan dalam ekosistem',
+    'Tumbuhan langsung punah'
+  ],
+  kunci: 0,
+  bahas: 'Tanpa predator, mangsa tidak terkendali populasinya sehingga jumlahnya bisa sangat banyak.'
+},
+{
+  id: 'ipa29',
+  tipe: 'cb',
+  tanya: 'Pilih contoh hubungan predasi!',
+  opsi: [
+    'Elang memangsa ayam',
+    'Kucing menangkap tikus',
+    'Kerbau dengan burung jalak',
+    'Ular memangsa katak',
+    'Nyamuk menghisap darah manusia'
+  ],
+  kunci: [0, 1, 3],
+  bahas: 'Predasi = hubungan memangsa, contohnya elang–ayam, kucing–tikus, dan ular–katak.'
+},
+{
+  id: 'ipa30',
+  tipe: 'pg',
+  tanya: "Bacaan: 'Di sebuah sawah, terdapat padi yang tumbuh subur. Tikus sering memakan padi sehingga petani mengalami kerugian. Untuk mengurangi jumlah tikus, petani memelihara ular sawah. Ular tersebut memangsa tikus sehingga jumlah tikus berkurang dan hasil panen meningkat.'\n\nPertanyaan: Apa peran ular dalam ekosistem sawah?",
+  opsi: [
+    'Sebagai produsen',
+    'Sebagai konsumen tingkat pertama',
+    'Sebagai pengendali populasi tikus',
+    'Sebagai dekomposer'
+  ],
+  kunci: 2,
+  bahas: 'Ular memangsa tikus sehingga mengendalikan populasinya. Ular bukan produsen atau dekomposer.'
+},
+{
+  id: 'ipa31',
+  tipe: 'cb',
+  tanya: "Bacaan: 'Di hutan, burung pelatuk memakan serangga yang hidup di batang pohon. Sementara itu, pohon juga mendapat manfaat karena terbebas dari hama perusak. Namun jika burung pelatuk punah, serangga perusak akan berkembang biak dengan cepat dan merusak pohon.'\n\nPertanyaan: Apa dampak yang mungkin terjadi jika burung pelatuk hilang dari ekosistem?",
+  opsi: [
+    'Jumlah serangga perusak meningkat',
+    'Pohon akan lebih sehat',
+    'Ekosistem tetap seimbang',
+    'Kerusakan pohon akan semakin banyak',
+    'Burung lain otomatis menggantikan peran pelatuk'
+  ],
+  kunci: [0, 3],
+  bahas: 'Tanpa burung pelatuk, serangga berkembang biak tak terkendali sehingga pohon rusak.'
+},
+{
+  id: 'ipa32',
+  tipe: 'bs',
+  tanya: "Bacaan: 'Di sebuah danau, terdapat ikan kecil yang memakan plankton, lalu ikan besar memangsa ikan kecil. Jika populasi ikan kecil menurun drastis, maka jumlah ikan besar juga ikut menurun karena kekurangan makanan.'\n\nPernyataan berikut benar atau salah?",
+  opsi: [
+    'Ikan kecil berperan sebagai konsumen tingkat pertama.',
+    'Ikan besar berperan sebagai konsumen tingkat kedua.',
+    'Jika ikan kecil berkurang, ikan besar jumlahnya tetap sama.',
+    'Plankton merupakan produsen dalam rantai makanan tersebut.'
+  ],
+  kunci: [true, true, false, true],
+  bahas: 'Ikan kecil = konsumen I, ikan besar = konsumen II, plankton = produsen. Jika ikan kecil berkurang, ikan besar juga ikut berkurang.'
+},
+{
+  id: 'ipa33',
+  tipe: 'pg',
+  tanya: "Bacaan: 'Di padang rumput, zebra memakan rumput sebagai makanan utama. Singa memangsa zebra untuk bertahan hidup. Jika populasi singa menurun, zebra semakin banyak sehingga rumput semakin sedikit.'\n\nPertanyaan: Apa kesimpulan yang tepat dari bacaan tersebut?",
+  opsi: [
+    'Rantai makanan padang rumput selalu stabil',
+    'Jumlah singa tidak berpengaruh pada rumput',
+    'Keseimbangan ekosistem bergantung pada interaksi antar makhluk hidup',
+    'Rumput akan selalu ada meskipun zebra terus bertambah'
+  ],
+  kunci: 2,
+  bahas: 'Jika satu populasi berubah (misalnya singa berkurang), maka memengaruhi populasi lain. Ekosistem bergantung pada keseimbangan interaksi.'
+},
+{
+  id: 'ipa34',
+  tipe: 'cb',
+  tanya: "Bacaan: 'Petani menanam cabai di ladang. Banyak ulat memakan daun cabai sehingga tanaman rusak. Petani kemudian menggunakan burung kecil yang suka makan ulat untuk mengurangi hama.'\n\nPertanyaan: Apa hubungan yang terjadi pada kasus di atas?",
+  opsi: [
+    'Ulat dan cabai = parasitisme',
+    'Ulat dan cabai = predasi',
+    'Burung dan ulat = predasi',
+    'Burung dan petani = mutualisme',
+    'Cabai dan petani = komensalisme'
+  ],
+  kunci: [1, 2, 3],
+  bahas: 'Ulat memakan cabai = predasi (tumbuhan dimakan), burung memakan ulat = predasi, petani–burung = mutualisme karena sama-sama untung.'
+},
+{
+  id: 'ipa40',
+  tipe: 'pg',
+  tanya: 'Urutan perpindahan energi dari satu makhluk hidup ke makhluk hidup lain disebut...',
+  opsi: ['Rantai makanan', 'Jaring-jaring makanan', 'Piramida makanan', 'Fotosintesis'],
+  kunci: 0,
+  bahas: 'Rantai makanan adalah urutan perpindahan energi antar makhluk hidup.'
+},
+{
+  id: 'ipa41',
+  tipe: 'cb',
+  tanya: 'Manakah yang termasuk contoh rantai makanan di sawah?',
+  opsi: [
+    'Padi → Tikus → Ular',
+    'Rumput → Kambing → Harimau',
+    'Jagung → Ayam → Manusia',
+    'Padi → Burung pipit → Elang',
+    'Bunga → Kupu-kupu → Katak'
+  ],
+  kunci: [0, 1, 2, 3],
+  bahas: 'Semua kecuali bunga–kupu–katak (karena kupu makan nektar, tidak dimakan katak).'
+},
+{
+  id: 'ipa42',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah pernyataan berikut!',
+  opsi: [
+    'Produsen selalu berada di awal rantai makanan.',
+    'Konsumen tingkat pertama memakan produsen.',
+    'Jaring-jaring makanan lebih sederhana daripada rantai makanan.',
+    'Semua energi dalam rantai makanan berasal dari matahari.'
+  ],
+  kunci: [true, true, false, true],
+  bahas: 'Jaring-jaring makanan lebih kompleks, bukan lebih sederhana.'
+},
+{
+  id: 'ipa43',
+  tipe: 'pg',
+  tanya: 'Dalam rantai makanan, yang berperan sebagai produsen adalah...',
+  opsi: ['Hewan', 'Tumbuhan hijau', 'Jamur', 'Manusia'],
+  kunci: 1,
+  bahas: 'Tumbuhan hijau sebagai produsen karena dapat membuat makanan sendiri melalui fotosintesis.'
+},
+{
+  id: 'ipa44',
+  tipe: 'cb',
+  tanya: 'Komponen yang dapat menempati lebih dari satu tingkat trofik dalam jaring-jaring makanan adalah...',
+  opsi: ['Manusia', 'Ular', 'Katak', 'Burung elang', 'Rumput'],
+  kunci: [0, 1, 2, 3],
+  bahas: 'Manusia, ular, katak, elang bisa makan di lebih dari satu tingkat. Rumput hanya sebagai produsen.'
+},
+{
+  id: 'ipa45',
+  tipe: 'pg',
+  tanya: 'Apa yang terjadi jika populasi tikus di sawah meningkat tajam?',
+  opsi: [
+    'Jumlah ular menurun',
+    'Jumlah padi berkurang',
+    'Jumlah burung elang berkurang',
+    'Jumlah padi semakin banyak'
+  ],
+  kunci: 1,
+  bahas: 'Jika tikus banyak, padi semakin berkurang karena dimakan.'
+},
+{
+  id: 'ipa46',
+  tipe: 'cb',
+  tanya: 'Pilih contoh yang termasuk jaring-jaring makanan!',
+  opsi: [
+    'Padi → Tikus → Ular',
+    'Rumput → Belalang → Katak → Ular → Elang',
+    'Jagung → Ayam → Manusia',
+    'Beberapa rantai makanan saling berhubungan',
+    'Satu urutan tunggal dari produsen ke konsumen'
+  ],
+  kunci: [1, 3],
+  bahas: 'Jaring-jaring makanan adalah gabungan beberapa rantai makanan yang saling terhubung.'
+},
+{
+  id: 'ipa47',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah pernyataan berikut!',
+  opsi: [
+    'Jika konsumen tingkat pertama berkurang, konsumen tingkat kedua juga berkurang.',
+    'Produsen hanya berperan sebagai makanan untuk hewan herbivora.',
+    'Elang selalu menjadi konsumen tingkat pertama.',
+    'Semakin kompleks jaring-jaring makanan, semakin stabil ekosistemnya.'
+  ],
+  kunci: [true, false, false, true],
+  bahas: 'Produsen bukan hanya untuk herbivora (juga untuk omnivora), elang biasanya konsumen puncak.'
+},
+{
+  id: 'ipa48',
+  tipe: 'pg',
+  tanya: 'Dalam jaring-jaring makanan, apa fungsi utama dekomposer?',
+  opsi: [
+    'Menguraikan sisa-sisa makhluk hidup',
+    'Membuat makanan sendiri',
+    'Sebagai konsumen tingkat pertama',
+    'Menjadi predator bagi produsen'
+  ],
+  kunci: 0,
+  bahas: 'Dekomposer menguraikan sisa-sisa makhluk hidup agar nutrisi kembali ke tanah.'
+},
+{
+  id: 'ipa49',
+  tipe: 'cb',
+  tanya: 'Komponen berikut termasuk konsumen tingkat pertama adalah...',
+  opsi: ['Kambing', 'Elang', 'Sapi', 'Kelinci', 'Harimau'],
+  kunci: [0, 2, 3],
+  bahas: 'Kambing, sapi, kelinci makan tumbuhan → konsumen tingkat pertama. Elang dan harimau pemangsa.'
+},
+{
+  id: 'ipa50',
+  tipe: 'pg',
+  tanya: "Bacaan: 'Di sebuah ladang jagung, terdapat belalang yang memakan daun jagung. Katak memakan belalang, lalu ular memakan katak. Jika populasi ular menurun drastis, maka jumlah katak akan meningkat dan jumlah belalang berkurang.'\n\nPertanyaan: Apa yang terjadi pada jumlah jagung?",
+  opsi: [
+    'Jumlah jagung meningkat',
+    'Jumlah jagung menurun',
+    'Jumlah jagung tetap',
+    'Jumlah jagung tidak dipengaruhi'
+  ],
+  kunci: 0,
+  bahas: 'Jika ular berkurang, katak bertambah, belalang berkurang, sehingga jagung tidak banyak dimakan → jumlahnya meningkat.'
+},
+{
+  id: 'ipa51',
+  tipe: 'cb',
+  tanya: "Bacaan: 'Di hutan terdapat tumbuhan, rusa, harimau, dan elang. Rusa memakan tumbuhan, harimau memangsa rusa, sedangkan elang memangsa ular dan juga bangkai hewan.'\n\nPertanyaan: Hubungan yang benar dari bacaan tersebut adalah...",
+  opsi: [
+    'Rusa = konsumen I',
+    'Harimau = konsumen II',
+    'Elang hanya pemakan tumbuhan',
+    'Elang bisa menjadi konsumen tingkat III',
+    'Tumbuhan = produsen'
+  ],
+  kunci: [0, 1, 3, 4],
+  bahas: 'Rusa = konsumen I, harimau = konsumen II, elang pemangsa → konsumen III. Tumbuhan = produsen.'
+},
+{
+  id: 'ipa52',
+  tipe: 'bs',
+  tanya: "Bacaan: 'Di sebuah kolam, ada plankton, ikan kecil, ikan besar, dan burung bangau. Jika ikan kecil berkurang karena pencemaran, maka ikan besar dan burung bangau ikut menurun populasinya.'\n\nPernyataan berikut benar atau salah?",
+  opsi: [
+    'Plankton berperan sebagai produsen.',
+    'Ikan kecil adalah konsumen tingkat I.',
+    'Ikan besar tetap banyak meskipun ikan kecil berkurang.',
+    'Burung bangau merupakan konsumen tingkat III.'
+  ],
+  kunci: [true, true, false, true],
+  bahas: 'Plankton = produsen, ikan kecil = konsumen I, ikan besar = konsumen II, bangau = konsumen III.'
+},
+{
+  id: 'ipa53',
+  tipe: 'pg',
+  tanya: "Bacaan: 'Di padang rumput, zebra memakan rumput, singa memangsa zebra, dan burung nasar memakan bangkai zebra.'\n\nPertanyaan: Apa peran burung nasar dalam rantai makanan tersebut?",
+  opsi: [
+    'Produsen',
+    'Detritivor/pengurai',
+    'Konsumen tingkat I',
+    'Konsumen tingkat II atau lebih'
+  ],
+  kunci: 3,
+  bahas: 'Burung nasar termasuk konsumen karena memakan sisa hewan lain (scavenger), bukan pengurai.'
+},
+{
+  id: 'ipa54',
+  tipe: 'cb',
+  tanya: "Bacaan: 'Di sawah, terdapat padi, tikus, ular, dan elang. Jika populasi ular hilang, tikus akan semakin banyak sehingga padi berkurang dan elang juga kehilangan sebagian makanannya.'\n\nPertanyaan: Dampak yang terjadi adalah...",
+  opsi: [
+    'Jumlah tikus meningkat',
+    'Jumlah padi meningkat',
+    'Jumlah elang menurun',
+    'Jumlah padi menurun',
+    'Jumlah tikus tetap'
+  ],
+  kunci: [0, 2, 3],
+  bahas: 'Tanpa ular → tikus bertambah → padi berkurang → elang ikut menurun karena kekurangan makanan.'
+},
+{
+  id: 'ipa55',
+  tipe: 'pg',
+  tanya: 'Apa yang terjadi jika hutan ditebangi secara liar?',
+  opsi: ['Hewan kehilangan tempat tinggal', 'Udara semakin bersih', 'Air tanah semakin banyak', 'Tanaman semakin subur'],
+  kunci: 0,
+  bahas: 'Penebangan liar menyebabkan habitat hewan hilang dan ekosistem terganggu.'
+},
+{
+  id: 'ipa56',
+  tipe: 'cb',
+  tanya: 'Contoh aktivitas manusia yang merusak keseimbangan ekosistem adalah...',
+  opsi: [
+    'Menebang hutan sembarangan',
+    'Membuang sampah ke sungai',
+    'Melakukan reboisasi',
+    'Menggunakan pestisida berlebihan',
+    'Menangkap ikan dengan bom'
+  ],
+  kunci: [0, 1, 3, 4],
+  bahas: 'Reboisasi justru menjaga keseimbangan, sedangkan yang lain merusak.'
+},
+{
+  id: 'ipa57',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah pernyataan berikut!',
+  opsi: [
+    'Penanaman kembali hutan disebut reboisasi.',
+    'Polusi udara dapat mengganggu kesehatan makhluk hidup.',
+    'Menangkap ikan dengan jaring ramah lingkungan merusak ekosistem.',
+    'Pembuangan limbah ke sungai dapat membunuh ikan.'
+  ],
+  kunci: [true, true, false, true],
+  bahas: 'Jaring ramah lingkungan tidak merusak, justru aman digunakan.'
+},
+{
+  id: 'ipa58',
+  tipe: 'pg',
+  tanya: 'Apa akibat penggunaan pestisida yang berlebihan di sawah?',
+  opsi: [
+    'Hanya membunuh hama',
+    'Meningkatkan kesuburan tanah',
+    'Membunuh organisme lain yang bermanfaat',
+    'Tidak berpengaruh pada keseimbangan ekosistem'
+  ],
+  kunci: 2,
+  bahas: 'Pestisida berlebihan bisa membunuh serangga lain yang berguna dan merusak keseimbangan ekosistem.'
+},
+{
+  id: 'ipa59',
+  tipe: 'cb',
+  tanya: 'Upaya manusia yang dapat menjaga keseimbangan ekosistem adalah...',
+  opsi: [
+    'Melakukan reboisasi',
+    'Menangkap ikan dengan racun',
+    'Membuang limbah ke laut',
+    'Mengurangi penggunaan plastik',
+    'Menanam mangrove di pesisir'
+  ],
+  kunci: [0, 3, 4],
+  bahas: 'Reboisasi, mengurangi plastik, dan menanam mangrove adalah upaya menjaga ekosistem.'
+},
+{
+  id: 'ipa60',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah pernyataan berikut!',
+  opsi: [
+    'Polusi air hanya merugikan hewan air, tidak berpengaruh pada manusia.',
+    'Penggundulan hutan bisa menyebabkan banjir.',
+    'Membuang sampah sembarangan mengganggu saluran air.',
+    'Menjaga kebersihan lingkungan adalah tanggung jawab bersama.'
+  ],
+  kunci: [false, true, true, true],
+  bahas: 'Polusi air juga merugikan manusia karena sumber air tercemar.'
+},
+{
+  id: 'ipa61',
+  tipe: 'pg',
+  tanya: "Bacaan: 'Di sebuah desa, hutan di sekitar sungai ditebangi untuk dijadikan lahan pertanian. Awalnya, hasil panen meningkat. Namun, beberapa tahun kemudian banjir sering terjadi dan tanah menjadi tandus.'\n\nPertanyaan: Apa penyebab utama seringnya banjir di desa tersebut?",
+  opsi: [
+    'Banyaknya hujan deras',
+    'Hilangnya pepohonan penahan air',
+    'Kurangnya lahan pertanian',
+    'Sungai semakin dalam'
+  ],
+  kunci: 1,
+  bahas: 'Penebangan hutan membuat air hujan tidak terserap sehingga banjir mudah terjadi.'
+},
+{
+  id: 'ipa62',
+  tipe: 'cb',
+  tanya: "Bacaan: 'Pabrik di tepi sungai membuang limbah cair langsung ke sungai. Air sungai menjadi keruh dan banyak ikan mati. Warga desa kekurangan air bersih dan kesehatan terganggu.'\n\nPertanyaan: Dampak dari aktivitas pabrik tersebut adalah...",
+  opsi: [
+    'Kesehatan warga terganggu',
+    'Ekosistem air terganggu',
+    'Ikan berkembang biak dengan baik',
+    'Warga kesulitan mendapatkan air bersih',
+    'Sungai menjadi lebih jernih'
+  ],
+  kunci: [0, 1, 3],
+  bahas: 'Limbah pabrik mencemari sungai sehingga ikan mati, warga kesulitan air bersih, dan kesehatan terganggu.'
+},
+{
+  id: 'ipa63',
+  tipe: 'bs',
+  tanya: "Bacaan: 'Di sebuah kota besar, jumlah kendaraan bermotor semakin banyak. Udara menjadi tercemar, banyak orang mengalami gangguan pernapasan, dan suhu kota semakin panas.'\n\nPernyataan berikut benar atau salah?",
+  opsi: [
+    'Polusi udara dapat menimbulkan penyakit pada manusia.',
+    'Banyak kendaraan justru membuat udara segar.',
+    'Kenaikan suhu kota dapat dipengaruhi polusi udara.',
+    'Penggunaan transportasi umum dapat membantu mengurangi polusi.'
+  ],
+  kunci: [true, false, true, true],
+  bahas: 'Polusi udara membuat penyakit, meningkatkan suhu kota, dan bisa dikurangi dengan transportasi umum.'
+},
+
+      ]
+    },
+'Cahaya dan Bunyi di Sekitar Kita': {
+      materi: `
+        <h2 class="text-xl font-bold mb-2">Cahaya dan Bunyi di Sekitar Kita</h2>
+        <p>
+          Cahaya dan bunyi adalah dua bentuk energi yang sangat penting dalam kehidupan sehari-hari. 
+          Cahaya memungkinkan kita untuk melihat, sedangkan bunyi memungkinkan kita berkomunikasi dan mengenali lingkungan.
+        </p>
+
+        <h3 class="text-lg font-semibold mt-4">1. Sifat-Sifat Cahaya</h3>
+        <ul class="list-disc ml-6 mb-4">
+          <li>Cahaya merambat lurus.</li>
+          <li>Cahaya dapat dipantulkan (refleksi).</li>
+          <li>Cahaya dapat dibiaskan (refraksi).</li>
+          <li>Cahaya dapat menembus benda bening.</li>
+          <li>Cahaya dapat diuraikan menjadi spektrum warna (dispersi).</li>
+          <li>Cahaya diperlukan untuk melihat benda.</li>
+        </ul>
+
+        <h3 class="text-lg font-semibold mt-4">2. Alat Optik</h3>
+        
+        <h4 class="font-semibold mt-2">a. Cermin</h4>
+        <p>
+          Cermin adalah benda yang dapat memantulkan cahaya. Berdasarkan bentuknya, cermin dibagi menjadi:
+        </p>
+        <ul class="list-disc ml-6 mb-4">
+          <li><b>Cermin datar:</b> menghasilkan bayangan maya, tegak, dan sama besar dengan benda.</li>
+          <li><b>Cermin cekung:</b> dapat menghasilkan bayangan nyata, terbalik, atau diperbesar tergantung posisi benda.</li>
+          <li><b>Cermin cembung:</b> menghasilkan bayangan maya, tegak, dan diperkecil.</li>
+        </ul>
+
+        <h4 class="font-semibold mt-2">b. Lensa</h4>
+        <p>
+          Lensa adalah benda bening yang dapat membiaskan cahaya. Jenis-jenis lensa:
+        </p>
+        <ul class="list-disc ml-6 mb-4">
+          <li><b>Lensa cembung:</b> menebal di tengah, dapat mengumpulkan cahaya (konvergen), sering digunakan pada lup dan mikroskop.</li>
+          <li><b>Lensa cekung:</b> menipis di tengah, menyebarkan cahaya (divergen), sering digunakan pada kacamata rabun jauh.</li>
+        </ul>
+
+        <h4 class="font-semibold mt-2">c. Organ Penglihatan (Mata)</h4>
+        <p>
+          Mata adalah organ penglihatan manusia. Bagian-bagian utama mata:
+        </p>
+        <ul class="list-disc ml-6 mb-4">
+          <li><b>Kornea:</b> bagian bening di depan mata yang membiaskan cahaya pertama kali.</li>
+          <li><b>Iris:</b> bagian berwarna yang mengatur besar kecilnya pupil.</li>
+          <li><b>Pupil:</b> lubang tempat masuknya cahaya.</li>
+          <li><b>Lensa mata:</b> membiaskan cahaya agar jatuh tepat di retina.</li>
+          <li><b>Retina:</b> tempat bayangan terbentuk, kemudian diubah menjadi sinyal listrik.</li>
+          <li><b>Saraf optik:</b> menghantarkan sinyal ke otak sehingga kita dapat melihat.</li>
+        </ul>
+        <p>
+          <b>Proses penglihatan:</b> Cahaya dari benda masuk melalui kornea → melewati pupil → dibiaskan oleh lensa mata → 
+          bayangan jatuh di retina → retina mengirimkan sinyal melalui saraf optik → otak menerjemahkan menjadi penglihatan.
+        </p>
+      `,
+      video: 'xxxxxxx',
+      soal: [
+        {
+          id: 'ipa5',
+          tipe: 'pg',
+          tanya: 'Cermin apakah yang menghasilkan bayangan maya, tegak, dan sama besar?',
+          opsi: ['Cermin datar', 'Cermin cekung', 'Cermin cembung', 'Lensa cembung'],
+          kunci: 0,
+          bahas: 'Cermin datar selalu menghasilkan bayangan maya, tegak, dan sama besar.'
+        },
+        {
+          id: 'ipa6',
+          tipe: 'cb',
+          tanya: 'Manakah sifat-sifat cahaya berikut yang benar?',
+          opsi: [
+            'Cahaya merambat lurus',
+            'Cahaya dapat dipantulkan',
+            'Cahaya tidak dapat dibiaskan',
+            'Cahaya dapat diuraikan menjadi spektrum warna'
+          ],
+          kunci: [0, 1, 3],
+          bahas: 'Cahaya merambat lurus, dapat dipantulkan, dapat dibiaskan, dan dapat diuraikan menjadi spektrum warna.'
+        },
+        {
+          id: 'ipa7',
+          tipe: 'bs',
+          tanya: 'Tentukan benar atau salah pernyataan berikut!',
+          opsi: [
+            'Lensa cembung berfungsi mengumpulkan cahaya (konvergen).',
+            'Cermin cembung menghasilkan bayangan nyata dan terbalik.',
+            'Retina adalah tempat terbentuknya bayangan pada mata.',
+            'Saraf optik berfungsi mengatur besar kecilnya pupil.'
+          ],
+          kunci: [true, false, true, false],
+          bahas: 'Lensa cembung bersifat konvergen, cermin cembung menghasilkan bayangan maya tegak diperkecil, retina tempat bayangan terbentuk, dan pupil diatur oleh iris.'
+        },
+        {
+          id: 'ipa8',
+          tipe: 'isian',
+          tanya: 'Sebutkan urutan proses penglihatan pada mata manusia!',
+          kunciText: 'Cahaya masuk ke kornea → melewati pupil → dibiaskan lensa mata → bayangan jatuh di retina → diteruskan ke otak oleh saraf optik.',
+          bahas: 'Proses penglihatan dimulai dari cahaya masuk ke kornea hingga diterjemahkan oleh otak.'
+        }
+      ]
+    }
+  }
+},
+
 'Fikih': {
   bab: {
     'Zakat Fitrah': {
