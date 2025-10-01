@@ -1065,7 +1065,7 @@ IPAS: {
           bayangan jatuh di retina → retina mengirimkan sinyal melalui saraf optik → otak menerjemahkan menjadi penglihatan.
         </p>
       `,
-      video: 'xxxxxxx',
+      video: ['sIEIxvbqxHM','VqYAQMh7LFU','zx3kv9aGmhY','pBlTbnTSvZw'],
       soal: [
         {
           id: 'cah1',
@@ -1603,7 +1603,7 @@ IPAS: {
     kunci: [true, true, true, true],
     bahas: 'Miopi → bayangan di depan retina (lensa terlalu cembung). Hipermetropi → bayangan di belakang retina (lensa terlalu pipih). Retina menerima bayangan nyata, terbalik, diperkecil. Sel kerucut pada retina mendeteksi warna.'
   },
-[
+
   {
     id: 'mata7',
     tipe: 'pg',
@@ -4949,7 +4949,7 @@ bacaan:'Toko Zafran menjual beberapa jenis buah, di antaranya mangga, alpukat, j
 
   };
 
-   // ======= Helpers =======
+  // ======= Helpers =======
   const $ = (sel, par=document) => par.querySelector(sel);
   const $$ = (sel, par=document) => Array.from(par.querySelectorAll(sel));
   function setTab(name){
@@ -4982,11 +4982,23 @@ bacaan:'Toko Zafran menjual beberapa jenis buah, di antaranya mangga, alpukat, j
       return;
     }
     $('#materiKonten').innerHTML = item.materi;
-    if(item.video){
-      $('#materiVideo').innerHTML = `<iframe class="w-full h-full" src="https://www.youtube.com/embed/${item.video}" title="Video pembelajaran" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
-    } else {
-      $('#materiVideo').innerHTML = '<span class="text-sm">Video belum tersedia.</span>';
-    }
+   $('#materiVideo').innerHTML = ''; // kosongkan dulu
+$('#materiVideo').className = 'flex flex-col gap-2'; // paksa vertikal
+
+if(item.video && item.video.length){
+  item.video.forEach(vId => {
+    const iframe = document.createElement('iframe');
+    iframe.className = 'w-full h-64';
+    iframe.src = `https://www.youtube.com/embed/${vId}`;
+    iframe.title = 'Video pembelajaran';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    $('#materiVideo').appendChild(iframe);
+  });
+} else {
+  $('#materiVideo').innerHTML = '<span class="text-sm">Video belum tersedia.</span>';
+}
+
 if(window.MathJax){
     MathJax.typesetPromise([$('#materiKonten')]);
   }
@@ -5028,6 +5040,30 @@ if(window.MathJax){
     teks.innerText = q.bacaan;
     body.appendChild(teks);
   }
+if (q.tabel) {
+  // Kalau hanya satu tabel (array 2D), bungkus jadi array agar konsisten
+  const tables = Array.isArray(q.tabel[0][0]) ? q.tabel : [q.tabel];
+
+  tables.forEach(t => {
+    const table = document.createElement('table');
+    table.className = 'my-3 border-collapse border border-gray-400 w-full max-w-md text-center';
+
+    t.forEach((row, i) => {
+      const tr = document.createElement('tr');
+      row.forEach((cell, j) => {
+        const el = i === 0 ? 'th' : 'td'; // baris pertama = header
+        const td = document.createElement(el);
+        td.textContent = cell;
+        td.className = 'border border-gray-400 px-2 py-1';
+        tr.appendChild(td);
+      });
+      table.appendChild(tr);
+    });
+
+    body.appendChild(table);
+  });
+}
+
 if(q.tanya){
     const pertanyaan = document.createElement('div');
     pertanyaan.className = 'text-base font-medium';
@@ -5272,7 +5308,8 @@ if(q.tanya){
 
   const bahas = document.createElement('div');
   bahas.className = 'mt-3 hidden p-3 rounded-lg bg-emerald-50 border border-emerald-100 text-sm';
-  bahas.textContent = q.bahas || 'Belum ada pembahasan.';
+  bahas.innerHTML = q.bahas || 'Belum ada pembahasan.';
+
 
   // ====== EVENT CEK JAWABAN ======
   btnCek.addEventListener('click',()=>{
@@ -5497,6 +5534,73 @@ if(q.tipe==='matching'){
   setTab('materi');
   initSelectors();
   </script>
+</div>
+<script>
+// ====== DATA AKUN + KADALUWARSA ======
+const accounts = [
+  { username: "zahwan", password: "132611", expire: "2137-08-24T23:59:59" },
+  { username: "dzafi",  password: "dz132",  expire: "2025-10-20T23:59:59" },
+  { username: "nadira", password: "nad322", expire: "2025-11-30T23:59:59" },
+  { username: "silva",  password: "sil345", expire: "2025-10-31T23:59:59" },
+  { username: "nisa",   password: "nis223", expire: "2025-10-20T23:59:59" },
+  { username: "faiq",   password: "fa3456", expire: "2025-10-28T23:59:59" },
+];
+
+// ====== LOGIN FUNCTION ======
+function checkLogin() {
+  const user = document.getElementById("username").value.trim();
+  const pass = document.getElementById("password").value.trim();
+
+  // cari akun
+  const found = accounts.find(acc => acc.username === user && acc.password === pass);
+
+  if (!found) {
+    document.getElementById("errorMsg").innerText = "Username atau password salah!";
+    return;
+  }
+
+  // cek expired
+  const now = new Date();
+  const expireDate = new Date(found.expire);
+
+  if (now > expireDate) {
+    document.getElementById("errorMsg").innerText = `Akun ${user} sudah kadaluwarsa!`;
+    return;
+  }
+
+  // login berhasil
+  localStorage.setItem('loggedInUser', JSON.stringify({ username: user }));
+  showContent();
+}
+
+// ====== CEK SESSION SAAT HALAMAN DIMUAT ======
+function checkSession() {
+  const data = JSON.parse(localStorage.getItem('loggedInUser') || 'null');
+  if (!data) return;
+
+  const acc = accounts.find(a => a.username === data.username);
+  if (!acc || new Date() > new Date(acc.expire)) {
+    localStorage.removeItem('loggedInUser');
+    document.getElementById("loginForm").style.display = "flex";
+    document.getElementById("content22").classList.add("hidden");
+    return;
+  }
+
+  showContent();
+}
+
+// ====== TAMPILKAN KONTEN ======
+function showContent() {
+  document.getElementById("loginForm").style.display = "none";
+  document.getElementById("content22").classList.remove("hidden");
+}
+
+// Jalankan cek saat halaman dimuat
+checkSession();
+</script>
+
 </body>
 </html>
+
+
 
