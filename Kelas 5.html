@@ -228,6 +228,486 @@ SKI: {
 },
 IPAS: {
   bab: {
+'Listrik': { 
+  materi: `
+    <h2 class="text-xl font-bold mb-2">Listrik dan Pemanfaatannya</h2>
+    <p>
+      Listrik adalah bentuk energi yang sangat penting dalam kehidupan manusia. Energi listrik digunakan untuk menyalakan lampu, televisi, komputer, serta berbagai peralatan rumah tangga dan industri. Tanpa listrik, banyak aktivitas sehari-hari akan terhambat.
+    </p>
+
+    <h3 class="text-lg font-semibold mt-4">A. Energi Listrik dan Manfaatnya</h3>
+    <p>
+      Energi listrik merupakan energi yang dihasilkan dari aliran muatan listrik. Energi ini dapat diubah menjadi berbagai bentuk energi lain, seperti energi panas, cahaya, gerak, dan suara. Contoh pemanfaatannya:
+    </p>
+    <ul class="list-disc ml-6 mb-4">
+      <li>Lampu menghasilkan energi cahaya dari energi listrik.</li>
+      <li>Setrika mengubah energi listrik menjadi energi panas.</li>
+      <li>Kipas angin mengubah energi listrik menjadi energi gerak.</li>
+      <li>Radio dan speaker mengubah energi listrik menjadi energi suara.</li>
+    </ul>
+
+    <h3 class="text-lg font-semibold mt-4">B. Arus Listrik</h3>
+    <p>
+      Arus listrik adalah aliran muatan listrik (elektron) yang mengalir melalui penghantar, misalnya kabel. Satuan arus listrik adalah ampere (A). Arus listrik terjadi jika ada perbedaan tegangan antara dua titik.
+    </p>
+
+    <h3 class="text-lg font-semibold mt-4">C. Rangkaian Listrik</h3>
+    <p>
+      Rangkaian listrik adalah susunan dari sumber listrik, penghantar, dan beban listrik yang dihubungkan sehingga arus dapat mengalir. Berdasarkan susunannya, rangkaian listrik dibedakan menjadi:
+    </p>
+    <ul class="list-disc ml-6 mb-4">
+      <li><b>Rangkaian seri:</b> komponen disusun berurutan. Jika satu komponen putus, arus listrik terhenti.</li>
+      <li><b>Rangkaian paralel:</b> komponen disusun sejajar. Jika satu komponen putus, komponen lain tetap menyala.</li>
+    </ul>
+
+    <h3 class="text-lg font-semibold mt-4">D. Pembangkit Listrik</h3>
+    <p>
+      Pembangkit listrik adalah tempat menghasilkan energi listrik dari sumber energi lain, seperti:
+    </p>
+    <ul class="list-disc ml-6 mb-4">
+      <li><b>PLTA:</b> Pembangkit Listrik Tenaga Air.</li>
+      <li><b>PLTU:</b> Pembangkit Listrik Tenaga Uap.</li>
+      <li><b>PLTS:</b> Pembangkit Listrik Tenaga Surya.</li>
+      <li><b>PLTB:</b> Pembangkit Listrik Tenaga Bayu (angin).</li>
+      <li><b>PLTD:</b> Pembangkit Listrik Tenaga Diesel.</li>
+    </ul>
+
+    <h3 class="text-lg font-semibold mt-4">E. Perubahan Energi Listrik</h3>
+    <p>
+      Energi listrik dapat diubah menjadi bentuk energi lain:
+    </p>
+    <ul class="list-disc ml-6 mb-4">
+      <li>Lampu → energi listrik menjadi energi cahaya.</li>
+      <li>Setrika → energi listrik menjadi energi panas.</li>
+      <li>Kipas angin → energi listrik menjadi energi gerak.</li>
+      <li>Radio → energi listrik menjadi energi suara.</li>
+    </ul>
+
+    <h3 class="text-lg font-semibold mt-4">F. Penghematan Energi Listrik</h3>
+    <p>
+      Listrik harus digunakan secara bijak agar tidak boros. Cara menghemat listrik antara lain:
+    </p>
+    <ul class="list-disc ml-6 mb-4">
+      <li>Matikan lampu dan alat elektronik jika tidak digunakan.</li>
+      <li>Gunakan lampu hemat energi (LED).</li>
+      <li>Gunakan peralatan listrik seperlunya saja.</li>
+      <li>Cabut steker setelah selesai digunakan.</li>
+    </ul>
+  `,
+
+  video: 'xxxxxxx',
+
+  soal: [
+    {
+      id: 'lis1',
+      tipe: 'pg',
+      tanya: 'Energi listrik termasuk energi yang dapat diubah menjadi energi ....',
+      opsi: ['Kimia, cahaya, dan panas', 'Cahaya, panas, dan gerak', 'Suara, gravitasi, dan potensial', 'Kimia, bunyi, dan nuklir'],
+      kunci: 1,
+      bahas: 'Energi listrik dapat diubah menjadi energi cahaya (lampu), panas (setrika), dan gerak (kipas angin).'
+    },
+    {
+      id: 'lis2',
+      tipe: 'pg',
+      tanya: 'Arus listrik mengalir karena adanya ....',
+      opsi: ['Hambatan listrik', 'Perbedaan tegangan', 'Medan magnet', 'Sumber panas'],
+      kunci: 1,
+      bahas: 'Arus listrik terjadi karena adanya perbedaan tegangan antara dua titik yang dihubungkan dengan penghantar.'
+    },
+    {
+      id: 'lis3',
+      tipe: 'cb',
+      tanya: 'Pilihlah pernyataan yang benar tentang rangkaian listrik!',
+      opsi: [
+        'Rangkaian seri akan padam jika salah satu lampu putus.',
+        'Rangkaian paralel membuat semua lampu padam jika satu putus.',
+        'Rangkaian paralel lebih hemat listrik dari seri.',
+        'Rangkaian seri membuat arus terbagi rata di setiap lampu.'
+      ],
+      kunci: [0],
+      bahas: 'Pada rangkaian seri, jika satu lampu putus maka seluruh rangkaian akan terputus dan lampu lainnya padam.'
+    },
+    {
+      id: 'lis4',
+      tipe: 'pg',
+      tanya: 'Contoh pembangkit listrik yang memanfaatkan tenaga air adalah ....',
+      opsi: ['PLTU', 'PLTD', 'PLTA', 'PLTS'],
+      kunci: 2,
+      bahas: 'PLTA (Pembangkit Listrik Tenaga Air) memanfaatkan energi air untuk menghasilkan listrik.'
+    },
+    {
+      id: 'lis5',
+      tipe: 'pg',
+      tanya: 'Perubahan energi listrik menjadi energi panas terjadi pada ....',
+      opsi: ['Kipas angin', 'Lampu', 'Setrika', 'Radio'],
+      kunci: 2,
+      bahas: 'Setrika mengubah energi listrik menjadi energi panas untuk merapikan pakaian.'
+    },
+    {
+      id: 'lis6',
+      tipe: 'pg',
+      tanya: 'Cara menghemat energi listrik di rumah adalah ....',
+      opsi: ['Menyalakan semua lampu saat siang hari', 'Membiarkan televisi menyala terus', 'Cabut steker alat listrik yang tidak digunakan', 'Menggunakan banyak alat listrik sekaligus'],
+      kunci: 2,
+      bahas: 'Mencabut steker alat listrik setelah digunakan merupakan salah satu cara untuk menghemat listrik.'
+    },
+    {
+      id: 'lis7',
+      tipe: 'pg',
+      tanya: 'Energi listrik diubah menjadi energi gerak pada alat ....',
+      opsi: ['Setrika', 'Lampu', 'Kipas angin', 'Kompor listrik'],
+      kunci: 2,
+      bahas: 'Kipas angin mengubah energi listrik menjadi energi gerak untuk menghasilkan angin.'
+    },
+{
+  id: 'lis8',
+  tipe: 'pg',
+  tanya: 'Alat yang mengubah energi listrik menjadi energi cahaya adalah ....',
+  opsi: ['Setrika', 'Lampu', 'Kipas angin', 'Radio'],
+  kunci: 1,
+  bahas: 'Lampu mengubah energi listrik menjadi energi cahaya untuk penerangan.'
+},
+{
+  id: 'lis9',
+  tipe: 'pg',
+  tanya: 'Energi listrik dapat diubah menjadi energi panas pada alat ....',
+  opsi: ['Kulkas', 'Kipas angin', 'Setrika', 'Televisi'],
+  kunci: 2,
+  bahas: 'Setrika mengubah energi listrik menjadi energi panas untuk merapikan pakaian.'
+},
+{
+  id: 'lis10',
+  tipe: 'cb',
+  tanya: 'Pilihlah pernyataan yang benar tentang pemanfaatan energi listrik!',
+  opsi: [
+    'Televisi mengubah energi listrik menjadi energi cahaya dan suara.',
+    'Kipas angin mengubah energi listrik menjadi energi gerak.',
+    'Lampu senter mengubah energi kimia menjadi energi listrik.',
+    'Kompor listrik mengubah energi listrik menjadi energi panas.'
+  ],
+  kunci: [0, 1, 3],
+  bahas: 'Energi listrik dapat diubah menjadi energi cahaya (televisi), gerak (kipas angin), dan panas (kompor listrik).'
+},
+{
+  id: 'lis11',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah pernyataan berikut!',
+  opsi: [
+    'Energi listrik dapat diubah menjadi energi cahaya pada lampu.',
+    'Setrika merupakan alat yang mengubah energi listrik menjadi energi panas.',
+    'Energi listrik tidak dapat diubah menjadi energi bunyi.',
+    'Kipas angin mengubah energi listrik menjadi energi gerak.'
+  ],
+  kunci: [true, true, false, true],
+  bahas: 'Energi listrik bisa menjadi cahaya (lampu), panas (setrika), bunyi (radio), dan gerak (kipas angin).'
+},
+{
+  id: 'lis12',
+  tipe: 'pg',
+  tanya: 'Berikut ini yang merupakan manfaat energi listrik dalam kehidupan sehari-hari adalah ....',
+  opsi: [
+    'Menyalakan lampu dan alat elektronik',
+    'Menghasilkan bahan bakar minyak',
+    'Meningkatkan suhu bumi',
+    'Membentuk awan di langit'
+  ],
+  kunci: 0,
+  bahas: 'Energi listrik dimanfaatkan untuk menyalakan lampu, televisi, komputer, dan berbagai alat elektronik lainnya.'
+},
+{
+  id: 'lis13',
+  tipe: 'pg',
+  tanya: 'Arus listrik adalah ....',
+  opsi: [
+    'Aliran panas dalam kawat logam',
+    'Aliran elektron melalui penghantar',
+    'Aliran air melalui pipa',
+    'Perpindahan cahaya dalam lampu'
+  ],
+  kunci: 1,
+  bahas: 'Arus listrik merupakan aliran elektron yang bergerak melalui penghantar seperti kawat logam.'
+},
+{
+  id: 'lis14',
+  tipe: 'pg',
+  tanya: 'Arus listrik dapat mengalir jika ....',
+  opsi: [
+    'Rangkaian listrik terbuka',
+    'Rangkaian listrik tertutup',
+    'Tidak ada sumber listrik',
+    'Sakelar dalam posisi mati'
+  ],
+  kunci: 1,
+  bahas: 'Arus listrik hanya dapat mengalir jika rangkaian tertutup dan terhubung dengan sumber listrik.'
+},
+{
+  id: 'lis15',
+  tipe: 'cb',
+  tanya: 'Pilihlah pernyataan yang benar tentang arus listrik!',
+  opsi: [
+    'Arus listrik mengalir dari kutub positif ke negatif sumber listrik.',
+    'Baterai merupakan sumber arus listrik searah (DC).',
+    'Arus listrik dapat mengalir tanpa penghantar.',
+    'Sakelar digunakan untuk memutus atau menghubungkan arus listrik.'
+  ],
+  kunci: [0, 1, 3],
+  bahas: 'Arus listrik konvensional mengalir dari kutub positif ke negatif, baterai menghasilkan arus DC, dan sakelar berfungsi mengatur aliran arus.'
+},
+{
+  id: 'lis16',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah pernyataan berikut!',
+  opsi: [
+    'Arus listrik tidak memerlukan penghantar.',
+    'Sumber listrik memberikan tegangan agar arus dapat mengalir.',
+    'Jika rangkaian terbuka, arus listrik tetap mengalir.',
+    'Arus listrik dapat menghasilkan panas pada kawat penghantar.'
+  ],
+  kunci: [false, true, false, true],
+  bahas: 'Arus listrik memerlukan penghantar dan sumber tegangan. Jika rangkaian terbuka, arus berhenti mengalir. Arus juga dapat menghasilkan panas (contoh: setrika).'
+},
+{
+  id: 'lis17',
+  tipe: 'pg',
+  tanya: 'Satuan dari arus listrik dalam sistem internasional (SI) adalah ....',
+  opsi: ['Volt', 'Ohm', 'Ampere', 'Watt'],
+  kunci: 2,
+  bahas: 'Satuan arus listrik dalam SI adalah ampere (A), sedangkan volt untuk tegangan dan ohm untuk hambatan.'
+},
+{
+  id: 'lis18',
+  tipe: 'pg',
+  tanya: 'Pembangkit listrik yang menggunakan tenaga air disebut ....',
+  opsi: ['PLTU', 'PLTB', 'PLTA', 'PLTS'],
+  kunci: 2,
+  bahas: 'PLTA (Pembangkit Listrik Tenaga Air) memanfaatkan energi air yang menggerakkan turbin untuk menghasilkan listrik.'
+},
+{
+  id: 'lis19',
+  tipe: 'pg',
+  tanya: 'PLTS merupakan pembangkit listrik yang memanfaatkan energi ....',
+  opsi: ['Angin', 'Air', 'Panas bumi', 'Cahaya matahari'],
+  kunci: 3,
+  bahas: 'PLTS (Pembangkit Listrik Tenaga Surya) mengubah energi cahaya matahari menjadi energi listrik dengan menggunakan panel surya.'
+},
+{
+  id: 'lis20',
+  tipe: 'cb',
+  tanya: 'Pilihlah pernyataan yang benar tentang pembangkit listrik berikut!',
+  opsi: [
+    'PLTB menggunakan energi angin untuk memutar turbin.',
+    'PLTU menggunakan uap panas dari air yang dipanaskan untuk memutar turbin.',
+    'PLTD menggunakan tenaga air untuk menghasilkan listrik.',
+    'PLTA menggunakan energi air untuk menggerakkan turbin.'
+  ],
+  kunci: [0, 1, 3],
+  bahas: 'PLTB menggunakan angin, PLTU menggunakan uap air panas, dan PLTA menggunakan air untuk menghasilkan energi listrik.'
+},
+{
+  id: 'lis21',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah pernyataan berikut!',
+  opsi: [
+    'PLTB memanfaatkan energi angin.',
+    'PLTD menggunakan bahan bakar diesel untuk menghasilkan listrik.',
+    'PLTU menggunakan sinar matahari untuk menghasilkan listrik.',
+    'PLTA memanfaatkan arus air untuk memutar turbin.'
+  ],
+  kunci: [true, true, false, true],
+  bahas: 'PLTB memanfaatkan angin, PLTD menggunakan bahan bakar diesel, PLTU memakai uap panas, sedangkan PLTA menggunakan air untuk memutar turbin.'
+},
+{
+  id: 'lis22',
+  tipe: 'pg',
+  tanya: 'Tujuan utama pembangkit listrik adalah ....',
+  opsi: [
+    'Menyimpan energi panas',
+    'Menghasilkan energi listrik dari berbagai sumber energi',
+    'Menampung energi air dan udara',
+    'Mengurangi penggunaan alat elektronik'
+  ],
+  kunci: 1,
+  bahas: 'Pembangkit listrik berfungsi mengubah berbagai sumber energi (air, angin, surya, uap) menjadi energi listrik yang dapat digunakan.'
+},
+{
+  id: 'lis23',
+  tipe: 'pg',
+  tanya: 'Perubahan energi listrik menjadi energi panas terjadi pada alat ....',
+  opsi: ['Kipas angin', 'Lampu', 'Setrika', 'Radio'],
+  kunci: 2,
+  bahas: 'Setrika mengubah energi listrik menjadi energi panas yang digunakan untuk merapikan pakaian.'
+},
+{
+  id: 'lis24',
+  tipe: 'pg',
+  tanya: 'Energi listrik diubah menjadi energi cahaya dan panas pada alat ....',
+  opsi: ['Televisi', 'Lampu pijar', 'Kipas angin', 'Setrika'],
+  kunci: 1,
+  bahas: 'Lampu pijar mengubah energi listrik menjadi cahaya dan sebagian menjadi panas.'
+},
+{
+  id: 'lis25',
+  tipe: 'cb',
+  tanya: 'Pilihlah pernyataan yang benar tentang perubahan energi listrik!',
+  opsi: [
+    'Kipas angin mengubah energi listrik menjadi energi gerak.',
+    'Setrika mengubah energi listrik menjadi energi panas.',
+    'Radio mengubah energi listrik menjadi energi suara.',
+    'Lampu LED mengubah energi panas menjadi energi listrik.'
+  ],
+  kunci: [0, 1, 2],
+  bahas: 'Kipas angin → gerak, setrika → panas, radio → suara. Lampu LED justru mengubah listrik menjadi cahaya, bukan sebaliknya.'
+},
+{
+  id: 'lis26',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah pernyataan berikut!',
+  opsi: [
+    'Televisi mengubah energi listrik menjadi energi cahaya dan suara.',
+    'Kulkas mengubah energi listrik menjadi energi panas.',
+    'Kipas angin mengubah energi listrik menjadi energi gerak.',
+    'Kompor listrik mengubah energi listrik menjadi energi panas.'
+  ],
+  kunci: [true, false, true, true],
+  bahas: 'Televisi menghasilkan cahaya dan suara, kulkas tidak menghasilkan panas, kipas menghasilkan gerak, dan kompor listrik menghasilkan panas.'
+},
+{
+  id: 'lis27',
+  tipe: 'pg',
+  tanya: 'Energi listrik yang diubah menjadi energi bunyi dapat ditemukan pada alat ....',
+  opsi: ['Kipas angin', 'Speaker', 'Setrika', 'Kompor listrik'],
+  kunci: 1,
+  bahas: 'Speaker mengubah energi listrik menjadi energi bunyi melalui getaran membran.'
+},
+{
+  id: 'lis28',
+  tipe: 'pg',
+  tanya: 'Manfaat utama energi listrik dalam kehidupan sehari-hari adalah ....',
+  opsi: [
+    'Menghasilkan bunyi dari sumber alami',
+    'Menyalakan berbagai peralatan rumah tangga',
+    'Mengubah air menjadi bahan bakar',
+    'Mendinginkan udara tanpa alat'
+  ],
+  kunci: 1,
+  bahas: 'Energi listrik digunakan untuk menyalakan berbagai alat seperti lampu, televisi, kipas angin, dan lainnya.'
+},
+{
+  id: 'lis29',
+  tipe: 'pg',
+  tanya: 'Energi listrik dimanfaatkan pada alat rumah tangga berikut, kecuali ....',
+  opsi: ['Kulkas', 'Lampu', 'Kipas angin', 'Sapu'],
+  kunci: 3,
+  bahas: 'Sapu digunakan secara manual dan tidak memerlukan energi listrik.'
+},
+{
+  id: 'lis30',
+  tipe: 'cb',
+  tanya: 'Pilihlah pernyataan yang benar tentang manfaat energi listrik!',
+  opsi: [
+    'Membantu penerangan di malam hari.',
+    'Memudahkan pekerjaan rumah tangga.',
+    'Menghasilkan makanan secara langsung.',
+    'Mendukung komunikasi jarak jauh.'
+  ],
+  kunci: [0, 1, 3],
+  bahas: 'Listrik digunakan untuk penerangan, menjalankan alat rumah tangga, dan alat komunikasi seperti ponsel dan televisi.'
+},
+{
+  id: 'lis31',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah pernyataan berikut!',
+  opsi: [
+    'Energi listrik membuat kehidupan manusia lebih mudah.',
+    'Semua alat listrik mengubah energi listrik menjadi energi panas.',
+    'Televisi dan radio memanfaatkan energi listrik untuk menghasilkan suara.',
+    'Tanpa listrik, kegiatan di malam hari akan terganggu.'
+  ],
+  kunci: [true, false, true, true],
+  bahas: 'Listrik mempermudah kehidupan, tidak semua alat menghasilkan panas, dan penting untuk penerangan serta hiburan.'
+},
+{
+  id: 'lis32',
+  tipe: 'pg',
+  tanya: 'Salah satu manfaat energi listrik di bidang pendidikan adalah ....',
+  opsi: [
+    'Mengoperasikan mesin pabrik',
+    'Menyalakan komputer dan proyektor',
+    'Mengeringkan pakaian',
+    'Memasak nasi di dapur'
+  ],
+  kunci: 1,
+  bahas: 'Energi listrik di sekolah digunakan untuk menyalakan komputer, proyektor, dan alat bantu belajar lainnya.'
+},
+{
+  id: 'lis33',
+  tipe: 'pg',
+  tanya: 'Salah satu cara menghemat energi listrik di rumah adalah ....',
+  opsi: [
+    'Membiarkan lampu menyala siang hari',
+    'Mencabut kabel charger saat tidak digunakan',
+    'Menyalakan televisi terus-menerus',
+    'Menggunakan AC sepanjang hari'
+  ],
+  kunci: 1,
+  bahas: 'Mencabut kabel charger ketika tidak digunakan dapat menghemat listrik dan mengurangi pemborosan energi.'
+},
+{
+  id: 'lis34',
+  tipe: 'pg',
+  tanya: 'Menggunakan lampu hemat energi termasuk cara untuk ....',
+  opsi: [
+    'Menambah biaya listrik',
+    'Menghemat energi listrik',
+    'Mengurangi cahaya ruangan',
+    'Meningkatkan panas ruangan'
+  ],
+  kunci: 1,
+  bahas: 'Lampu hemat energi menggunakan daya lebih kecil namun tetap menghasilkan cahaya terang, sehingga membantu menghemat listrik.'
+},
+{
+  id: 'lis35',
+  tipe: 'cb',
+  tanya: 'Pilihlah cara-cara yang benar untuk menghemat energi listrik!',
+  opsi: [
+    'Mematikan lampu saat tidak digunakan.',
+    'Menggunakan alat listrik seperlunya.',
+    'Menyalakan kipas angin sepanjang hari.',
+    'Menjemur pakaian di bawah sinar matahari.'
+  ],
+  kunci: [0, 1, 3],
+  bahas: 'Hemat listrik dapat dilakukan dengan mematikan alat yang tidak digunakan, memakai seperlunya, dan memanfaatkan energi alami seperti sinar matahari.'
+},
+{
+  id: 'lis36',
+  tipe: 'bs',
+  tanya: 'Tentukan benar atau salah pernyataan berikut!',
+  opsi: [
+    'Mematikan televisi saat tidak ditonton dapat menghemat listrik.',
+    'Membiarkan lampu menyala siang hari adalah kebiasaan baik.',
+    'Menjemur pakaian di bawah sinar matahari menghemat listrik.',
+    'Menggunakan AC terus-menerus dapat menghemat energi.'
+  ],
+  kunci: [true, false, true, false],
+  bahas: 'Kebiasaan baik hemat listrik meliputi mematikan alat yang tidak dipakai dan memanfaatkan energi alami.'
+},
+{
+  id: 'lis37',
+  tipe: 'pg',
+  tanya: 'Mengapa kita harus menghemat energi listrik?',
+  opsi: [
+    'Agar tagihan listrik meningkat',
+    'Supaya cadangan energi cepat habis',
+    'Untuk menjaga lingkungan dan mengurangi biaya',
+    'Agar listrik sering padam'
+  ],
+  kunci: 2,
+  bahas: 'Menghemat listrik membantu mengurangi biaya, menjaga sumber energi agar tidak cepat habis, dan melindungi lingkungan.'
+},
+
+  ]
+},
+
 'Magnet': {
   materi: `
     <h2 class="text-xl font-bold mb-2">Magnet dan Sifatnya</h2>
